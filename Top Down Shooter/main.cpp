@@ -20,6 +20,11 @@
 #include <glm/glm.hpp> // vec3 normalize reflect dot pow
 #include <glm\gtx\vector_angle.hpp>
 
+#include <irrklang/irrKlang.h>
+using namespace irrklang;
+
+ISoundEngine *SoundEngine = createIrrKlangDevice();
+
 float mHeight = 720.0f;
 float mWidth = 1280.0f;
 float aspectRatio = mWidth / mHeight;
@@ -156,6 +161,10 @@ int main(void)
 	glViewport(0, 0, 1280, 720);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
+	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
+	//SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav"))
+	//SoundEngine->stopAllSounds();
+
 
 	do
 	{
@@ -164,6 +173,7 @@ int main(void)
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 		updateInput(deltaTime);
+
 
 
 
