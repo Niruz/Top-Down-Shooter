@@ -18,12 +18,13 @@ public:
 	StateMachine(T* owner)
 		: mCurrentState(nullptr),
 		  mPreviousState(nullptr),
-		  mGlobalState(nullptr)
+		  mGlobalState(nullptr),
+		  mOwner(owner)
 	{
 
 	}
 
-	virtual ~StateMachine();
+	virtual ~StateMachine() {}
 
 	void setCurrentState(State<T>* state)  { mCurrentState = state; }
 	void setPreviousState(State<T>* state) { mCurrentState = state; }

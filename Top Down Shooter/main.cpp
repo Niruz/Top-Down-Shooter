@@ -5,7 +5,7 @@
 #include <GL\glew.h>
 #include <glfw3.h>
 
-
+#include <windows.h>
 #include <stdio.h>  
 #include <stdlib.h>  
 #include <stdarg.h> 
@@ -21,6 +21,15 @@
 #include <glm\gtx\vector_angle.hpp>
 
 #include <irrklang/irrKlang.h>
+
+#include "Miner.h"
+#include "MinersWife.h"
+#include "EntityNames.h"
+#include "EntityManager.h"
+#include "MessageDispatcher.h"
+#include "TileMap.h"
+#include "ShaderManager.h"
+#include "TextureManager.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -129,7 +138,7 @@ int main(void)
 	glfwSetErrorCallback(error_callback);
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//GLFWwindow* window = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL);
 	if (!window)
 	{
@@ -164,8 +173,39 @@ int main(void)
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	//SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav"))
 	//SoundEngine->stopAllSounds();
+	//create a miner
+	Miner* Bob = new Miner(ent_Miner_Bob, "Bob");
+
+	//create his wife
+	MinersWife* Elsa = new MinersWife(ent_Elsa, "Elsa");
+
+	//register them with the entity manager
+	EntityMan->registerEntity(Bob);
+	EntityMan->registerEntity(Elsa);
+
+	ShaderMan->onInitialize();
+	TextureMan->onInitialize();
 
 
+	TileMap myMap("Levels/test.level");
+
+	myMap.printMap();
+
+	//run Bob and Elsa through a few Update calls
+	for (int i = 0; i<30; ++i)
+	{
+		Bob->update();
+		Elsa->update();
+
+		//dispatch any delayed messages
+		MessageMan->dispatchDelayedMessages();
+
+		Sleep(800);
+	}
+
+	//tidy up
+	delete Bob;
+	delete Elsa;
 	do
 	{
 		// Update the input
@@ -188,6 +228,8 @@ int main(void)
 	} while (!glfwWindowShouldClose(window));
 
 
+	ShaderMan->onDeinitialize();
+	TextureMan->onDeinitialize();
 	//Close OpenGL window and terminate GLFW  
 	glfwDestroyWindow(window);
 	//Finalize and clean up GLFW  

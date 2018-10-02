@@ -49,6 +49,12 @@
     <Filter Include="Graphics\Renderer">
       <UniqueIdentifier>{cab139e1-89ac-4a39-83a2-79614ce42278}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7b19b0b1-ff4b-4a86-92ff-8342436c7f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PathFinding">
+      <UniqueIdentifier>{321731ee-eab9-4c21-a058-2ae6cba6aee1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,6 +110,15 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MinersWife.cpp">
+      <Filter>Temporary stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="MinersWifeOwnedStates.cpp">
+      <Filter>Temporary stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>PathFinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +181,33 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Locations.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="MinersWife.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="MinersWifeOwnedStates.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityNames.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleUtils.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>PathFinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

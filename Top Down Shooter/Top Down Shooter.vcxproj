@@ -61,8 +61,8 @@
       <AdditionalDependencies>glew32.lib;glfw3.lib;FreeImage.lib;Audio.lib;irrKlang.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /d /y "$(ProjectDir)..\dependencies\bin\*.*" "$(OutDir)"
-xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</Command>
+      <Command>start xcopy /d /y "$(ProjectDir)..\dependencies\bin\*.*" "$(OutDir)"
+start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,6 +95,8 @@ xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</Comman
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="MinerOwnedStates.cpp" />
+    <ClCompile Include="MinersWife.cpp" />
+    <ClCompile Include="MinersWifeOwnedStates.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
@@ -103,18 +105,25 @@ xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</Comman
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Vampire.cpp" />
     <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="EntityNames.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Locations.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageDispatcher.h" />
+    <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="MinerOwnedStates.h" />
+    <ClInclude Include="MinersWife.h" />
+    <ClInclude Include="MinersWifeOwnedStates.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
@@ -125,6 +134,9 @@ xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</Comman
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vampire.h" />
     <ClInclude Include="VertexArray.h" />
   </ItemGroup>
