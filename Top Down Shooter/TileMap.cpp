@@ -288,6 +288,7 @@ bool TileMap::PathFind(Tile* aStartTile, Tile* aGoalTile, std::vector<Tile*>& aP
 
 			//Tile* testerino = GetTile2(checkX, checkY);
 
+			//TODO: optimize away this and keep a bool instead
 			bool inClosed = false;
 			for (int k = 0; k < closedList.size(); k++)
 			{

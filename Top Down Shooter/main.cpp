@@ -237,6 +237,12 @@ int main(void)
 	myMap5.GetPath(1, 1, 64, 3, myPath5);
 
 	myMap5.printPath(myPath5);
+
+
+	myPath5.clear();
+	myMap5.GetPath(14, 1, 14, 21, myPath5);
+
+	myMap5.printPath(myPath5);
 	//run Bob and Elsa through a few Update calls
 	for (int i = 0; i<30; ++i)
 	{
