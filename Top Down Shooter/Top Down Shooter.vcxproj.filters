@@ -120,6 +120,12 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>PathFinding</Filter>
     </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>PathFinding</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -207,6 +213,9 @@
       <Filter>PathFinding</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
+      <Filter>PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
       <Filter>PathFinding</Filter>
     </ClInclude>
   </ItemGroup>

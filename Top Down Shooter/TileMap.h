@@ -11,16 +11,31 @@ public:
 
 	bool InitializeFromMap(const std::string& name);
 	Tile* GetTile(int fromX, int fromY);
+	Tile* GetTile2(int fromX, int fromY);
 
-	void GetPath(int fromX, int fromY, int toY, int toX, std::list<Tile*>& list);
+	void GetPath(int fromX, int fromY, int toY, int toX, std::vector<Tile*>& list);
 	
+	void GenerateGraph();
+
+	bool validIndex(int checkX, int checkY);
+
+	bool IsDirectionWalkable(int checkX, int checkY);
 
 
 	void printMap();
+	void printPath(std::vector<Tile*>& aPathList);
+
 	
 private:
 
-	bool PathFind(Tile* aFromTile, Tile* aToTile, std::list<Tile*>& aList);
+	bool PathFind(Tile* aStartTile, Tile* aGoalTile, std::vector<Tile*>& aPathList);
 
-	std::list<Tile*> myMapTiles;
+	int GetTileIndex(int x, int y);
+	int GetDiagonalDistance(Tile* aStartTile, Tile* aGoalTile);
+	int GetDiagonalDistance2(Tile* aStartTile, Tile* aGoalTile);
+	std::vector<Tile*> myMapTiles;
+
+	int myMapHeight;
+	int myMapWidth;
+
 };

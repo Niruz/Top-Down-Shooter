@@ -191,6 +191,52 @@ int main(void)
 
 	myMap.printMap();
 
+	std::vector<Tile*> myPath;
+	myMap.GetPath(1, 1, 18, 10, myPath);
+
+	myMap.printPath(myPath);
+
+
+
+	TileMap myMap2("Levels/test2.level");
+
+	myMap2.printMap();
+
+	std::vector<Tile*> myPath2;
+	myMap2.GetPath(1, 1, 18, 10, myPath2);
+
+	myMap2.printPath(myPath2);
+
+
+
+	TileMap myMap3("Levels/test3.level");
+
+	myMap3.printMap();
+
+	std::vector<Tile*> myPath3;
+	myMap3.GetPath(1, 1, 18, 10, myPath3);
+
+	myMap3.printPath(myPath3);
+
+
+	TileMap myMap4("Levels/test4.level");
+
+	myMap4.printMap();
+
+	std::vector<Tile*> myPath4;
+	myMap4.GetPath(1, 1, 28, 10, myPath4);
+
+	myMap4.printPath(myPath4);
+
+
+	TileMap myMap5("Levels/test5.level");
+
+	myMap5.printMap();
+
+	std::vector<Tile*> myPath5;
+	myMap5.GetPath(1, 1, 64, 3, myPath5);
+
+	myMap5.printPath(myPath5);
 	//run Bob and Elsa through a few Update calls
 	for (int i = 0; i<30; ++i)
 	{
