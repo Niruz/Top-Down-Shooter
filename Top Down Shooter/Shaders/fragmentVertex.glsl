@@ -14,7 +14,7 @@ in DATA
 } fs_in;
 
 //uniform sampler2D textures[32];
-uniform sampler2D texture;
+uniform sampler2D textureSampler;
 
 void main()
 {
@@ -29,9 +29,10 @@ void main()
    */
   // texColor = vec4(texture( myTextureSampler, UV ).rgb,1.0f);
  // texColor = texture(texture,fs_in.uv);
- texColor = texture2D(texture,fs_in.uv);
+ texColor = texture(textureSampler,fs_in.uv);
 
     color = texColor;// * intensity;
 
+	//color = vec4(0.0f,1.0f,0.0f,1.0f);
 
 } 

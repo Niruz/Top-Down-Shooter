@@ -107,7 +107,7 @@ void ShaderManager::onDeinitialize()
 }
 void ShaderManager::initShader(int inEnumName, const char* inVSname, const char* inFSname, const char* inGEOname)
 {
-	std::cout << "Initializeing Shader(" << std::to_string(inEnumName) << "):" << std::endl;
+	std::cout << "Initializing Shader(" << std::to_string(inEnumName) << "):" << std::endl;
 
 	std::string source;
 	bool success;

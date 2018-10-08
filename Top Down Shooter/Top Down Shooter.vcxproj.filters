@@ -55,6 +55,12 @@
     <Filter Include="PathFinding">
       <UniqueIdentifier>{321731ee-eab9-4c21-a058-2ae6cba6aee1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Mesh">
+      <UniqueIdentifier>{331adfac-2daf-4324-b890-88604442fb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shader\Shaders">
+      <UniqueIdentifier>{b985291b-f152-455e-b864-2348dff0f0bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -120,11 +126,14 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>PathFinding</Filter>
     </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>PathFinding</Filter>
-    </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory.cpp">
+      <Filter>Graphics\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,8 +224,19 @@
     <ClInclude Include="TileMap.h">
       <Filter>PathFinding</Filter>
     </ClInclude>
-    <ClInclude Include="Edge.h">
-      <Filter>PathFinding</Filter>
+    <ClInclude Include="Mesh.h">
+      <Filter>Graphics\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="MeshFactory.h">
+      <Filter>Graphics\Mesh</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\forwardVertex.glsl">
+      <Filter>Graphics\Shader\Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragmentVertex.glsl">
+      <Filter>Graphics\Shader\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

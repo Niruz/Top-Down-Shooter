@@ -30,6 +30,10 @@
 #include "TileMap.h"
 #include "ShaderManager.h"
 #include "TextureManager.h"
+
+#include "Buffer.h"
+#include "IndexBuffer.h"
+#include "VertexArray.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -244,7 +248,7 @@ int main(void)
 
 	myMap5.printPath(myPath5);
 	//run Bob and Elsa through a few Update calls
-	for (int i = 0; i<30; ++i)
+	/*for (int i = 0; i<30; ++i)
 	{
 		Bob->update();
 		Elsa->update();
@@ -253,11 +257,49 @@ int main(void)
 		MessageMan->dispatchDelayedMessages();
 
 		Sleep(800);
-	}
+	}*/
 
 	//tidy up
 	delete Bob;
 	delete Elsa;
+
+	GLfloat vertices[] =
+	{
+		-0.5f, -0.5f, 0.0f,  //bottom left
+		 0.5f, -0.5f, 0.0f,  //bottom right
+		-0.5f,  0.5f, 0.0f,  //top left
+	     0.5f,  0.5f, 0.0f //top right
+
+	};
+
+	GLfloat texCoords[] = 
+	{
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+	};
+
+	GLuint indices[] =
+	{
+		0,1,3,
+		0,3,2
+	};
+
+	Buffer* buffy = new Buffer(vertices, 4 * 3, 3);
+	Buffer* texBuffy = new Buffer(texCoords, 4 * 2, 2);
+	
+	VertexArray* va = new VertexArray();
+	va->addBuffer(buffy, 0);
+	va->addBuffer(texBuffy, 1);
+	IndexBuffer* ib = new IndexBuffer(indices, 6);
+
+	glm::mat4 ortho = glm::ortho(0, 50, 0, 50, -1, 1);
+
+	glm::mat4 translationMatrix = glm::mat4(1.0f);
+	translationMatrix = glm::translate(glm::vec3(20, 0.0f, 0.0f));
+
+	Texture* myTexture = TextureMan->GetTexture("wall");
 	do
 	{
 		// Update the input
@@ -270,8 +312,31 @@ int main(void)
 
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+		//glEnable(GL_DEPTH_TEST);
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
+		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+	//	glActiveTexture(GL_TEXTURE0);
+		myTexture->bind();
+		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, ortho);
+		//ShaderMan->setUniform1i("textureSampler", 0);
+		//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translationMatrix);
+		
+		va->bind();
+		ib->bind();
+		//glCullFace(GL_BACK);
+		//	glCullFace(GL_CCW);
+		glDrawElements(GL_TRIANGLES, ib->getCount(), GL_UNSIGNED_INT, nullptr);
+		
+		ib->unbind();
+		va->unbind();
+		
+		myTexture->unbind();
+		ShaderMan->unbindShader();
+
+		std::cout << glGetError() << std::endl;
+
+		//std::cout << gluErrorString(glGetError()) << std::endl;
 
 		glfwSwapBuffers(window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...  

@@ -32,6 +32,8 @@ void Texture::Generate(GLuint width, GLuint height, unsigned char* data)
 
 	unbind();
 }
+//TODO: should the glActiveTexture(GL_TEXTURE0) call be done from here?
+//Or whoever is calling should probably know which one to bind
 void Texture::bind() const
 {
 	glBindTexture(GL_TEXTURE_2D, mID);
