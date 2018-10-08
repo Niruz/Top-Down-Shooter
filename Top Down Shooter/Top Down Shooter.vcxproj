@@ -88,6 +88,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
@@ -99,9 +100,11 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="MinerOwnedStates.cpp" />
     <ClCompile Include="MinersWife.cpp" />
     <ClCompile Include="MinersWifeOwnedStates.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="SimpleObject.cpp" />
     <ClCompile Include="SimpleTimer.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -114,6 +117,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
@@ -129,9 +133,11 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="MinerOwnedStates.h" />
     <ClInclude Include="MinersWife.h" />
     <ClInclude Include="MinersWifeOwnedStates.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="SimpleObject.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />

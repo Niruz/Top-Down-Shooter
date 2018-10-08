@@ -1,25 +1,28 @@
 #include "Mesh.h"
-#include "VertexArray.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
 
-Mesh::Mesh()
-{
 
-}
-Mesh::~Mesh()
-{
-	delete mVertexArray;
-	delete mIndexBuffer;
-}
-void Mesh::Bind() const
+Mesh::Mesh(VertexArray* vertexArray, IndexBuffer* indexBuffer)
+	: mVertexArray(vertexArray), mIndexBuffer(indexBuffer)
 {
 
 }
-void Mesh::Unbind() const
+void Mesh::render()
 {
+	getVAO()->bind();
+	getIBO()->bind();
 
+	glDrawElements(GL_TRIANGLES, getIBO()->getCount(), GL_UNSIGNED_SHORT, 0);
+
+	getIBO()->unbind();
+	getVAO()->unbind();
 }
-void Mesh::Render()
+const VertexArray* Mesh::getVAO() const
 {
-	//glDrawElements(GL_TRIANGLES,mVertexArray->myc)
+	 return mVertexArray; 
+}
+const IndexBuffer* Mesh::getIBO() const
+{
+	return mIndexBuffer;
 }

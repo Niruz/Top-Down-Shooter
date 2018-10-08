@@ -1,19 +1,29 @@
 #pragma once
 
+#include "glm\glm.hpp"
+
+#include "Buffer.h"
+
 class IndexBuffer;
 class VertexArray;
 
-//TODO: Rename? Mesh = 3D
-struct Mesh
+class Mesh
 {
-	Mesh();
-	~Mesh();
+public:
+	Mesh(VertexArray* vertexArray, IndexBuffer* indexBuffer);
+	~Mesh()
+	{
+		delete mVertexArray;
+		delete mIndexBuffer;
+	};
 
+
+	const VertexArray* getVAO() const; 
+	const IndexBuffer* getIBO() const;
+
+	void render();
+private:
+
+	VertexArray * mVertexArray;
 	IndexBuffer* mIndexBuffer;
-	VertexArray* mVertexArray;
-
-	void Bind() const;
-	void Unbind() const;
-
-	void Render();
 };

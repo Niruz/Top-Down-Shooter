@@ -34,6 +34,10 @@
 #include "Buffer.h"
 #include "IndexBuffer.h"
 #include "VertexArray.h"
+#include "Player.h"
+#include "Camera.h"
+#include "MeshFactory.h"
+#include "SimpleObject.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -46,13 +50,21 @@ GLfloat lastFrame = 0.0f;
 bool keys[1024] = { false };
 
 bool firstMouse = true;
-
+glm::vec2 playerPos = glm::vec2(0.0f, 0.0f);
 GLfloat lastX = 640.0f;
 GLfloat lastY = 360.0f;
+float distanceToMouse = 0.0f;
 glm::vec3 cameraPos = glm::vec3(0.0f);
-
-
-
+bool mouseMovement = false;
+Camera mCamera;
+Player mPlayer;
+SimpleObject mSimpleObjects[3];
+Mesh* mMesh;
+Texture* mTexture;
+Mesh* mMesh2;
+Mesh* mMesh3;
+Texture* mTexture3;
+Texture* mTexture2;
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
@@ -80,30 +92,36 @@ static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 		lastY = ypos;
 		firstMouse = false;
 	}
+	mouseMovement = false;
 
 	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+	GLfloat yoffset = lastY - ypos;
 
-/*lastX = xpos;
+	if (lastX != xpos || lastY != ypos)
+		mouseMovement = true;
+
+	lastX = xpos;
 	lastY = ypos;
 
-	mCamera.processMouseMovement(xoffset, yoffset);*/
+	mCamera.setScreenPosition(glm::vec2(lastX, lastY));
+
+	//	mCamera.processMouseMovement(xoffset, yoffset);
 }
+
 void updateInput(GLfloat deltaTime)
 {
-	// Camera controls
-/*	if (keys[GLFW_KEY_W])
-		mCamera.processKeyBoard(FORWARD, deltaTime);
+	if (keys[GLFW_KEY_W])
+		mPlayer.processKeyBoard(FORWARD, deltaTime);
 	if (keys[GLFW_KEY_S])
-		mCamera.processKeyBoard(BACKWARD, deltaTime);
+		mPlayer.processKeyBoard(BACKWARD, deltaTime);
 	if (keys[GLFW_KEY_A])
-		mCamera.processKeyBoard(LEFT, deltaTime);
+		mPlayer.processKeyBoard(LEFT, deltaTime);
 	if (keys[GLFW_KEY_D])
-		mCamera.processKeyBoard(RIGHT, deltaTime);
+		mPlayer.processKeyBoard(RIGHT, deltaTime);
 	if (keys[GLFW_KEY_SPACE])
-		mCamera.processKeyBoard(UP, deltaTime);
+		mPlayer.processKeyBoard(UP, deltaTime);
 	if (keys[GLFW_KEY_LEFT_CONTROL])
-		mCamera.processKeyBoard(DOWN, deltaTime);*/
+		mPlayer.processKeyBoard(DOWN, deltaTime);
 }
 
 int main(void)
@@ -294,12 +312,43 @@ int main(void)
 	va->addBuffer(texBuffy, 1);
 	IndexBuffer* ib = new IndexBuffer(indices, 6);
 
-	glm::mat4 ortho = glm::ortho(0, 50, 0, 50, -1, 1);
+	//glm::mat4 ortho = glm::ortho(0, 50, 0, 50, -1, 1);
 
 	glm::mat4 translationMatrix = glm::mat4(1.0f);
 	translationMatrix = glm::translate(glm::vec3(20, 0.0f, 0.0f));
 
+	mMesh = MeshFactory::createCube();
+	mMesh2 = MeshFactory::createCube();
+	mMesh3 = MeshFactory::createCube();
 	Texture* myTexture = TextureMan->GetTexture("wall");
+
+	mTexture = TextureMan->GetTexture("wall");
+	mTexture2 = TextureMan->GetTexture("floor");
+	mTexture3 = TextureMan->GetTexture("wall");
+	glm::mat4 ortho = glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f);
+
+
+	mSimpleObjects[0].mTexture = mTexture3;
+	mSimpleObjects[0].mMesh = mMesh3;
+	mSimpleObjects[0].setPosition(glm::vec3(-5.0f, -3.0f, 0.0f));
+	mSimpleObjects[1].mTexture = mTexture3;
+	mSimpleObjects[1].mMesh = mMesh3;
+	mSimpleObjects[1].setPosition(glm::vec3(-3.0f, -5.0f, 0.0f));
+	mSimpleObjects[2].mTexture = mTexture3;
+	mSimpleObjects[2].mMesh = mMesh3;
+	mSimpleObjects[2].setPosition(glm::vec3(-5.0f, -5.0f, 0.0f));
+
+
+
+
+	mCamera.setScreenPosition(glm::vec2(lastX, lastY));
+	mCamera.setProjectionMatrix(ortho);
+	mCamera.setWidth(mWidth);
+	mCamera.setHeight(mHeight);
+
+	mPlayer.mMesh = mMesh;
+	mPlayer.mTexture = mTexture;
+	mPlayer.setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	do
 	{
 		// Update the input
@@ -312,29 +361,76 @@ int main(void)
 
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glEnable(GL_DEPTH_TEST);
+	
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
-	//	glActiveTexture(GL_TEXTURE0);
+		/*ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		myTexture->bind();
 		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, ortho);
-		//ShaderMan->setUniform1i("textureSampler", 0);
-		//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translationMatrix);
-		
 		va->bind();
 		ib->bind();
-		//glCullFace(GL_BACK);
-		//	glCullFace(GL_CCW);
 		glDrawElements(GL_TRIANGLES, ib->getCount(), GL_UNSIGNED_INT, nullptr);
-		
 		ib->unbind();
 		va->unbind();
-		
 		myTexture->unbind();
 		ShaderMan->unbindShader();
+		*/
+
+		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+		float lerp = 0.1f;
+		glm::vec3 position = mCamera.getPosition();
+		position.x += (mPlayer.mPosition.x - position.x) * lerp * deltaTime;
+		position.y += (mPlayer.mPosition.y - position.y) * lerp * deltaTime;
+
+	/*	glm::vec2 dir = mCamera.getPlayerDirection(mPlayer.mPosition);
+		if (dir.x == 0 && dir.y == 0)
+			dir.x = 1.0f; dir.y = 0.5f;
+		dir = glm::normalize(dir);
+
+		dir *= 5.0f;*/
+		//+glm::vec3(-dir, 0.0f)
+
+		mCamera.setPosition(-mPlayer.mPosition /*+ glm::vec3(-dir,0.0f)*/);
+
+		mPlayer.setDirection(mCamera.getPlayerDirection(mPlayer.mPosition));
+
+		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, mCamera.getProjectionMatrix());
+
+		mPlayer.render(mCamera);
+
+
+
+		glm::vec2 test = mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
+
+		glm::mat4 translationMatrix2 = glm::mat4(1.0f);
+
+		distanceToMouse = glm::length(test - playerPos);
+
+		//	ifdistanceToMouse < 10
+
+		glm::vec2 testing = playerPos - glm::vec2(-test.x, -test.y);
+
+		glm::vec2 mouseScreenWorld = mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
+		//glm::vec2 cursorPosition = glm::vec2(mPlayer.mPosition.x, mPlayer.mPosition.y) - glm::vec2(-mouseScreenWorld.x, -mouseScreenWorld.y);
+		//glm::vec2 cursorPosition = glm::vec2(0.0f,0.0f) - glm::vec2(-mouseScreenWorld.x, -mouseScreenWorld.y);
+		if (mouseMovement)
+			translationMatrix2 = glm::translate(translationMatrix2, glm::vec3(mouseScreenWorld, 0.0f));
+		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translationMatrix2);
+
+
+
+
+		for (int i = 0; i < 3; ++i)
+		{
+			mSimpleObjects[i].render(mCamera);
+		}
+
+
 
 		std::cout << glGetError() << std::endl;
+
+
+		ShaderMan->unbindShader();
 
 		//std::cout << gluErrorString(glGetError()) << std::endl;
 

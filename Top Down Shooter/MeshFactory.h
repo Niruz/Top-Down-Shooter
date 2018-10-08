@@ -1,20 +1,17 @@
 #pragma once
 
-#define MeshFact MeshFactory::Instance()
 
 class Mesh;
 class MeshFactory
 {
 public:
 
-	static MeshFactory* Instance();
+	static Mesh* createCube(float size);
+	static Mesh* createQuad(float size);
+	static Mesh* createSphere(float radius, unsigned int rings, unsigned int sectors);
 
-	Mesh* CreateQuad();
+	static Mesh* createCube();
+	static Mesh* createCircle(float radius);
+	static Mesh* createTriangle();
 
-private:
-
-	MeshFactory() {};
-	MeshFactory(const MeshFactory&);
-	MeshFactory& operator = (const MeshFactory&);
-	~MeshFactory() {};
 };
