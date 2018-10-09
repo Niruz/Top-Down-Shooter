@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
-
+#include "glm\vec2.hpp"
+#include "glm\mat4x4.hpp"
 struct Tile
 {
 	Tile(float inX, float inY, bool blocking);
@@ -24,8 +25,13 @@ struct Tile
 	//So if the tile is occupied AND the distance to the player is less than some radius
 	//We can try getting a new path
 	bool isOccupied;
-	bool playerTile;//Maybe not needed
+	bool isPlayerOnTile;//Maybe not needed
 	float myG, myF, myH;
+
+	glm::vec2 myWorldPosition;
+	glm::mat4 myModelMatrix;
+
+	void SetPosition(int x, int y);
 
 	Tile* myParent;
 

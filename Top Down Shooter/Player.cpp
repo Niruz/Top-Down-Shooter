@@ -40,7 +40,10 @@ void Player::render(const Camera& camera)
 	translationMatrix = glm::mat4(1.0f);
 	translationMatrix = glm::translate(translationMatrix, mPosition);
 
-	modelMatrix = camera.mTranslationMatrix* translationMatrix *rotationMatrix;
+	glm::mat4 scaleMatrix = glm::mat4(1.0f);
+	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(16, 16, 16));
+
+	modelMatrix =  camera.mTranslationMatrix* translationMatrix *rotationMatrix *scaleMatrix;
 	//modelMatrix = rotationMatrix;
 
 	ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, modelMatrix);
@@ -55,7 +58,7 @@ void Player::render(const Camera& camera)
 
 void Player::processKeyBoard(camMovement direction, GLfloat deltaTime)
 {
-	GLfloat velocity = 5.5f * deltaTime;
+	GLfloat velocity = 100.5f * deltaTime;
 
 	if (direction == FORWARD)
 		mPosition += glm::vec3(0.0f, 1.0f, 0.0f)*velocity;

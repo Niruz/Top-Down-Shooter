@@ -14,7 +14,8 @@ void TextureManager::onInitialize()
 #endif
 
 	LoadTexture("Textures/floor.png", "floor");
-	LoadTexture("Textures/wall.jpg", "wall");
+	LoadTexture("Textures/floor2.png", "floor2");
+	LoadTexture("Textures/wall.png", "wall");
 	LoadTexture("Textures/cursor.jpg", "cursor");
 }
 void TextureManager::onDeinitialize()

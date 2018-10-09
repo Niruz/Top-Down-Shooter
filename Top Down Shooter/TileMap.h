@@ -25,6 +25,10 @@ public:
 	void printMap();
 	void printPath(std::vector<Tile*>& aPathList);
 
+	std::vector<Tile*>& GetMap();
+	void setPlayerTile(float x, float y);
+
+	Tile* lastPlayerTile;
 	
 private:
 

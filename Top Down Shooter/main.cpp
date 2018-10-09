@@ -65,6 +65,10 @@ Mesh* mMesh2;
 Mesh* mMesh3;
 Texture* mTexture3;
 Texture* mTexture2;
+Texture* mTexture4;
+
+int oldPlayerX = -1;
+int oldPlayerY = -1;
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
@@ -123,7 +127,47 @@ void updateInput(GLfloat deltaTime)
 	if (keys[GLFW_KEY_LEFT_CONTROL])
 		mPlayer.processKeyBoard(DOWN, deltaTime);
 }
+glm::vec2 convertRange()
+{
+	glm::vec2 startRange(-320.0f, 160);
+	glm::vec2 endRange(288.0f, -192.0f);
+	
+	glm::vec2 range = endRange - startRange;
 
+	glm::vec2 test = glm::vec2(mPlayer.mPosition.x / range.x, mPlayer.mPosition.y / range.y);
+
+	glm::vec2 testTilePos;
+	testTilePos.x = glm::floor(test.x);
+	testTilePos.y = glm::floor(test.y);
+
+	glm::vec2 test2;
+	test.x = mPlayer.mPosition.x / 32.0f;
+	test.x = mPlayer.mPosition.y / 32.0f;
+	int shit = 5;
+
+	float a = -320.0f;
+	float b = 288.0f;
+	float c = 0;
+	float d = 21;
+
+
+	float a2 = 160;
+	float b2 = -192;
+	float c2 = 0;
+	float d2 = 11;
+	float testNew = ((mPlayer.mPosition.x - a) * ((d - c) / (b - a))) + c;
+	float testNew2 = ((mPlayer.mPosition.y - a2) * ((d2 - c2) / (b2 - a2))) + c2;
+
+	float roundX = round(testNew);
+	float roundY = round(testNew2);
+
+	if (roundX != oldPlayerX)
+		oldPlayerX = roundX;
+	if (roundY != oldPlayerY)
+		oldPlayerY = roundY;
+
+	return glm::vec2(1, 1);
+}
 int main(void)
 {
 
@@ -240,8 +284,10 @@ int main(void)
 
 	myMap3.printPath(myPath3);
 
+	std::vector<Tile*> map = myMap3.GetMap();
 
-	TileMap myMap4("Levels/test4.level");
+
+	/*TileMap myMap4("Levels/test4.level");
 
 	myMap4.printMap();
 
@@ -264,7 +310,9 @@ int main(void)
 	myPath5.clear();
 	myMap5.GetPath(14, 1, 14, 21, myPath5);
 
-	myMap5.printPath(myPath5);
+	myMap5.printPath(myPath5);*/
+
+
 	//run Bob and Elsa through a few Update calls
 	/*for (int i = 0; i<30; ++i)
 	{
@@ -312,31 +360,31 @@ int main(void)
 	va->addBuffer(texBuffy, 1);
 	IndexBuffer* ib = new IndexBuffer(indices, 6);
 
-	//glm::mat4 ortho = glm::ortho(0, 50, 0, 50, -1, 1);
 
-	glm::mat4 translationMatrix = glm::mat4(1.0f);
-	translationMatrix = glm::translate(glm::vec3(20, 0.0f, 0.0f));
 
 	mMesh = MeshFactory::createCube();
 	mMesh2 = MeshFactory::createCube();
 	mMesh3 = MeshFactory::createCube();
 	Texture* myTexture = TextureMan->GetTexture("wall");
 
-	mTexture = TextureMan->GetTexture("wall");
+	mTexture = TextureMan->GetTexture("cursor");
 	mTexture2 = TextureMan->GetTexture("floor");
 	mTexture3 = TextureMan->GetTexture("wall");
-	glm::mat4 ortho = glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f);
-
+	mTexture4 = TextureMan->GetTexture("floor2");
+	//glm::mat4 ortho = glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f);
+	//1280 720
+	//glm::mat4 ortho = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 1.0f);
+	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
 
 	mSimpleObjects[0].mTexture = mTexture3;
 	mSimpleObjects[0].mMesh = mMesh3;
-	mSimpleObjects[0].setPosition(glm::vec3(-5.0f, -3.0f, 0.0f));
+	mSimpleObjects[0].setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	mSimpleObjects[1].mTexture = mTexture3;
 	mSimpleObjects[1].mMesh = mMesh3;
-	mSimpleObjects[1].setPosition(glm::vec3(-3.0f, -5.0f, 0.0f));
+	mSimpleObjects[1].setPosition(glm::vec3(32.0f, -32.0f, 0.0f));
 	mSimpleObjects[2].mTexture = mTexture3;
 	mSimpleObjects[2].mMesh = mMesh3;
-	mSimpleObjects[2].setPosition(glm::vec3(-5.0f, -5.0f, 0.0f));
+	mSimpleObjects[2].setPosition(glm::vec3(64.0f, -64.0f, 0.0f));
 
 
 
@@ -382,16 +430,7 @@ int main(void)
 		position.x += (mPlayer.mPosition.x - position.x) * lerp * deltaTime;
 		position.y += (mPlayer.mPosition.y - position.y) * lerp * deltaTime;
 
-	/*	glm::vec2 dir = mCamera.getPlayerDirection(mPlayer.mPosition);
-		if (dir.x == 0 && dir.y == 0)
-			dir.x = 1.0f; dir.y = 0.5f;
-		dir = glm::normalize(dir);
-
-		dir *= 5.0f;*/
-		//+glm::vec3(-dir, 0.0f)
-
-		mCamera.setPosition(-mPlayer.mPosition /*+ glm::vec3(-dir,0.0f)*/);
-
+		mCamera.setPosition(-mPlayer.mPosition);
 		mPlayer.setDirection(mCamera.getPlayerDirection(mPlayer.mPosition));
 
 		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, mCamera.getProjectionMatrix());
@@ -399,31 +438,102 @@ int main(void)
 		mPlayer.render(mCamera);
 
 
-
-		glm::vec2 test = mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
-
 		glm::mat4 translationMatrix2 = glm::mat4(1.0f);
 
-		distanceToMouse = glm::length(test - playerPos);
-
-		//	ifdistanceToMouse < 10
-
-		glm::vec2 testing = playerPos - glm::vec2(-test.x, -test.y);
-
 		glm::vec2 mouseScreenWorld = mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
-		//glm::vec2 cursorPosition = glm::vec2(mPlayer.mPosition.x, mPlayer.mPosition.y) - glm::vec2(-mouseScreenWorld.x, -mouseScreenWorld.y);
-		//glm::vec2 cursorPosition = glm::vec2(0.0f,0.0f) - glm::vec2(-mouseScreenWorld.x, -mouseScreenWorld.y);
+
+		glm::vec2 testTilePos;
+		
+		testTilePos.x = glm::floor(mPlayer.mPosition.x / 32.0f);
+		testTilePos.y = glm::floor(mPlayer.mPosition.y / 32.0f);
+
+	//	myMap3.GetTile2(testTilePos.x, testTilePos.y)->isPlayerOnTile = true;
+
+		glm::mat4 tran = glm::mat4(1.0f);
+		tran = glm::translate(tran, glm::vec3(mouseScreenWorld.x, mouseScreenWorld.y, 0.0f));
+
+		glm::mat4 scal = glm::mat4(1.0f);
+		scal = glm::scale(scal, glm::vec3(16, 16, 16));
+		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, tran /** mCamera.mTranslationMatrix*/ * scal);
+		mTexture4->bind();
+
+		mMesh->render();
+
+		mTexture4->unbind();
+
+
+
 		if (mouseMovement)
 			translationMatrix2 = glm::translate(translationMatrix2, glm::vec3(mouseScreenWorld, 0.0f));
 		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translationMatrix2);
 
+		myMap3.setPlayerTile(mPlayer.mPosition.x, mPlayer.mPosition.y);
+		//convertRange();
+		//myMap3.GetTile2(oldPlayerX, oldPlayerY)->isPlayerOnTile = true;
+		float startX = -32.0f * 10.0f;
+		float startY = 32.0f * 6;
+		for(int i = 0; i < map.size(); i++)
+		//for(int i = map.size() - 1; i>= 0; i-- )
+		{
+			if(i % 20 == 0 )
+			{
+				startY -= 32.0f;
+				startX = -32.0f*10.0f;
+			}
 
+			if (i == 239)
+				int shitterooo = 5;
+			if(map[i]->isPlayerOnTile)
+			{
+				/*glm::mat4 translMat = glm::mat4(1.0f);
+				translMat = glm::translate(translMat, glm::vec3(startX, startY, 0.0f));
 
+				glm::mat4 scaleMat = glm::mat4(1.0f);
+				scaleMat = glm::scale(scaleMat, glm::vec3(16, 16, 16));*/
+				//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translMat * mCamera.mTranslationMatrix * scaleMat);
+				ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix);
+				mTexture4->bind();
 
-		for (int i = 0; i < 3; ++i)
+				mMesh->render();
+
+				mTexture4->unbind();
+			}
+			else if(map[i]->myIsBlockingFlag)
+			{
+				//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translMat * mCamera.mTranslationMatrix * scaleMat);
+				ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix );
+				mTexture3->bind();
+
+				mMesh->render();
+
+				mTexture3->unbind();
+			}
+			else
+			{
+				/*glm::mat4 translMat = glm::mat4(1.0f);
+				glm::vec2 tilePos = map[i]->myWorldPosition;
+				translMat = glm::translate(translMat, glm::vec3(tilePos.x, tilePos.y, 0.0f));
+				//translMat = glm::translate(translMat, glm::vec3(startX, startY, 0.0f));
+
+				glm::mat4 scaleMat = glm::mat4(1.0f);
+				scaleMat = glm::scale(scaleMat, glm::vec3(16, 16, 16));*/
+				ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix);
+				//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translMat * mCamera.mTranslationMatrix * scaleMat);
+				mTexture2->bind();
+
+				mMesh->render();
+
+				mTexture2->unbind();
+			}
+			startX += 32.0f;
+		}
+
+		/*for (int i = 0; i < 3; ++i)
 		{
 			mSimpleObjects[i].render(mCamera);
-		}
+		}*/
+
+
 
 
 

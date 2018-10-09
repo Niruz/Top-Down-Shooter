@@ -11,6 +11,7 @@ TileMap::TileMap(const std::string& name)
 {
 	if (!InitializeFromMap(name))
 		std::cout << "\nCould not initialize map with name: " + name + "\n" << std::endl;
+	lastPlayerTile = nullptr;
 }
 TileMap::~TileMap()
 {
@@ -148,7 +149,21 @@ void TileMap::GenerateGraph()
 
 	}
 
-
+	float startX = -32.0f * 10.0f;
+	float startY = 32.0f * 6;
+	for (int i = 0; i < myMapTiles.size(); i++)
+		//for(int i = map.size() - 1; i>= 0; i-- )
+	{
+		if (i % 20 == 0)
+		{
+			startY -= 32.0f;
+			startX = -32.0f*10.0f;
+		}
+		//myMapTiles[i]->myWorldPosition.x = startX;
+		//myMapTiles[i]->myWorldPosition.y = startY;
+		myMapTiles[i]->SetPosition(startX, startY);
+		startX += 32.0f;
+	}
 	for(int i = 0; i < mapHeight; i++)
 	{
 		for(int k = 0; k < mapWidth; k++)
@@ -419,4 +434,34 @@ void TileMap::printPath(std::vector<Tile*>& aPathList)
 			std::cout << ".";
 	}
 	std::cout << "\n";
+}
+std::vector<Tile*>& TileMap::GetMap()
+{
+	return myMapTiles;
+}
+void TileMap::setPlayerTile(float x, float y)
+{
+	glm::vec2 playerPos(x, y);
+	if (lastPlayerTile != nullptr)
+		lastPlayerTile->isPlayerOnTile = false;
+	float lastClosest = 999999.0f;
+	for (std::vector<Tile*>::iterator iterator = myMapTiles.begin(); iterator != myMapTiles.end(); iterator++)
+	{
+		Tile* tile = *iterator;
+		glm::vec2 temp = playerPos - tile->myWorldPosition;
+		float length = glm::length(temp);
+		if (length < 32.0f  && length < lastClosest)
+		{
+			lastClosest = length;
+
+
+			//tile->isPlayerOnTile = true;
+
+			lastPlayerTile = tile;
+			//break;
+		}
+		
+	}
+	lastPlayerTile->isPlayerOnTile = true;
+
 }
