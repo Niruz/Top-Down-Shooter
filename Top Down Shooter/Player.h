@@ -3,6 +3,10 @@
 #include "Texture.h"
 #include "Camera.h"
 
+class TileMap;
+class Mesh;
+class Texture;
+
 enum camMovement
 {
 	FORWARD,
@@ -27,7 +31,7 @@ struct Player
 	void updatePosition(const glm::vec3& pos);
 	void setPosition(const glm::vec3& pos);
 	void setDirection(const glm::vec2& direction);
-	void processKeyBoard(camMovement direction, GLfloat deltaTime);
+	void processKeyBoard(camMovement direction, GLfloat deltaTime, TileMap& map);
 
 	glm::vec3 mPosition;
 	glm::mat4 translationMatrix;

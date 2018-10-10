@@ -70,29 +70,6 @@ void TileMap::GenerateGraph()
 	myMapWidth = myMapTiles.back()->myX + 1;
 
 
-	/*for(int h = 0; h < myMapTiles.size(); h++)
-	{
-		Tile* currentTile = myMapTiles[h];
-		for (int i = -1; i <= 1; i++)
-		{
-			for (int j = -1; j <= 1; j++)
-			{
-				if (i == 0 && j == 0)
-					continue;
-
-				int checkX = currentTile->myX + i;
-				int checkY = currentTile->myY + j;
-
-				if (validIndex(checkX,checkY))
-				{
-					if(!currentTile->myIsBlockingFlag)
-						currentTile->myNeighbours.push_back(GetTile2(checkX, checkY));
-				}
-			}
-		}
-
-	}*/
-
 	for(int h = 0; h < myMapTiles.size(); h++)
 	{
 		Tile* currentTile = myMapTiles[h];
@@ -152,90 +129,15 @@ void TileMap::GenerateGraph()
 	float startX = -32.0f * 10.0f;
 	float startY = 32.0f * 6;
 	for (int i = 0; i < myMapTiles.size(); i++)
-		//for(int i = map.size() - 1; i>= 0; i-- )
 	{
 		if (i % 20 == 0)
 		{
 			startY -= 32.0f;
 			startX = -32.0f*10.0f;
 		}
-		//myMapTiles[i]->myWorldPosition.x = startX;
-		//myMapTiles[i]->myWorldPosition.y = startY;
 		myMapTiles[i]->SetPosition(startX, startY);
 		startX += 32.0f;
 	}
-	for(int i = 0; i < mapHeight; i++)
-	{
-		for(int k = 0; k < mapWidth; k++)
-		{
-			int currentIndex = (i * mapWidth) + k;
-
-			//int testIndex = GetTileIndex(i, k)
-			//No need to process blocking walls
-			if (myMapTiles[currentIndex]->myIsBlockingFlag)
-				continue;
-			Tile* currentTile = myMapTiles[currentIndex];
-			//the locations we need to access
-			int NW = currentIndex - mapWidth - 1;
-			int N = currentIndex - mapWidth;
-			int NE = currentIndex - mapWidth + 1;
-			int E = currentIndex + 1;
-			int SE = currentIndex + mapWidth + 1;
-			int S = currentIndex + mapWidth;
-			int SW = currentIndex + mapWidth - 1;
-			int W = currentIndex - 1;
-
-
-		/*	if (NW < 0)
-				currentTile->myNorthWest = nullptr;
-			else
-				currentTile->myNorthWest = myMapTiles[NW];
-
-			if (N < 0 )
-				currentTile->myNorth = nullptr;
-			else
-				currentTile->myNorth = myMapTiles[N];
-
-			if (NE < 0 )
-				currentTile->myNorthEast = nullptr;
-			else
-				currentTile->myNorthEast = myMapTiles[NE];
-
-			if (!myMapTiles[E]->myIsBlockingFlag)
-				currentTile->myEast = myMapTiles[E];
-			if (!myMapTiles[SE]->myIsBlockingFlag)
-				currentTile->mySouthEast = myMapTiles[SE];
-			if (!myMapTiles[S]->myIsBlockingFlag)
-				currentTile->mySouth = myMapTiles[S];
-			if (!myMapTiles[SW]->myIsBlockingFlag)
-				currentTile->mySouthWest = myMapTiles[SW];
-			if (!myMapTiles[W]->myIsBlockingFlag)
-				currentTile->myWest = myMapTiles[W];*/
-			
-			//Later check so that we dont check outside the map, the borders are closed for now
-		/*	if (!myMapTiles[NW]->myIsBlockingFlag)
-				currentTile->myNorthWest = myMapTiles[NW];
-			if (!myMapTiles[N]->myIsBlockingFlag)
-				currentTile->myNorth = myMapTiles[N];
-			if (!myMapTiles[NE]->myIsBlockingFlag)
-				currentTile->myNorthEast = myMapTiles[NE];
-			if (!myMapTiles[E]->myIsBlockingFlag)
-				currentTile->myEast = myMapTiles[E];
-			if (!myMapTiles[SE]->myIsBlockingFlag)
-				currentTile->mySouthEast = myMapTiles[SE];
-			if (!myMapTiles[S]->myIsBlockingFlag)
-				currentTile->mySouth = myMapTiles[S];
-			if (!myMapTiles[SW]->myIsBlockingFlag)
-				currentTile->mySouthWest = myMapTiles[SW];
-			if (!myMapTiles[W]->myIsBlockingFlag)
-				currentTile->myWest = myMapTiles[W];*/
-			int shiter = 5;
-
-		}
-		int hoho = 5;
-	}
-
-	int shit = 5;
 }
 void TileMap::GetPath(int fromX, int fromY, int toY, int toX, std::vector<Tile*>& list)
 {

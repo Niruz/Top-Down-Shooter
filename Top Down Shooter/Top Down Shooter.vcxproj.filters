@@ -147,6 +147,12 @@
     <ClCompile Include="SimpleObject.cpp">
       <Filter>Temporary stuff</Filter>
     </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BatchRenderer.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -250,6 +256,15 @@
     </ClInclude>
     <ClInclude Include="SimpleObject.h">
       <Filter>Temporary stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererBase.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="BatchRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

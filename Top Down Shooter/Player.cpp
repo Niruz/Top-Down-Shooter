@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include "ShaderManager.h"
 #include <iostream>
+
+#include "TileMap.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 Player::Player() : translationMatrix(1.0f),
@@ -56,20 +58,70 @@ void Player::render(const Camera& camera)
 	mTexture->unbind();
 }
 
-void Player::processKeyBoard(camMovement direction, GLfloat deltaTime)
+void Player::processKeyBoard(camMovement direction, GLfloat deltaTime, TileMap& map)
 {
-	GLfloat velocity = 100.5f * deltaTime;
+	GLfloat velocity = 200.5f * deltaTime;
 
-	if (direction == FORWARD)
-		mPosition += glm::vec3(0.0f, 1.0f, 0.0f)*velocity;
+	int tileX = map.lastPlayerTile->myX;
+	int tileY = map.lastPlayerTile->myY;
+	glm::vec2 tilePos = map.lastPlayerTile->myWorldPosition;
+
+	if (direction == FORWARD) 
+	{
+		if (map.IsDirectionWalkable(tileX, tileY - 1))
+			mPosition += glm::vec3(0.0f, 1.0f, 0.0f)*velocity;
+		else
+		{
+			if (mPosition.y <= map.GetTile2(tileX, tileY)->myWorldPosition.y )
+			{
+				mPosition += glm::vec3(0.0f, 1.0f, 0.0f)*velocity;
+			}
+		}
+	}
 	else if (direction == BACKWARD)
-		mPosition -= glm::vec3(0.0f, 1.0f, 0.0f)*velocity;
+	{
+		if (map.IsDirectionWalkable(tileX , tileY + 1))
+			mPosition -= glm::vec3(0.0f, 1.0f, 0.0f)*velocity;
+		else
+		{
+			if (mPosition.y >= map.GetTile2(tileX, tileY)->myWorldPosition.y)
+			{
+				mPosition -= glm::vec3(0.0f, 1.0f, 0.0f)*velocity;
+			}
+		}
+	}	
 	else if (direction == RIGHT)
-		mPosition += glm::vec3(1.0f, 0.0f, 0.0f)*velocity;
+	{
+		if (map.IsDirectionWalkable(tileX + 1, tileY ))
+			mPosition += glm::vec3(1.0f, 0.0f, 0.0f)*velocity;
+		else
+		{
+			if (mPosition.x <= map.GetTile2(tileX, tileY)->myWorldPosition.x)
+			{
+				mPosition += glm::vec3(1.0f, 0.0f, 0.0f)*velocity;
+			}
+		}
+	}	
 	else if (direction == LEFT)
-		mPosition -= glm::vec3(1.0f, 0.0f, 0.0f)*velocity;
+	{
+		if (map.IsDirectionWalkable(tileX - 1, tileY))
+			mPosition -= glm::vec3(1.0f, 0.0f, 0.0f)*velocity;
+		else
+		{
+			if (mPosition.x >= map.GetTile2(tileX, tileY)->myWorldPosition.x)
+			{
+				mPosition -= glm::vec3(1.0f, 0.0f, 0.0f)*velocity;
+			}
+		}
+	}
+		
 	/*	else if (direction == UP)
 	mPosition += mWorldUp*velocity;
 	else if (direction == DOWN)
 	mPosition -= mWorldUp*velocity;*/
 }
+/*
+northWalkable = IsDirectionWalkable(currentTile->myX, currentTile->myY - 1);
+eastWalkable = IsDirectionWalkable(currentTile->myX + 1, currentTile->myY);
+southWalkable = IsDirectionWalkable(currentTile->myX, currentTile->myY + 1);
+westWalkable = IsDirectionWalkable(currentTile->myX - 1, currentTile->myY);*/

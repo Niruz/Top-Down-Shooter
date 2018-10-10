@@ -8,13 +8,13 @@ uniform vec4 colour;
 in DATA
 {
 	vec4 pos;
-    vec2 uv;
+  //  vec2 uv;
   //  float texID;
 	vec4 col;
 } fs_in;
 
 //uniform sampler2D textures[32];
-uniform sampler2D texture;
+//uniform sampler2D texture;
 
 void main()
 {
@@ -29,9 +29,10 @@ void main()
    */
   // texColor = vec4(texture( myTextureSampler, UV ).rgb,1.0f);
  // texColor = texture(texture,fs_in.uv);
- texColor = texture2D(texture,fs_in.uv);
+ //texColor = texture2D(texture,fs_in.uv);
 
-    color = texColor;// * intensity;
+ color = texColor;
+    //color = texColor;// * intensity;
 
 
 } 

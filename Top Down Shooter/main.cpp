@@ -38,6 +38,8 @@
 #include "Camera.h"
 #include "MeshFactory.h"
 #include "SimpleObject.h"
+#include "Renderable.h"
+#include "Renderer.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -58,7 +60,6 @@ glm::vec3 cameraPos = glm::vec3(0.0f);
 bool mouseMovement = false;
 Camera mCamera;
 Player mPlayer;
-SimpleObject mSimpleObjects[3];
 Mesh* mMesh;
 Texture* mTexture;
 Mesh* mMesh2;
@@ -112,20 +113,20 @@ static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	//	mCamera.processMouseMovement(xoffset, yoffset);
 }
 
-void updateInput(GLfloat deltaTime)
+void updateInput(GLfloat deltaTime, TileMap& map)
 {
 	if (keys[GLFW_KEY_W])
-		mPlayer.processKeyBoard(FORWARD, deltaTime);
+		mPlayer.processKeyBoard(FORWARD, deltaTime,map);
 	if (keys[GLFW_KEY_S])
-		mPlayer.processKeyBoard(BACKWARD, deltaTime);
+		mPlayer.processKeyBoard(BACKWARD, deltaTime, map);
 	if (keys[GLFW_KEY_A])
-		mPlayer.processKeyBoard(LEFT, deltaTime);
+		mPlayer.processKeyBoard(LEFT, deltaTime, map);
 	if (keys[GLFW_KEY_D])
-		mPlayer.processKeyBoard(RIGHT, deltaTime);
+		mPlayer.processKeyBoard(RIGHT, deltaTime, map);
 	if (keys[GLFW_KEY_SPACE])
-		mPlayer.processKeyBoard(UP, deltaTime);
+		mPlayer.processKeyBoard(UP, deltaTime, map);
 	if (keys[GLFW_KEY_LEFT_CONTROL])
-		mPlayer.processKeyBoard(DOWN, deltaTime);
+		mPlayer.processKeyBoard(DOWN, deltaTime, map);
 }
 glm::vec2 convertRange()
 {
@@ -237,8 +238,8 @@ int main(void)
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
-	//SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav"))
-	//SoundEngine->stopAllSounds();
+	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
+	SoundEngine->stopAllSounds();
 	//create a miner
 	Miner* Bob = new Miner(ent_Miner_Bob, "Bob");
 
@@ -329,39 +330,6 @@ int main(void)
 	delete Bob;
 	delete Elsa;
 
-	GLfloat vertices[] =
-	{
-		-0.5f, -0.5f, 0.0f,  //bottom left
-		 0.5f, -0.5f, 0.0f,  //bottom right
-		-0.5f,  0.5f, 0.0f,  //top left
-	     0.5f,  0.5f, 0.0f //top right
-
-	};
-
-	GLfloat texCoords[] = 
-	{
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-	};
-
-	GLuint indices[] =
-	{
-		0,1,3,
-		0,3,2
-	};
-
-	Buffer* buffy = new Buffer(vertices, 4 * 3, 3);
-	Buffer* texBuffy = new Buffer(texCoords, 4 * 2, 2);
-	
-	VertexArray* va = new VertexArray();
-	va->addBuffer(buffy, 0);
-	va->addBuffer(texBuffy, 1);
-	IndexBuffer* ib = new IndexBuffer(indices, 6);
-
-
-
 	mMesh = MeshFactory::createCube();
 	mMesh2 = MeshFactory::createCube();
 	mMesh3 = MeshFactory::createCube();
@@ -376,15 +344,6 @@ int main(void)
 	//glm::mat4 ortho = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 1.0f);
 	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
 
-	mSimpleObjects[0].mTexture = mTexture3;
-	mSimpleObjects[0].mMesh = mMesh3;
-	mSimpleObjects[0].setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	mSimpleObjects[1].mTexture = mTexture3;
-	mSimpleObjects[1].mMesh = mMesh3;
-	mSimpleObjects[1].setPosition(glm::vec3(32.0f, -32.0f, 0.0f));
-	mSimpleObjects[2].mTexture = mTexture3;
-	mSimpleObjects[2].mMesh = mMesh3;
-	mSimpleObjects[2].setPosition(glm::vec3(64.0f, -64.0f, 0.0f));
 
 
 
@@ -397,33 +356,27 @@ int main(void)
 	mPlayer.mMesh = mMesh;
 	mPlayer.mTexture = mTexture;
 	mPlayer.setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+
+	Renderer myRenderer; 
+	Renderable* myRenderable = new Renderable(glm::vec3(0.0f,0.0f,0.0f), glm::vec2(32,32), glm::vec4(1.0f,0.0f,1.0f,1.0f));
+	Renderable* myRenderable2 = new Renderable(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	do
 	{
 		// Update the input
 		GLfloat currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		updateInput(deltaTime);
-
-
-
+		updateInput(deltaTime,myMap3);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		/*ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
-		myTexture->bind();
-		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, ortho);
-		va->bind();
-		ib->bind();
-		glDrawElements(GL_TRIANGLES, ib->getCount(), GL_UNSIGNED_INT, nullptr);
-		ib->unbind();
-		va->unbind();
-		myTexture->unbind();
-		ShaderMan->unbindShader();
-		*/
+		myRenderer.Submit(myRenderable);
+		myRenderer.Submit(myRenderable2);
+		myRenderer.Flush();
 
+		/*
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		float lerp = 0.1f;
 		glm::vec3 position = mCamera.getPosition();
@@ -447,14 +400,13 @@ int main(void)
 		testTilePos.x = glm::floor(mPlayer.mPosition.x / 32.0f);
 		testTilePos.y = glm::floor(mPlayer.mPosition.y / 32.0f);
 
-	//	myMap3.GetTile2(testTilePos.x, testTilePos.y)->isPlayerOnTile = true;
 
 		glm::mat4 tran = glm::mat4(1.0f);
 		tran = glm::translate(tran, glm::vec3(mouseScreenWorld.x, mouseScreenWorld.y, 0.0f));
 
 		glm::mat4 scal = glm::mat4(1.0f);
 		scal = glm::scale(scal, glm::vec3(16, 16, 16));
-		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, tran /** mCamera.mTranslationMatrix*/ * scal);
+		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, tran * scal);
 		mTexture4->bind();
 
 		mMesh->render();
@@ -468,12 +420,9 @@ int main(void)
 		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translationMatrix2);
 
 		myMap3.setPlayerTile(mPlayer.mPosition.x, mPlayer.mPosition.y);
-		//convertRange();
-		//myMap3.GetTile2(oldPlayerX, oldPlayerY)->isPlayerOnTile = true;
 		float startX = -32.0f * 10.0f;
 		float startY = 32.0f * 6;
 		for(int i = 0; i < map.size(); i++)
-		//for(int i = map.size() - 1; i>= 0; i-- )
 		{
 			if(i % 20 == 0 )
 			{
@@ -485,64 +434,33 @@ int main(void)
 				int shitterooo = 5;
 			if(map[i]->isPlayerOnTile)
 			{
-				/*glm::mat4 translMat = glm::mat4(1.0f);
-				translMat = glm::translate(translMat, glm::vec3(startX, startY, 0.0f));
-
-				glm::mat4 scaleMat = glm::mat4(1.0f);
-				scaleMat = glm::scale(scaleMat, glm::vec3(16, 16, 16));*/
-				//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translMat * mCamera.mTranslationMatrix * scaleMat);
 				ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix);
 				mTexture4->bind();
-
 				mMesh->render();
-
 				mTexture4->unbind();
 			}
 			else if(map[i]->myIsBlockingFlag)
 			{
-				//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translMat * mCamera.mTranslationMatrix * scaleMat);
 				ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix );
 				mTexture3->bind();
-
 				mMesh->render();
 
 				mTexture3->unbind();
 			}
 			else
 			{
-				/*glm::mat4 translMat = glm::mat4(1.0f);
-				glm::vec2 tilePos = map[i]->myWorldPosition;
-				translMat = glm::translate(translMat, glm::vec3(tilePos.x, tilePos.y, 0.0f));
-				//translMat = glm::translate(translMat, glm::vec3(startX, startY, 0.0f));
 
-				glm::mat4 scaleMat = glm::mat4(1.0f);
-				scaleMat = glm::scale(scaleMat, glm::vec3(16, 16, 16));*/
 				ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix);
-				//ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translMat * mCamera.mTranslationMatrix * scaleMat);
 				mTexture2->bind();
-
 				mMesh->render();
-
 				mTexture2->unbind();
 			}
 			startX += 32.0f;
 		}
-
-		/*for (int i = 0; i < 3; ++i)
-		{
-			mSimpleObjects[i].render(mCamera);
-		}*/
-
-
-
-
-
 		std::cout << glGetError() << std::endl;
-
-
 		ShaderMan->unbindShader();
+		*/
 
-		//std::cout << gluErrorString(glGetError()) << std::endl;
 
 		glfwSwapBuffers(window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...  
