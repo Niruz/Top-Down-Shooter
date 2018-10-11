@@ -1,8 +1,8 @@
 #pragma once
 #include "RendererBase.h"
-
 #include <deque>
 
+class StaticSprite;
 class Renderer : public RendererBase
 {
 public:
@@ -10,5 +10,5 @@ public:
 	void Flush() override;
 
 private:
-	std::deque<const Renderable*> myRenderQueue;
+	std::deque<const StaticSprite*> myRenderQueue;
 };

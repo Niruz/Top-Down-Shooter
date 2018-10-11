@@ -153,6 +153,12 @@
     <ClCompile Include="BatchRenderer.cpp">
       <Filter>Graphics\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Static_Sprite.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -264,6 +270,12 @@
       <Filter>Graphics\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="BatchRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Static_Sprite.h">
       <Filter>Graphics\Renderer</Filter>
     </ClInclude>
   </ItemGroup>

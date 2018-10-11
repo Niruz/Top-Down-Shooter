@@ -7,8 +7,6 @@ layout (location = 1) in vec4 color;
 out DATA
 {
 	vec4 pos;
-	//vec2 uv;
-	//float texID;
 	vec4 col;
 } vs_out;
 
@@ -24,7 +22,5 @@ void main()
 
    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position,1);
    vs_out.pos = modelMatrix * vec4(position,1);
-  // vs_out.uv = texCoord;
    vs_out.col = color;
-   //vs_out.texID = texID;
 }

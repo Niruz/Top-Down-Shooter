@@ -40,6 +40,10 @@
 #include "SimpleObject.h"
 #include "Renderable.h"
 #include "Renderer.h"
+#include "BatchRenderer.h"
+#include "Static_Sprite.h"
+#include "Sprite.h"
+#include "SimpleTimer.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -358,8 +362,51 @@ int main(void)
 	mPlayer.setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	Renderer myRenderer; 
-	Renderable* myRenderable = new Renderable(glm::vec3(0.0f,0.0f,0.0f), glm::vec2(32,32), glm::vec4(1.0f,0.0f,1.0f,1.0f));
-	Renderable* myRenderable2 = new Renderable(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	BatchRenderer myBatchRenderer;
+	Renderable* myRenderable = new StaticSprite(glm::vec3(0.0f,0.0f,0.0f), glm::vec2(32,32), glm::vec4(1.0f,0.0f,1.0f,1.0f));
+	Renderable* myRenderable2 = new StaticSprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+
+	Renderable* myRenderable3 = new Sprite(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+	Renderable* myRenderable4 = new Sprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+	
+	std::vector<StaticSprite*> staticSprites;
+	std::vector<Sprite*> sprites;
+	
+	/*for (int i = 0; i < map.size(); i++) 
+	{
+		glm::vec3 position = glm::vec3(map[i]->myWorldPosition,0.0f);
+		glm::vec4 color;
+		glm::vec2 size = glm::vec2(32, 32);
+		map[i]->myIsBlockingFlag ? color = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f) : color = glm::vec4(0.0, 0.0f, 1.0f, 1.0f);
+		sprites.push_back(new Sprite(position, size, color));
+	}
+	for (int i = 0; i < map.size(); i++)
+	{
+		glm::vec3 position = glm::vec3(map[i]->myWorldPosition, 0.0f);
+		glm::vec4 color;
+		glm::vec2 size = glm::vec2(32, 32);
+		map[i]->myIsBlockingFlag ? color = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f) : color = glm::vec4(0.0, 0.0f, 1.0f, 1.0f);
+		staticSprites.push_back(new StaticSprite(position, size, color));
+	}
+	*/
+//	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
+	for(float y = -360; y < 360.0f; y+=4.0f)
+	{
+		for(float x = -640.0f; x < 640.0f; x+=4.0f)
+		{
+			sprites.push_back(new Sprite(glm::vec3(x,y,0), glm::vec2(3.5f,3.5f), glm::vec4(rand()%1000/	1000.0f,0,1,1)));
+		}
+	}
+	/*for (float y = -360; y < 360.0f; y += 9.0f)
+	{
+		for (float x = -640.0f; x < 640.0f; x += 9.0f)
+		{
+			staticSprites.push_back(new StaticSprite(glm::vec3(x, y, 0), glm::vec2(8.0f, 8.0f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+		}
+	}*/
+
+	int fps = 0;
+	double lastTime = Clock->GetCurrentTime();
 	do
 	{
 		// Update the input
@@ -367,15 +414,41 @@ int main(void)
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 		updateInput(deltaTime,myMap3);
+		fps++;
+		double currentTime = Clock->GetCurrentTime();
+		if ( currentTime - lastTime >= 1.0)
+		{
+			std::cout << "fps: " << fps << std::endl;
+			lastTime = currentTime;
+			fps = 0;
+		}
+
+
+		//myRenderable3->SetPosition(glm::vec3(mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)),0.0f));
+		//myRenderable2->SetPosition(glm::vec3(mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)), 0.0f));
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
-		myRenderer.Submit(myRenderable);
-		myRenderer.Submit(myRenderable2);
+		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+		ShaderMan->setUniform2fv("lightPos", 1, mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)));
+		ShaderMan->unbindShader();
+	/*	//myRenderer.Submit(myRenderable);
+		//myRenderer.Submit(myRenderable2);
+		for (StaticSprite* sprite : staticSprites)
+			myRenderer.Submit(sprite);
 		myRenderer.Flush();
+		*/
 
+
+		myBatchRenderer.Begin();
+		//myBatchRenderer.Submit(myRenderable3);
+		//myBatchRenderer.Submit(myRenderable4);
+		for (Sprite* sprite : sprites)
+			myBatchRenderer.Submit(sprite);
+		myBatchRenderer.End();
+		myBatchRenderer.Flush();
+		
 		/*
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		float lerp = 0.1f;
@@ -461,7 +534,7 @@ int main(void)
 		ShaderMan->unbindShader();
 		*/
 
-
+		//std::cout << glGetError() << std::endl;
 		glfwSwapBuffers(window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...  
 		glfwPollEvents();

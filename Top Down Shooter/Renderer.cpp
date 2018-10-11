@@ -4,32 +4,33 @@
 #include <glm/glm.hpp>
 // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/matrix_transform.hpp>
+#include "Static_Sprite.h"
 void Renderer::Submit(const Renderable* renderable)
 {
-	myRenderQueue.push_back(renderable);
+	myRenderQueue.push_back((StaticSprite*)renderable);
 }
 
 void Renderer::Flush()
 {
 	while(!myRenderQueue.empty())
 	{
-		const Renderable* renderable = myRenderQueue.front();
+		const StaticSprite* sprite = myRenderQueue.front();
 
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
-		renderable->getVAO()->bind();
-		renderable->getIBO()->bind();
+		sprite->getVAO()->bind();
+		sprite->getIBO()->bind();
 
 		
 		glm::mat4 translationMatrix = glm::mat4(1.0f);
-		translationMatrix = glm::translate(translationMatrix, renderable->GetPosition());
+		translationMatrix = glm::translate(translationMatrix, sprite->GetPosition());
 		glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
 
 		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, ortho);
 		ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, translationMatrix);
-		glDrawElements(GL_TRIANGLES, renderable->getIBO()->getCount(), GL_UNSIGNED_SHORT, nullptr);
+		glDrawElements(GL_TRIANGLES, sprite->getIBO()->getCount(), GL_UNSIGNED_SHORT, nullptr);
 
-		renderable->getIBO()->unbind();
-		renderable->getVAO()->unbind();
+		sprite->getIBO()->unbind();
+		sprite->getVAO()->unbind();
 		ShaderMan->unbindShader();
 
 		myRenderQueue.pop_front();

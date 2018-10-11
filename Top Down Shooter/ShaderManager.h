@@ -70,6 +70,10 @@ public:
 	{
 		glUniform3fv(getActiveShader().getUniformLocation(inName), count, &vec[0]);
 	}
+	inline void setUniform2fv(const char* inName, GLsizei count, const glm::vec2& vec)
+	{
+		glUniform2fv(getActiveShader().getUniformLocation(inName), count, &vec[0]);
+	}
 	inline void setUniform2f(const char* inName, const glm::vec2& vec)
 	{
 		glUniform2f(getActiveShader().getUniformLocation(inName), vec.x, vec.y);
