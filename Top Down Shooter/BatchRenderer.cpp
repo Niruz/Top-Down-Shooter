@@ -77,19 +77,19 @@ void BatchRenderer::Submit(const Renderable* renderable)
 
 	unsigned int c = a << 24 | b << 16 | g << 8 | r;
 
-	myBuffer->vertex = position;// glm::vec3(myTransformationStack.back() * position);
+	myBuffer->vertex = /*position;*/ glm::vec3(*myTransformationStackBack * glm::vec4(position,1.0f));
 	myBuffer->color  = c;
 	myBuffer++;
 
-	myBuffer->vertex = glm::vec3(position.x, position.y + size.y, position.z);
+	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x, position.y + size.y, position.z,1));
 	myBuffer->color = c;
 	myBuffer++;
 
-	myBuffer->vertex = glm::vec3(position.x + size.x, position.y + size.y, position.z);
+	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y + size.y, position.z,1));
 	myBuffer->color = c;
 	myBuffer++;
 
-	myBuffer->vertex = glm::vec3(position.x + size.x, position.y, position.z);
+	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y, position.z,1));
 	myBuffer->color = c;
 	myBuffer++;
 

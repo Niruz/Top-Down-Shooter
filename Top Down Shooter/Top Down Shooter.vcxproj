@@ -166,7 +166,9 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\forwardVertex.glsl" />
+    <None Include="Shaders\forwardVertexmenu.glsl" />
     <None Include="Shaders\fragmentVertex.glsl" />
+    <None Include="Shaders\fragmentVertexmenu.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

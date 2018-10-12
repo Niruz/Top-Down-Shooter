@@ -301,5 +301,11 @@
     <None Include="Shaders\fragmentVertex.glsl">
       <Filter>Graphics\Shader\Shaders</Filter>
     </None>
+    <None Include="Shaders\forwardVertexmenu.glsl">
+      <Filter>Graphics\Shader\Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragmentVertexmenu.glsl">
+      <Filter>Graphics\Shader\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
