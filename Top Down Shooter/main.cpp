@@ -44,6 +44,8 @@
 #include "Static_Sprite.h"
 #include "Sprite.h"
 #include "SimpleTimer.h"
+#include "TileLayer.h"
+#include "Layer.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -390,11 +392,14 @@ int main(void)
 	}
 	*/
 //	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
+	TileLayer layer(ShaderMan->getShader(SIMPLE_FORWARD_SHADER));
+	TileLayer layer2(ShaderMan->getShader(SECOND_SIMPLE_SHADER));
 	for(float y = -360; y < 360.0f; y+=4.0f)
 	{
 		for(float x = -640.0f; x < 640.0f; x+=4.0f)
 		{
-			sprites.push_back(new Sprite(glm::vec3(x,y,0), glm::vec2(3.5f,3.5f), glm::vec4(rand()%1000/	1000.0f,0,1,1)));
+			//sprites.push_back(new Sprite(glm::vec3(x,y,0), glm::vec2(3.5f,3.5f), glm::vec4(rand()%1000/	1000.0f,0,1,1)));
+			layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(3.5f, 3.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 		}
 	}
 	/*for (float y = -360; y < 360.0f; y += 9.0f)
@@ -404,6 +409,11 @@ int main(void)
 			staticSprites.push_back(new StaticSprite(glm::vec3(x, y, 0), glm::vec2(8.0f, 8.0f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 		}
 	}*/
+
+	
+	//layer.Add(new Sprite(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)));
+	//layer.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+	layer2.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.1f), glm::vec2(64, 64), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
 
 	int fps = 0;
 	double lastTime = Clock->GetCurrentTime();
@@ -433,6 +443,9 @@ int main(void)
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		ShaderMan->setUniform2fv("lightPos", 1, mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)));
 		ShaderMan->unbindShader();
+		ShaderMan->bindShader(SECOND_SIMPLE_SHADER);
+		ShaderMan->setUniform2fv("lightPos", 1, mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)));
+		ShaderMan->unbindShader();
 	/*	//myRenderer.Submit(myRenderable);
 		//myRenderer.Submit(myRenderable2);
 		for (StaticSprite* sprite : staticSprites)
@@ -440,14 +453,16 @@ int main(void)
 		myRenderer.Flush();
 		*/
 
-
+		layer.Render();
+		layer2.Render();
+/*
 		myBatchRenderer.Begin();
 		//myBatchRenderer.Submit(myRenderable3);
 		//myBatchRenderer.Submit(myRenderable4);
 		for (Sprite* sprite : sprites)
 			myBatchRenderer.Submit(sprite);
 		myBatchRenderer.End();
-		myBatchRenderer.Flush();
+		myBatchRenderer.Flush();*/
 		
 		/*
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);

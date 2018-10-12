@@ -2,6 +2,8 @@
 #include "RendererBase.h"
 #include "IndexBuffer.h"
 
+#include <cstddef>
+
 #define RENDERER_MAX_SPRITES	60000
 #define RENDERER_VERTEX_SIZE	sizeof(VertexData)
 #define RENDERER_SPRITE_SIZE	(RENDERER_VERTEX_SIZE * 4)
@@ -15,9 +17,9 @@ class BatchRenderer : public RendererBase
 public:
 	BatchRenderer();
 	~BatchRenderer();
-	void Begin();
+	void Begin() override;
 	void Submit(const Renderable* renderable) override;
-	void End();
+	void End() override;
 	void Flush() override;
 
 private:

@@ -24,7 +24,8 @@ void BatchRenderer::Initialize()
 	glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 	glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 	glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
-	glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(4*sizeof(GLfloat)));
+	//glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(4*sizeof(GLfloat)));
+	glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
 	//GLushort indices[RENDERER_INDICES_SIZE];
@@ -50,11 +51,11 @@ void BatchRenderer::Initialize()
 }
 void BatchRenderer::Begin()
 {
-	ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+/*	ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 	//glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
 	glm::mat4 ortho = glm::ortho(-650.0f, 650.0f, -370.0f, 370.0f, -1.0f, 1.0f);
 	ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, ortho);
-
+	*/
 	glBindBuffer(GL_ARRAY_BUFFER, myVBO);
 	myBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 }
@@ -65,24 +66,31 @@ void BatchRenderer::End()
 }
 void BatchRenderer::Submit(const Renderable* renderable) 
 {
-	const glm::vec3& position = renderable->GetPosition();
+	const glm::vec3& position = renderable->GetPosition(); //glm::vec4(renderable->GetPosition(), 1.0f);
 	const glm::vec2& size     = renderable->GetSize();
 	const glm::vec4& color    = renderable->GetColor();
 
-	myBuffer->vertex = position;
-	myBuffer->color  = color;
+	int r = color.x * 255.0f;
+	int g = color.y * 255.0f;
+	int b = color.z * 255.0f;
+	int a = color.w * 255.0f;
+
+	unsigned int c = a << 24 | b << 16 | g << 8 | r;
+
+	myBuffer->vertex = position;// glm::vec3(myTransformationStack.back() * position);
+	myBuffer->color  = c;
 	myBuffer++;
 
 	myBuffer->vertex = glm::vec3(position.x, position.y + size.y, position.z);
-	myBuffer->color = color;
+	myBuffer->color = c;
 	myBuffer++;
 
 	myBuffer->vertex = glm::vec3(position.x + size.x, position.y + size.y, position.z);
-	myBuffer->color = color;
+	myBuffer->color = c;
 	myBuffer++;
 
 	myBuffer->vertex = glm::vec3(position.x + size.x, position.y, position.z);
-	myBuffer->color = color;
+	myBuffer->color = c;
 	myBuffer++;
 
 	myIndexCount += 6;
@@ -100,5 +108,5 @@ void BatchRenderer::Flush()
 
 	myIndexCount = 0;
 
-	ShaderMan->unbindShader();
+//	ShaderMan->unbindShader();
 }

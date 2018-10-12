@@ -64,6 +64,9 @@
     <Filter Include="Graphics\Camera">
       <UniqueIdentifier>{afd36538-bc2d-49e3-a9e7-3969f06c3d55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Layers">
+      <UniqueIdentifier>{20b11b11-eb2f-48ca-816d-0b9ecd338e69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -158,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="Static_Sprite.cpp">
       <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Graphics\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="TileLayer.cpp">
+      <Filter>Graphics\Layers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="Static_Sprite.h">
       <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Graphics\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="TileLayer.h">
+      <Filter>Graphics\Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
