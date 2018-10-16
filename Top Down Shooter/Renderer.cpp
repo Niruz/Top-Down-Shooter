@@ -16,7 +16,7 @@ void Renderer::Flush()
 	{
 		const StaticSprite* sprite = myRenderQueue.front();
 
-		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+		ShaderMan->bindShader(SIMPLE_TEXTURE_SHADER);
 		sprite->getVAO()->bind();
 		sprite->getIBO()->bind();
 

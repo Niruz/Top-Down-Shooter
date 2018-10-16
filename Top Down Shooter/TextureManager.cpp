@@ -17,6 +17,13 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/floor2.png", "floor2");
 	LoadTexture("Textures/wall.png", "wall");
 	LoadTexture("Textures/cursor.jpg", "cursor");
+	LoadTexture("Textures/wall.jpg", "player");
+	LoadTexture("Textures/1.png", "1");
+	LoadTexture("Textures/2.png", "2");
+	LoadTexture("Textures/3.png", "3");
+	LoadTexture("Textures/4.png", "4");
+	LoadTexture("Textures/5.png", "5");
+	LoadTexture("Textures/6.png", "6");
 }
 void TextureManager::onDeinitialize()
 {

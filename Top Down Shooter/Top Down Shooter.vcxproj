@@ -92,6 +92,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Group.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -129,6 +130,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />
+    <ClInclude Include="Group.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Locations.h" />
@@ -167,8 +169,10 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
   <ItemGroup>
     <None Include="Shaders\forwardVertex.glsl" />
     <None Include="Shaders\forwardVertexmenu.glsl" />
+    <None Include="Shaders\forwardVertexTexture.glsl" />
     <None Include="Shaders\fragmentVertex.glsl" />
     <None Include="Shaders\fragmentVertexmenu.glsl" />
+    <None Include="Shaders\fragmentVertexTexture.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

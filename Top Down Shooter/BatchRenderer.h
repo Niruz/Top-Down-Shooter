@@ -3,7 +3,7 @@
 #include "IndexBuffer.h"
 
 #include <cstddef>
-
+#include "Renderable.h"
 #define RENDERER_MAX_SPRITES	60000
 #define RENDERER_VERTEX_SIZE	sizeof(VertexData)
 #define RENDERER_SPRITE_SIZE	(RENDERER_VERTEX_SIZE * 4)
@@ -11,7 +11,10 @@
 #define RENDERER_INDICES_SIZE   (RENDERER_MAX_SPRITES * 6)
 
 #define SHADER_VERTEX_INDEX 0
-#define SHADER_COLOR_INDEX  1
+#define SHADER_UV_INDEX     1
+#define SHADER_TID_INDEX    2
+#define SHADER_COLOR_INDEX  3
+
 class BatchRenderer : public RendererBase
 {
 public:
@@ -31,4 +34,6 @@ private:
 	GLsizei myIndexCount;
 
 	VertexData* myBuffer;
+
+	std::vector<GLuint> myTextureSlots;
 };

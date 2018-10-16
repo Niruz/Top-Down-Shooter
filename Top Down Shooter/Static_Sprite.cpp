@@ -20,9 +20,17 @@ StaticSprite::StaticSprite(const glm::vec3& position, const glm::vec2& size, con
 		color.x, color.y, color.z ,color.w
 	};
 
+	GLfloat texCoords[] = 
+	{
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+	};
+
 	myVertexArray->addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
 	myVertexArray->addBuffer(new Buffer(colors, 4 * 4, 4), 1);
-
+	myVertexArray->addBuffer(new Buffer(texCoords, 4 * 2,2), 2);
 	GLushort indices[] = { 0, 1, 2, 2, 3, 0 };
 	myIndexBuffer = new IndexBuffer(indices, 6);
 }

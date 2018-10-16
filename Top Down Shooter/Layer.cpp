@@ -48,7 +48,7 @@ void Layer::Render()
 		}
 		i++;
 		*/
-		myRenderer->Submit(renderable);
+		renderable->Submit(myRenderer);
 	}
 		
 	myRenderer->End();

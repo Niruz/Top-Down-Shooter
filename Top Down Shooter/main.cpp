@@ -46,6 +46,7 @@
 #include "SimpleTimer.h"
 #include "TileLayer.h"
 #include "Layer.h"
+#include "Group.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -73,6 +74,12 @@ Mesh* mMesh3;
 Texture* mTexture3;
 Texture* mTexture2;
 Texture* mTexture4;
+Texture* mTexture5;
+Texture* mTexture6;
+Texture* mTexture7;
+Texture* mTexture8;
+Texture* mTexture9;
+Texture* mTexture10;
 
 int oldPlayerX = -1;
 int oldPlayerY = -1;
@@ -339,12 +346,18 @@ int main(void)
 	mMesh = MeshFactory::createCube();
 	mMesh2 = MeshFactory::createCube();
 	mMesh3 = MeshFactory::createCube();
-	Texture* myTexture = TextureMan->GetTexture("wall");
+	Texture* myTexture = TextureMan->GetTexture("player");
 
 	mTexture = TextureMan->GetTexture("cursor");
 	mTexture2 = TextureMan->GetTexture("floor");
 	mTexture3 = TextureMan->GetTexture("wall");
 	mTexture4 = TextureMan->GetTexture("floor2");
+	mTexture5 = TextureMan->GetTexture("1");
+	mTexture6 = TextureMan->GetTexture("2");
+	mTexture7 = TextureMan->GetTexture("3");
+	mTexture8 = TextureMan->GetTexture("4");
+	mTexture9 = TextureMan->GetTexture("5");
+	mTexture10 = TextureMan->GetTexture("6");
 	//glm::mat4 ortho = glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f);
 	//1280 720
 	//glm::mat4 ortho = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 1.0f);
@@ -403,12 +416,37 @@ int main(void)
 			layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(3.5f, 3.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 		}
 	}*/
-	for (float y = -360; y < 360.0f; y += 15.0f)
+	Texture* textures[] = {
+		mTexture ,
+		mTexture2 ,
+		mTexture3,
+		mTexture4,
+		mTexture5,
+		mTexture6,
+		mTexture7,
+		mTexture8,
+		mTexture9,
+		mTexture10
+	};
+	for (float y = -360; y < 360.0f; y += 24.0f)
 	{
-		for (float x = -640.0f; x < 640.0f; x += 15.0f)
+		for (float x = -640.0f; x < 640.0f; x += 24.0f)
 		{
 			//sprites.push_back(new Sprite(glm::vec3(x,y,0), glm::vec2(3.5f,3.5f), glm::vec4(rand()%1000/	1000.0f,0,1,1)));
-			layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(12.5f, 12.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			//layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(15.5f, 15.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			
+			if(rand() % 4 == 0)
+				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			else
+				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), textures[rand()%10]));
+		/*	if (y > 0)
+			{
+				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(15.5f, 15.5f), mTexture3));
+			}
+			else
+			{
+				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(15.5f, 15.5f), mTexture4));
+			}*/
 		}
 	}
 	/*for (float y = -360; y < 360.0f; y += 9.0f)
@@ -419,11 +457,36 @@ int main(void)
 		}
 	}*/
 
-	
+	GLint max_combined_texture_image_units;
+	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &max_combined_texture_image_units);
 	//layer.Add(new Sprite(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)));
 	//layer.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
-	layer2.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.1f), glm::vec2(64, 64), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
-	layer2.Add(new Sprite(glm::vec3(16.0f, 16.0f, 0.1f), glm::vec2(16, 16), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)));
+	glm::mat4 trmat =  glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, 0.0f, 0.1f)) * glm::rotate(glm::mat4(1.0f), 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)) ;
+	Group* group = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, 0.0f, 0.1f)));
+	//Group* group = new Group(trmat);
+	group->Add(new Sprite(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec2(64, 64), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+
+	/*Group* button = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(16,16,0)));
+	//Group* button = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(16, 16, 0))* glm::rotate(glm::mat4(1.0f), -45.0f, glm::vec3(0.0f, 0.0f, 1.0f)));
+	button->Add(new Sprite(glm::vec3(0.0f,0.0f, 0.2f), glm::vec2(32, 32), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)));
+
+
+	button->Add(new Sprite(glm::vec3(8.0f, 8.0f, 0.21f), glm::vec2(16, 16), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)));
+	group->Add(button);*/
+	layer2.Add(group);
+
+	layer.Add(group);
+
+	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	/*Shader* simpleShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
+	simpleShader->bind();
+	simpleShader->setUniform1iv("textureArray", texIDS, 10);
+	simpleShader->unbind();*/
+	ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+	ShaderMan->setUniform1iv("textureArray[0]", texIDS, 16);
+	ShaderMan->unbindShader();
+	//layer2.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.1f), glm::vec2(64, 64), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+	//layer2.Add(new Sprite(glm::vec3(16.0f, 16.0f, 0.1f), glm::vec2(16, 16), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)));
 	int fps = 0;
 	double lastTime = Clock->GetCurrentTime();
 	do
@@ -452,18 +515,25 @@ int main(void)
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		ShaderMan->setUniform2fv("lightPos", 1, mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)));
 		ShaderMan->unbindShader();
+		ShaderMan->bindShader(SIMPLE_MENU_SHADER);
+		ShaderMan->setUniform2fv("lightPos", 1, mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)));
+		ShaderMan->unbindShader();
 
-	/*	//myRenderer.Submit(myRenderable);
-		//myRenderer.Submit(myRenderable2);
-		for (StaticSprite* sprite : staticSprites)
-			myRenderer.Submit(sprite);
+	/*	myRenderer.Submit(myRenderable);
+		myRenderer.Submit(myRenderable2);
+		//for (StaticSprite* sprite : staticSprites)
+		//	myRenderer.Submit(sprite);
+
+		myTexture->bind();
 		myRenderer.Flush();
+		myTexture->unbind();
 		*/
-
+	//	myTexture->bind();
 		layer.Render();
-		layer2.Render();
-/*
-		myBatchRenderer.Begin();
+	//	myTexture->unbind();
+		//layer2.Render();
+
+	/*	myBatchRenderer.Begin();
 		//myBatchRenderer.Submit(myRenderable3);
 		//myBatchRenderer.Submit(myRenderable4);
 		for (Sprite* sprite : sprites)
@@ -471,7 +541,7 @@ int main(void)
 		myBatchRenderer.End();
 		myBatchRenderer.Flush();*/
 		
-		/*
+/*		
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		float lerp = 0.1f;
 		glm::vec3 position = mCamera.getPosition();

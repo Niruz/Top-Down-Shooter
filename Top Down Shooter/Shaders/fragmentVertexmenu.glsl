@@ -13,5 +13,7 @@ uniform vec2 lightPos;
 
 void main()
 {
-    color = fs_in.col;
+	float intensity = 50.0f / length(fs_in.pos.xy - lightPos);
+    color = fs_in.col * intensity;
+  //  color = fs_in.col;
 } 

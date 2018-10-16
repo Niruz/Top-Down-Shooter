@@ -1,8 +1,8 @@
 #pragma once
-
-#include "Renderable.h"
-
-
+#include "glm\glm.hpp"
+//#include "Renderable.h"
+#include <vector>
+class Renderable;
 class RendererBase
 {
 protected:

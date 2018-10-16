@@ -168,6 +168,9 @@
     <ClCompile Include="TileLayer.cpp">
       <Filter>Graphics\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="Group.cpp">
+      <Filter>Graphics\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -293,6 +296,9 @@
     <ClInclude Include="TileLayer.h">
       <Filter>Graphics\Layers</Filter>
     </ClInclude>
+    <ClInclude Include="Group.h">
+      <Filter>Graphics\Layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\forwardVertex.glsl">
@@ -305,6 +311,12 @@
       <Filter>Graphics\Shader\Shaders</Filter>
     </None>
     <None Include="Shaders\fragmentVertexmenu.glsl">
+      <Filter>Graphics\Shader\Shaders</Filter>
+    </None>
+    <None Include="Shaders\forwardVertexTexture.glsl">
+      <Filter>Graphics\Shader\Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragmentVertexTexture.glsl">
       <Filter>Graphics\Shader\Shaders</Filter>
     </None>
   </ItemGroup>

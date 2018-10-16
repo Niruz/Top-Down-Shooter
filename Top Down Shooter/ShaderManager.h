@@ -9,6 +9,7 @@ enum SHADERS
 {
 	SIMPLE_FORWARD_SHADER,
 	SIMPLE_MENU_SHADER,
+	SIMPLE_TEXTURE_SHADER,
 	MAX_SHADERS
 };
 
@@ -91,8 +92,10 @@ public:
 	{
 		glUniform1f(getActiveShader().getUniformLocation(inName), value);
 	}
+	//NOTE, ON SOME DRIVERS YOU NEED TO USE THE NAME AND THE ARRAY SUBSCRIPT [0]
 	inline void setUniform1iv(const char* inName, int* value, int count)
 	{
+		//NOTE, ON SOME DRIVERS YOU NEED TO USE THE NAME AND THE ARRAY SUBSCRIPT [0]
 		glUniform1iv(getActiveShader().getUniformLocation(inName), count, value);
 	}
 private:
