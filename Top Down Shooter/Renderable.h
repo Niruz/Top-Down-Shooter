@@ -23,7 +23,7 @@ protected:
 	Texture* myTexture;
 
 protected:
-	Renderable()
+	Renderable() : myTexture(nullptr)
 	{
 		SetUVDefaults();
 	}
@@ -31,7 +31,7 @@ protected:
 public:
 
 	Renderable(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
-		: myPosition(position), mySize(size), myColor(color)
+		: myPosition(position), mySize(size), myColor(color), myTexture(nullptr)
 	{
 		SetUVDefaults();
 	}
@@ -51,7 +51,7 @@ public:
 	inline const glm::vec2& GetSize()                const { return mySize; }
 	inline const glm::vec4& GetColor()               const { return myColor; }
 	inline const std::vector<glm::vec2>& GetUVs()    const { return myUVs; }
-	inline const GLuint GetTID() const { return (myTexture == nullptr ?  0 :  myTexture->getID()); }
+	inline const GLuint GetTID() const { return myTexture ? myTexture->getID() : 0; }
 private:
 	void SetUVDefaults()
 	{
