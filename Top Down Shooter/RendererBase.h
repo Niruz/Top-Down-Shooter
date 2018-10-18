@@ -37,4 +37,5 @@ public:
 	virtual void End(){}
 	virtual void Submit(const Renderable* renderable) = 0;
 	virtual void Flush() = 0;
+	virtual void DrawString(const std::string& text, const glm::vec3& position, const glm::vec4& color) {}
 };

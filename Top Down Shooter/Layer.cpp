@@ -50,7 +50,10 @@ void Layer::Render()
 		*/
 		renderable->Submit(myRenderer);
 	}
-		
+
+	//myRenderer->DrawString("Hello!", glm::vec3(0,0,1), glm::vec4(0,0,1,1));
+	//myRenderer->DrawString("Hello!", glm::vec3(-640, 336, 0.8), glm::vec4(0,0,1,1));
+
 	myRenderer->End();
 	myRenderer->Flush();
 

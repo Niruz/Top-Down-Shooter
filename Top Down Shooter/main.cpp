@@ -47,6 +47,7 @@
 #include "TileLayer.h"
 #include "Layer.h"
 #include "Group.h"
+#include "Label.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -250,6 +251,8 @@ int main(void)
 	glViewport(0, 0, 1280, 720);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
 	SoundEngine->stopAllSounds();
@@ -439,6 +442,9 @@ int main(void)
 				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 			else
 				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), textures[rand()%10]));
+			
+
+
 		/*	if (y > 0)
 			{
 				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(15.5f, 15.5f), mTexture3));
@@ -477,6 +483,14 @@ int main(void)
 
 	layer.Add(group);
 
+	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-640, 336,0.8)));
+	//Label* fpsLabel = new Label("", glm::vec3(-640, 336, 1), glm::vec4(0, 0, 1, 1));
+	Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), glm::vec4(0, 1, 0, 1));
+	//layer.Add(new Label("Hello!", glm::vec3(0, 0, 1), glm::vec4(0, 0, 1, 1)));
+	
+	fpsGroup->Add(new Sprite(glm::vec3(-15, -10, -0.1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
+	fpsGroup->Add(fpsLabel);
+	layer.Add(fpsGroup);
 	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 	/*Shader* simpleShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
 	simpleShader->bind();
@@ -501,6 +515,7 @@ int main(void)
 		if ( currentTime - lastTime >= 1.0)
 		{
 			std::cout << "fps: " << fps << std::endl;
+			fpsLabel->myText = "fps: " + std::to_string(fps);
 			lastTime = currentTime;
 			fps = 0;
 		}
@@ -511,7 +526,11 @@ int main(void)
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		//glClearColor(0.0f, 0.8f, 0.8f, 1.0f);
+		//glClearColor(0.5f, 0.5f, 0.50f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		ShaderMan->setUniform2fv("lightPos", 1, mCamera.mouseScreenToWorld(glm::vec2(lastX, lastY)));
 		ShaderMan->unbindShader();
