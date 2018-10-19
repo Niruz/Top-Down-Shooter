@@ -1,7 +1,7 @@
 #pragma once
 #include "RendererBase.h"
 #include "IndexBuffer.h"
-#include "../../../ext/freetype-gl/freetype-gl.h"
+
 
 #include <cstddef>
 #include "Renderable.h"
@@ -25,7 +25,7 @@ public:
 	void Submit(const Renderable* renderable) override;
 	void End() override;
 	void Flush() override;
-    void DrawString(const std::string& text, const glm::vec3& position, const glm::vec4& color) override;
+    void DrawString( const std::string& text, const glm::vec3& position, const Font& font, unsigned int color) override;
 private:
 	void Initialize();
 
@@ -38,6 +38,5 @@ private:
 
 	std::vector<GLuint> myTextureSlots;
 
-	ftgl::texture_atlas_t* myFTAtlas;
-	ftgl::texture_font_t*  myFTFont;
+
 };

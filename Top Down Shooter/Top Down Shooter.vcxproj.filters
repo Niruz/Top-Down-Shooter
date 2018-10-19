@@ -88,6 +88,9 @@
     <Filter Include="Resource Files\ext\freetype-gl">
       <UniqueIdentifier>{e62f4ae5-a231-4ed9-afa8-acc27302eb40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Font">
+      <UniqueIdentifier>{b0f484e1-2e0b-4ee6-8722-bb2ae57883e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -324,6 +327,12 @@
     <ClCompile Include="Label.cpp">
       <Filter>Graphics\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Graphics\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Graphics\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -493,6 +502,12 @@
     </ClInclude>
     <ClInclude Include="Label.h">
       <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Graphics\Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

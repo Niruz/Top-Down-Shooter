@@ -48,6 +48,8 @@
 #include "Layer.h"
 #include "Group.h"
 #include "Label.h"
+#include "Font.h"
+#include "FontManager.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -256,6 +258,9 @@ int main(void)
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
 	SoundEngine->stopAllSounds();
+
+	//if (hehe != NULL) //check to see if there's a sound playing
+	//	hehe->drop(); //drop the sound
 	//create a miner
 	Miner* Bob = new Miner(ent_Miner_Bob, "Bob");
 
@@ -268,6 +273,7 @@ int main(void)
 
 	ShaderMan->onInitialize();
 	TextureMan->onInitialize();
+	FontMan->onInitialize();
 
 
 	TileMap myMap("Levels/test.level");
@@ -443,7 +449,7 @@ int main(void)
 			else
 				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), textures[rand()%10]));
 			
-
+			//layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(rand() % 35))));
 
 		/*	if (y > 0)
 			{
@@ -455,6 +461,13 @@ int main(void)
 			}*/
 		}
 	}
+	/*float rowX = -640;
+	float rowY = -360;
+	for(int i = 0; i < 5; i++)
+	{
+		layer.Add(new Sprite(glm::vec3(rowX, rowY, 0), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(i))));
+		rowX += 24.0f;
+	}*/
 	/*for (float y = -360; y < 360.0f; y += 9.0f)
 	{
 		for (float x = -640.0f; x < 640.0f; x += 9.0f)
@@ -483,15 +496,19 @@ int main(void)
 
 	layer.Add(group);
 
+	//Font* font = new Font("DefaultFont","Fonts/SourceSansPro-Light.ttf",32);
+	Font* font = FontMan->GetFont("DefaultFont32");
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-640, 336,0.8)));
 	//Label* fpsLabel = new Label("", glm::vec3(-640, 336, 1), glm::vec4(0, 0, 1, 1));
-	Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), glm::vec4(0, 1, 0, 1));
+
+	//Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), font, glm::vec4(0, 1, 0, 1));
+	Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), "DefaultFont32", glm::vec4(0, 1, 0, 1));
 	//layer.Add(new Label("Hello!", glm::vec3(0, 0, 1), glm::vec4(0, 0, 1, 1)));
 	
 	fpsGroup->Add(new Sprite(glm::vec3(-15, -10, -0.1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	fpsGroup->Add(fpsLabel);
 	layer.Add(fpsGroup);
-	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15/*,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/};
 	/*Shader* simpleShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
 	simpleShader->bind();
 	simpleShader->setUniform1iv("textureArray", texIDS, 10);
@@ -655,6 +672,7 @@ int main(void)
 
 	ShaderMan->onDeinitialize();
 	TextureMan->onDeinitialize();
+	FontMan->onDeinitialize();
 	//Close OpenGL window and terminate GLFW  
 	glfwDestroyWindow(window);
 	//Finalize and clean up GLFW  

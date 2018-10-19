@@ -3,3 +3,14 @@ https://www.redblobgames.com/pathfinding/a-star/introduction.html
 https://www.redblobgames.com/pathfinding/a-star/implementation.html#cplusplus
 https://www.redblobgames.com/pathfinding/grids/graphs.html
 https://www.redblobgames.com/pathfinding/a-star/implementation.html
+
+
+atlases
+https://jaakan.nevargames.com/blog/2015/weekly-update-17/
+https://stackoverflow.com/questions/9900854/opengl-creating-texture-atlas-at-run-time
+https://learnopengl.com/In-Practice/2D-Game/Final-thoughts
+http://on-demand.gputechconf.com/siggraph/2014/presentation/SG4117-OpenGL-Scene-Rendering-Techniques.pdf
+https://gamedev.stackexchange.com/questions/59599/how-do-i-use-more-than-32-textures-in-my-game
+
+LUMINANCE
+https://stackoverflow.com/questions/43173075/replacement-for-gl-luminance-alpha-in-core-profile

@@ -5,6 +5,11 @@ Group::Group(const glm::mat4& mat)
 {
 
 }
+Group::~Group()
+{
+	for (Renderable* renderable : myRenderables)
+		delete renderable;
+}
 void Group::Submit(RendererBase* renderer) const 
 {
 	renderer->Push(myTransformationMatrix);

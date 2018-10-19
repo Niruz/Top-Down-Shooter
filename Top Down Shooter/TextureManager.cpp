@@ -18,12 +18,17 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/wall.png", "wall");
 	LoadTexture("Textures/cursor.jpg", "cursor");
 	LoadTexture("Textures/wall.jpg", "player");
-	LoadTexture("Textures/1.png", "1");
+	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
 	LoadTexture("Textures/3.png", "3");
 	LoadTexture("Textures/4.png", "4");
 	LoadTexture("Textures/5.png", "5");
-	LoadTexture("Textures/6.png", "6");
+	LoadTexture("Textures/6.png", "6");*/
+
+	for(int i=0 ; i < 36; i++)
+	{
+		LoadTexture("Textures/"+std::to_string(i)+".png", std::to_string(i));
+	}
 }
 void TextureManager::onDeinitialize()
 {
@@ -83,6 +88,7 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	//Free FreeImage's copy of the data
 	FreeImage_Unload(dib);
+
 
 	//return success
 	return true;

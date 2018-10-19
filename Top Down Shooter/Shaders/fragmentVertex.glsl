@@ -13,7 +13,7 @@ in DATA
 
 uniform vec2 lightPos;
 //uniform sampler2D texture2d;
-uniform sampler2D textureArray[31];
+uniform sampler2D textureArray[16];
 void main()
 {
 	float intensity = 50.0f / length(fs_in.pos.xy - lightPos);
@@ -23,6 +23,6 @@ void main()
 		int tid = int(fs_in.tid - 0.5);
 		texColor = fs_in.col *texture(textureArray[tid],fs_in.texCoords);
 	}
-	texColor.xyz *= intensity;
+	//texColor.xyz *= intensity;
 	color = texColor;// * intensity;
 } 

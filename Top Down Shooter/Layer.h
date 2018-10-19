@@ -20,4 +20,6 @@ public:
 	virtual ~Layer();
 	virtual void Add(Renderable* renderable);
 	virtual void Render();
+
+	inline const std::vector<Renderable*>& GetRenderables() const { return myRenderables; }
 };

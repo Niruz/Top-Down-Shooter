@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/matrix_transform.hpp>
-
+#include "Font.h"
 BatchRenderer::BatchRenderer()
 {
 	Initialize();
@@ -54,8 +54,7 @@ void BatchRenderer::Initialize()
 
 	delete[] indices;
 
-	myFTAtlas = ftgl::texture_atlas_new(512,512,2);
-	myFTFont = ftgl::texture_font_new_from_file(myFTAtlas, 32, "Fonts/SourceSansPro-Light.ttf");
+
 
 	/*ftgl::texture_font_get_glyph(myFTFont, 'A');
 	ftgl::texture_font_get_glyph(myFTFont, 'B');
@@ -82,11 +81,11 @@ void BatchRenderer::Submit(const Renderable* renderable)
 {
 	const glm::vec3& position = renderable->GetPosition(); //glm::vec4(renderable->GetPosition(), 1.0f);
 	const glm::vec2& size     = renderable->GetSize();
-	const glm::vec4& color    = renderable->GetColor();
+	const unsigned int color    = renderable->GetColor();
 	const std::vector<glm::vec2>& uv = renderable->GetUVs();
 	const GLuint tid = renderable->GetTID();
 
-	unsigned int c = 0;
+
 	float ts = 0.0f;
 	if(tid > 0 ) 
 	{
@@ -104,52 +103,40 @@ void BatchRenderer::Submit(const Renderable* renderable)
 		if(!found)
 		{
 			//This needs to be done if we run out of texture slots
-			if( myTextureSlots.size() >= 31)
+			if( myTextureSlots.size() >= 16)
 			{
 				End();
 				Flush();
 				Begin();
+				//myTextureSlots.clear();
 			}
 			myTextureSlots.push_back(tid);
 			ts = (float)(myTextureSlots.size());
 		}
 	}
-
-	int r = color.x * 255.0f;
-	int g = color.y * 255.0f;
-	int b = color.z * 255.0f;
-	int a = color.w * 255.0f;
-
-	c = a << 24 | b << 16 | g << 8 | r;
-
-	
-	if (ts == 1)
-		int bp = 5;
-	if (ts == 2)
-		int bp = 6;
 	
 	myBuffer->vertex = /*position;*/ glm::vec3(*myTransformationStackBack * glm::vec4(position,1.0f));
 	myBuffer->uv = uv[0];
 	myBuffer->tid = ts;
-	myBuffer->color  = c;
+	myBuffer->color  = color;
 	myBuffer++;
 
 	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x, position.y + size.y, position.z,1));
 	myBuffer->uv = uv[1];
 	myBuffer->tid = ts;
-	myBuffer->color = c;
+	myBuffer->color = color;
 	myBuffer++;
 
 	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y + size.y, position.z,1));
 	myBuffer->uv = uv[2];
 	myBuffer->tid = ts;
-	myBuffer->color = c;
+	myBuffer->color = color;
 	myBuffer++;
 
 	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y, position.z,1));
 	myBuffer->uv = uv[3];
 	myBuffer->tid = ts;
-	myBuffer->color = c;
+	myBuffer->color = color;
 	myBuffer++;
 
 	myIndexCount += 6;
@@ -174,22 +161,22 @@ void BatchRenderer::Flush()
 
 //	ShaderMan->unbindShader();
 }
-void BatchRenderer::DrawString(const std::string& text, const glm::vec3& position, const glm::vec4& color)
+void BatchRenderer::DrawString(const std::string& text, const glm::vec3& position, const Font& font, unsigned int color)
 {
 
-	int r = color.x * 255.0f;
+	/*int r = color.x * 255.0f;
 	int g = color.y * 255.0f;
 	int b = color.z * 255.0f;
 	int a = color.w * 255.0f;
 
-	unsigned int col = a << 24 | b << 16 | g << 8 | r;
+	unsigned int col = a << 24 | b << 16 | g << 8 | r;*/
 
 	float ts = 0.0f;
 	
 	bool found = false;
 	for (int i = 0; i < myTextureSlots.size(); i++)
 	{
-		if (myTextureSlots[i] == myFTAtlas->id)
+		if (myTextureSlots[i] == font.GetID())
 		{
 			ts = (float)(i + 1);
 			found = true;
@@ -200,13 +187,14 @@ void BatchRenderer::DrawString(const std::string& text, const glm::vec3& positio
 	if (!found)
 	{
 		//This needs to be done if we run out of texture slots
-		if (myTextureSlots.size() >= 31)
+		if (myTextureSlots.size() >= 16)
 		{
 			End();
 			Flush();
 			Begin();
+		//	myTextureSlots.clear();
 		}
-		myTextureSlots.push_back(myFTAtlas->id);
+		myTextureSlots.push_back(font.GetID());
 		ts = (float)(myTextureSlots.size());
 	}
 	
@@ -217,10 +205,12 @@ void BatchRenderer::DrawString(const std::string& text, const glm::vec3& positio
 	float x = position.x;
 	//int y = position.y;
 
+	ftgl::texture_font_t* ftFont = font.GetFTFont();
+
 	for(int i = 0; i < text.length();i++)
 	{
 		char c = text[i];
-		texture_glyph_t* glyph = ftgl::texture_font_get_glyph(myFTFont, c);
+		texture_glyph_t* glyph = ftgl::texture_font_get_glyph(ftFont, c);
 		if (glyph != NULL)
 		{
 			if (i > 0)
@@ -241,25 +231,25 @@ void BatchRenderer::DrawString(const std::string& text, const glm::vec3& positio
 			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x0, y0, position.z,1));
 			myBuffer->uv = glm::vec2(u0, v0);
 			myBuffer->tid = ts;
-			myBuffer->color = col;
+			myBuffer->color = color;
 			myBuffer++;
 
 			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x0, y1, position.z,1));
 			myBuffer->uv = glm::vec2(u0, v1);
 			myBuffer->tid = ts;
-			myBuffer->color = col;
+			myBuffer->color = color;
 			myBuffer++;
 
 			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x1, y1, position.z,1));
 			myBuffer->uv = glm::vec2(u1, v1);
 			myBuffer->tid = ts;
-			myBuffer->color = col;
+			myBuffer->color = color;
 			myBuffer++;
 
 			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x1, y0, position.z,1));
 			myBuffer->uv = glm::vec2(u1, v0);
 			myBuffer->tid = ts;
-			myBuffer->color = col;
+			myBuffer->color = color;
 			myBuffer++;
 			 
 			x += glyph->advance_x / scaleX;

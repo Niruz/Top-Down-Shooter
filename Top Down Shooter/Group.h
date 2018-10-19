@@ -6,6 +6,7 @@ class Group : public Renderable
 {
 public:
 	Group(const glm::mat4& mat);
+	~Group();
 	void Submit(RendererBase* renderer) const override;
 
 	void Add(Renderable* renderable);
