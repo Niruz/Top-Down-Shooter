@@ -1,6 +1,6 @@
 #include "Static_Sprite.h"
 
-StaticSprite::StaticSprite(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+StaticSprite::StaticSprite(const glm::vec4& position, const glm::vec2& size, const glm::vec4& color)
 	: Renderable(position, size, color)
 {
 	myVertexArray = new VertexArray();

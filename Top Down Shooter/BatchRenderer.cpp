@@ -26,7 +26,7 @@ void BatchRenderer::Initialize()
 	glEnableVertexAttribArray(SHADER_UV_INDEX);
 	glEnableVertexAttribArray(SHADER_TID_INDEX);
 	glEnableVertexAttribArray(SHADER_COLOR_INDEX);
-	glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
+	glVertexAttribPointer(SHADER_VERTEX_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::vertex)));
 	//glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(4*sizeof(GLfloat)));
 	glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
 	glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::tid)));
@@ -79,7 +79,7 @@ void BatchRenderer::End()
 }
 void BatchRenderer::Submit(const Renderable* renderable) 
 {
-	const glm::vec3& position = renderable->GetPosition(); //glm::vec4(renderable->GetPosition(), 1.0f);
+	const glm::vec4& position = renderable->GetPosition(); //glm::vec4(renderable->GetPosition(), 1.0f);
 	const glm::vec2& size     = renderable->GetSize();
 	const unsigned int color    = renderable->GetColor();
 	const std::vector<glm::vec2>& uv = renderable->GetUVs();
@@ -108,32 +108,32 @@ void BatchRenderer::Submit(const Renderable* renderable)
 				End();
 				Flush();
 				Begin();
-				//myTextureSlots.clear();
+				myTextureSlots.clear();
 			}
 			myTextureSlots.push_back(tid);
 			ts = (float)(myTextureSlots.size());
 		}
 	}
 	
-	myBuffer->vertex = /*position;*/ glm::vec3(*myTransformationStackBack * glm::vec4(position,1.0f));
+	myBuffer->vertex = /*position;*/ *myTransformationStackBack * position;
 	myBuffer->uv = uv[0];
 	myBuffer->tid = ts;
 	myBuffer->color  = color;
 	myBuffer++;
 
-	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x, position.y + size.y, position.z,1));
+	myBuffer->vertex = *myTransformationStackBack  *glm::vec4(position.x, position.y + size.y, position.z,1);
 	myBuffer->uv = uv[1];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
 	myBuffer++;
 
-	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y + size.y, position.z,1));
+	myBuffer->vertex = *myTransformationStackBack  *glm::vec4(position.x + size.x, position.y + size.y, position.z,1);
 	myBuffer->uv = uv[2];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
 	myBuffer++;
 
-	myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y, position.z,1));
+	myBuffer->vertex =*myTransformationStackBack  *glm::vec4(position.x + size.x, position.y, position.z,1);
 	myBuffer->uv = uv[3];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
@@ -161,7 +161,7 @@ void BatchRenderer::Flush()
 
 //	ShaderMan->unbindShader();
 }
-void BatchRenderer::DrawString(const std::string& text, const glm::vec3& position, const Font& font, unsigned int color)
+void BatchRenderer::DrawString(const std::string& text, const glm::vec4& position, const Font& font, unsigned int color)
 {
 
 	/*int r = color.x * 255.0f;
@@ -192,7 +192,7 @@ void BatchRenderer::DrawString(const std::string& text, const glm::vec3& positio
 			End();
 			Flush();
 			Begin();
-		//	myTextureSlots.clear();
+			myTextureSlots.clear();
 		}
 		myTextureSlots.push_back(font.GetID());
 		ts = (float)(myTextureSlots.size());
@@ -228,25 +228,25 @@ void BatchRenderer::DrawString(const std::string& text, const glm::vec3& positio
 			float u1 = glyph->s1;
 			float v1 = glyph->t1;
 
-			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x0, y0, position.z,1));
+			myBuffer->vertex = *myTransformationStackBack  *glm::vec4(x0, y0, position.z,1);
 			myBuffer->uv = glm::vec2(u0, v0);
 			myBuffer->tid = ts;
 			myBuffer->color = color;
 			myBuffer++;
 
-			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x0, y1, position.z,1));
+			myBuffer->vertex = *myTransformationStackBack  *glm::vec4(x0, y1, position.z,1);
 			myBuffer->uv = glm::vec2(u0, v1);
 			myBuffer->tid = ts;
 			myBuffer->color = color;
 			myBuffer++;
 
-			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x1, y1, position.z,1));
+			myBuffer->vertex = *myTransformationStackBack  *glm::vec4(x1, y1, position.z,1);
 			myBuffer->uv = glm::vec2(u1, v1);
 			myBuffer->tid = ts;
 			myBuffer->color = color;
 			myBuffer++;
 
-			myBuffer->vertex = glm::vec3(*myTransformationStackBack  *glm::vec4(x1, y0, position.z,1));
+			myBuffer->vertex = *myTransformationStackBack  *glm::vec4(x1, y0, position.z,1);
 			myBuffer->uv = glm::vec2(u1, v0);
 			myBuffer->tid = ts;
 			myBuffer->color = color;

@@ -25,7 +25,7 @@ public:
 	void Submit(const Renderable* renderable) override;
 	void End() override;
 	void Flush() override;
-    void DrawString( const std::string& text, const glm::vec3& position, const Font& font, unsigned int color) override;
+    void DrawString( const std::string& text, const glm::vec4& position, const Font& font, unsigned int color) override;
 private:
 	void Initialize();
 

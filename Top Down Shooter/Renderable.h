@@ -7,7 +7,7 @@
 
 struct VertexData
 {
-	glm::vec3 vertex;
+	glm::vec4 vertex;
 	glm::vec2 uv;
 	float tid;
 	unsigned int color;
@@ -16,7 +16,7 @@ struct VertexData
 class Renderable
 {
 protected:
-	glm::vec3 myPosition;
+	glm::vec4 myPosition;
 	glm::vec2 mySize;
 	//glm::vec4 myColor;
 	unsigned int myColor;
@@ -31,12 +31,12 @@ protected:
 
 public:
 
-	Renderable(const glm::vec3& position, const glm::vec2& size, const unsigned int& color)
+	Renderable(const glm::vec4& position, const glm::vec2& size, const unsigned int& color)
 		: myPosition(position), mySize(size), myColor(color), myTexture(nullptr)
 	{
 		SetUVDefaults();
 	}
-	Renderable(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	Renderable(const glm::vec4& position, const glm::vec2& size, const glm::vec4& color)
 		: myPosition(position), mySize(size), myTexture(nullptr)
 	{
 		SetColor(color);
@@ -64,8 +64,8 @@ public:
 
 		myColor = a << 24 | b << 16 | g << 8 | r;
 	}
-	void SetPosition(const glm::vec3& position) { myPosition = position; }
-	inline const glm::vec3& GetPosition()			 const { return myPosition; }
+	void SetPosition(const glm::vec4& position) { myPosition = position; }
+	inline const glm::vec4& GetPosition()			 const { return myPosition; }
 	inline const glm::vec2& GetSize()                const { return mySize; }
 	inline const unsigned int GetColor()               const { return myColor; }
 	inline const std::vector<glm::vec2>& GetUVs()    const { return myUVs; }

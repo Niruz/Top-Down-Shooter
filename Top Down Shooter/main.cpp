@@ -257,7 +257,7 @@ int main(void)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
-	SoundEngine->stopAllSounds();
+	//SoundEngine->stopAllSounds();
 
 	//if (hehe != NULL) //check to see if there's a sound playing
 	//	hehe->drop(); //drop the sound
@@ -387,11 +387,11 @@ int main(void)
 
 	Renderer myRenderer; 
 	BatchRenderer myBatchRenderer;
-	Renderable* myRenderable = new StaticSprite(glm::vec3(0.0f,0.0f,0.0f), glm::vec2(32,32), glm::vec4(1.0f,0.0f,1.0f,1.0f));
-	Renderable* myRenderable2 = new StaticSprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	Renderable* myRenderable = new StaticSprite(glm::vec4(0.0f,0.0f,0.0f,1), glm::vec2(32,32), glm::vec4(1.0f,0.0f,1.0f,1.0f));
+	Renderable* myRenderable2 = new StaticSprite(glm::vec4(32.0f, 0.0f, 0.0f,1), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
-	Renderable* myRenderable3 = new Sprite(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	Renderable* myRenderable4 = new Sprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+	Renderable* myRenderable3 = new Sprite(glm::vec4(0.0f, 0.0f, 0.0f,1), glm::vec2(32, 32), glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+	Renderable* myRenderable4 = new Sprite(glm::vec4(32.0f, 0.0f, 0.0f,1), glm::vec2(32, 32), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
 	
 	std::vector<StaticSprite*> staticSprites;
 	std::vector<Sprite*> sprites;
@@ -444,12 +444,13 @@ int main(void)
 			//sprites.push_back(new Sprite(glm::vec3(x,y,0), glm::vec2(3.5f,3.5f), glm::vec4(rand()%1000/	1000.0f,0,1,1)));
 			//layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(15.5f, 15.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 			
-			if(rand() % 4 == 0)
-				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			/*if(rand() % 4 == 0)
+				layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 			else
-				layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), textures[rand()%10]));
-			
-			//layer.Add(new Sprite(glm::vec3(x, y, 0), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(rand() % 35))));
+				layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), textures[rand()%10]));
+			*/
+
+			layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(rand() % 35))));
 
 		/*	if (y > 0)
 			{
@@ -483,7 +484,7 @@ int main(void)
 	glm::mat4 trmat =  glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, 0.0f, 0.1f)) * glm::rotate(glm::mat4(1.0f), 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)) ;
 	Group* group = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, 0.0f, 0.1f)));
 	//Group* group = new Group(trmat);
-	group->Add(new Sprite(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec2(64, 64), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+	group->Add(new Sprite(glm::vec4(0.0f, -150.0f, 0.1f,1), glm::vec2(512, 512), TextureMan->GetTexture("atlas")));
 
 	/*Group* button = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(16,16,0)));
 	//Group* button = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(16, 16, 0))* glm::rotate(glm::mat4(1.0f), -45.0f, glm::vec3(0.0f, 0.0f, 1.0f)));
@@ -502,10 +503,10 @@ int main(void)
 	//Label* fpsLabel = new Label("", glm::vec3(-640, 336, 1), glm::vec4(0, 0, 1, 1));
 
 	//Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), font, glm::vec4(0, 1, 0, 1));
-	Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), "DefaultFont32", glm::vec4(0, 1, 0, 1));
+	Label* fpsLabel = new Label("", glm::vec4(0, 0, 0,1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
 	//layer.Add(new Label("Hello!", glm::vec3(0, 0, 1), glm::vec4(0, 0, 1, 1)));
 	
-	fpsGroup->Add(new Sprite(glm::vec3(-15, -10, -0.1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
+	fpsGroup->Add(new Sprite(glm::vec4(-15, -10, -0.1,1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	fpsGroup->Add(fpsLabel);
 	layer.Add(fpsGroup);
 	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15/*,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/};

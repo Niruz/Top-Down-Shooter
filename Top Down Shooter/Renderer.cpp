@@ -22,7 +22,7 @@ void Renderer::Flush()
 
 		
 		glm::mat4 translationMatrix = glm::mat4(1.0f);
-		translationMatrix = glm::translate(translationMatrix, sprite->GetPosition());
+		translationMatrix = glm::translate(translationMatrix, glm::vec3(sprite->GetPosition()));
 		glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
 
 		ShaderMan->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, ortho);
