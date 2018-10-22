@@ -64,6 +64,9 @@ public:
 
 		myColor = a << 24 | b << 16 | g << 8 | r;
 	}
+	//The index in the texture Atlas to set
+	void SetUVs(int row, int column);
+	void SetTexture(Texture* texture) { myTexture = texture; }
 	void SetPosition(const glm::vec4& position) { myPosition = position; }
 	inline const glm::vec4& GetPosition()			 const { return myPosition; }
 	inline const glm::vec2& GetSize()                const { return mySize; }

@@ -2,7 +2,8 @@
 
 #include "Texture.h"
 #include <map>
-
+#include <vector>
+#include "glm\vec2.hpp"
 
 #define TextureMan TextureManager::Instance()
 
@@ -21,6 +22,7 @@ public:
 
 	Texture* GetTexture(std::string name);
 
+	void GetUVCoordinates(int row, int column, std::vector<glm::vec2>& vec);
 
 private:
 	TextureManager() {};

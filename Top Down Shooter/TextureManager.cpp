@@ -98,3 +98,27 @@ Texture* TextureManager::GetTexture(std::string name)
 {
 	return mTextures[name];
 }
+void TextureManager::GetUVCoordinates(int row, int column, std::vector<glm::vec2>& vec)
+{
+	//Maybe pass this in as a reference
+/*	vec.push_back(glm::vec2(0, 0));
+	vec.push_back(glm::vec2(0, 1));
+	vec.push_back(glm::vec2(1, 1));
+	vec.push_back(glm::vec2(1, 0));
+	*/
+	float x1 = (row * 32.0f) / 512.0f;
+	float x2 = ((row + 1) * 32.0f) / 512.0f;
+	float y1 = (column * 32.0f) / 512.0f;
+	float y2 = ((column + 1) * 32.0f) /512.0f;
+	
+	vec.push_back(glm::vec2(x1, y1));
+	vec.push_back(glm::vec2(x1, y2));
+	vec.push_back(glm::vec2(x2, y2));
+	vec.push_back(glm::vec2(x2, y1));
+	int shit = 5;
+	
+	
+	//0 
+	//X = 32.0f/512, 64.0/512
+	//Y = 
+}

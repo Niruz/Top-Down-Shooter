@@ -257,7 +257,7 @@ int main(void)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
-	//SoundEngine->stopAllSounds();
+	SoundEngine->stopAllSounds();
 
 	//if (hehe != NULL) //check to see if there's a sound playing
 	//	hehe->drop(); //drop the sound
@@ -416,6 +416,7 @@ int main(void)
 //	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
 	TileLayer layer(ShaderMan->getShader(SIMPLE_FORWARD_SHADER));
 	TileLayer layer2(ShaderMan->getShader(SIMPLE_MENU_SHADER));
+	TileLayer mapLayer(ShaderMan->getShader(SIMPLE_FORWARD_SHADER));
 	//THIS ONE BELOW IS FOR THE 50K SPRITES
 	/*for(float y = -360; y < 360.0f; y+=4.0f)
 	{
@@ -437,6 +438,17 @@ int main(void)
 		mTexture9,
 		mTexture10
 	};
+
+	glm::vec2 atlasPos[] = 
+	{
+		glm::vec2(0, 15), glm::vec2(1, 15), glm::vec2(2, 15), glm::vec2(3, 15), glm::vec2(4, 15),
+		glm::vec2(5, 15), glm::vec2(6, 15), glm::vec2(7, 15), glm::vec2(8, 15), glm::vec2(9, 15),
+		glm::vec2(10, 15), glm::vec2(11, 15), glm::vec2(12, 15), glm::vec2(13, 15), glm::vec2(14, 15),
+		glm::vec2(15, 15), glm::vec2(0, 14), glm::vec2(1, 14), glm::vec2(2, 14), glm::vec2(3, 14),
+		glm::vec2(4, 14), glm::vec2(5, 14), glm::vec2(6, 14), glm::vec2(7, 14), glm::vec2(8, 14),
+		glm::vec2(9, 14), glm::vec2(10, 14), glm::vec2(11, 14), glm::vec2(12, 14), glm::vec2(13, 14),
+		glm::vec2(14, 14), glm::vec2(15, 14), glm::vec2(0, 13), glm::vec2(1, 13), glm::vec2(2, 13), glm::vec2(3, 13)
+	};
 	for (float y = -360; y < 360.0f; y += 24.0f)
 	{
 		for (float x = -640.0f; x < 640.0f; x += 24.0f)
@@ -449,8 +461,14 @@ int main(void)
 			else
 				layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), textures[rand()%10]));
 			*/
+		/*	if (rand() % 4 == 0)
+				layer.Add(new Sprite(glm::vec4(x, y, 0, 1), glm::vec2(19.5f, 19.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			else*/
+			layer.Add(new Sprite(glm::vec4(x, y, 0, 1), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture("atlas"), atlasPos[rand()%35]));
+			
 
-			layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(rand() % 35))));
+
+			//layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(rand() % 35))));
 
 		/*	if (y > 0)
 			{
@@ -482,9 +500,11 @@ int main(void)
 	//layer.Add(new Sprite(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)));
 	//layer.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.0f), glm::vec2(32, 32), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
 	glm::mat4 trmat =  glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, 0.0f, 0.1f)) * glm::rotate(glm::mat4(1.0f), 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)) ;
-	Group* group = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, 0.0f, 0.1f)));
+	Group* group = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 	//Group* group = new Group(trmat);
-	group->Add(new Sprite(glm::vec4(0.0f, -150.0f, 0.1f,1), glm::vec2(512, 512), TextureMan->GetTexture("atlas")));
+	Sprite* atlasTest = new Sprite(glm::vec4(0.0f, 0.0f, 0.1f, 1), glm::vec2(512, 512), TextureMan->GetTexture("atlas"));
+	atlasTest->SetUVs(0, 15);
+	group->Add(atlasTest);
 
 	/*Group* button = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(16,16,0)));
 	//Group* button = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(16, 16, 0))* glm::rotate(glm::mat4(1.0f), -45.0f, glm::vec3(0.0f, 0.0f, 1.0f)));
@@ -499,14 +519,14 @@ int main(void)
 
 	//Font* font = new Font("DefaultFont","Fonts/SourceSansPro-Light.ttf",32);
 	Font* font = FontMan->GetFont("DefaultFont32");
-	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-640, 336,0.8)));
+	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580,340,0.8)));
 	//Label* fpsLabel = new Label("", glm::vec3(-640, 336, 1), glm::vec4(0, 0, 1, 1));
 
 	//Label* fpsLabel = new Label("", glm::vec3(0, 0, 0), font, glm::vec4(0, 1, 0, 1));
-	Label* fpsLabel = new Label("", glm::vec4(0, 0, 0,1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
+	Label* fpsLabel = new Label("", glm::vec4(-55, -10, 0,1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
 	//layer.Add(new Label("Hello!", glm::vec3(0, 0, 1), glm::vec4(0, 0, 1, 1)));
 	
-	fpsGroup->Add(new Sprite(glm::vec4(-15, -10, -0.1,1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
+	fpsGroup->Add(new Sprite(glm::vec4(0, 0, -0.1,1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	fpsGroup->Add(fpsLabel);
 	layer.Add(fpsGroup);
 	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15/*,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/};
@@ -566,7 +586,12 @@ int main(void)
 		myTexture->unbind();
 		*/
 	//	myTexture->bind();
+
+
 		layer.Render();
+
+
+
 	//	myTexture->unbind();
 		//layer2.Render();
 
@@ -578,7 +603,7 @@ int main(void)
 		myBatchRenderer.End();
 		myBatchRenderer.Flush();*/
 		
-/*		
+		/*
 		ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 		float lerp = 0.1f;
 		glm::vec3 position = mCamera.getPosition();

@@ -13,3 +13,9 @@ Sprite::~Sprite()
 {
 
 }
+Sprite::Sprite(const glm::vec4& position, const glm::vec2& size, Texture* texture, const glm::vec2& atlasposition)
+	: Renderable(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
+{
+	myTexture = texture;
+	SetUVs(atlasposition.x, atlasposition.y);
+}
