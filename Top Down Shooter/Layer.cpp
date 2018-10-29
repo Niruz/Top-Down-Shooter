@@ -8,9 +8,15 @@ Layer::Layer(RendererBase* renderer, Shader* shader, const glm::mat4& projection
 	:myRenderer(renderer), myShader(shader), myProjectionMatrix(projectionMatrix)
 {
 	myShader->bind();
+
 	myShader->setUniformMatrix4fv("projectionMatrix", 1, GL_FALSE, myProjectionMatrix);
+
+	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+	myShader->setUniform1iv("textureArray[0]", texIDS, 16);
+
 	myShader->unbind();
-	
+
+
 	/*glm::mat4 translationMatrix = glm::mat4(1.0f);
 	translationMatrix = glm::translate(translationMatrix, glm::vec3(20.0f, 0.0, 0.0f));
 	myRenderer->Push(translationMatrix);*/

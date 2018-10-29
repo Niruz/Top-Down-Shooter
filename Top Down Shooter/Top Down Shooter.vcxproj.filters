@@ -37,9 +37,6 @@
     <Filter Include="Entity">
       <UniqueIdentifier>{ff8cb55d-8fce-4419-91d8-4a7027382bd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Temporary stuff">
-      <UniqueIdentifier>{9b92b5b5-50fd-4bd6-a8e5-760341231ba4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Message">
       <UniqueIdentifier>{8a7bc9bf-1671-45cf-9339-16c9ee205518}</UniqueIdentifier>
     </Filter>
@@ -91,6 +88,15 @@
     <Filter Include="Graphics\Font">
       <UniqueIdentifier>{b0f484e1-2e0b-4ee6-8722-bb2ae57883e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test Games">
+      <UniqueIdentifier>{9b92b5b5-50fd-4bd6-a8e5-760341231ba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Games\Pacman">
+      <UniqueIdentifier>{70774218-6b9d-4ac0-90f8-6ec0c2cb30c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Games\Shooter">
+      <UniqueIdentifier>{b1cf5a2a-7dce-42d7-b9b5-431d53382ecf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,22 +142,22 @@
       <Filter>Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="Vampire.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="MinerOwnedStates.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="Miner.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Graphics\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="MinersWife.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="MinersWifeOwnedStates.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>PathFinding</Filter>
@@ -169,10 +175,10 @@
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="SimpleObject.cpp">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClCompile>
     <ClCompile Include="Renderable.cpp">
       <Filter>Graphics\Renderer</Filter>
@@ -333,6 +339,12 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Graphics\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Pacman.cpp">
+      <Filter>Test Games\Pacman</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Test Games\Shooter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -369,7 +381,7 @@
       <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="Miner.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>AI\States</Filter>
@@ -387,34 +399,34 @@
       <Filter>Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="Vampire.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="MinerOwnedStates.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Graphics\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Locations.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="MinersWife.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="MinersWifeOwnedStates.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="MessageTypes.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="EntityNames.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleUtils.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>PathFinding</Filter>
@@ -432,10 +444,10 @@
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="SimpleObject.h">
-      <Filter>Temporary stuff</Filter>
+      <Filter>Test Games</Filter>
     </ClInclude>
     <ClInclude Include="Renderable.h">
       <Filter>Graphics\Renderer</Filter>
@@ -508,6 +520,15 @@
     </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Pacman.h">
+      <Filter>Test Games\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Test Games\Shooter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

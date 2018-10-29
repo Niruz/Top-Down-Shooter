@@ -14,7 +14,7 @@ protected:
 
 public:
 	Layer();
-protected:
+public:
 	Layer(RendererBase* renderer, Shader* shader, const glm::mat4& projectionMatrix);
 public:
 	virtual ~Layer();

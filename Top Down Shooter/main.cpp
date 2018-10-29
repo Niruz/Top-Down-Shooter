@@ -50,6 +50,8 @@
 #include "Label.h"
 #include "Font.h"
 #include "FontManager.h"
+#include "Pacman.h"
+#include "Shooter.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -83,7 +85,7 @@ Texture* mTexture7;
 Texture* mTexture8;
 Texture* mTexture9;
 Texture* mTexture10;
-
+Game* myGame;
 int oldPlayerX = -1;
 int oldPlayerY = -1;
 static void error_callback(int error, const char* description)
@@ -128,21 +130,36 @@ static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	//	mCamera.processMouseMovement(xoffset, yoffset);
 }
-
+/*
 void updateInput(GLfloat deltaTime, TileMap& map)
 {
 	if (keys[GLFW_KEY_W])
-		mPlayer.processKeyBoard(FORWARD, deltaTime,map);
+		myPacman.ProcessKeyBoard(0, deltaTime);
+		//mPlayer.processKeyBoard(FORWARD, deltaTime,map);
 	if (keys[GLFW_KEY_S])
-		mPlayer.processKeyBoard(BACKWARD, deltaTime, map);
+		myPacman.ProcessKeyBoard(1, deltaTime);
+		//mPlayer.processKeyBoard(BACKWARD, deltaTime, map);
 	if (keys[GLFW_KEY_A])
-		mPlayer.processKeyBoard(LEFT, deltaTime, map);
+		myPacman.ProcessKeyBoard(2, deltaTime);
+		//mPlayer.processKeyBoard(LEFT, deltaTime, map);
 	if (keys[GLFW_KEY_D])
-		mPlayer.processKeyBoard(RIGHT, deltaTime, map);
+		myPacman.ProcessKeyBoard(3, deltaTime);
+		//mPlayer.processKeyBoard(RIGHT, deltaTime, map);
 	if (keys[GLFW_KEY_SPACE])
 		mPlayer.processKeyBoard(UP, deltaTime, map);
 	if (keys[GLFW_KEY_LEFT_CONTROL])
 		mPlayer.processKeyBoard(DOWN, deltaTime, map);
+}*/
+void updateInput(GLfloat deltaTime)
+{
+	if (keys[GLFW_KEY_W])
+		myGame->ProcessKeyBoard(0, deltaTime);
+	if (keys[GLFW_KEY_S])
+		myGame->ProcessKeyBoard(1, deltaTime);
+	if (keys[GLFW_KEY_A])
+		myGame->ProcessKeyBoard(2, deltaTime);
+	if (keys[GLFW_KEY_D])
+		myGame->ProcessKeyBoard(3, deltaTime);
 }
 glm::vec2 convertRange()
 {
@@ -185,6 +202,8 @@ glm::vec2 convertRange()
 
 	return glm::vec2(1, 1);
 }
+
+#ifdef TESTMAIN
 int main(void)
 {
 
@@ -465,9 +484,6 @@ int main(void)
 				layer.Add(new Sprite(glm::vec4(x, y, 0, 1), glm::vec2(19.5f, 19.5f), glm::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 			else*/
 			layer.Add(new Sprite(glm::vec4(x, y, 0, 1), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture("atlas"), atlasPos[rand()%35]));
-			
-
-
 			//layer.Add(new Sprite(glm::vec4(x, y, 0,1), glm::vec2(19.5f, 19.5f), TextureMan->GetTexture(std::to_string(rand() % 35))));
 
 		/*	if (y > 0)
@@ -529,18 +545,21 @@ int main(void)
 	fpsGroup->Add(new Sprite(glm::vec4(0, 0, -0.1,1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	fpsGroup->Add(fpsLabel);
 	layer.Add(fpsGroup);
-	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15/*,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/};
+//	GLint texIDS[] = { 0, 1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15/*,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/};
 	/*Shader* simpleShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
 	simpleShader->bind();
 	simpleShader->setUniform1iv("textureArray", texIDS, 10);
 	simpleShader->unbind();*/
-	ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
+	/*ShaderMan->bindShader(SIMPLE_FORWARD_SHADER);
 	ShaderMan->setUniform1iv("textureArray[0]", texIDS, 16);
-	ShaderMan->unbindShader();
+	ShaderMan->unbindShader();*/
 	//layer2.Add(new Sprite(glm::vec3(32.0f, 0.0f, 0.1f), glm::vec2(64, 64), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
 	//layer2.Add(new Sprite(glm::vec3(16.0f, 16.0f, 0.1f), glm::vec2(16, 16), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)));
 	int fps = 0;
 	double lastTime = Clock->GetCurrentTime();
+
+	
+	myPacman.Initialize();
 	do
 	{
 		// Update the input
@@ -588,7 +607,9 @@ int main(void)
 	//	myTexture->bind();
 
 
-		layer.Render();
+		myPacman.Run();
+		//THIS IS THE ONE TO UNCOMMENT
+		//layer.Render();
 
 
 
@@ -699,6 +720,124 @@ int main(void)
 	ShaderMan->onDeinitialize();
 	TextureMan->onDeinitialize();
 	FontMan->onDeinitialize();
+	//Close OpenGL window and terminate GLFW  
+	glfwDestroyWindow(window);
+	//Finalize and clean up GLFW  
+	glfwTerminate();
+
+	exit(EXIT_SUCCESS);
+};
+#endif
+int main(void)
+{
+
+
+	//****************************************************//
+	//                                                    //
+	//               GLFW INITIALIZATION                  //
+	//                                                    //
+	//****************************************************//
+	if (!glfwInit())
+	{
+		exit(EXIT_FAILURE);
+	}
+
+	/*	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); //Request a specific OpenGL version
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
+
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+
+	int major;
+	int minor;
+	glfwGetVersion(&major, &minor, NULL);
+
+	GLFWwindow* window;
+	window = glfwCreateWindow(1280, 720, "Top Down Shooter", NULL, NULL);
+
+	glfwSetErrorCallback(error_callback);
+	glfwSetKeyCallback(window, key_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+
+	if (!window)
+	{
+		fprintf(stderr, "Failed to open GLFW window.\n");
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
+
+	//This function makes the context of the specified window current on the calling thread.   
+	glfwMakeContextCurrent(window);
+
+	//Sets the relevant callbacks 
+	//Initialize GLEW  
+	glewExperimental = true;
+	GLenum err = glewInit();
+
+	//If GLEW hasn't initialized  
+	if (err != GLEW_OK)
+	{
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+		return -1;
+	}
+	//****************************************************//
+	//                                                    //
+	//             //GLFW INITIALIZATION                  //
+	//                                                    //
+	//****************************************************//
+
+	glViewport(0, 0, 1280, 720);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
+	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
+	SoundEngine->stopAllSounds();
+
+
+
+	ShaderMan->onInitialize();
+	TextureMan->onInitialize();
+	FontMan->onInitialize();
+
+
+
+	//myGame = new Pacman();
+	myGame = new Shooter();
+	myGame->Initialize();
+	do
+	{
+		// Update the input
+		GLfloat currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		updateInput(deltaTime);
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
+		myGame->Run();
+
+		//std::cout << glGetError() << std::endl;
+		glfwSwapBuffers(window);
+		//Get and organize events, like keyboard and mouse input, window resizing, etc...  
+		glfwPollEvents();
+
+	} while (!glfwWindowShouldClose(window));
+
+
+	ShaderMan->onDeinitialize();
+	TextureMan->onDeinitialize();
+	FontMan->onDeinitialize();
+
 	//Close OpenGL window and terminate GLFW  
 	glfwDestroyWindow(window);
 	//Finalize and clean up GLFW  

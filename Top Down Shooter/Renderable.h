@@ -15,7 +15,7 @@ struct VertexData
 
 class Renderable
 {
-protected:
+public:
 	glm::vec4 myPosition;
 	glm::vec2 mySize;
 	//glm::vec4 myColor;

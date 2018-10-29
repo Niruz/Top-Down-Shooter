@@ -104,12 +104,12 @@ void BatchRenderer::Submit(const Renderable* renderable)
 		if(!found)
 		{
 			//This needs to be done if we run out of texture slots
-			if( myTextureSlots.size() >= 16)
+			if( myTextureSlots.size() >= RENDERER_MAX_TEXTURES)
 			{
 				End();
 				Flush();
 				Begin();
-				myTextureSlots.clear();
+				//myTextureSlots.clear();
 			}
 			myTextureSlots.push_back(tid);
 			ts = (float)(myTextureSlots.size());
@@ -190,6 +190,7 @@ void BatchRenderer::Flush()
 	glBindVertexArray(0);
 
 	myIndexCount = 0;
+	myTextureSlots.clear();
 
 //	ShaderMan->unbindShader();
 }
@@ -219,12 +220,12 @@ void BatchRenderer::DrawString(const std::string& text, const glm::vec4& positio
 	if (!found)
 	{
 		//This needs to be done if we run out of texture slots
-		if (myTextureSlots.size() >= 16)
+		if (myTextureSlots.size() >= RENDERER_MAX_TEXTURES)
 		{
 			End();
 			Flush();
 			Begin();
-			myTextureSlots.clear();
+			//myTextureSlots.clear();
 		}
 		myTextureSlots.push_back(font.GetID());
 		ts = (float)(myTextureSlots.size());
