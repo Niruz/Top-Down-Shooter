@@ -49,6 +49,13 @@ private:
 	float myWidth;
 	float myHeight;
 	bool myMouseMovement;
+
+
+
+private:
+	//Debug stuff
+	Layer* myDebugLayer;
+	Group* myPlayerTile;
 };
 
 

@@ -29,6 +29,7 @@ void Shooter::Initialize()
 
 	myShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
 	myLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
+	//myDebugLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
 
 	myPlayer = new Player();
 
@@ -69,7 +70,7 @@ void Shooter::Initialize()
 		if (i == 239)
 			int shitterooo = 5;
 		/*if (map[i]->isPlayerOnTile)
-		{
+		{ShaderMan->setUniformMatrix4fv("modelMatrix", 1, GL_FALSE, mCamera.mTranslationMatrix * map[i]->myModelMatrix);
 		}*/
 		if (map[i]->myIsBlockingFlag)
 		{
@@ -85,16 +86,37 @@ void Shooter::Initialize()
 		startX += 32.0f;
 	}
 	myLayer->Add(tileGroup);
+
+
+	//Debug
+	myPlayerTile = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.02)));
+	myPlayerTile->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floor2")/*, glm::vec2(0, 15)*/));
+
+	tileGroup->Add(myPlayerTile);
+	myLayer->Add(tileGroup);
+	//myDebugLayer->Add(myPlayerTile);
 }
 void Shooter::UpdatePlayer()
 {
+	for (int i = 0; i < myMap->GetMap().size(); i++)
+	{
+		if (myMap->GetMap()[i]->isPlayerOnTile)
+		{
+			glm::mat4 transMat = glm::mat4(1.0);
+			glm::vec3 pos = glm::vec3(myMap->GetMap()[i]->myWorldPosition, 0.02f);
+			myPlayerTile->SetTransformationMatrix(glm::translate(transMat, pos));
+			break;
+		}
+	}
 	myPlayer->setDirection(myCamera.getPlayerDirection(myPlayer->mPosition));
 	myPlayer->UpdateTransformationMatrix(myCamera);
 	glm::vec2 mouseScreenWorld = myCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
 	glm::mat4 tran = glm::mat4(1.0f);
 	tran = glm::translate(tran, glm::vec3(mouseScreenWorld.x, mouseScreenWorld.y, 0.0f));
 	myCursor->SetTransformationMatrix(tran);
+
 	tileGroup->SetTransformationMatrix(myCamera.mTranslationMatrix);
+	
 }
 void Shooter::Tick()
 {
@@ -108,6 +130,7 @@ void Shooter::Update()
 void Shooter::Render()
 {
 	myLayer->Render();
+	//myDebugLayer->Render();
 }
 void Shooter::ProcessKeyBoard(int direction, float deltaTime)
 {
