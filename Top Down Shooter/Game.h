@@ -36,6 +36,7 @@ public:
 	const unsigned int getUPS() const { return myUpdatesPerSecond; }
 
 	virtual void ProcessKeyBoard(int direction, float deltaTime) = 0;
+	virtual void ProcessMouse(double xpos, double ypos, bool movement) {};
 public:
 
 	void Run() 

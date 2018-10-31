@@ -127,6 +127,7 @@ static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastY = ypos;
 
 	mCamera.setScreenPosition(glm::vec2(lastX, lastY));
+	myGame->ProcessMouse(lastX, lastY, mouseMovement);
 
 	//	mCamera.processMouseMovement(xoffset, yoffset);
 }
@@ -153,13 +154,13 @@ void updateInput(GLfloat deltaTime, TileMap& map)
 void updateInput(GLfloat deltaTime)
 {
 	if (keys[GLFW_KEY_W])
-		myGame->ProcessKeyBoard(0, deltaTime);
+		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime);
 	if (keys[GLFW_KEY_S])
-		myGame->ProcessKeyBoard(1, deltaTime);
+		myGame->ProcessKeyBoard(GLFW_KEY_S, deltaTime);
 	if (keys[GLFW_KEY_A])
-		myGame->ProcessKeyBoard(2, deltaTime);
+		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime);
 	if (keys[GLFW_KEY_D])
-		myGame->ProcessKeyBoard(3, deltaTime);
+		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime);
 }
 glm::vec2 convertRange()
 {

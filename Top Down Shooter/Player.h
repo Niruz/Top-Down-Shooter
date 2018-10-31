@@ -6,6 +6,7 @@
 class TileMap;
 class Mesh;
 class Texture;
+class Group;
 
 enum camMovement
 {
@@ -25,8 +26,10 @@ struct Player
 
 	Mesh* mMesh;
 	Texture* mTexture;
+	Group* mySprite;
 
 	void render(const Camera& camera);
+	void UpdateTransformationMatrix(const Camera& camera);
 
 	void updatePosition(const glm::vec3& pos);
 	void setPosition(const glm::vec3& pos);

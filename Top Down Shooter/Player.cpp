@@ -5,12 +5,21 @@
 #include <iostream>
 
 #include "TileMap.h"
+#include "Group.h"
+#include "Sprite.h"
+#include "TextureManager.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 Player::Player() : translationMatrix(1.0f),
 rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 {
-	mPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+	mPosition = glm::vec3(0.0f, 0.0f, 0.1f);
+	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
+	mySprite->Add(new Sprite(glm::vec4(0.0f, 0.0f, 0.1f, 1), glm::vec2(32, 32), TextureMan->GetTexture("cursor2")));
+
+
+
+
 }
 Player::~Player()
 {
@@ -57,7 +66,22 @@ void Player::render(const Camera& camera)
 
 	mTexture->unbind();
 }
+void Player::UpdateTransformationMatrix(const Camera& camera)
+{
+	rotationMatrix = glm::mat4(1.0f);
+	rotationMatrix = glm::rotate(rotationMatrix, mAngle, glm::vec3(0.0f, 0.0f, 1.0f));
 
+	translationMatrix = glm::mat4(1.0f);
+	translationMatrix = glm::translate(translationMatrix, mPosition);
+
+	//glm::mat4 scaleMatrix = glm::mat4(1.0f);
+	//scaleMatrix = glm::scale(scaleMatrix, glm::vec3(16, 16, 16));
+
+	modelMatrix = camera.mTranslationMatrix* translationMatrix *rotationMatrix;// *scaleMatrix;
+	//modelMatrix = rotationMatrix;
+
+	mySprite->SetTransformationMatrix(modelMatrix);
+}
 void Player::processKeyBoard(camMovement direction, GLfloat deltaTime, TileMap& map)
 {
 	GLfloat velocity = 200.5f * deltaTime;
@@ -114,6 +138,8 @@ void Player::processKeyBoard(camMovement direction, GLfloat deltaTime, TileMap& 
 			}
 		}
 	}
+	mPosition.z = 0.1f;
+	mySprite->SetPosition(glm::vec4(mPosition, 1.0f));
 		
 	/*	else if (direction == UP)
 	mPosition += mWorldUp*velocity;

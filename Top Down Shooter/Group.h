@@ -11,6 +11,7 @@ public:
 
 	void Add(Renderable* renderable);
 
+	void SetTransformationMatrix(const glm::mat4& mat) { myTransformationMatrix = mat; }
 private:
 	std::vector<Renderable*> myRenderables;
 	glm::mat4 myTransformationMatrix;
