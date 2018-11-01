@@ -5,6 +5,8 @@ class Shader;
 class Layer;
 class Label;
 class Sprite;
+class Group;
+class TileMap;
 class Pacman : public Game
 {
 public:
@@ -30,6 +32,8 @@ private:
 	Layer* myLayer;
 	Sprite* mySprite;
 	Label* myFPSLabel;
+	Group* tileGroup;
+	TileMap* myMap;
 };
 
 
