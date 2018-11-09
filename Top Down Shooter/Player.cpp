@@ -66,6 +66,10 @@ void Player::render(const Camera& camera)
 
 	mTexture->unbind();
 }
+float Player::map(float s, float a1, float a2, float b1, float b2)
+{
+	return b1 + (s - a1)*(b2 - b1) / (a2 - a1);
+}
 void Player::UpdateTransformationMatrix(const Camera& camera)
 {
 	rotationMatrix = glm::mat4(1.0f);
@@ -89,6 +93,76 @@ void Player::processKeyBoard(camMovement direction, GLfloat deltaTime, TileMap& 
 	int tileX = map.lastPlayerTile->myX;
 	int tileY = map.lastPlayerTile->myY;
 	glm::vec2 tilePos = map.lastPlayerTile->myWorldPosition;
+
+	float yPos = mPosition.y;
+	float xPos = mPosition.x;
+	float tileX2 = (yPos / 32.0f) + (xPos / 32.0f);
+
+	float tileY2 = (xPos / 32.0f) - (yPos / 32.0f);
+
+	float tileX3 = round(xPos / 32.0f) * 32.0f;
+	float tileY3 = round(yPos / 32.0f) * 32.0f;
+
+	float shitX = this->map(mPosition.x, -320, 288, 0, 19 );
+	float shitY = this->map(mPosition.y, 160, -192, 0, 11 );
+
+
+	float roundX2 = round(shitX);
+	float roundY2 = round(shitY);
+
+
+
+	glm::vec2 startRange(-320.0f, 192);
+	glm::vec2 endRange(288.0f, -192.0f);
+
+	glm::vec2 range = endRange - startRange;
+
+	glm::vec2 test = glm::vec2(mPosition.x / range.x, mPosition.y / range.y);
+
+	glm::vec2 testTilePos;
+	testTilePos.x = glm::floor(test.x);
+	testTilePos.y = glm::floor(test.y);
+
+	glm::vec2 test2;
+	test.x = mPosition.x / 32.0f;
+	test.x = mPosition.y / 32.0f;
+	int shit = 5;
+
+	float a = -320.0f;
+	float b = 288.0f;
+	float c = 0;
+	float d = 19;
+
+
+	float a2 = 192;
+	float b2 = -192;
+	float c2 = 0;
+	float d2 = 11;
+	float testNew = ((mPosition.x - a) * ((d - c) / (b - a))) + c;
+	float testNew2 = ((mPosition.y - a2) * ((d2 - c2) / (b2 - a2))) + c2;
+
+	float roundX = round(testNew);
+	float roundY = round(testNew2);
+
+
+	int hohh = 5;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	if (direction == FORWARD) 
 	{

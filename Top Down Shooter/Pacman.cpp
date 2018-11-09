@@ -8,20 +8,26 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Group.h"
 #include "TileMap.h"
-
-
+#include "PacmanEntity.h"
+#include "glfw3.h"
 #include <iostream>
 
 void Pacman::Initialize()
 {
 	myShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
 	myLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-960.0f, 960.0f, -540.0f, 540.0f, -1.0f, 1.0f));
+	//myLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 1.0f));
 	//myLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-1280.0f, 1280.0f, -720.0f, 720.0f, -1.0f, 1.0f));
 	//myLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
-	mySprite = new Sprite(glm::vec4(0.0f, 0.0f, 0.1f, 1), glm::vec2(512, 512), TextureMan->GetTexture("atlas"));
+	mySprite = new Sprite(glm::vec4(0.0f, -64.0f, 0.1f, 1), glm::vec2(32, 32), TextureMan->GetTexture("atlas"));
 	mySprite->SetUVs(0, 15);
 
-	//myLayer->Add(mySprite);
+	myLayer->Add(mySprite);
+	
+	myPlayer = new PacmanEntity(0, "pacman", glm::vec3(0.0f, -64.0f, 0.1f), mySprite);
+	//myPlayer = new Player();
+
+	myLayer->Add(myPlayer->GetSprite());
 
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
 	myFPSLabel = new Label("", glm::vec4(-55, -10, 0, 1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
@@ -78,7 +84,7 @@ void Pacman::Render()
 }
 void Pacman::ProcessKeyBoard(int direction, float deltaTime)
 {
-	GLfloat velocity = 200.5f * deltaTime;
+	/*GLfloat velocity = 200.5f * deltaTime;
 	if(direction == 0)
 		mySprite->myPosition += glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)*velocity;
 	else if(direction == 1)
@@ -90,5 +96,18 @@ void Pacman::ProcessKeyBoard(int direction, float deltaTime)
 	else
 	{
 
-	}
+	}*/
+
+	if (direction == GLFW_KEY_W)
+		myPlayer->ProcessKeyBoard(FORWARD, deltaTime, *myMap);
+	if (direction == GLFW_KEY_S)
+		myPlayer->ProcessKeyBoard(BACKWARD, deltaTime, *myMap);
+	if (direction == GLFW_KEY_A)
+		myPlayer->ProcessKeyBoard(LEFT, deltaTime, *myMap);
+	if (direction == GLFW_KEY_D)
+		myPlayer->ProcessKeyBoard(RIGHT, deltaTime, *myMap);
+	if (direction == GLFW_KEY_SPACE)
+		myPlayer->ProcessKeyBoard(UP, deltaTime, *myMap);
+	if (direction == GLFW_KEY_LEFT_CONTROL)
+		myPlayer->ProcessKeyBoard(DOWN, deltaTime, *myMap);
 }

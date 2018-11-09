@@ -7,6 +7,8 @@ class Label;
 class Sprite;
 class Group;
 class TileMap;
+class Player;
+class PacmanEntity;
 class Pacman : public Game
 {
 public:
@@ -34,6 +36,8 @@ private:
 	Label* myFPSLabel;
 	Group* tileGroup;
 	TileMap* myMap;
+	//Player* myPlayer;
+	PacmanEntity* myPlayer;
 };
 
 

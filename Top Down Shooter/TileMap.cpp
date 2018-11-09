@@ -341,12 +341,31 @@ std::vector<Tile*>& TileMap::GetMap()
 {
 	return myMapTiles;
 }
+float TileMap::map(float s, float a1, float a2, float b1, float b2)
+{
+	return b1 + (s - a1)*(b2 - b1) / (a2 - a1);
+}
 void TileMap::setPlayerTile(float x, float y)
 {
+
 	glm::vec2 playerPos(x, y);
+
+	float shitX = this->map(playerPos.x, -320, 288, 0, 19);
+	float shitY = this->map(playerPos.y, 160, -192, 0, 11);
+
+
+	float roundX2 = round(shitX);
+	float roundY2 = round(shitY);
+
+	
 	if (lastPlayerTile != nullptr)
 		lastPlayerTile->isPlayerOnTile = false;
-	float lastClosest = 999999.0f;
+
+
+	//comment out this and add the commented below it
+	lastPlayerTile = GetTile2(roundX2, roundY2);
+	
+/*	float lastClosest = 999999.0f;
 	for (std::vector<Tile*>::iterator iterator = myMapTiles.begin(); iterator != myMapTiles.end(); iterator++)
 	{
 		Tile* tile = *iterator;
@@ -363,7 +382,7 @@ void TileMap::setPlayerTile(float x, float y)
 			//break;
 		}
 		
-	}
+	}*/
 	lastPlayerTile->isPlayerOnTile = true;
 
 }

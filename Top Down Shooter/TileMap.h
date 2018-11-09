@@ -20,7 +20,7 @@ public:
 	bool validIndex(int checkX, int checkY);
 
 	bool IsDirectionWalkable(int checkX, int checkY);
-
+	float map(float s, float a1, float a2, float b1, float b2);
 
 	void printMap();
 	void printPath(std::vector<Tile*>& aPathList);

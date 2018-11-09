@@ -68,8 +68,8 @@ public:
 	~Miner() { delete m_pStateMachine; }
 
 	//this must be implemented
-	virtual void update();
-	virtual bool handleMessage(const Message& msg);
+	virtual void Update();
+	virtual bool HandleMessage(const Message& msg);
 
 	StateMachine<Miner>*  GetFSM()const { return m_pStateMachine; }
 

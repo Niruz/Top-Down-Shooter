@@ -53,10 +53,10 @@ public:
 
 
 	//this must be implemented
-	void          update();
+	void          Update();
 
 	//so must this
-	virtual bool  handleMessage(const Message& msg);
+	virtual bool  HandleMessage(const Message& msg);
 
 	StateMachine<MinersWife>* GetFSM()const { return m_pStateMachine; }
 

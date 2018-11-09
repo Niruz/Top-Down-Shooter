@@ -35,7 +35,7 @@ struct Player
 	void setPosition(const glm::vec3& pos);
 	void setDirection(const glm::vec2& direction);
 	void processKeyBoard(camMovement direction, GLfloat deltaTime, TileMap& map);
-
+	float map(float s, float a1, float a2, float b1, float b2);
 	glm::vec3 mPosition;
 	glm::mat4 translationMatrix;
 	glm::mat4 rotationMatrix;

@@ -17,14 +17,14 @@ public:
 
 	virtual ~Entity() {};
 
-	virtual void update() = 0;
-	virtual bool handleMessage(const Message& msg) = 0;
+	virtual void Update() = 0;
+	virtual bool HandleMessage(const Message& msg) = 0;
 
-	int getID() const
+	int GetID() const
 	{
 		return mID;
 	}
-	std::string getName() const
+	std::string GetName() const
 	{
 		return mName;
 	}

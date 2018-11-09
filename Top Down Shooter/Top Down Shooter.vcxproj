@@ -157,6 +157,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="MinersWifeOwnedStates.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PacmanEntity.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -216,6 +217,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="MinersWifeOwnedStates.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PacmanEntity.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RendererBase.h" />

@@ -21,10 +21,10 @@ Entity* EntityManager::getEntityFromID(int id)const
 
 void EntityManager::removeEntity(Entity* entity)
 {
-	mEntityMap.erase(mEntityMap.find(entity->getID()));
+	mEntityMap.erase(mEntityMap.find(entity->GetID()));
 }
 
 void EntityManager::registerEntity(Entity* NewEntity)
 {
-	mEntityMap.insert(std::make_pair(NewEntity->getID(), NewEntity));
+	mEntityMap.insert(std::make_pair(NewEntity->GetID(), NewEntity));
 }

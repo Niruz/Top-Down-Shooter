@@ -14,7 +14,7 @@ MessageDispatcher* MessageDispatcher::Instance()
 
 void MessageDispatcher::Discharge(Entity* receiver, const Message& msg)
 {
-	if(! receiver->handleMessage(msg) )
+	if(! receiver->HandleMessage(msg) )
 	{
 		std::cout << "Message not handled";
 	}
@@ -35,7 +35,7 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 	if(delay <= 0.0f)
 	{
 		std::cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
-			<< " by " << pSender->getName() << " for " << pReceiver->getName();
+			<< " by " << pSender->GetName() << " for " << pReceiver->GetName();
 //			<< ". Msg is " << MsgToStr(msg);
 
 		Discharge(pReceiver, message);
@@ -49,8 +49,8 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 
 		PriorityQ.insert(message);
 
-		std::cout << "\nDelayed telegram from " << pSender->getName()<< " recorded at time "
-			<< Clock->GetCurrentTime() << " for " << pReceiver->getName();
+		std::cout << "\nDelayed telegram from " << pSender->GetName()<< " recorded at time "
+			<< Clock->GetCurrentTime() << " for " << pReceiver->GetName();
 			//<< ". Msg is " << MsgToStr(msg);
 	}
 }
@@ -70,7 +70,7 @@ void MessageDispatcher::dispatchDelayedMessages()
 		Entity* pReceiver = EntityMan->getEntityFromID(message.mReceiver);
 
 		std::cout << "\nQueued telegram ready for dispatch: Sent to "
-			<< pReceiver->getName() << ". Msg is " << message.mMsg;
+			<< pReceiver->GetName() << ". Msg is " << message.mMsg;
 
 		//send the telegram to the recipient
 		Discharge(pReceiver, message);

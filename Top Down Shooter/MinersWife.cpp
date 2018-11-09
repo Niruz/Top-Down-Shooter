@@ -1,12 +1,12 @@
 #include "MinersWife.h"
 
-bool MinersWife::handleMessage(const Message& msg)
+bool MinersWife::HandleMessage(const Message& msg)
 {
 	return m_pStateMachine->HandleMessage(msg);
 }
 
 
-void MinersWife::update()
+void MinersWife::Update()
 {
 	//set text color to green
 //	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);

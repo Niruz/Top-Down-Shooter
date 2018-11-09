@@ -168,8 +168,8 @@ void CookStew::Enter(MinersWife* wife)
 		//send a delayed message myself so that I know when to take the stew
 		//out of the oven
 		MessageMan->dispatchMessage(1.5,                  //time delay
-			wife->getID(),           //sender ID
-			wife->getID(),           //receiver ID
+			wife->GetID(),           //sender ID
+			wife->GetID(),           //receiver ID
 			Msg_StewReady,        //msg
 			NO_ADDITIONAL_INFO);
 
@@ -208,7 +208,7 @@ bool CookStew::OnMessage(MinersWife* wife, const Message& msg)
 
 		//let hubby know the stew is ready
 		MessageMan->dispatchMessage(SEND_MSG_IMMEDIATELY,
-			wife->getID(),
+			wife->GetID(),
 			ent_Miner_Bob,
 			Msg_StewReady,
 			NO_ADDITIONAL_INFO);

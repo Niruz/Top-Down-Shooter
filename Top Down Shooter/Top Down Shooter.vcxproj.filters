@@ -97,6 +97,12 @@
     <Filter Include="Test Games\Shooter">
       <UniqueIdentifier>{b1cf5a2a-7dce-42d7-b9b5-431d53382ecf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Entities">
+      <UniqueIdentifier>{84482dee-3599-4508-bcec-70290aee615b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Games\Pacman\Entities">
+      <UniqueIdentifier>{970c30cf-bf27-4b7b-a2f3-2be619537941}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -345,6 +351,9 @@
     <ClCompile Include="Shooter.cpp">
       <Filter>Test Games\Shooter</Filter>
     </ClCompile>
+    <ClCompile Include="PacmanEntity.cpp">
+      <Filter>Test Games\Pacman\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -529,6 +538,9 @@
     </ClInclude>
     <ClInclude Include="Shooter.h">
       <Filter>Test Games\Shooter</Filter>
+    </ClInclude>
+    <ClInclude Include="PacmanEntity.h">
+      <Filter>Test Games\Pacman\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,11 +2,11 @@
 
 
 //-----------------------------------------------------------------------------
-bool Miner::handleMessage(const Message& msg)
+bool Miner::HandleMessage(const Message& msg)
 {
 	return m_pStateMachine->HandleMessage(msg);
 }
-void Miner::update()
+void Miner::Update()
 {
 	//SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 
