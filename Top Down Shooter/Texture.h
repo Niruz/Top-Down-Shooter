@@ -27,6 +27,8 @@ public:
 
 	void setInternalFormat(GLuint internalformat) { mInternalFormat = internalformat; };
 	void setImageFormat(GLuint imageformat) { mImageFormat = imageformat; };
+	void setWrapperFormat(GLuint s, GLuint t) { mWrap_S = s; mWrap_T = t; }
+	void setFilterFormat(GLuint min, GLuint max);
 
 	inline const unsigned int getWidth() const { return mWidth; };
 	inline const unsigned int getHeight() const { return mHeight; };

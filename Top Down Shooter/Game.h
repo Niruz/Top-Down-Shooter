@@ -35,7 +35,7 @@ public:
 	const unsigned int getFPS() const { return myFramesPerSecond; }
 	const unsigned int getUPS() const { return myUpdatesPerSecond; }
 
-	virtual void ProcessKeyBoard(int direction, float deltaTime) = 0;
+	virtual void ProcessKeyBoard(int direction, float deltaTime, int action) = 0;
 	virtual void ProcessMouse(double xpos, double ypos, bool movement) {};
 public:
 

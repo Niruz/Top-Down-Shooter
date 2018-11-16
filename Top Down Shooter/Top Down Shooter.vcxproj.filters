@@ -88,20 +88,38 @@
     <Filter Include="Graphics\Font">
       <UniqueIdentifier>{b0f484e1-2e0b-4ee6-8722-bb2ae57883e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Test Games">
-      <UniqueIdentifier>{9b92b5b5-50fd-4bd6-a8e5-760341231ba4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test Games\Pacman">
-      <UniqueIdentifier>{70774218-6b9d-4ac0-90f8-6ec0c2cb30c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test Games\Shooter">
-      <UniqueIdentifier>{b1cf5a2a-7dce-42d7-b9b5-431d53382ecf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\Entities">
       <UniqueIdentifier>{84482dee-3599-4508-bcec-70290aee615b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Test Games\Pacman\Entities">
+    <Filter Include="Games">
+      <UniqueIdentifier>{9b92b5b5-50fd-4bd6-a8e5-760341231ba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\Pacman">
+      <UniqueIdentifier>{70774218-6b9d-4ac0-90f8-6ec0c2cb30c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\Pacman\Entities">
       <UniqueIdentifier>{970c30cf-bf27-4b7b-a2f3-2be619537941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\Shooter">
+      <UniqueIdentifier>{b1cf5a2a-7dce-42d7-b9b5-431d53382ecf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania">
+      <UniqueIdentifier>{c2d10695-2313-42d6-a8fc-3e3143f6859e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Renderer\Animation">
+      <UniqueIdentifier>{692c55f9-16fb-43a9-9b24-67d98ff5c631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Sprites">
+      <UniqueIdentifier>{feacbc1a-5cdb-4dcc-b0b9-efe5108439a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Entities">
+      <UniqueIdentifier>{501cc157-5c4e-4071-a4d3-980cb041cb50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Entities\States">
+      <UniqueIdentifier>{10e5b858-9677-4603-afd3-3840fb81e291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Entities\States\Entity States">
+      <UniqueIdentifier>{50a72ff0-0dc1-4eba-9bc8-d32c63eb900c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,22 +166,22 @@
       <Filter>Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="Vampire.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="MinerOwnedStates.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="Miner.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Graphics\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="MinersWife.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="MinersWifeOwnedStates.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>PathFinding</Filter>
@@ -181,10 +199,10 @@
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="SimpleObject.cpp">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="Renderable.cpp">
       <Filter>Graphics\Renderer</Filter>
@@ -346,13 +364,31 @@
       <Filter>Graphics\Font</Filter>
     </ClCompile>
     <ClCompile Include="Pacman.cpp">
-      <Filter>Test Games\Pacman</Filter>
+      <Filter>Games\Pacman</Filter>
     </ClCompile>
     <ClCompile Include="Shooter.cpp">
-      <Filter>Test Games\Shooter</Filter>
+      <Filter>Games\Shooter</Filter>
     </ClCompile>
     <ClCompile Include="PacmanEntity.cpp">
-      <Filter>Test Games\Pacman\Entities</Filter>
+      <Filter>Games\Pacman\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVania.cpp">
+      <Filter>Games\GothicVania</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Graphics\Renderer\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Graphics\Renderer\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroEntity.cpp">
+      <Filter>Games\GothicVania\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaHeroStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -390,7 +426,7 @@
       <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="Miner.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>AI\States</Filter>
@@ -408,34 +444,34 @@
       <Filter>Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="Vampire.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="MinerOwnedStates.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Graphics\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Locations.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="MinersWife.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="MinersWifeOwnedStates.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="MessageTypes.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="EntityNames.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleUtils.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>PathFinding</Filter>
@@ -453,10 +489,10 @@
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="SimpleObject.h">
-      <Filter>Test Games</Filter>
+      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Renderable.h">
       <Filter>Graphics\Renderer</Filter>
@@ -534,13 +570,31 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Pacman.h">
-      <Filter>Test Games\Pacman</Filter>
+      <Filter>Games\Pacman</Filter>
     </ClInclude>
     <ClInclude Include="Shooter.h">
-      <Filter>Test Games\Shooter</Filter>
+      <Filter>Games\Shooter</Filter>
     </ClInclude>
     <ClInclude Include="PacmanEntity.h">
-      <Filter>Test Games\Pacman\Entities</Filter>
+      <Filter>Games\Pacman\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVania.h">
+      <Filter>Games\GothicVania</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Graphics\Renderer\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Graphics\Renderer\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroEntity.h">
+      <Filter>Games\GothicVania\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaHeroStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

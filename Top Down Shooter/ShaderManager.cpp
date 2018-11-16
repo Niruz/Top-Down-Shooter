@@ -88,6 +88,9 @@ const unsigned int ShaderManager::loadShader(const std::string& source, const un
 void ShaderManager::onInitialize()
 {
 	initShader(SIMPLE_FORWARD_SHADER, "Shaders/forwardVertex.glsl", "Shaders/fragmentVertex.glsl");
+	initShader(SIMPLE_BACKGROUND1_SHADER, "Shaders/forwardVertex.glsl", "Shaders/fragmentVertex.glsl");
+	initShader(SIMPLE_BACKGROUND2_SHADER, "Shaders/forwardVertex.glsl", "Shaders/fragmentVertex.glsl");
+	initShader(SIMPLE_BACKGROUND3_SHADER, "Shaders/forwardVertex.glsl", "Shaders/fragmentVertex.glsl");
 	initShader(SIMPLE_MENU_SHADER, "Shaders/forwardVertexmenu.glsl", "Shaders/fragmentVertexmenu.glsl");
 	initShader(SIMPLE_TEXTURE_SHADER, "Shaders/forwardVertexTexture.glsl", "Shaders/fragmentVertexTexture.glsl");
 	initUniforms();

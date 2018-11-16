@@ -30,7 +30,7 @@ public:
 	
 	void UpdatePlayer();
 
-	void ProcessKeyBoard(int direction, float deltaTime) override;
+	void ProcessKeyBoard(int direction, float deltaTime, int action) override;
     void ProcessMouse(double xpos, double ypos, bool movement) override;
 private:
 

@@ -13,13 +13,18 @@ void TextureManager::onInitialize()
 	FreeImage_Initialise();
 #endif
 
-	LoadTexture("Textures/floor.png", "floor");
-	LoadTexture("Textures/floor2.png", "floor2");
-	LoadTexture("Textures/wall.png", "wall");
-	LoadTexture("Textures/cursor.jpg", "cursor");
-	LoadTexture("Textures/cursor2.jpg", "cursor2");
-	LoadTexture("Textures/wall.jpg", "player");
-	LoadTexture("Textures/512Atlas.png", "atlas");
+	LoadTexture("Textures/floor.png", "floor",false,false,false);
+	LoadTexture("Textures/floor2.png", "floor2", false, false, false);
+	LoadTexture("Textures/wall.png", "wall", false, false, false);
+	LoadTexture("Textures/cursor.jpg", "cursor", false, false, false);;
+	LoadTexture("Textures/cursor2.jpg", "cursor2", false, false, false);
+	LoadTexture("Textures/wall.jpg", "player", false, false, false);
+	LoadTexture("Textures/512Atlas.png", "atlas", false, false, false);
+	LoadTexture("Textures/background.png", "moonbackground", false, true, false);
+	LoadTexture("Textures/graveyard2.png", "graveyard", true, true, false);
+	LoadTexture("Textures/mountains2.png", "mountains", true, true, false);
+	LoadTexture("Textures/spritesheet.png", "hero", true, false, false);
+	LoadTexture("Textures/testtile.png", "grass", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
 	LoadTexture("Textures/3.png", "3");
@@ -29,7 +34,7 @@ void TextureManager::onInitialize()
 
 	for(int i=0 ; i < 36; i++)
 	{
-		LoadTexture("Textures/"+std::to_string(i)+".png", std::to_string(i));
+		LoadTexture("Textures/"+std::to_string(i)+".png", std::to_string(i), false, false, false);
 	}
 }
 void TextureManager::onDeinitialize()
@@ -42,7 +47,7 @@ void TextureManager::onDeinitialize()
 	FreeImage_DeInitialise();
 #endif
 }
-bool TextureManager::LoadTexture(std::string filename, std::string identifier, GLboolean alpha)
+bool TextureManager::LoadTexture(std::string filename, std::string identifier, GLboolean alpha, GLboolean isBackground, GLboolean repeating)
 {
 	//image format
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -82,8 +87,13 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	if (alpha)
 	{
-		mTextures[identifier]->setImageFormat(GL_RGBA);
-		mTextures[identifier]->setInternalFormat(GL_RGBA);
+		mTextures[identifier]->setImageFormat(GL_BGRA);
+		mTextures[identifier]->setInternalFormat(GL_BGRA);
+	}
+	if (isBackground)
+	{
+		mTextures[identifier]->setFilterFormat(GL_LINEAR,GL_LINEAR);
+		//mTextures[identifier]->setWrapperFormat(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 	}
 
 	mTextures[identifier]->Generate(width, height, bits);

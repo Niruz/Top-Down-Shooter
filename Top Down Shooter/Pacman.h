@@ -27,7 +27,7 @@ public:
 	void Update() override;
 	void Render() override;
 
-    void ProcessKeyBoard(int direction, float deltaTime) override;
+    void ProcessKeyBoard(int direction, float deltaTime, int action) override;
 private:
 
 	Shader* myShader;

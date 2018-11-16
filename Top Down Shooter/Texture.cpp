@@ -42,3 +42,8 @@ void Texture::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+void Texture::setFilterFormat(GLuint min, GLuint max)
+{ 
+	mFilterMin = min;
+	mFilterMax = max;
+}

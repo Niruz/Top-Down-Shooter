@@ -73,6 +73,7 @@ public:
 	inline const unsigned int GetColor()               const { return myColor; }
 	inline const std::vector<glm::vec2>& GetUVs()    const { return myUVs; }
 	inline const GLuint GetTID() const { return myTexture ? myTexture->getID() : 0; }
+
 private:
 	void SetUVDefaults()
 	{
@@ -81,4 +82,5 @@ private:
 		myUVs.push_back(glm::vec2(1, 1));
 		myUVs.push_back(glm::vec2(1, 0));
 	}
+
 };

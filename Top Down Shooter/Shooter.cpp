@@ -132,20 +132,20 @@ void Shooter::Render()
 	myLayer->Render();
 	//myDebugLayer->Render();
 }
-void Shooter::ProcessKeyBoard(int direction, float deltaTime)
+void Shooter::ProcessKeyBoard(int direction, float deltaTime, int action)
 {
 	if (direction == GLFW_KEY_W)
-		myPlayer->processKeyBoard(FORWARD, deltaTime,*myMap);
+		myPlayer->processKeyBoard(FORWARD, deltaTime, action);
 	if (direction == GLFW_KEY_S)
-		myPlayer->processKeyBoard(BACKWARD, deltaTime, *myMap);
+		myPlayer->processKeyBoard(BACKWARD, deltaTime, action);
 	if (direction == GLFW_KEY_A)
-		myPlayer->processKeyBoard(LEFT, deltaTime, *myMap);
+		myPlayer->processKeyBoard(LEFT, deltaTime, action);
 	if (direction == GLFW_KEY_D)
-		myPlayer->processKeyBoard(RIGHT, deltaTime, *myMap);
+		myPlayer->processKeyBoard(RIGHT, deltaTime, action);
 	if (direction == GLFW_KEY_SPACE)
-		myPlayer->processKeyBoard(UP, deltaTime, *myMap);
+		myPlayer->processKeyBoard(UP, deltaTime, action);
 	if (direction == GLFW_KEY_LEFT_CONTROL)
-		myPlayer->processKeyBoard(DOWN, deltaTime, *myMap);
+		myPlayer->processKeyBoard(DOWN, deltaTime, action);
 
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myCamera.setPosition(-myPlayer->mPosition);

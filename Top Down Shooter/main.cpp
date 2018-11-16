@@ -52,6 +52,7 @@
 #include "FontManager.h"
 #include "Pacman.h"
 #include "Shooter.h"
+#include "GothicVania.h"
 using namespace irrklang;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
@@ -61,7 +62,10 @@ float mWidth = 1280.0f;
 float aspectRatio = mWidth / mHeight;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
-bool keys[1024] = { false };
+bool currentKeyState[1024] = { false };
+bool oldKeyState[1024] = { false };
+bool keyPressRelease[1024] = { false };
+bool oldKeyPressRelease[1024] = { false };
 
 bool firstMouse = true;
 glm::vec2 playerPos = glm::vec2(0.0f, 0.0f);
@@ -102,9 +106,9 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			keys[key] = true;
+			currentKeyState[key] = true;
 		else if (action == GLFW_RELEASE)
-			keys[key] = false;
+			currentKeyState[key] = false;
 	}
 }
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -153,14 +157,118 @@ void updateInput(GLfloat deltaTime, TileMap& map)
 }*/
 void updateInput(GLfloat deltaTime)
 {
-	if (keys[GLFW_KEY_W])
-		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime);
-	if (keys[GLFW_KEY_S])
-		myGame->ProcessKeyBoard(GLFW_KEY_S, deltaTime);
-	if (keys[GLFW_KEY_A])
-		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime);
-	if (keys[GLFW_KEY_D])
-		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime);
+	/*//W
+	if (currentKeyState[GLFW_KEY_W] && !oldKeyState[GLFW_KEY_W]) 
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_W] = true;
+		std::cout << "W Pressed" << std::endl;
+	}
+	else if(!currentKeyState[GLFW_KEY_W] && oldKeyState[GLFW_KEY_W])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_W] = false;
+		std::cout << "W Released" << std::endl;
+	}
+	//S
+	if (currentKeyState[GLFW_KEY_S] && !oldKeyState[GLFW_KEY_S])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_S, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_S] = true;
+		std::cout << "S Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_S] && oldKeyState[GLFW_KEY_S])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_S, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_S] = false;
+		std::cout << "S Released" << std::endl;
+	}
+	//A
+	if (currentKeyState[GLFW_KEY_A] && !oldKeyState[GLFW_KEY_A])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_A] = true;
+		std::cout << "A Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_A] && oldKeyState[GLFW_KEY_A])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_A] = false;
+		std::cout << "A Released" << std::endl;
+	}
+	//D
+	if (currentKeyState[GLFW_KEY_D] && !oldKeyState[GLFW_KEY_D])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_D] = true;
+		std::cout << "D Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_D] && oldKeyState[GLFW_KEY_D])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_D] = false;
+		std::cout << "D Released" << std::endl;
+	}*/
+	//C
+	if (currentKeyState[GLFW_KEY_C] && !oldKeyState[GLFW_KEY_C])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_C, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_C] = true;
+		std::cout << "C Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_C] && oldKeyState[GLFW_KEY_C])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_C, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_C] = false;
+		std::cout << "C Released" << std::endl;
+	}
+	//V
+	if (currentKeyState[GLFW_KEY_V] && !oldKeyState[GLFW_KEY_V])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_V, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_V] = true;
+		std::cout << "V Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_V] && oldKeyState[GLFW_KEY_V])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_V, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_V] = false;
+		std::cout << "V Released" << std::endl;
+	}
+	//SPACE
+	if (currentKeyState[GLFW_KEY_SPACE] && !oldKeyState[GLFW_KEY_SPACE])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_SPACE, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_SPACE] = true;
+		std::cout << "Space Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_SPACE] && oldKeyState[GLFW_KEY_SPACE])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_SPACE, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_SPACE] = false;
+		std::cout << "Space Released" << std::endl;
+	}
+
+	if (currentKeyState[GLFW_KEY_W])
+		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_S])
+		myGame->ProcessKeyBoard(GLFW_KEY_S, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_A])
+		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_D])
+		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_PRESS);
+	/*if (currentKeyState[GLFW_KEY_1])
+		myGame->ProcessKeyBoard(GLFW_KEY_1, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_2])
+		myGame->ProcessKeyBoard(GLFW_KEY_2, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_3])
+		myGame->ProcessKeyBoard(GLFW_KEY_3, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_4])
+		myGame->ProcessKeyBoard(GLFW_KEY_4, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_5])
+		myGame->ProcessKeyBoard(GLFW_KEY_5, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_6])
+		myGame->ProcessKeyBoard(GLFW_KEY_6, deltaTime, GLFW_PRESS);*/
 }
 glm::vec2 convertRange()
 {
@@ -796,6 +904,8 @@ int main(void)
 	glViewport(0, 0, 1280, 720);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
@@ -809,9 +919,9 @@ int main(void)
 	FontMan->onInitialize();
 
 
-
 	//myGame = new Pacman();
-	myGame = new Shooter();
+	//myGame = new Shooter();
+	myGame = new GothicVania();
 	myGame->Initialize();
 	do
 	{
@@ -838,7 +948,6 @@ int main(void)
 	ShaderMan->onDeinitialize();
 	TextureMan->onDeinitialize();
 	FontMan->onDeinitialize();
-
 	//Close OpenGL window and terminate GLFW  
 	glfwDestroyWindow(window);
 	//Finalize and clean up GLFW  

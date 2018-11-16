@@ -18,7 +18,7 @@ public:
 	void onDeinitialize();
 
 	//identifier is what we refer the texture as
-	bool LoadTexture(std::string filename, std::string identifier, GLboolean alpha = false);
+	bool LoadTexture(std::string filename, std::string identifier, GLboolean alpha , GLboolean isBackground, GLboolean repeating);
 
 	Texture* GetTexture(std::string name);
 

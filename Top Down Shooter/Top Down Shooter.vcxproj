@@ -93,6 +93,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -143,7 +145,11 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="ext\freetype\src\winfonts\winfnt.c" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="GothicVania.cpp" />
+    <ClCompile Include="GothicVaniaHeroStates.cpp" />
     <ClCompile Include="Group.cpp" />
+    <ClCompile Include="HeroEntity.cpp" />
+    <ClCompile Include="HeroSprite.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layer.cpp" />
@@ -178,6 +184,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="BatchRenderer.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
@@ -201,7 +209,11 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GothicVania.h" />
+    <ClInclude Include="GothicVaniaHeroStates.h" />
     <ClInclude Include="Group.h" />
+    <ClInclude Include="HeroEntity.h" />
+    <ClInclude Include="HeroSprite.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Layer.h" />

@@ -82,7 +82,7 @@ void Pacman::Render()
 {
 	myLayer->Render();
 }
-void Pacman::ProcessKeyBoard(int direction, float deltaTime)
+void Pacman::ProcessKeyBoard(int direction, float deltaTime, int action)
 {
 	/*GLfloat velocity = 200.5f * deltaTime;
 	if(direction == 0)

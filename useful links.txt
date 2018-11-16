@@ -18,3 +18,6 @@ https://stackoverflow.com/questions/43173075/replacement-for-gl-luminance-alpha-
 
 TILE games
 http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
+
+Shaking
+https://jonny.morrill.me/en/blog/gamedev-how-to-implement-a-camera-shake-effect/
