@@ -10,6 +10,7 @@
 #include "TextureManager.h"
 #include "GLFW\glfw3.h"
 #include "GothicVaniaHeroStates.h"
+
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),

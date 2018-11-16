@@ -24,6 +24,7 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/graveyard2.png", "graveyard", true, true, false);
 	LoadTexture("Textures/mountains2.png", "mountains", true, true, false);
 	LoadTexture("Textures/spritesheet.png", "hero", true, false, false);
+	LoadTexture("Textures/skeletonnormalsprites.png", "skeleton", true, false, false);
 	LoadTexture("Textures/testtile.png", "grass", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
