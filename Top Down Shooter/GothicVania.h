@@ -7,6 +7,7 @@ class Label;
 class Sprite;
 class TileMap;
 class HeroEntity;
+class SkeletonEntity;
 class Group;
 
 class GothicVania : public Game
@@ -42,12 +43,16 @@ private:
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
 	TileMap* myMap;
-	HeroEntity* myPlayer;
+	
 	Camera myCamera;
 	Group* myCursor;
 	Group* tileGroup;
 	Sprite* myMountain;
 	Sprite* myGraveyard;
+
+	//Entities
+	HeroEntity* myPlayer;
+//	std::vector<SkeletonEntity*> mySkeletons;
 
 	float lastX;
 	float lastY;
