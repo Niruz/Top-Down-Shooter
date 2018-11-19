@@ -246,6 +246,7 @@ void HeroEntity::Update()
 	}
 	
 	myStateMachine->update();
+	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	/*if(!inAir)
 		HandleGravity();
 	if (inAir)

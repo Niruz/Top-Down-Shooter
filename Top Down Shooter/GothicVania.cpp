@@ -11,7 +11,8 @@
 #include "HeroEntity.h"
 #include <iostream>
 #include "glfw3.h"
-
+#include "SkeletonEntity.h"
+#include "GhostEntity.h"
 void GothicVania::Initialize()
 {
 	lastX = 640.0f;
@@ -47,7 +48,8 @@ void GothicVania::Initialize()
 	//myDebugLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
 
 	myPlayer = new HeroEntity(0, "Player");
-
+	mySkeleton = new SkeletonEntity(1, "Skeleton1");
+	myGhost = new GhostEntity(2, "Ghost1");
 	
 
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
@@ -108,15 +110,19 @@ void GothicVania::Initialize()
 	myPlayerTile->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floor2")/*, glm::vec2(0, 15)*/));
 
 	tileGroup->Add(myPlayerTile);
+	tileGroup->Add(mySkeleton->mySprite);
+	tileGroup->Add(myGhost->mySprite);
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
-
+	
 	myPlayer->myTileMap = myMap;
 	//myDebugLayer->Add(myPlayerTile);
 }
 void GothicVania::UpdatePlayer()
 {
 	myPlayer->Update();
+	mySkeleton->Update();
+	myGhost->Update();
 	for (int i = 0; i < myMap->GetMap().size(); i++)
 	{
 		if (myMap->GetMap()[i]->isPlayerOnTile)
