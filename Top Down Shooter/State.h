@@ -14,4 +14,6 @@ public:
 	virtual void Exit(T*) = 0;
 
 	virtual bool OnMessage(T*, const Message&) = 0;
+	//Not everyone needs to handle input
+	virtual bool HandleInput(T*, int key, int action) { return false; };
 };

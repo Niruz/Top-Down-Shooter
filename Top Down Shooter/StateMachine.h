@@ -80,6 +80,25 @@ public:
 		return false;
 	}
 
+	bool HandleInput(int key, int action)
+	{
+		//first see if the current state is valid and that it can handle
+		//the message
+		if (mCurrentState && mCurrentState->HandleInput(mOwner, key, action))
+		{
+			return true;
+		}
+
+		//if not, and if a global state has been implemented, send 
+		//the message to the global state
+		if (mGlobalState && mGlobalState->HandleInput(mOwner, key, action))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 
 	State<T>* getCurrentState()  const { return mCurrentState; }
 	State<T>* getGlobalState()   const { return mGlobalState; }

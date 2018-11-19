@@ -127,7 +127,7 @@ void GothicVania::UpdatePlayer()
 			break;
 		}
 	}
-	myPlayer->setDirection(myCamera.getPlayerDirection(myPlayer->mPosition));
+	//myPlayer->setDirection(myCamera.getPlayerDirection(myPlayer->mPosition));
 	myPlayer->UpdateTransformationMatrix(myCamera);
 	glm::vec2 mouseScreenWorld = myCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
 	glm::mat4 tran = glm::mat4(1.0f);
@@ -146,7 +146,8 @@ void GothicVania::Update()
 {
 	UpdatePlayer();
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
-	myCamera.setPosition(-myPlayer->mPosition);
+	//myCamera.setPosition(-myPlayer->mPosition);
+	myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 0, -myPlayer->mPosition.z));
 	myGraveyard->increaseUVAlongX(-0.002f);
 	myMountain->increaseUVAlongX(-0.001f);
 }

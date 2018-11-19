@@ -356,8 +356,9 @@ void TileMap::setPlayerTile(float x, float y)
 
 	float roundX2 = round(shitX);
 	float roundY2 = round(shitY);
-
-	
+	//Shouldnt put the player on an invalid tile?
+	//if (!IsDirectionWalkable(roundX2, roundY2))
+	//	return;
 	if (lastPlayerTile != nullptr)
 		lastPlayerTile->isPlayerOnTile = false;
 

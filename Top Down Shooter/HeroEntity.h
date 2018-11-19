@@ -3,9 +3,11 @@
 #include "Camera.h"
 #include "StateMachine.h"
 #include "SimpleTimer.h"
+#include "AABB.h"
 class TileMap;
 class Group;
 class HeroSprite;
+class Sprite;
 
 enum StateTest
 {
@@ -67,7 +69,8 @@ struct HeroEntity : public Entity
 	float myStartJumpTime;
 
 	TileMap* myTileMap;
-
+	Sprite* myPlayerAABB;
+	AABB* myAABB;
 	StateTest myState;
 };
 

@@ -10,7 +10,7 @@
 #include "TextureManager.h"
 #include "GLFW\glfw3.h"
 #include "GothicVaniaHeroStates.h"
-
+#include "Sprite.h"
 
 # define M_PI3           3.14159265358979323846  /* pi */
 
@@ -22,6 +22,8 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myAnimatedSprite = new HeroSprite(glm::vec4(0.0f, 5.0f, 0.1f, 1), glm::vec2(100, 59), TextureMan->GetTexture("hero"), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
+	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, 0.2f, 1.0f),glm::vec2(32.0f,32.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
+	mySprite->Add(myPlayerAABB);
 
 	currentKeyInput = 0;
 	myState = IDLE;
@@ -38,6 +40,8 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 
 	inAir = false;
 	myStartJumpTime = 0.0f;
+
+	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 16.0f, 16.0f);
 }
 HeroEntity::~HeroEntity()
 {
@@ -150,6 +154,7 @@ void HeroEntity::HandleGravity()
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
 	float fallingSpeed = -3.5f;
+
 	if (myTileMap->IsDirectionWalkable(tileX, tileY + 1))
 		mPosition.y += fallingSpeed;
 	else
@@ -176,6 +181,42 @@ void HeroEntity::HandleJump()
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
 	float jumpSpeed = 3.5f;
+
+	/*if (!myTileMap->IsDirectionWalkable(tileX + 1, tileY))
+	{
+		mPosition.x = myTileMap->lastPlayerTile->myWorldPosition.x;
+	}
+	if (!myTileMap->IsDirectionWalkable(tileX - 1, tileY))
+	{
+		mPosition.x = myTileMap->lastPlayerTile->myWorldPosition.x;
+	}*/
+
+	//Step X then step y
+	float velocity = 1.6f;
+	if (myPosXDirection == 1.0f)
+	{
+		if (myTileMap->IsDirectionWalkable(tileX + 1, tileY))
+			mPosition.x += myPosXDirection * velocity;
+		else
+		{
+			if (mPosition.x <= myTileMap->GetTile2(tileX, tileY)->myWorldPosition.x)
+			{
+				mPosition.x += myPosXDirection * velocity;
+			}
+		}
+	}
+	else if (myNegXDirection == -1.0f)
+	{
+		if (myTileMap->IsDirectionWalkable(tileX - 1, tileY))
+			mPosition.x += myNegXDirection * velocity;
+		else
+		{
+			if (mPosition.x >= myTileMap->GetTile2(tileX, tileY)->myWorldPosition.x)
+			{
+				mPosition.x += myNegXDirection * velocity;
+			}
+		}
+	}
 	if (myTileMap->IsDirectionWalkable(tileX, tileY - 1))
 		mPosition.y += jumpSpeed;
 	else
@@ -189,6 +230,10 @@ void HeroEntity::HandleJump()
 			myStateMachine->changeState(HeroFalling::Instance());
 		}
 	}
+
+	//Last failcheck, need to look into clipping
+	if (!myTileMap->IsDirectionWalkable(tileX, tileY))
+		mPosition.y = myTileMap->GetTile2(tileX, tileY + 1)->myWorldPosition.y;
 }
 void HeroEntity::Update()
 {
@@ -218,13 +263,15 @@ void HeroEntity::Update()
 bool HeroEntity::HandleMessage(const Message& msg)
 {
 	myStateMachine->HandleMessage(msg);
-	return false;
+	return true;
 }
 void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 {
 	currentKeyInput = 0;
 
-	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	myStateMachine->HandleInput(key, action);
+
+	/*if (key == GLFW_KEY_W && action == GLFW_PRESS)
 	{
 		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 			myStateMachine->changeState(HeroRunning::Instance());
@@ -328,7 +375,7 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 			myStateMachine->changeState(HeroFalling::Instance());
 
 
-	}
+	}*/
 
 	if (currentKeyInput == 0)
 	{

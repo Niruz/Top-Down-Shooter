@@ -29,6 +29,8 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 };
 //------------------------------------------------------------------------
 //
@@ -57,6 +59,8 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+	
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 };
 //------------------------------------------------------------------------
 //
@@ -85,6 +89,8 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 };
 //------------------------------------------------------------------------
 //
@@ -113,6 +119,8 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 };//------------------------------------------------------------------------
 //
 //  Falling state for the hero
@@ -140,6 +148,8 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 };
 //
 //  Jumping state for the hero
@@ -167,5 +177,7 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 
 };

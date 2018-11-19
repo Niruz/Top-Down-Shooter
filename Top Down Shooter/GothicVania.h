@@ -66,6 +66,7 @@ private:
 	//Debug stuff
 	Layer * myDebugLayer;
 	Group* myPlayerTile;
+	
 };
 
 

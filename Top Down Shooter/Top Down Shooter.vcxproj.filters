@@ -121,6 +121,9 @@
     <Filter Include="Games\GothicVania\Entities\States\Entity States">
       <UniqueIdentifier>{50a72ff0-0dc1-4eba-9bc8-d32c63eb900c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{449e39e3-35d8-4d13-8e30-3e6449b51904}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -607,6 +610,9 @@
     </ClInclude>
     <ClInclude Include="SkeletonEntity.h">
       <Filter>Games\GothicVania\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
