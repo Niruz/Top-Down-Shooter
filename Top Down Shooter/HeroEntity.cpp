@@ -11,6 +11,7 @@
 #include "GLFW\glfw3.h"
 #include "GothicVaniaHeroStates.h"
 
+
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),
@@ -34,6 +35,9 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 
 	myStateMachine->setCurrentState(HeroIdle::Instance());
 	myStateMachine->changeState(HeroIdle::Instance());
+
+	inAir = false;
+	myStartJumpTime = 0.0f;
 }
 HeroEntity::~HeroEntity()
 {
@@ -77,57 +81,6 @@ void HeroEntity::HandleMovement()
 		return;
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
-	glm::vec2 tilePos = myTileMap->lastPlayerTile->myWorldPosition;
-
-	float yPos = mPosition.y;
-	float xPos = mPosition.x;
-	float tileX2 = (yPos / 32.0f) + (xPos / 32.0f);
-
-	float tileY2 = (xPos / 32.0f) - (yPos / 32.0f);
-
-	float tileX3 = round(xPos / 32.0f) * 32.0f;
-	float tileY3 = round(yPos / 32.0f) * 32.0f;
-
-	float shitX = this->map(mPosition.x, -320, 288, 0, 19);
-	float shitY = this->map(mPosition.y, 160, -192, 0, 11);
-
-
-	float roundX2 = round(shitX);
-	float roundY2 = round(shitY);
-
-
-
-	glm::vec2 startRange(-320.0f, 192);
-	glm::vec2 endRange(288.0f, -192.0f);
-
-	glm::vec2 range = endRange - startRange;
-
-	glm::vec2 test = glm::vec2(mPosition.x / range.x, mPosition.y / range.y);
-
-	glm::vec2 testTilePos;
-	testTilePos.x = glm::floor(test.x);
-	testTilePos.y = glm::floor(test.y);
-
-	glm::vec2 test2;
-	test.x = mPosition.x / 32.0f;
-	test.x = mPosition.y / 32.0f;
-	int shit = 5;
-
-	float a = -320.0f;
-	float b = 288.0f;
-	float c = 0;
-	float d = 19;
-
-
-	float a2 = 192;
-	float b2 = -192;
-	float c2 = 0;
-	float d2 = 11;
-	float testNew = ((mPosition.x - a) * ((d - c) / (b - a))) + c;
-	float testNew2 = ((mPosition.y - a2) * ((d2 - c2) / (b2 - a2))) + c2;
-
-	float roundX = round(testNew);
-	float roundY = round(testNew2);
 
 	float velocity = 1.6f;
 
@@ -182,6 +135,60 @@ void HeroEntity::HandleMovement()
 	}
 	myNegYDirection = myPosYDirection = myNegXDirection = myPosXDirection = 0.0f;
 	mPosition.z = 0.1f;
+
+
+}
+void HeroEntity::CheckIfFalling()
+{
+	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+	if (myTileMap->IsDirectionWalkable(tileX, tileY + 1))
+		myStateMachine->changeState(HeroFalling::Instance());
+}
+void HeroEntity::HandleGravity()
+{
+	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+	float fallingSpeed = -3.5f;
+	if (myTileMap->IsDirectionWalkable(tileX, tileY + 1))
+		mPosition.y += fallingSpeed;
+	else
+	{
+		if (mPosition.y >= myTileMap->GetTile2(tileX, tileY)->myWorldPosition.y)
+		{
+			mPosition.y += fallingSpeed;
+		}
+		else
+		{
+			myStateMachine->changeState(HeroIdle::Instance());
+		}
+	}
+	mPosition.z = 0.1f;
+}
+void HeroEntity::StartJump()
+{
+	myStartJumpTime = Clock->GetCurrentTime();
+}
+void HeroEntity::HandleJump()
+{
+	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
+		myStateMachine->changeState(HeroFalling::Instance());
+	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+	float jumpSpeed = 3.5f;
+	if (myTileMap->IsDirectionWalkable(tileX, tileY - 1))
+		mPosition.y += jumpSpeed;
+	else
+	{
+		if (mPosition.y >= myTileMap->GetTile2(tileX, tileY)->myWorldPosition.y)
+		{
+			mPosition.y += jumpSpeed;
+		}
+		else
+		{
+			myStateMachine->changeState(HeroFalling::Instance());
+		}
+	}
 }
 void HeroEntity::Update()
 {
@@ -189,11 +196,15 @@ void HeroEntity::Update()
 	//HandleMovement();
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()))
+			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
 	
 	myStateMachine->update();
+	/*if(!inAir)
+		HandleGravity();
+	if (inAir)
+		HandleJump();*/
 /*	if (myState == IDLE)
 		myAnimatedSprite->SetAnimation("HeroIdle");
 	if (myState == RUNNING)
@@ -215,7 +226,7 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 
 	if (key == GLFW_KEY_W && action == GLFW_PRESS)
 	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 			myStateMachine->changeState(HeroRunning::Instance());
 		currentKeyInput = GLFW_KEY_W;
 		myPosYDirection = 1.0f;
@@ -230,7 +241,7 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 	}
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
 	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 			myStateMachine->changeState(HeroRunning::Instance());
 		currentKeyInput = GLFW_KEY_S;
 		myNegYDirection = -1.0f;
@@ -244,7 +255,7 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 	}
 	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 			myStateMachine->changeState(HeroRunning::Instance());
 		currentKeyInput = GLFW_KEY_D;
 		myPosXDirection = 1.0f;
@@ -260,7 +271,7 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 			myStateMachine->changeState(HeroRunning::Instance());
 		currentKeyInput = GLFW_KEY_A;
 		myNegXDirection = -1.0f;
@@ -283,19 +294,40 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 
 		myState = CROUCH;
 		//myXDirection = myYDirection = 0.0f;
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()))
 			myStateMachine->changeState(HeroCrouch::Instance());
 		else if (myStateMachine->isInState(*HeroCrouch::Instance()))
 			myStateMachine->changeState(HeroIdle::Instance());
 
+	}
+	if (key == GLFW_KEY_C && action == GLFW_RELEASE)
+	{
+		if(myStateMachine->isInState(*HeroCrouch::Instance()))
+			myStateMachine->changeState(HeroIdle::Instance());
 	}
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		currentKeyInput = GLFW_KEY_V;
 		myState = ATTACKING;
 
-		if(!myStateMachine->isInState(*HeroAttack::Instance()))
+		if(!myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()))
 			myStateMachine->changeState(HeroAttack::Instance());
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		currentKeyInput = GLFW_KEY_SPACE;
+		if (!myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
+			myStateMachine->changeState(HeroJumping::Instance());
+
+		
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
+	{
+		currentKeyInput = GLFW_KEY_SPACE;
+		if (myStateMachine->isInState(*HeroJumping::Instance()))
+			myStateMachine->changeState(HeroFalling::Instance());
+
+
 	}
 
 	if (currentKeyInput == 0)

@@ -88,7 +88,7 @@ public:
 };
 //------------------------------------------------------------------------
 //
-//  Crouch state for the hero
+//  Running state for the hero
 //  
 //------------------------------------------------------------------------
 class HeroRunning : public State<HeroEntity>
@@ -113,4 +113,59 @@ public:
 	virtual void Exit(HeroEntity* entity);
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+};//------------------------------------------------------------------------
+//
+//  Falling state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroFalling : public State<HeroEntity>
+{
+private:
+
+	HeroFalling() {}
+
+	//copy ctor and assignment should be private
+	HeroFalling(const HeroFalling&);
+	HeroFalling& operator=(const HeroFalling&);
+
+public:
+
+	//this is a singleton
+	static HeroFalling* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+};
+//
+//  Jumping state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroJumping : public State<HeroEntity>
+{
+private:
+
+	HeroJumping() {}
+
+	//copy ctor and assignment should be private
+	HeroJumping(const HeroJumping&);
+	HeroJumping& operator=(const HeroJumping&);
+
+public:
+
+	//this is a singleton
+	static HeroJumping* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
 };

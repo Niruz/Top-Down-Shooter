@@ -67,6 +67,7 @@ bool oldKeyState[1024] = { false };
 bool keyPressRelease[1024] = { false };
 bool oldKeyPressRelease[1024] = { false };
 
+
 bool firstMouse = true;
 glm::vec2 playerPos = glm::vec2(0.0f, 0.0f);
 GLfloat lastX = 640.0f;

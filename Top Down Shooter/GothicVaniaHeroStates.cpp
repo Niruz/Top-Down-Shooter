@@ -1,6 +1,7 @@
 #include "GothicVaniaHeroStates.h"
 #include "HeroEntity.h"
 #include "HeroSprite.h"
+
 //------------------------------------------------------------------------methods for HeroIdle
 HeroIdle* HeroIdle::Instance()
 {
@@ -19,7 +20,7 @@ void HeroIdle::Enter(HeroEntity* entity)
 void HeroIdle::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	
+	entity->CheckIfFalling();
 }
 
 
@@ -125,6 +126,7 @@ void HeroRunning::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
 	entity->HandleMovement();
+	entity->CheckIfFalling();
 }
 
 
@@ -135,6 +137,78 @@ void HeroRunning::Exit(HeroEntity* entity)
 
 
 bool HeroRunning::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	return false;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroFalling* HeroFalling::Instance()
+{
+	static HeroFalling instance;
+
+	return &instance;
+}
+
+
+void HeroFalling::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("HeroFall");
+	entity->myAnimatedSprite->Reset();
+}
+
+
+void HeroFalling::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	entity->HandleMovement();
+	entity->HandleGravity();
+}
+
+
+void HeroFalling::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroFalling::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	return false;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroJumping* HeroJumping::Instance()
+{
+	static HeroJumping instance;
+
+	return &instance;
+}
+
+
+void HeroJumping::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("HeroJump");
+	entity->myAnimatedSprite->Reset();
+	entity->StartJump();
+}
+
+
+void HeroJumping::Execute(HeroEntity* entity)
+{
+	if(!entity->myAnimatedSprite->IsDone())
+		entity->myAnimatedSprite->Update();
+	entity->HandleMovement();
+	entity->HandleJump();
+}
+
+
+void HeroJumping::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroJumping::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
 	return false;

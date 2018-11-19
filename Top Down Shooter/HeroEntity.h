@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Camera.h"
 #include "StateMachine.h"
+#include "SimpleTimer.h"
 class TileMap;
 class Group;
 class HeroSprite;
@@ -54,10 +55,16 @@ struct HeroEntity : public Entity
 	float myNegYDirection;
 
 	void HandleMovement();
+	void HandleGravity();
+	void HandleJump();
+	void StartJump();
+	void CheckIfFalling();
+	bool inAir;
 
 	float mAngle;
 
 	int currentKeyInput;
+	float myStartJumpTime;
 
 	TileMap* myTileMap;
 
