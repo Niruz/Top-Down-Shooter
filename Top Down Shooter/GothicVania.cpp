@@ -13,6 +13,7 @@
 #include "glfw3.h"
 #include "SkeletonEntity.h"
 #include "GhostEntity.h"
+#include "HellCatEntity.h"
 void GothicVania::Initialize()
 {
 	lastX = 640.0f;
@@ -50,6 +51,7 @@ void GothicVania::Initialize()
 	myPlayer = new HeroEntity(0, "Player");
 	mySkeleton = new SkeletonEntity(1, "Skeleton1");
 	myGhost = new GhostEntity(2, "Ghost1");
+	myHellCat = new HellCatEntity(3, "HellCat1");
 	
 
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
@@ -112,6 +114,7 @@ void GothicVania::Initialize()
 	tileGroup->Add(myPlayerTile);
 	tileGroup->Add(mySkeleton->mySprite);
 	tileGroup->Add(myGhost->mySprite);
+	tileGroup->Add(myHellCat->mySprite);
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
 	
@@ -123,6 +126,7 @@ void GothicVania::UpdatePlayer()
 	myPlayer->Update();
 	mySkeleton->Update();
 	myGhost->Update();
+	myHellCat->Update();
 	for (int i = 0; i < myMap->GetMap().size(); i++)
 	{
 		if (myMap->GetMap()[i]->isPlayerOnTile)

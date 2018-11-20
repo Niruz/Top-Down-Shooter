@@ -9,6 +9,7 @@ class TileMap;
 class HeroEntity;
 class SkeletonEntity;
 class GhostEntity;
+class HellCatEntity;
 class Group;
 
 class GothicVania : public Game
@@ -55,6 +56,7 @@ private:
 	HeroEntity* myPlayer;
 	SkeletonEntity* mySkeleton;
 	GhostEntity* myGhost;
+	HellCatEntity* myHellCat;
 //	std::vector<SkeletonEntity*> mySkeletons;
 
 	float lastX;

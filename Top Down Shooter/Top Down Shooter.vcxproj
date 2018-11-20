@@ -150,6 +150,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="GothicVania.cpp" />
     <ClCompile Include="GothicVaniaHeroStates.cpp" />
     <ClCompile Include="Group.cpp" />
+    <ClCompile Include="HellCatEntity.cpp" />
+    <ClCompile Include="HellCatSprite.cpp" />
     <ClCompile Include="HeroEntity.cpp" />
     <ClCompile Include="HeroSprite.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
@@ -191,6 +193,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="BatchRenderer.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
@@ -219,6 +222,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="GothicVania.h" />
     <ClInclude Include="GothicVaniaHeroStates.h" />
     <ClInclude Include="Group.h" />
+    <ClInclude Include="HellCatEntity.h" />
+    <ClInclude Include="HellCatSprite.h" />
     <ClInclude Include="HeroEntity.h" />
     <ClInclude Include="HeroSprite.h" />
     <ClInclude Include="IndexBuffer.h" />

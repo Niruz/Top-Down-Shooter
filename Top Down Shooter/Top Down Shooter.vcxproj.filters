@@ -124,6 +124,12 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{449e39e3-35d8-4d13-8e30-3e6449b51904}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Entities\Enemies">
+      <UniqueIdentifier>{4473eaeb-ce7b-4c2f-ab99-20c0fa6c66c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Entities\Enemies\Base Enemy">
+      <UniqueIdentifier>{e6e48c96-5b40-43ff-be41-349e3d1be59e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -387,23 +393,29 @@
     <ClCompile Include="HeroSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="HeroEntity.cpp">
-      <Filter>Games\GothicVania\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="GothicVaniaHeroStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="SkeletonEntity.cpp">
-      <Filter>Games\GothicVania\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="GhostSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="HellCatSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
     <ClCompile Include="GhostEntity.cpp">
-      <Filter>Games\GothicVania\Entities</Filter>
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HellCatEntity.cpp">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroEntity.cpp">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonEntity.cpp">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,17 +617,11 @@
     <ClInclude Include="HeroSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="HeroEntity.h">
-      <Filter>Games\GothicVania\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="GothicVaniaHeroStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States</Filter>
     </ClInclude>
     <ClInclude Include="SkeletonSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletonEntity.h">
-      <Filter>Games\GothicVania\Entities</Filter>
     </ClInclude>
     <ClInclude Include="AABB.h">
       <Filter>Physics</Filter>
@@ -623,8 +629,23 @@
     <ClInclude Include="GhostSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
+    <ClInclude Include="HellCatSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
     <ClInclude Include="GhostEntity.h">
-      <Filter>Games\GothicVania\Entities</Filter>
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HellCatEntity.h">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroEntity.h">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonEntity.h">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>Games\GothicVania\Entities\Enemies\Base Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
