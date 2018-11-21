@@ -5,7 +5,7 @@
 //Helper to hold all the data about an animation
 struct Animation
 {
-	Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, bool playOnce = false);
+	Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, int yRows, int spritesPerRow);
 	~Animation();
 
 	void Update();

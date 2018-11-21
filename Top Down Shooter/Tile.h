@@ -2,14 +2,19 @@
 #include <vector>
 #include "glm\vec2.hpp"
 #include "glm\mat4x4.hpp"
+
+#include "AABB.h"
 struct Tile
 {
-	Tile(float inX, float inY, bool blocking);
+	Tile(float inX, float inY, bool blocking, bool spikedFloor, bool oneWay, bool isPillar);
 	~Tile(){}
 	float myX;
 	float myY;
 
 	bool myIsBlockingFlag;
+	bool myIsSpikedFloor;
+	bool myIsOneWayTile;
+	bool myIsPillar;
 	//TODO: use this later when adding several AIs to avoid stacking
 	//The idea is, get a list of tiles as my path
 	//On every frame move close to the next tile in the list
@@ -36,5 +41,6 @@ struct Tile
 	Tile* myParent;
 
 	std::vector<Tile*> myNeighbours;
-
+	
+	AABB myAABB;
 };

@@ -181,3 +181,33 @@ public:
 	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 
 };
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroDamaged : public State<HeroEntity>
+{
+private:
+
+	HeroDamaged() {}
+
+	//copy ctor and assignment should be private
+	HeroDamaged(const HeroJumping&);
+	HeroDamaged& operator=(const HeroJumping&);
+
+public:
+
+	//this is a singleton
+	static HeroDamaged* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};

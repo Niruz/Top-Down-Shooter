@@ -202,6 +202,7 @@ void HeroRunning::Enter(HeroEntity* entity)
 void HeroRunning::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+
 	entity->HandleMovement();
 	entity->CheckIfFalling();
 }
@@ -271,6 +272,8 @@ void HeroFalling::Enter(HeroEntity* entity)
 void HeroFalling::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+	if (entity->IsOnSpikes())
+		entity->GetFSM()->changeState(HeroDamaged::Instance());
 	entity->HandleMovement();
 	entity->HandleGravity();
 }
@@ -353,6 +356,53 @@ bool HeroJumping::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
 	{
 		entity->GetFSM()->changeState(HeroFalling::Instance());
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroDamaged* HeroDamaged::Instance()
+{
+	static HeroDamaged instance;
+
+	return &instance;
+}
+
+
+void HeroDamaged::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("HeroHurt");
+	entity->myAnimatedSprite->Reset();
+}
+
+
+void HeroDamaged::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	entity->HandleDamaged();
+}
+
+
+void HeroDamaged::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroDamaged::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return false;
+}
+bool HeroDamaged::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myPosXDirection = 1.0f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myNegXDirection = -1.0f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	return true;
 }

@@ -130,6 +130,12 @@
     <Filter Include="Games\GothicVania\Entities\Enemies\Base Enemy">
       <UniqueIdentifier>{e6e48c96-5b40-43ff-be41-349e3d1be59e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Entities\States\Entity States\Player">
+      <UniqueIdentifier>{4745d1a4-a500-48f8-b79a-8cac53c9033f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Entities\States\Entity States\Enemies">
+      <UniqueIdentifier>{0e9830a8-0d1d-4633-b3ed-e71094be460c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -393,9 +399,6 @@
     <ClCompile Include="HeroSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="GothicVaniaHeroStates.cpp">
-      <Filter>Games\GothicVania\Entities\States\Entity States</Filter>
-    </ClCompile>
     <ClCompile Include="SkeletonSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
@@ -415,6 +418,30 @@
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonEntity.cpp">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>Games\GothicVania\Entities\Enemies\Base Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaHeroStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaGhostStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EyeMonsterSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="EyeMonsterEntity.cpp">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PlasmaSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonEntity.cpp">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
@@ -617,9 +644,6 @@
     <ClInclude Include="HeroSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="GothicVaniaHeroStates.h">
-      <Filter>Games\GothicVania\Entities\States\Entity States</Filter>
-    </ClInclude>
     <ClInclude Include="SkeletonSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
@@ -646,6 +670,27 @@
     </ClInclude>
     <ClInclude Include="BaseEnemy.h">
       <Filter>Games\GothicVania\Entities\Enemies\Base Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaHeroStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaGhostStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EyeMonsterSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="EyeMonsterEntity.h">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PlasmaSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonEntity.h">
+      <Filter>Games\GothicVania\Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

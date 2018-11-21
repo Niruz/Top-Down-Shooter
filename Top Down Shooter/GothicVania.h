@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "Camera.h"
+#include <vector>
 class Shader;
 class Layer;
 class Label;
@@ -11,7 +12,10 @@ class SkeletonEntity;
 class GhostEntity;
 class HellCatEntity;
 class Group;
-
+class BaseEnemy;
+class Entity;
+class EyeMonsterEntity;
+class DemonEntity;
 class GothicVania : public Game
 {
 public:
@@ -57,6 +61,9 @@ private:
 	SkeletonEntity* mySkeleton;
 	GhostEntity* myGhost;
 	HellCatEntity* myHellCat;
+	DemonEntity* myDemon;
+	EyeMonsterEntity* myEyeMonster;
+	std::vector<Entity*> myEntitites;
 //	std::vector<SkeletonEntity*> mySkeletons;
 
 	float lastX;

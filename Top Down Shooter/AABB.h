@@ -3,6 +3,7 @@
 
 struct AABB
 {
+	AABB(){}
 	AABB(const glm::vec2& center, float halfx, float halfy)
 		:myOrigin(center), halfX(halfx), halfY(halfy)
 	{

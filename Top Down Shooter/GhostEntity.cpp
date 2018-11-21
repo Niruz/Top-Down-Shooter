@@ -1,29 +1,36 @@
+#include "SimpleTimer.h"
 #include "GhostEntity.h"
 #include "Group.h"
 #include "GhostSprite.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "TextureManager.h"
 #include "Sprite.h"
-GhostEntity::GhostEntity(int id, const std::string& name) :
-	Entity(id, name)
+#include "GothicVaniaGhostStates.h"
+#include "StateMachine.h"
+#include "PlasmaSprite.h"
+GhostEntity::GhostEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo) :
+	BaseEnemy(id, name, myStartPosition, patrolTo), myAtTarget(false)
 {
-	mPosition = glm::vec3(-128.0f, -32.0f, 0.1f);
-	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myAnimatedSprite = new GhostSprite(glm::vec4(-128.0f, -32.0f, 0.09f, 1), glm::vec2(37, 65), TextureMan->GetTexture("ghost"), Heading::LEFTFACING);
-	mySprite->Add(myAnimatedSprite);
+	myAnimatedSprite = new GhostSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(37, 65), TextureMan->GetTexture("ghost"), Heading::LEFTFACING);
+	
 
-	myAnimatedSprite->SetAnimation("GhostPatrol");
-
-	endPatrol = glm::vec3(-128.0f, 32.0f, 0.1f);
-	startPatrol = glm::vec3(-128.0f, -96.0f, 0.1f);
-
+	myAnimatedSprite->SetAnimation("GhostDie");
 	myXDirection = 1.0f;
 
-	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 16.0f, 16.0f);
 
-	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, 0.2f, 1.0f), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
-	//mySprite->Add(myPlayerAABB);
+
+	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
+	myPlasmaSprite = new PlasmaSprite(glm::vec4(mPosition.x+6.0f, mPosition.y, 0.089f, 1), glm::vec2(200, 200), TextureMan->GetTexture("plasma"), Heading::LEFTFACING);
+	mySprite->Add(myPlasmaSprite);
+	mySprite->Add(myAnimatedSprite);
+	myPlasmaSprite->SetAnimation("PlasmaExplode");
+
+	myStateMachine = new StateMachine<GhostEntity>(this);
+
+	myStateMachine->setCurrentState(GhostPatrol::Instance());
+	myStateMachine->changeState(GhostPatrol::Instance());
+
 }
 GhostEntity::~GhostEntity()
 {
@@ -31,8 +38,14 @@ GhostEntity::~GhostEntity()
 }
 void GhostEntity::Update()
 {
-	myAnimatedSprite->Update();
-
+	myStateMachine->update();
+}
+bool GhostEntity::HandleMessage(const Message& msg)
+{
+	return false;
+}
+void GhostEntity::HandleMovement()
+{
 	if (myXDirection > 0.0f)
 	{
 		if (mPosition.y <= endPatrol.y)
@@ -43,7 +56,8 @@ void GhostEntity::Update()
 		else
 		{
 			myXDirection = -1.0f;
-			myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+			//myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+			myAtTarget = true;
 		}
 	}
 	if (myXDirection < 0.0f)
@@ -56,25 +70,20 @@ void GhostEntity::Update()
 		else
 		{
 			myXDirection = 1.0f;
-			myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+			//myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		}
 	}
+	myPlasmaSprite->myPosition.y = mPosition.y;
 
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
-	//	glm::mat4  translationMatrix = glm::mat4(1.0f);
-	//translationMatrix = glm::translate(translationMatrix, mPosition);
-
-	//modelMatrix = camera.mTranslationMatrix* translationMatrix *rotationMatrix;
-
-
-	//mySprite->SetTransformationMatrix(translationMatrix);
 }
-bool GhostEntity::HandleMessage(const Message& msg)
+void GhostEntity::SetAnimation(const std::string& name)
 {
-	return false;
+	myAnimatedSprite->SetAnimation(name);
+	myAnimatedSprite->Reset();
 }
-void GhostEntity::HandleMovement()
+void GhostEntity::ResetAttackTimer()
 {
-
+	myAttackTimer = Clock->GetCurrentTime();
 }

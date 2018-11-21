@@ -22,7 +22,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myAnimatedSprite = new HeroSprite(glm::vec4(0.0f, 5.0f, 0.1f, 1), glm::vec2(100, 59), TextureMan->GetTexture("hero"), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
-	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, 0.2f, 1.0f),glm::vec2(32.0f,32.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
+	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
 	mySprite->Add(myPlayerAABB);
 
 	currentKeyInput = 0;
@@ -41,7 +41,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	inAir = false;
 	myStartJumpTime = 0.0f;
 
-	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 16.0f, 16.0f);
+	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 2.5), 18.0f, 44.0f);
 }
 HeroEntity::~HeroEntity()
 {
@@ -174,6 +174,18 @@ void HeroEntity::StartJump()
 {
 	myStartJumpTime = Clock->GetCurrentTime();
 }
+bool HeroEntity::IsOnSpikes()
+{
+	return myTileMap->lastPlayerTile->myIsSpikedFloor;
+/*	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+	if (myTileMap->IsDirectionWalkable(tileX, tileY + 1) && myTileMap->GetTile2(tileX, tileY + 1)->myIsSpikedFloor)
+	{
+		float length = glm::length(glm::vec2(mPosition.x, mPosition.y) - myTileMap->GetTile2(tileX, tileY + 1)->myWorldPosition);
+		return length < 28.0f;
+	}
+	return false;*/
+}
 void HeroEntity::HandleJump()
 {
 	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
@@ -195,7 +207,7 @@ void HeroEntity::HandleJump()
 	float velocity = 1.6f;
 	if (myPosXDirection == 1.0f)
 	{
-		if (myTileMap->IsDirectionWalkable(tileX + 1, tileY))
+		if (myTileMap->IsDirectionJumpable(tileX + 1, tileY))
 			mPosition.x += myPosXDirection * velocity;
 		else
 		{
@@ -207,7 +219,7 @@ void HeroEntity::HandleJump()
 	}
 	else if (myNegXDirection == -1.0f)
 	{
-		if (myTileMap->IsDirectionWalkable(tileX - 1, tileY))
+		if (myTileMap->IsDirectionJumpable(tileX - 1, tileY))
 			mPosition.x += myNegXDirection * velocity;
 		else
 		{
@@ -217,7 +229,7 @@ void HeroEntity::HandleJump()
 			}
 		}
 	}
-	if (myTileMap->IsDirectionWalkable(tileX, tileY - 1))
+	if (myTileMap->IsDirectionJumpable(tileX, tileY - 1))
 		mPosition.y += jumpSpeed;
 	else
 	{
@@ -232,8 +244,12 @@ void HeroEntity::HandleJump()
 	}
 
 	//Last failcheck, need to look into clipping
-	if (!myTileMap->IsDirectionWalkable(tileX, tileY))
-		mPosition.y = myTileMap->GetTile2(tileX, tileY + 1)->myWorldPosition.y;
+	//if (!myTileMap->IsDirectionWalkable(tileX, tileY))
+	//	mPosition.y = myTileMap->GetTile2(tileX, tileY + 1)->myWorldPosition.y;
+}
+void HeroEntity::HandleDamaged()
+{
+
 }
 void HeroEntity::Update()
 {
@@ -246,7 +262,7 @@ void HeroEntity::Update()
 	}
 	
 	myStateMachine->update();
-	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
+	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
 	/*if(!inAir)
 		HandleGravity();
 	if (inAir)

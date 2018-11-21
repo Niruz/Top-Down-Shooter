@@ -35,7 +35,7 @@ bool TileMap::InitializeFromMap(const std::string& name)
 		std::getline(myfile, line);
 		for(unsigned int i = 0;i < line.length(); i++)
 		{
-			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X'));
+			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V'), (line[i] == 'Y'), (line[i] == 'v'), (line[i] == 'V'));
 			myMapTiles.push_back(tile);
 		}
 		lineIndex++;
@@ -60,6 +60,15 @@ bool TileMap::IsDirectionWalkable(int checkX, int checkY)
 	if (!validIndex(checkX, checkY))
 		return false;
 	return !myMapTiles[GetTileIndex(checkX, checkY)]->myIsBlockingFlag;
+}
+bool TileMap::IsDirectionJumpable(int checkX, int checkY)
+{
+	if (!validIndex(checkX, checkY))
+		return false;
+	if (myMapTiles[GetTileIndex(checkX, checkY)]->myIsOneWayTile)
+		return true;
+	else
+		return !myMapTiles[GetTileIndex(checkX, checkY)]->myIsBlockingFlag;
 }
 void TileMap::GenerateGraph()
 {

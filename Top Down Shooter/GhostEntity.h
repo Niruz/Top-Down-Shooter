@@ -1,21 +1,11 @@
 #pragma once
-#include "Entity.h"
-#include "StateMachine.h"
-#include "glm\vec3.hpp"
-#include "AABB.h"
-class TileMap;
-class GhostSprite;
-class Group;
-class Sprite;
-
+#include "BaseEnemy.h"
 //Simple enemy that patrols back and forth, might try and go for the player later
-struct GhostEntity : public Entity
+struct GhostEntity : public BaseEnemy
 {
-
 	StateMachine<GhostEntity>*  myStateMachine;
 	StateMachine<GhostEntity>*  GetFSM()const { return myStateMachine; }
-
-	GhostEntity(int id, const std::string& name);
+	GhostEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo);
 	~GhostEntity();
 
 	void Update() override;
@@ -23,17 +13,13 @@ struct GhostEntity : public Entity
 
 	void HandleMovement();
 
-public:
-	Group * mySprite;
-	GhostSprite* myAnimatedSprite;
-	TileMap* myTileMap;
-	glm::vec3 mPosition;
-	AABB* myAABB;
-	Sprite* myPlayerAABB;
-	glm::vec3 startPatrol;
-	glm::vec3 endPatrol;
+	void SetAnimation(const std::string& name);
+	void ResetAttackTimer();
 
-	float myXDirection;
+	bool myAtTarget;
+	AnimatedSprite* myPlasmaSprite;
+public:
+
 };
 
 

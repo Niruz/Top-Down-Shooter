@@ -27,7 +27,14 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/skeletonnormalsprites.png", "skeleton", true, false, false);
 	LoadTexture("Textures/ghostspritesheet.png", "ghost", true, false, false);
 	LoadTexture("Textures/gatospritesheet.png", "gato", true, false, false);
+	LoadTexture("Textures/eyemonstersheet.png", "eyemonster", true, false, false);
+	LoadTexture("Textures/demon.png", "demon", true, false, false);
+	LoadTexture("Textures/plasma2.png", "plasma", true, false, false);
 	LoadTexture("Textures/testtile.png", "grass", true, false, false);
+	LoadTexture("Textures/testtile2.png", "grass2", true, false, false);
+	LoadTexture("Textures/tilepillar1.png", "pillar1", true, false, false);
+	LoadTexture("Textures/tilepillar2.png", "pillar2", true, false, false);
+	LoadTexture("Textures/spikes.png", "spikes", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
 	LoadTexture("Textures/3.png", "3");

@@ -21,3 +21,7 @@ http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platforme
 
 Shaking
 https://jonny.morrill.me/en/blog/gamedev-how-to-implement-a-camera-shake-effect/
+
+Simple 45 degree slopes
+
+https://gamedev.stackexchange.com/questions/23312/45-slopes-in-a-tile-based-2d-platformer

@@ -4,26 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "TextureManager.h"
 #include "Sprite.h"
-SkeletonEntity::SkeletonEntity(int id, const std::string& name): 
-	Entity(id, name)
+SkeletonEntity::SkeletonEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo):
+	BaseEnemy(id, name,myStartPosition, patrolTo)
 {
-	mPosition = glm::vec3(128.0f, -32.0f, 0.1f);
-	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myAnimatedSprite = new SkeletonSprite(glm::vec4(128.0f, -32.0f, 0.09f, 1), glm::vec2(44, 52), TextureMan->GetTexture("skeleton"), Heading::LEFTFACING);
+	myAnimatedSprite = new SkeletonSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(44, 52), TextureMan->GetTexture("skeleton"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
-
 	myAnimatedSprite->SetAnimation("SkeletonWalk");
-
-	startPatrol = glm::vec3(128.0f, -32.0f, 0.1f);
-	endPatrol = glm::vec3(224.0f, -32.0f, 0.1f);
-
 	myXDirection = 1.0f;
-
-	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 16.0f, 16.0f);
-
-	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, 0.2f, 1.0f), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
-//	mySprite->Add(myPlayerAABB);
 }
 SkeletonEntity::~SkeletonEntity()
 {
@@ -32,8 +20,16 @@ SkeletonEntity::~SkeletonEntity()
 void SkeletonEntity::Update() 
 {
 	myAnimatedSprite->Update();
+	HandleMovement();
 
-	if(myXDirection > 0.0f)
+}
+bool SkeletonEntity::HandleMessage(const Message& msg)
+{
+	return false;
+}
+void SkeletonEntity::HandleMovement()
+{
+	if (myXDirection > 0.0f)
 	{
 		if (mPosition.x <= endPatrol.x)
 		{
@@ -46,7 +42,7 @@ void SkeletonEntity::Update()
 			myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 		}
 	}
-	if(myXDirection < 0.0f)
+	if (myXDirection < 0.0f)
 	{
 		if (mPosition.x >= startPatrol.x)
 		{
@@ -61,20 +57,11 @@ void SkeletonEntity::Update()
 	}
 
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
-	myPlayerAABB->myPosition = glm::vec4(mPosition,1.0f);
-//	glm::mat4  translationMatrix = glm::mat4(1.0f);
-	//translationMatrix = glm::translate(translationMatrix, mPosition);
+	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
 
-	//modelMatrix = camera.mTranslationMatrix* translationMatrix *rotationMatrix;
-
-
-	//mySprite->SetTransformationMatrix(translationMatrix);
 }
-bool SkeletonEntity::HandleMessage(const Message& msg)
+void SkeletonEntity::SetAnimation(const std::string& name)
 {
-	return false;
-}
-void SkeletonEntity::HandleMovement()
-{
-
+	myAnimatedSprite->SetAnimation(name);
+	myAnimatedSprite->Reset();
 }

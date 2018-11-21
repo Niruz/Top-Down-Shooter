@@ -59,8 +59,10 @@ struct HeroEntity : public Entity
 	void HandleMovement();
 	void HandleGravity();
 	void HandleJump();
+	void HandleDamaged();
 	void StartJump();
 	void CheckIfFalling();
+	bool IsOnSpikes();
 	bool inAir;
 
 	float mAngle;

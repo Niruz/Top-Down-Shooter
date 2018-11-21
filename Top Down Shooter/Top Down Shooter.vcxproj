@@ -95,9 +95,12 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DemonEntity.cpp" />
+    <ClCompile Include="DemonSprite.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="ext\freetype-gl\platform.c" />
@@ -143,11 +146,14 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="ext\freetype\src\type1\type1.c" />
     <ClCompile Include="ext\freetype\src\type42\type42.c" />
     <ClCompile Include="ext\freetype\src\winfonts\winfnt.c" />
+    <ClCompile Include="EyeMonsterEntity.cpp" />
+    <ClCompile Include="EyeMonsterSprite.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GhostEntity.cpp" />
     <ClCompile Include="GhostSprite.cpp" />
     <ClCompile Include="GothicVania.cpp" />
+    <ClCompile Include="GothicVaniaGhostStates.cpp" />
     <ClCompile Include="GothicVaniaHeroStates.cpp" />
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="HellCatEntity.cpp" />
@@ -166,6 +172,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="MinersWife.cpp" />
     <ClCompile Include="MinersWifeOwnedStates.cpp" />
     <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="PlasmaSprite.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PacmanEntity.cpp" />
     <ClCompile Include="Renderable.cpp" />
@@ -198,6 +205,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ConsoleUtils.h" />
+    <ClInclude Include="DemonEntity.h" />
+    <ClInclude Include="DemonSprite.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />
@@ -214,12 +223,15 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="ext\freetype\include\config\ftoption.h" />
     <ClInclude Include="ext\freetype\include\config\ftstdlib.h" />
     <ClInclude Include="ext\freetype\include\ft2build.h" />
+    <ClInclude Include="EyeMonsterEntity.h" />
+    <ClInclude Include="EyeMonsterSprite.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GhostEntity.h" />
     <ClInclude Include="GhostSprite.h" />
     <ClInclude Include="GothicVania.h" />
+    <ClInclude Include="GothicVaniaGhostStates.h" />
     <ClInclude Include="GothicVaniaHeroStates.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="HellCatEntity.h" />
@@ -240,6 +252,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="MinersWife.h" />
     <ClInclude Include="MinersWifeOwnedStates.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="PlasmaSprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PacmanEntity.h" />
     <ClInclude Include="Renderable.h" />

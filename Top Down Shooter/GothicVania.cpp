@@ -14,6 +14,9 @@
 #include "SkeletonEntity.h"
 #include "GhostEntity.h"
 #include "HellCatEntity.h"
+#include "Entity.h"
+#include "EyeMonsterEntity.h"
+#include "DemonEntity.h"
 void GothicVania::Initialize()
 {
 	lastX = 640.0f;
@@ -30,7 +33,7 @@ void GothicVania::Initialize()
 
 
 	myShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
-	myTileLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
+	myTileLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-160.0f, 160.0f, -90.0f, 90.0f, -1.0f, 1.0f));
 	myBackgroundLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND1_SHADER) , glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -1.0f, 1.0f));
 	myGraveyardLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND2_SHADER) , glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -1.0f, 1.0f));
 	myMountainsLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND3_SHADER) , glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -1.0f, 1.0f));
@@ -49,11 +52,18 @@ void GothicVania::Initialize()
 	//myDebugLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
 
 	myPlayer = new HeroEntity(0, "Player");
-	mySkeleton = new SkeletonEntity(1, "Skeleton1");
-	myGhost = new GhostEntity(2, "Ghost1");
-	myHellCat = new HellCatEntity(3, "HellCat1");
+	mySkeleton = new SkeletonEntity(1, "Skeleton1", glm::vec3(128.0f, -32.0f, 0.1f), glm::vec3(224.0f, -32.0f, 0.1f));
+	myGhost = new GhostEntity(2, "Ghost1", glm::vec3(-128.0f, -96.0f, 0.1f), glm::vec3(-128.0f, 32.0f, 0.1f));
+	myHellCat = new HellCatEntity(3, "HellCat1", glm::vec3(32.0f, -160.0f, 0.1f), glm::vec3(256.0f, -160.0f, 0.1f));
+	myEyeMonster = new EyeMonsterEntity(4, "EyeMonster1", glm::vec3(96.0f, 32.0f, 0.1f), glm::vec3(224.0f, 32.0f, 0.1f));
+	myDemon = new DemonEntity(5, "Demon1", glm::vec3(0, -0, 0.1f), glm::vec3(224.0f, -32.0f, 0.1f));
+	myEntitites.push_back(myPlayer);
+	myEntitites.push_back(mySkeleton);
+	myEntitites.push_back(myGhost);
+	myEntitites.push_back(myHellCat);
+	myEntitites.push_back(myEyeMonster);
+//	myEntitites.push_back(myDemon);
 	
-
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
 	myFPSLabel = new Label("", glm::vec4(-55, -10, 0, 1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
 	fpsGroup->Add(new Sprite(glm::vec4(0, 0, -0.1, 1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
@@ -78,6 +88,7 @@ void GothicVania::Initialize()
 	tileGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)));
 	float startX = -32.0f * 10.0f;
 	float startY = 32.0f * 6;
+	srand(54);
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (i % 20 == 0)
@@ -95,10 +106,34 @@ void GothicVania::Initialize()
 		{
 			//Should be 32 but 30 looks cool
 			//myLayer->Add(new Sprite(glm::vec4(startX, startY, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("wall")/*, glm::vec2(0, 15)*/));
-			tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("grass")/*, glm::vec2(0, 15)*/));
+			if (map[i]->myIsSpikedFloor)
+			{
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
+			}
+			else if (map[i]->myIsPillar)
+			{
+				std::string pillar = (rand() % 2) == 0 ? "pillar1" : "pillar2";
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY+32.5, 0.01, 1), glm::vec2(32.0f, 96.0f), TextureMan->GetTexture(pillar)/*, glm::vec2(0, 15)*/));
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
+			}
+			else if (map[i]->myIsOneWayTile)
+			{
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY+14.5f, 0.011, 1), glm::vec2(32.0f, 4.50f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
+			}
+			else
+			{
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY+5, 0.01, 1), glm::vec2(32.0f, 41), TextureMan->GetTexture("grass")/*, glm::vec2(0, 15)*/));
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f,0.0f,1.0f,0.5f)));
+			}
+			//tileGroup->Add(new Sprite(glm::vec4(startX, startY , 0.01, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 		}
 		else
 		{
+			if (map[i]->myIsSpikedFloor)
+			{
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
+				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 16.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
+			}
 			//myLayer->Add(new Sprite(glm::vec4(startX, startY, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floor")/*, glm::vec2(1, 15)*/));
 			//tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0, 1), glm::vec2(30.0f, 30.0f), TextureMan->GetTexture("floor")/*, glm::vec2(1, 15)*/));
 		}
@@ -115,6 +150,8 @@ void GothicVania::Initialize()
 	tileGroup->Add(mySkeleton->mySprite);
 	tileGroup->Add(myGhost->mySprite);
 	tileGroup->Add(myHellCat->mySprite);
+	tileGroup->Add(myEyeMonster->mySprite);
+//	tileGroup->Add(myDemon->mySprite);
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
 	
@@ -123,10 +160,8 @@ void GothicVania::Initialize()
 }
 void GothicVania::UpdatePlayer()
 {
-	myPlayer->Update();
-	mySkeleton->Update();
-	myGhost->Update();
-	myHellCat->Update();
+	for (int i = 0; i < myEntitites.size(); i++)
+		myEntitites[i]->Update();
 	for (int i = 0; i < myMap->GetMap().size(); i++)
 	{
 		if (myMap->GetMap()[i]->isPlayerOnTile)
@@ -156,17 +191,18 @@ void GothicVania::Update()
 {
 	UpdatePlayer();
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
-	//myCamera.setPosition(-myPlayer->mPosition);
-	myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 0, -myPlayer->mPosition.z));
+	myCamera.setPosition(-myPlayer->mPosition);
+	//myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 0, -myPlayer->mPosition.z));
 	myGraveyard->increaseUVAlongX(-0.002f);
 	myMountain->increaseUVAlongX(-0.001f);
 }
 void GothicVania::Render()
 {
-	myBackgroundLayer->Render();
+	/*myBackgroundLayer->Render();
 	myMountainsLayer->Render();
 	myGraveyardLayer->Render();
-	
+	*/
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	myTileLayer->Render();
 	//myDebugLayer->Render();
 }

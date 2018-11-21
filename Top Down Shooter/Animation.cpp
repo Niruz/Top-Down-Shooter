@@ -1,13 +1,28 @@
 #include "Animation.h"
 
-Animation::Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, bool playOnce)
+Animation::Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, int yRows, int spritesPerRow)
 	:myFrameCounter(0), myCurrentIndex(0), myNumberOfFrames(numberOfFrames), myStartFrame(startFrame),
-	mySpriteXWidth(spriteX), mySpriteYWidth(spriteY), mySpriteSheetXWidth(sheetX), mySpriteSheetYWidth(sheetY), myPlayOnce(playOnce), myDone(false)
+	mySpriteXWidth(spriteX), mySpriteYWidth(spriteY), mySpriteSheetXWidth(sheetX), mySpriteSheetYWidth(sheetY), myDone(false)
 {
-	for(int i = myStartFrame; i < (myStartFrame + myNumberOfFrames); i++ )
+	if(yRows == 0)
 	{
-		mySpriteIndexes.push_back(SetUVCoordinates(i, 0));
+		for (int i = myStartFrame; i < (myStartFrame + myNumberOfFrames); i++)
+		{
+			mySpriteIndexes.push_back(SetUVCoordinates(i, 0));
+		}
 	}
+	else
+	{
+		//Buggy, should work, check later
+		for(int y = 0; y < yRows; y++)
+		{
+			for (int i = 0; i < spritesPerRow; i++)
+			{
+				mySpriteIndexes.push_back(SetUVCoordinates(i, y));
+			}
+		}
+	}
+
 	//Bug? Remember this
 	myCurrentIndices = mySpriteIndexes[myCurrentIndex];
 }
