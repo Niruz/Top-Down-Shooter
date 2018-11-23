@@ -28,9 +28,18 @@ public:
 
 	std::vector<Tile*>& GetMap();
 	void setPlayerTile(float x, float y);
+	void SetPlayerTile2(AABB* aabb);
 
 	Tile* lastPlayerTile;
 	
+
+	//Keep track of these 4 for the collision testing
+	Tile* lastPlayerTileTopLeft;
+	Tile* lastPlayerTileTopRight;
+	Tile* lastPlayerTileBottomRight;
+	Tile* lastPlayerTileBottomLeft;
+	Tile* lastPlayerTileMidRight;
+	Tile* lastPlayerTileMidLeft;
 private:
 
 	bool PathFind(Tile* aStartTile, Tile* aGoalTile, std::vector<Tile*>& aPathList);

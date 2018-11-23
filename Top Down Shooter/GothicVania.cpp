@@ -84,11 +84,13 @@ void GothicVania::Initialize()
 
 	myMap->printPath(myPath3);
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
+	myMap->SetPlayerTile2(myPlayer->myAABB);
 	std::vector<Tile*> map = myMap->GetMap();
 	tileGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)));
 	float startX = -32.0f * 10.0f;
 	float startY = 32.0f * 6;
 	srand(54);
+
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (i % 20 == 0)
@@ -145,9 +147,28 @@ void GothicVania::Initialize()
 	//Debug
 	myPlayerTile = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.02)));
 	myPlayerTile->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floor2")/*, glm::vec2(0, 15)*/));
+	myPlayerTileTopLeft = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.2)));
+	myPlayerTileTopLeft->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), glm::vec4(1.0f, 0.0f, 0.0f, 0.5f)));
+	myPlayerTileTopRight = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.2)));
+	myPlayerTileTopRight->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f)));
+	myPlayerTileBottomLeft = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.2)));
+	myPlayerTileBottomLeft->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 1.0f, 1.0f, 0.5f)));
+	myPlayerTileBottomRight = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.2)));
+	myPlayerTileBottomRight->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), glm::vec4(1.0f, 1.0f, 0.0f, 0.5f)));
+	myPlayerTileMidRight = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.2)));
+	myPlayerTileMidRight->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.4f, 1.0f, 0.0f, 0.5f)));
+	myPlayerTileMidLeft = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.2)));
+	myPlayerTileMidLeft->Add(new Sprite(glm::vec4(0, 0, 0, 1), glm::vec2(32.0f, 32.0f), glm::vec4(1.0f, 1.0f, 0.4f, 0.5f)));
+	
 
-	tileGroup->Add(myPlayerTile);
-	tileGroup->Add(mySkeleton->mySprite);
+//	tileGroup->Add(myPlayerTile);
+	tileGroup->Add(myPlayerTileTopLeft);
+	tileGroup->Add(myPlayerTileTopRight);
+	tileGroup->Add(myPlayerTileBottomLeft);
+	tileGroup->Add(myPlayerTileTopLeft);
+	tileGroup->Add(myPlayerTileBottomRight);
+	tileGroup->Add(myPlayerTileMidLeft);
+	tileGroup->Add(myPlayerTileMidRight);
 	tileGroup->Add(myGhost->mySprite);
 	tileGroup->Add(myHellCat->mySprite);
 	tileGroup->Add(myEyeMonster->mySprite);
@@ -162,16 +183,16 @@ void GothicVania::UpdatePlayer()
 {
 	for (int i = 0; i < myEntitites.size(); i++)
 		myEntitites[i]->Update();
-	for (int i = 0; i < myMap->GetMap().size(); i++)
+	UpdatePlayerTiles();
+/*	for (int i = 0; i < myMap->GetMap().size(); i++)
 	{
 		if (myMap->GetMap()[i]->isPlayerOnTile)
 		{
 			glm::mat4 transMat = glm::mat4(1.0);
 			glm::vec3 pos = glm::vec3(myMap->GetMap()[i]->myWorldPosition, 0.02f);
-			myPlayerTile->SetTransformationMatrix(glm::translate(transMat, pos));
-			break;
+			myPlayerTileTopLeft->SetTransformationMatrix(glm::translate(transMat, pos));
 		}
-	}
+	}*/
 	//myPlayer->setDirection(myCamera.getPlayerDirection(myPlayer->mPosition));
 	myPlayer->UpdateTransformationMatrix(myCamera);
 	glm::vec2 mouseScreenWorld = myCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
@@ -191,6 +212,7 @@ void GothicVania::Update()
 {
 	UpdatePlayer();
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
+	myMap->SetPlayerTile2(myPlayer->myAABB);
 	myCamera.setPosition(-myPlayer->mPosition);
 	//myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 0, -myPlayer->mPosition.z));
 	myGraveyard->increaseUVAlongX(-0.002f);
@@ -205,6 +227,34 @@ void GothicVania::Render()
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	myTileLayer->Render();
 	//myDebugLayer->Render();
+}
+void GothicVania::UpdatePlayerTiles()
+{
+	glm::mat4 transMat = glm::mat4(1.0f);
+	glm::vec3 pos = glm::vec3(myMap->lastPlayerTileBottomLeft->myWorldPosition, 0.02f);
+	myPlayerTileBottomLeft->SetTransformationMatrix(glm::translate(transMat, pos));
+
+	transMat = glm::mat4(1.0f);
+	pos = glm::vec3(myMap->lastPlayerTileTopLeft->myWorldPosition, 0.02f);
+	myPlayerTileTopLeft->SetTransformationMatrix(glm::translate(transMat, pos));
+
+	transMat = glm::mat4(1.0f);
+	pos = glm::vec3(myMap->lastPlayerTileTopRight->myWorldPosition, 0.02f);
+	myPlayerTileTopRight->SetTransformationMatrix(glm::translate(transMat, pos));
+
+	transMat = glm::mat4(1.0f);
+	pos = glm::vec3(myMap->lastPlayerTileBottomRight->myWorldPosition, 0.02f);
+	myPlayerTileBottomRight->SetTransformationMatrix(glm::translate(transMat, pos));
+
+	transMat = glm::mat4(1.0f);
+	pos = glm::vec3(myMap->lastPlayerTileMidRight->myWorldPosition, 0.02f);
+	myPlayerTileMidRight->SetTransformationMatrix(glm::translate(transMat, pos));
+
+	transMat = glm::mat4(1.0f);
+	pos = glm::vec3(myMap->lastPlayerTileMidLeft->myWorldPosition, 0.02f);
+	myPlayerTileMidLeft->SetTransformationMatrix(glm::translate(transMat, pos));
+
+
 }
 void GothicVania::ProcessKeyBoard(int key, float deltaTime, int action)
 {

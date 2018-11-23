@@ -12,6 +12,12 @@ TileMap::TileMap(const std::string& name)
 	if (!InitializeFromMap(name))
 		std::cout << "\nCould not initialize map with name: " + name + "\n" << std::endl;
 	lastPlayerTile = nullptr;
+	lastPlayerTileTopLeft = nullptr;
+	lastPlayerTileTopRight = nullptr;
+	lastPlayerTileBottomRight = nullptr;
+	lastPlayerTileBottomLeft = nullptr;
+	lastPlayerTileMidRight = nullptr;
+	lastPlayerTileMidLeft = nullptr;
 }
 TileMap::~TileMap()
 {
@@ -395,4 +401,74 @@ void TileMap::setPlayerTile(float x, float y)
 	}*/
 	lastPlayerTile->isPlayerOnTile = true;
 
+}
+void TileMap::SetPlayerTile2(AABB* aabb)
+{
+	//Top left corner
+	glm::vec2 topLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y + aabb->halfY);
+	float topLeftX = this->map(topLeft.x, -320, 288, 0, 19);
+	float topLeftY = this->map(topLeft.y, 160, -192, 0, 11);
+	topLeftX = round(topLeftX);
+	topLeftY = round(topLeftY);
+	if (lastPlayerTileTopLeft != nullptr)
+		lastPlayerTileTopLeft->isPlayerOnTile = false;	
+	lastPlayerTileTopLeft = GetTile2(topLeftX, topLeftY);
+	lastPlayerTileTopLeft->isPlayerOnTile = true;
+	
+	//Top Right corner
+	glm::vec2 topRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y + aabb->halfY);
+	float topRightX = this->map(topRight.x, -320, 288, 0, 19);
+	float topRightY = this->map(topRight.y, 160, -192, 0, 11);
+	topRightX = round(topRightX);
+	topRightY = round(topRightY);
+	if (lastPlayerTileTopRight != nullptr)
+		lastPlayerTileTopRight->isPlayerOnTile = false;
+	lastPlayerTileTopRight = GetTile2(topRightX, topRightY);
+	lastPlayerTileTopRight->isPlayerOnTile = true;
+
+	//Bottom Right corner
+	glm::vec2 bottomRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y - aabb->halfY);
+	float bottomRightX = this->map(bottomRight.x, -320, 288, 0, 19);
+	float bottomRightY = this->map(bottomRight.y, 160, -192, 0, 11);
+	bottomRightX = round(bottomRightX);
+	bottomRightY = round(bottomRightY);
+	if (lastPlayerTileBottomRight != nullptr)
+		lastPlayerTileBottomRight->isPlayerOnTile = false;
+	lastPlayerTileBottomRight = GetTile2(bottomRightX, bottomRightY);
+	lastPlayerTileBottomRight->isPlayerOnTile = true;
+	
+
+	//Bottom Left corner
+	glm::vec2 bottomLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y - aabb->halfY);
+	float bottomLeftX = this->map(bottomLeft.x, -320, 288, 0, 19);
+	float bottomLeftY = this->map(bottomLeft.y, 160, -192, 0, 11);
+	bottomLeftX = round(bottomLeftX);
+	bottomLeftY = round(bottomLeftY);
+	if (lastPlayerTileBottomLeft != nullptr)
+		lastPlayerTileBottomLeft->isPlayerOnTile = false;
+	lastPlayerTileBottomLeft = GetTile2(bottomLeftX, bottomLeftY);
+	lastPlayerTileBottomLeft->isPlayerOnTile = true;
+
+
+	//Mid Right 
+	glm::vec2 midRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y);
+	float midRightX = this->map(midRight.x, -320, 288, 0, 19);
+	float midRightY = this->map(midRight.y, 160, -192, 0, 11);
+	midRightX = round(midRightX);
+	midRightY = round(midRightY);
+	if (lastPlayerTileMidRight != nullptr)
+		lastPlayerTileMidRight->isPlayerOnTile = false;
+	lastPlayerTileMidRight = GetTile2(midRightX, midRightY);
+	lastPlayerTileMidRight->isPlayerOnTile = true;
+
+	//Mid Left
+	glm::vec2 midLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y);
+	float midLeftX = this->map(midLeft.x, -320, 288, 0, 19);
+	float midLeftY = this->map(midLeft.y, 160, -192, 0, 11);
+	midLeftX = round(midLeftX);
+	midLeftY = round(midLeftY);
+	if (lastPlayerTileMidLeft != nullptr)
+		lastPlayerTileMidLeft->isPlayerOnTile = false;
+	lastPlayerTileMidLeft = GetTile2(midLeftX, midLeftY);
+	lastPlayerTileMidLeft->isPlayerOnTile = true;
 }

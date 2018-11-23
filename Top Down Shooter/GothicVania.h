@@ -36,6 +36,9 @@ public:
 	void Render() override;
 
 	void UpdatePlayer();
+	
+	//Debug
+	void UpdatePlayerTiles();
 
 	void ProcessKeyBoard(int key, float deltaTime, int action) override;
 	void ProcessMouse(double xpos, double ypos, bool movement) override;
@@ -78,7 +81,12 @@ private:
 	//Debug stuff
 	Layer * myDebugLayer;
 	Group* myPlayerTile;
-	
+	Group* myPlayerTileTopLeft;
+	Group* myPlayerTileTopRight;
+	Group* myPlayerTileBottomLeft;
+	Group* myPlayerTileBottomRight;
+	Group* myPlayerTileMidRight;
+	Group* myPlayerTileMidLeft;
 };
 
 

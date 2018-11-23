@@ -41,7 +41,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	inAir = false;
 	myStartJumpTime = 0.0f;
 
-	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 2.5), 18.0f, 44.0f);
+	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 2.5), 9.0f, 22.0f);
 }
 HeroEntity::~HeroEntity()
 {
@@ -159,6 +159,16 @@ void HeroEntity::HandleGravity()
 		mPosition.y += fallingSpeed;
 	else
 	{
+	/*	Tile* currentTile = myTileMap->GetTile2(tileX, tileY+1);
+		if ((myAABB->myOrigin.y - myAABB->halfY) >= (currentTile->myAABB.myOrigin.y + currentTile->myAABB.halfY))
+		{
+			mPosition.y += fallingSpeed;
+		}
+		else
+		{
+			mPosition.y = (currentTile->myAABB.myOrigin.y + currentTile->myAABB.halfY);
+			myStateMachine->changeState(HeroIdle::Instance());
+		}*/
 		if (mPosition.y >= myTileMap->GetTile2(tileX, tileY)->myWorldPosition.y)
 		{
 			mPosition.y += fallingSpeed;
@@ -260,9 +270,9 @@ void HeroEntity::Update()
 			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
-	
-	myStateMachine->update();
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
+	myStateMachine->update();
+	
 	/*if(!inAir)
 		HandleGravity();
 	if (inAir)
