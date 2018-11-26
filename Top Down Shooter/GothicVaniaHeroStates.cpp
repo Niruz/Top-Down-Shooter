@@ -50,13 +50,13 @@ bool HeroIdle::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroRunning::Instance());
-		entity->myPosXDirection = 1.0f;
+		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroRunning::Instance());
-		entity->myNegXDirection = -1.0f;
+		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	if (key == GLFW_KEY_C && action == GLFW_PRESS)
@@ -161,12 +161,12 @@ bool HeroCrouch::HandleInput(HeroEntity* entity, int key, int action)
 	}*/
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		entity->myPosXDirection = 1.0f;
+		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		entity->myNegXDirection = -1.0f;
+		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	if (key == GLFW_KEY_C && action == GLFW_RELEASE)
@@ -231,12 +231,12 @@ bool HeroRunning::HandleInput(HeroEntity* entity, int key, int action)
 	}*/
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		entity->myPosXDirection = 1.0f;
+		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		entity->myNegXDirection = -1.0f;
+		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	if (key == GLFW_KEY_C && action == GLFW_PRESS)
@@ -295,12 +295,12 @@ bool HeroFalling::HandleInput(HeroEntity* entity, int key, int action)
 {
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		entity->myPosXDirection = 1.0f;
+		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		entity->myNegXDirection = -1.0f;
+		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	return true;
@@ -319,6 +319,7 @@ void HeroJumping::Enter(HeroEntity* entity)
 	entity->SetAnimation("HeroJump");
 	entity->myAnimatedSprite->Reset();
 	entity->StartJump();
+	entity->myYVelocity = 9.0f;
 }
 
 
@@ -346,16 +347,18 @@ bool HeroJumping::HandleInput(HeroEntity* entity, int key, int action)
 {
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		entity->myPosXDirection = 1.0f;
+		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		entity->myNegXDirection = -1.0f;
+		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
 	{
+		if (entity->myYVelocity < 3.5f)
+			entity->myYVelocity = 3.5f;
 		entity->GetFSM()->changeState(HeroFalling::Instance());
 	}
 	return true;
@@ -397,12 +400,12 @@ bool HeroDamaged::HandleInput(HeroEntity* entity, int key, int action)
 {
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		entity->myPosXDirection = 1.0f;
+		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		entity->myNegXDirection = -1.0f;
+		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
 	return true;

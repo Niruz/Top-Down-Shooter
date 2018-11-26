@@ -31,6 +31,8 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myNegXDirection = 0;
 	myPosYDirection = 0;
 	myNegYDirection = 0;
+	myYVelocity     = 0;
+	myGravity       = -0.35f;
 	//SetAnimation("heroIdle");
 
 	myStateMachine = new StateMachine<HeroEntity>(this);
@@ -114,7 +116,7 @@ void HeroEntity::HandleMovement()
 
 	//Step X then step y
 	
-	if (myPosXDirection == 1.0f)
+	if (myPosXDirection > 0.0f)
 	{
 		glm::vec3 oldPosition = mPosition;
 		mPosition.x += myPosXDirection * velocity;
@@ -146,7 +148,7 @@ void HeroEntity::HandleMovement()
 			}
 		}*/
 	}
-	else if (myNegXDirection == -1.0f)
+	else if (myNegXDirection < 0.0f)
 	{
 		glm::vec3 oldPosition = mPosition;
 		mPosition.x += myNegXDirection * velocity;
@@ -225,11 +227,11 @@ void HeroEntity::HandleGravity()
 {
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
-	float fallingSpeed = -3.5f;
+	float fallingSpeed = -4.0f;
 
 	float velocity = 1.6f;
 
-	if (myPosXDirection == 1.0f)
+	if (myPosXDirection > 0.0f)
 	{
 		glm::vec3 oldPosition = mPosition;
 		mPosition.x += myPosXDirection * velocity;
@@ -249,7 +251,7 @@ void HeroEntity::HandleGravity()
 			myTileMap->SetPlayerTile2(myAABB);
 		}
 	}
-	else if (myNegXDirection == -1.0f)
+	else if (myNegXDirection < 0.0f)
 	{
 		glm::vec3 oldPosition = mPosition;
 		mPosition.x += myNegXDirection * velocity;
@@ -274,6 +276,8 @@ void HeroEntity::HandleGravity()
 
 	glm::vec3 oldPosition = mPosition;
 	mPosition.y += fallingSpeed;
+	//myYVelocity += myGravity;
+	//mPosition.y += myYVelocity/2.0f;
 	myAABB->myOrigin.y = mPosition.y;
 	myTileMap->SetPlayerTile2(myAABB);
 	bool bottomRightFree = myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag;
@@ -312,6 +316,7 @@ void HeroEntity::HandleGravity()
 
 	myNegXDirection = myPosXDirection = 0.0f;
 	mPosition.z = 0.1f;
+
 }
 void HeroEntity::StartJump()
 {
@@ -331,8 +336,14 @@ bool HeroEntity::IsOnSpikes()
 }
 void HeroEntity::HandleJump()
 {
-	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
+/*	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
+		myStateMachine->changeState(HeroFalling::Instance());*/
+	if (myYVelocity < 3.5f)
+	{
+		myYVelocity = 3.5f;
 		myStateMachine->changeState(HeroFalling::Instance());
+	}
+
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
 	float jumpSpeed = 3.5f;
@@ -348,7 +359,7 @@ void HeroEntity::HandleJump()
 
 	//Step X then step y
 	float velocity = 1.6f;
-	if (myPosXDirection == 1.0f)
+	if (myPosXDirection > 0.0f)
 	{
 		glm::vec3 oldPosition = mPosition;
 		mPosition.x += myPosXDirection * velocity;
@@ -368,7 +379,7 @@ void HeroEntity::HandleJump()
 			myTileMap->SetPlayerTile2(myAABB);
 		}
 	}
-	else if (myNegXDirection == -1.0f)
+	else if (myNegXDirection < 0.0f)
 	{
 		glm::vec3 oldPosition = mPosition;
 		mPosition.x += myNegXDirection * velocity;
@@ -389,9 +400,12 @@ void HeroEntity::HandleJump()
 		}
 
 	}
+	
 
 	glm::vec3 oldPosition = mPosition;
-	mPosition.y += jumpSpeed;
+	//mPosition.y += jumpSpeed;
+	myYVelocity += myGravity;
+	mPosition.y += myYVelocity;
 	myAABB->myOrigin.y = mPosition.y;
 	myTileMap->SetPlayerTile2(myAABB);
 	bool topRightFree = myTileMap->lastPlayerTileTopRight->myIsBlockingFlag && !myTileMap->lastPlayerTileTopRight->myIsOneWayTile;

@@ -55,6 +55,8 @@ struct HeroEntity : public Entity
 	float myPosYDirection;
 	float myNegXDirection;
 	float myNegYDirection;
+	float myYVelocity;
+	float myGravity;
 
 	void HandleMovement();
 	void HandleGravity();

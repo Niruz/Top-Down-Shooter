@@ -18,10 +18,18 @@ https://stackoverflow.com/questions/43173075/replacement-for-gl-luminance-alpha-
 
 TILE games
 http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
+https://stackoverflow.com/questions/24551295/isometric-tile-map-having-tiles-with-bigger-sizes
 
 Shaking
 https://jonny.morrill.me/en/blog/gamedev-how-to-implement-a-camera-shake-effect/
 
 Simple 45 degree slopes
-
 https://gamedev.stackexchange.com/questions/23312/45-slopes-in-a-tile-based-2d-platformer
+
+//Jumping
+http://jsfiddle.net/LyM87/
+https://gamedev.stackexchange.com/questions/29617/how-to-make-a-character-jump
+https://gamedev.stackexchange.com/questions/60008/smooth-jumping-in-2d-platformers
+https://jonathanwhiting.com/tutorial/collision/
+https://answers.unity.com/questions/29751/gradually-moving-an-object-up-to-speed-rather-then.html
+https://gamedev.stackexchange.com/questions/121389/how-i-can-make-better-jump-to-my-game-c-sfml
