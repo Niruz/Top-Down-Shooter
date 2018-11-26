@@ -274,7 +274,8 @@ void HeroFalling::Execute(HeroEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if (entity->IsOnSpikes())
 		entity->GetFSM()->changeState(HeroDamaged::Instance());
-	entity->HandleMovement();
+	entity->myNegYDirection = -1.0f;
+	//entity->HandleMovement();
 	entity->HandleGravity();
 }
 

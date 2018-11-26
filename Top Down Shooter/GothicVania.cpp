@@ -120,7 +120,7 @@ void GothicVania::Initialize()
 			}
 			else if (map[i]->myIsOneWayTile)
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY+14.5f, 0.011, 1), glm::vec2(32.0f, 4.50f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
+				//tileGroup->Add(new Sprite(glm::vec4(startX, startY+14.5f, 0.011, 1), glm::vec2(32.0f, 4.50f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else
 			{
