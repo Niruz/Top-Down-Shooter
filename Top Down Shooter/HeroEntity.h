@@ -76,6 +76,7 @@ struct HeroEntity : public Entity
 	Sprite* myPlayerAABB;
 	AABB* myAABB;
 	StateTest myState;
+
 };
 
 

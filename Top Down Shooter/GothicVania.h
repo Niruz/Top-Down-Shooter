@@ -58,6 +58,8 @@ private:
 	Group* tileGroup;
 	Sprite* myMountain;
 	Sprite* myGraveyard;
+	Sprite* myHPBar;
+	Group* myGuiGroup;
 
 	//Entities
 	HeroEntity* myPlayer;
@@ -77,7 +79,7 @@ private:
 	float lastPlayerX;
 	float myScreenDirection;
 
-
+	
 private:
 	//Debug stuff
 	Layer * myDebugLayer;

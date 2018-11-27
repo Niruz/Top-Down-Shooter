@@ -65,7 +65,7 @@ void GothicVania::Initialize()
 	myEntitites.push_back(myDemon);
 	
 	//Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
-	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-260, 160, 0.8)));
+	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(260, 160, 0.8)));
 	myFPSLabel = new Label("", glm::vec4(-55, -10, 0, 1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
 	//myFPSLabel = new Label("", glm::vec4(0, 0, 0, 1), "DefaultFont32", glm::vec4(0, 1, 0, 1));
 	fpsGroup->Add(new Sprite(glm::vec4(0, 0, -0.1, 1), glm::vec2(120.5f, 40.5f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
@@ -211,6 +211,11 @@ void GothicVania::Initialize()
 	}
 	myTileLayer->Add(tileGroup);
 
+	//Temp
+	myGuiGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-260, 160, 0.8)));
+	myHPBar = new Sprite(glm::vec4(0.0f, 0.0f, 0.2f, 1.0f), glm::vec2(85, 25), TextureMan->GetTexture("hpbar"));
+	myGuiGroup->Add(myHPBar);
+	myTileLayer->Add(myGuiGroup);
 
 	//Debug
 	myPlayerTile = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.02)));
