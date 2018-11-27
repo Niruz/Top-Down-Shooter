@@ -75,7 +75,7 @@ void GothicVania::Initialize()
 	myCursor->Add(new Sprite(glm::vec4(0, 0, 0.3, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("cursor")/*, glm::vec2(0, 15)*/));
 
 	myTileLayer->Add(fpsGroup);
-	myTileLayer->Add(myCursor);
+	//myTileLayer->Add(myCursor);
 
 	myMap = new TileMap("Levels/test3.level",glm::vec2(-320, 3488), glm::vec2(160, -192), glm::vec2(0, 119), glm::vec2(0, 11));
 
