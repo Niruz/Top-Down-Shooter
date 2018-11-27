@@ -7,7 +7,8 @@
 #include <limits>
 #include "TextureManager.h"
 #include "ShaderManager.h"
-TileMap::TileMap(const std::string& name)
+TileMap::TileMap(const std::string& name, const glm::vec2& worldX, const glm::vec2& worldY, const glm::vec2& tileX, const glm::vec2& tileY)
+	: myWorldXRange(worldX), myWorldYRange(worldY), myWorldXTileRange(tileX), myWorldYTileRange(tileY)
 {
 	if (!InitializeFromMap(name))
 		std::cout << "\nCould not initialize map with name: " + name + "\n" << std::endl;
@@ -41,7 +42,7 @@ bool TileMap::InitializeFromMap(const std::string& name)
 		std::getline(myfile, line);
 		for(unsigned int i = 0;i < line.length(); i++)
 		{
-			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V'), (line[i] == 'Y'), (line[i] == 'v'), (line[i] == 'V'));
+			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V')||(line[i] == 'F') || (line[i] == 'o'),  (line[i] == 'Y'), (line[i] == 'v') || (line[i] == 'F'), (line[i] == 'V'), std::string(1,line[i]));
 			myMapTiles.push_back(tile);
 		}
 		lineIndex++;
@@ -145,7 +146,7 @@ void TileMap::GenerateGraph()
 	float startY = 32.0f * 6;
 	for (int i = 0; i < myMapTiles.size(); i++)
 	{
-		if (i % 20 == 0)
+		if (i % 120 == 0)
 		{
 			startY -= 32.0f;
 			startX = -32.0f*10.0f;
@@ -365,8 +366,8 @@ void TileMap::setPlayerTile(float x, float y)
 
 	glm::vec2 playerPos(x, y);
 
-	float shitX = this->map(playerPos.x, -320, 288, 0, 19);
-	float shitY = this->map(playerPos.y, 160, -192, 0, 11);
+	float shitX = this->map(playerPos.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float shitY = this->map(playerPos.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 
 
 	float roundX2 = round(shitX);
@@ -406,8 +407,8 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 {
 	//Top left corner
 	glm::vec2 topLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y + aabb->halfY);
-	float topLeftX = this->map(topLeft.x, -320, 288, 0, 19);
-	float topLeftY = this->map(topLeft.y, 160, -192, 0, 11);
+	float topLeftX = this->map(topLeft.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float topLeftY = this->map(topLeft.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	topLeftX = round(topLeftX);
 	topLeftY = round(topLeftY);
 	if (lastPlayerTileTopLeft != nullptr)
@@ -417,8 +418,8 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 	
 	//Top Right corner
 	glm::vec2 topRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y + aabb->halfY);
-	float topRightX = this->map(topRight.x, -320, 288, 0, 19);
-	float topRightY = this->map(topRight.y, 160, -192, 0, 11);
+	float topRightX = this->map(topRight.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float topRightY = this->map(topRight.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	topRightX = round(topRightX);
 	topRightY = round(topRightY);
 	if (lastPlayerTileTopRight != nullptr)
@@ -428,8 +429,8 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 
 	//Bottom Right corner
 	glm::vec2 bottomRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y - aabb->halfY);
-	float bottomRightX = this->map(bottomRight.x, -320, 288, 0, 19);
-	float bottomRightY = this->map(bottomRight.y, 160, -192, 0, 11);
+	float bottomRightX = this->map(bottomRight.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float bottomRightY = this->map(bottomRight.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	bottomRightX = round(bottomRightX);
 	bottomRightY = round(bottomRightY);
 	if (lastPlayerTileBottomRight != nullptr)
@@ -440,8 +441,8 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 
 	//Bottom Left corner
 	glm::vec2 bottomLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y - aabb->halfY);
-	float bottomLeftX = this->map(bottomLeft.x, -320, 288, 0, 19);
-	float bottomLeftY = this->map(bottomLeft.y, 160, -192, 0, 11);
+	float bottomLeftX = this->map(bottomLeft.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float bottomLeftY = this->map(bottomLeft.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	bottomLeftX = round(bottomLeftX);
 	bottomLeftY = round(bottomLeftY);
 	if (lastPlayerTileBottomLeft != nullptr)
@@ -452,8 +453,8 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 
 	//Mid Right 
 	glm::vec2 midRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y);
-	float midRightX = this->map(midRight.x, -320, 288, 0, 19);
-	float midRightY = this->map(midRight.y, 160, -192, 0, 11);
+	float midRightX = this->map(midRight.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float midRightY = this->map(midRight.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	midRightX = round(midRightX);
 	midRightY = round(midRightY);
 	if (lastPlayerTileMidRight != nullptr)
@@ -463,8 +464,8 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 
 	//Mid Left
 	glm::vec2 midLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y);
-	float midLeftX = this->map(midLeft.x, -320, 288, 0, 19);
-	float midLeftY = this->map(midLeft.y, 160, -192, 0, 11);
+	float midLeftX = this->map(midLeft.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
+	float midLeftY = this->map(midLeft.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	midLeftX = round(midLeftX);
 	midLeftY = round(midLeftY);
 	if (lastPlayerTileMidLeft != nullptr)

@@ -1,18 +1,30 @@
+#include "SimpleTimer.h"
 #include "DemonEntity.h"
 #include "Group.h"
 #include "DemonSprite.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "TextureManager.h"
 #include "Sprite.h"
+#include "GothicVaniaDemonStates.h"
 DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo) :
 	BaseEnemy(id, name, myStartPosition, patrolTo)
 {
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(240, 192), TextureMan->GetTexture("demon"), Heading::RIGHTFACING);
+	//myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x+16.0f, mPosition.y - 11, 0.09f, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);
+	myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
-	myAnimatedSprite->SetAnimation("DemonAttack");
+	myAnimatedSprite->SetAnimation("DemonIdle");
 	myXDirection = 1.0f;
-	mySprite->Add(myPlayerAABB);
+	//mySprite->Add(myPlayerAABB);
+	myStartTime = Clock->GetCurrentTime();
+	setonce = false;
+	breatheFire = false;
+
+
+	myStateMachine = new StateMachine<DemonEntity>(this);
+
+	myStateMachine->setCurrentState(DemonIdle::Instance());
+	myStateMachine->changeState(DemonIdle::Instance());
 }
 DemonEntity::~DemonEntity()
 {
@@ -20,9 +32,23 @@ DemonEntity::~DemonEntity()
 }
 void DemonEntity::Update()
 {
-	myAnimatedSprite->Update();
+	myStateMachine->update();
+	/*myAnimatedSprite->Update();
 	HandleMovement();
 
+	if(Clock->GetCurrentTime() - myStartTime >= 3.0f && !setonce)
+		breatheFire = true;
+
+	if(breatheFire)
+	{
+
+	}
+	myAnimatedSprite->myTexture = TextureMan->GetTexture("demon");
+	myAnimatedSprite->SetAnimation("DemonAttack");
+	setonce = true;
+	myAnimatedSprite->mySize = glm::vec2(240, 192);
+	myAnimatedSprite->myPosition.x = mPosition.x - 16.0f;
+	myAnimatedSprite->myPosition.y = mPosition.y + 11.0f;*/
 }
 bool DemonEntity::HandleMessage(const Message& msg)
 {
@@ -65,4 +91,8 @@ void DemonEntity::SetAnimation(const std::string& name)
 {
 	myAnimatedSprite->SetAnimation(name);
 	myAnimatedSprite->Reset();
+}
+void DemonEntity::ResetAttackTimer()
+{
+	myAttackTimer = Clock->GetCurrentTime();
 }

@@ -74,7 +74,8 @@ private:
 	float myWidth;
 	float myHeight;
 	bool myMouseMovement;
-
+	float lastPlayerX;
+	float myScreenDirection;
 
 
 private:

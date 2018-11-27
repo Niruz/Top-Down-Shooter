@@ -444,6 +444,9 @@
     <ClCompile Include="DemonEntity.cpp">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="GothicVaniaDemonStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -691,6 +694,9 @@
     </ClInclude>
     <ClInclude Include="DemonEntity.h">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaDemonStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

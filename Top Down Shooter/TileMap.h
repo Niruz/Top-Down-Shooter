@@ -6,7 +6,7 @@ class TileMap
 {
 public:
 	TileMap(){}
-	TileMap(const std::string& name);
+	TileMap(const std::string& name, const glm::vec2& worldX, const glm::vec2& worldY, const glm::vec2& tileX, const glm::vec2& tileY);
 	~TileMap();
 
 	bool InitializeFromMap(const std::string& name);
@@ -51,5 +51,10 @@ private:
 
 	int myMapHeight;
 	int myMapWidth;
+
+	glm::vec2 myWorldXRange;
+	glm::vec2 myWorldYRange;
+	glm::vec2 myWorldXTileRange;
+	glm::vec2 myWorldYTileRange;
 
 };

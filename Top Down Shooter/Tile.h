@@ -6,7 +6,7 @@
 #include "AABB.h"
 struct Tile
 {
-	Tile(float inX, float inY, bool blocking, bool spikedFloor, bool oneWay, bool isPillar);
+	Tile(float inX, float inY, bool blocking, bool spikedFloor, bool oneWay, bool isPillar, const std::string& tiletype);
 	~Tile(){}
 	float myX;
 	float myY;
@@ -43,4 +43,7 @@ struct Tile
 	std::vector<Tile*> myNeighbours;
 	
 	AABB myAABB;
+	
+	//TODO: improve upon this so its more flexible
+	std::string myTileType;
 };

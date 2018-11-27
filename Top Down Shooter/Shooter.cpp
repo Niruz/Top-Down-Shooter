@@ -46,7 +46,7 @@ void Shooter::Initialize()
 	myLayer->Add(fpsGroup);
 	myLayer->Add(myCursor);
 
-	myMap = new TileMap("Levels/test3.level");
+	myMap = new TileMap("Levels/test3.level",glm::vec2(-320, 288), glm::vec2(160, -192), glm::vec2(0, 19), glm::vec2(0, 11));
 
 	myMap->printMap();
 

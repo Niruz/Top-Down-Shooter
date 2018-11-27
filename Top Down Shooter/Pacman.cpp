@@ -35,7 +35,7 @@ void Pacman::Initialize()
 	fpsGroup->Add(myFPSLabel);
 
 	myLayer->Add(fpsGroup);
-	myMap = new TileMap("Levels/pacman.level");
+	myMap = new TileMap("Levels/pacman.level", glm::vec2(-320, 288), glm::vec2(160,-192),glm::vec2(0,19),glm::vec2(0,11));
 
 	std::vector<Tile*> map = myMap->GetMap();
 	tileGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)));
