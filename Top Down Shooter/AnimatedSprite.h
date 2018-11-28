@@ -22,7 +22,7 @@ public:
 	virtual void Reset();
 	virtual bool IsDone();
 	virtual void SetHeading(Heading heading);
-protected:
+public:
 
 	Animation* myCurrentAnimation;
 	Heading myHeading;

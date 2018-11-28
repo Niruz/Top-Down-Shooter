@@ -42,7 +42,7 @@ bool TileMap::InitializeFromMap(const std::string& name)
 		std::getline(myfile, line);
 		for(unsigned int i = 0;i < line.length(); i++)
 		{
-			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V')||(line[i] == 'F') || (line[i] == 'o'),  (line[i] == 'Y'), (line[i] == 'v') || (line[i] == 'F'), (line[i] == 'V'), std::string(1,line[i]));
+			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V')||(line[i] == 'F') || (line[i] == 'o'),  (line[i] == 'Y') || (line[i] == 'y'), (line[i] == 'v') || (line[i] == 'F'), (line[i] == 'V'), std::string(1,line[i]));
 			myMapTiles.push_back(tile);
 		}
 		lineIndex++;

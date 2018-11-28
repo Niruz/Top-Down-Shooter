@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "TextureManager.h"
 #include "Sprite.h"
+# define M_PI           3.14159265358979323846  /* pi */
+
 EyeMonsterEntity::EyeMonsterEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo) :
 	BaseEnemy(id, name, myStartPosition, patrolTo)
 {
@@ -12,6 +14,7 @@ EyeMonsterEntity::EyeMonsterEntity(int id, const std::string& name, const glm::v
 	mySprite->Add(myAnimatedSprite);
 	myAnimatedSprite->SetAnimation("EyePatrol");
 	myXDirection = 1.0f;
+	angle = 0;
 }
 EyeMonsterEntity::~EyeMonsterEntity()
 {
@@ -35,6 +38,8 @@ void EyeMonsterEntity::HandleMovement()
 		{
 			mPosition.x += myXDirection;
 			myAnimatedSprite->myPosition.x = mPosition.x;
+			myAnimatedSprite->myPosition.y += sin(angle * M_PI/180.0f);
+			angle+=5;
 		}
 		else
 		{
@@ -48,6 +53,8 @@ void EyeMonsterEntity::HandleMovement()
 		{
 			mPosition.x += myXDirection;
 			myAnimatedSprite->myPosition.x = mPosition.x;
+			myAnimatedSprite->myPosition.y += sin(angle * M_PI / 180.0f);
+			angle += 5;
 		}
 		else
 		{

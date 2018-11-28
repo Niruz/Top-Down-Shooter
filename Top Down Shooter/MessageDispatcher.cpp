@@ -22,7 +22,9 @@ void MessageDispatcher::Discharge(Entity* receiver, const Message& msg)
 
 void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, int msg, void* extraInfo)
 {
-	Entity* pSender   = EntityMan->getEntityFromID(sender);
+	Entity* pSender = NULL;
+	if(sender != 1337)
+		Entity* pSender   = EntityMan->getEntityFromID(sender);
 	Entity* pReceiver = EntityMan->getEntityFromID(receiver);
 
 	if (pReceiver == nullptr)
@@ -34,9 +36,18 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 
 	if(delay <= 0.0f)
 	{
-		std::cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
-			<< " by " << pSender->GetName() << " for " << pReceiver->GetName();
-//			<< ". Msg is " << MsgToStr(msg);
+		if(sender != 1337) 
+		{
+			std::cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
+				<< " by " << pSender->GetName() << " for " << pReceiver->GetName();
+		}
+		else
+		{
+			std::cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
+				<< " by " << 1337 << " for " << pReceiver->GetName();
+		}
+
+		//			<< ". Msg is " << MsgToStr(msg);
 
 		Discharge(pReceiver, message);
 	}

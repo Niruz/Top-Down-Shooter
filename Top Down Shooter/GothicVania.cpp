@@ -17,6 +17,11 @@
 #include "Entity.h"
 #include "EyeMonsterEntity.h"
 #include "DemonEntity.h"
+#include "AnimatedSprite.h"
+#include "MessageDispatcher.h"
+#include "Messages.h"
+#include "EntityManager.h"
+#include "Entity.h"
 void GothicVania::Initialize()
 {
 	lastX = 640.0f;
@@ -57,12 +62,25 @@ void GothicVania::Initialize()
 	myHellCat = new HellCatEntity(3, "HellCat1", glm::vec3(352.0f, -160.0f, 0.1f), glm::vec3(576.0f, -160.0f, 0.1f));
 	myEyeMonster = new EyeMonsterEntity(4, "EyeMonster1", glm::vec3(96.0f, 32.0f, 0.1f), glm::vec3(224.0f, 32.0f, 0.1f));
 	myDemon = new DemonEntity(5, "Demon1", glm::vec3(128, -96 - 15, 0.1f), glm::vec3(128.0f, -32.0f, 0.1f));
+	myGhost2 = new GhostEntity(6, "Ghost2", glm::vec3(1328.0f, -160.0f, 0.1f), glm::vec3(1328.0f, -32.0f, 0.1f));
+	myGhost3 = new GhostEntity(7, "Ghost3", glm::vec3(2624.0f, -128.0f, 0.1f), glm::vec3(2624.0f, -32.0f, 0.1f));
+	myDemon2 = new DemonEntity(8, "Demon2", glm::vec3(3008.0f, -96 - 15, 0.0999f), glm::vec3(3008.0f, -32.0f, 0.1f));
+	myDemon3 = new DemonEntity(9, "Demon3", glm::vec3(3264.0f, -96 - 15, 0.1f), glm::vec3(3264.0f, -32.0f, 0.1f));
 	myEntitites.push_back(myPlayer);
 	myEntitites.push_back(mySkeleton);
 	myEntitites.push_back(myGhost);
+	myEntitites.push_back(myGhost2);
+	myEntitites.push_back(myGhost3);
 	myEntitites.push_back(myHellCat);
 	myEntitites.push_back(myEyeMonster);
 	myEntitites.push_back(myDemon);
+	myEntitites.push_back(myDemon2);
+	myEntitites.push_back(myDemon3);
+
+	for (Entity* entity : myEntitites)
+		EntityMan->registerEntity(entity);
+
+	myDemon2->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	
 	//Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(260, 160, 0.8)));
@@ -93,6 +111,7 @@ void GothicVania::Initialize()
 	float startY = 32.0f * 6;
 	srand(54);
 
+	int grassType = 1;
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (i % 120 == 0)
@@ -132,7 +151,8 @@ void GothicVania::Initialize()
 			else
 			{
 				if(!(map[i]->myTileType == "o"))
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY+5, 0.01, 1), glm::vec2(32.0f, 41), TextureMan->GetTexture("grass")/*, glm::vec2(0, 15)*/));
+					tileGroup->Add(new Sprite(glm::vec4(startX, startY+5, 0.01, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")/*, glm::vec2(0, 15)*/));
+				grassType *= -1;
 			//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f,0.0f,1.0f,0.5f)));
 			}
 			//tileGroup->Add(new Sprite(glm::vec4(startX, startY , 0.01, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
@@ -141,7 +161,10 @@ void GothicVania::Initialize()
 		{
 			if (map[i]->myIsSpikedFloor)
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
+				if(map[i]->myTileType == "y")
+					tileGroup->Add(new Sprite(glm::vec4(startX, startY+ 31, 0.01, 1), glm::vec2(32.0f, 94.0f), TextureMan->GetTexture("spikedpillar")/*, glm::vec2(0, 15)*/));
+				else
+					tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
 			//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 16.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else if (map[i]->myTileType == "f")
@@ -243,17 +266,21 @@ void GothicVania::Initialize()
 	tileGroup->Add(myPlayerTileMidLeft);
 	tileGroup->Add(myPlayerTileMidRight);*/
 	tileGroup->Add(myGhost->mySprite);
+	tileGroup->Add(myGhost2->mySprite);
+	tileGroup->Add(myGhost3->mySprite);
 	tileGroup->Add(myHellCat->mySprite);
 	tileGroup->Add(myEyeMonster->mySprite);
 	tileGroup->Add(myDemon->mySprite);
+	tileGroup->Add(myDemon2->mySprite);
+	tileGroup->Add(myDemon3->mySprite);
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
 	
 	myPlayer->myTileMap = myMap;
 	//myDebugLayer->Add(myPlayerTile);
-
 	lastPlayerX = myPlayer->mPosition.x;
 	myScreenDirection = 0.0f;
+	myBossBattle = false;
 }
 void GothicVania::UpdatePlayer()
 {
@@ -279,7 +306,7 @@ void GothicVania::UpdatePlayer()
 	tileGroup->SetTransformationMatrix(myCamera.mTranslationMatrix);
 
 	myScreenDirection = 0.0f;
-	if (myPlayer->mPosition.x > -0.5f && myPlayer->mPosition.x < 3150.0f)
+	if ((myPlayer->mPosition.x > -0.5f) && (myPlayer->mPosition.x < 3150.0f) && (!myBossBattle))
 	{
 		float newPlayerX = myPlayer->mPosition.x;
 		if (lastPlayerX > newPlayerX)
@@ -291,7 +318,23 @@ void GothicVania::UpdatePlayer()
 
 		lastPlayerX = newPlayerX;
 	}
-
+	if (myPlayer->mPosition.x >= 3150.0f && !myBossBattle)
+	{
+		myBossBattle = true;
+		myMap->GetTile2(98,  1)->myIsBlockingFlag = true; 
+		myMap->GetTile2(98,  2)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  3)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  4)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  5)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  6)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  7)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  8)->myIsBlockingFlag = true;
+		myMap->GetTile2(98,  9)->myIsBlockingFlag = true;
+		myMap->GetTile2(98, 10)->myIsBlockingFlag = true;
+		//1337 is the game itself
+		MessageMan->dispatchMessage(0, 1337, myDemon2->GetID(), Msg_GoFuckShitUp, 0);
+		MessageMan->dispatchMessage(0, 1337, myDemon3->GetID(), Msg_GoFuckShitUp, 0);
+	}
 }
 void GothicVania::Tick()
 {
@@ -304,7 +347,7 @@ void GothicVania::Update()
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	//myCamera.setPosition(-myPlayer->mPosition);
-	if(myPlayer->mPosition.x > -0.5f && myPlayer->mPosition.x < 3150.0f)
+	if(myPlayer->mPosition.x > -0.5f && myPlayer->mPosition.x < 3150.0f &&(!myBossBattle))
 		myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 32.0f, -myPlayer->mPosition.z));
 	myGraveyard->increaseUVAlongX(myScreenDirection *0.002f);
 	myMountain->increaseUVAlongX(myScreenDirection *0.001f);

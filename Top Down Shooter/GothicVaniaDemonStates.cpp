@@ -3,6 +3,7 @@
 #include "DemonEntity.h"
 #include "TextureManager.h"
 #include "AnimatedSprite.h"
+#include "Messages.h"
 //------------------------------------------------------------------------methods for GhostPatrol
 DemonIdle* DemonIdle::Instance()
 {
@@ -12,11 +13,21 @@ DemonIdle* DemonIdle::Instance()
 }
 void DemonIdle::Enter(DemonEntity* entity)
 {
+	
 	entity->myAnimatedSprite->myTexture = TextureMan->GetTexture("demonidle");
 	entity->SetAnimation("DemonIdle");
 	entity->myAnimatedSprite->mySize = glm::vec2(160, 144);
-	entity->myAnimatedSprite->myPosition.x = entity->mPosition.x + 16.0f;
-	entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	if(entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x + 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	}
+	else
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	}
+
 	entity->ResetAttackTimer();
 }
 void DemonIdle::Execute(DemonEntity* entity)
@@ -82,8 +93,16 @@ void DemonWindup::Enter(DemonEntity* entity)
 	entity->myAnimatedSprite->myTexture = TextureMan->GetTexture("demon");
 	entity->SetAnimation("DemonWindUp");
 	entity->myAnimatedSprite->mySize = glm::vec2(240, 192);
-	entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
-	entity->myAnimatedSprite->myPosition.y = entity->mPosition.y + 11.0f;
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y + 11.0f;
+	}
+	else
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x + 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y + 11.0f;
+	}
 	entity->ResetAttackTimer();
 }
 void DemonWindup::Execute(DemonEntity* entity)
@@ -134,5 +153,43 @@ void DemonWindDown::Exit(DemonEntity* entity)
 }
 bool DemonWindDown::OnMessage(DemonEntity* entity, const Message& msg)
 {
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostPatrol
+DemonAwaitingOrders* DemonAwaitingOrders::Instance()
+{
+	static DemonAwaitingOrders instance;
+
+	return &instance;
+}
+void DemonAwaitingOrders::Enter(DemonEntity* entity)
+{
+	entity->myAnimatedSprite->myTexture = TextureMan->GetTexture("demonidle");
+	entity->SetAnimation("DemonIdle");
+	//entity->storedY = entity->myAnimatedSprite->myPosition.y;
+	entity->myAnimatedSprite->myPosition.y += 2000.0f;
+}
+void DemonAwaitingOrders::Execute(DemonEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	entity->HandleMovement();
+}
+void DemonAwaitingOrders::Exit(DemonEntity* entity)
+{
+
+}
+bool DemonAwaitingOrders::OnMessage(DemonEntity* entity, const Message& msg)
+{
+	switch (msg.mMsg)
+	{
+	case Msg_GoFuckShitUp:
+
+		//entity->mPosition.y = entity->storedY;
+		entity->myAnimatedSprite->myPosition.y -= 2000.0f;
+		entity->GetFSM()->changeState(DemonIdle::Instance());
+		return true;
+
+	}
+
 	return false;
 }

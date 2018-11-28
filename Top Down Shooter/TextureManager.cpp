@@ -54,8 +54,9 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/floatingtilerightgrass.png", "floatingrightgrass", true, false, false);
 	LoadTexture("Textures/floatingtileleftgrass.png", "floatingleftgrass", true, false, false);
 	LoadTexture("Textures/floatingtileleft.png", "floatingleft", true, false, false);
-
+	LoadTexture("Textures/stairtile.png", "stair", true, false, false);
 	LoadTexture("Textures/healthtemp.png", "hpbar", true, false, false);
+	LoadTexture("Textures/spikedpillar.png", "spikedpillar", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
 	LoadTexture("Textures/3.png", "3");

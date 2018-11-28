@@ -65,8 +65,12 @@ private:
 	HeroEntity* myPlayer;
 	SkeletonEntity* mySkeleton;
 	GhostEntity* myGhost;
+	GhostEntity* myGhost2;
+	GhostEntity* myGhost3;
 	HellCatEntity* myHellCat;
 	DemonEntity* myDemon;
+	DemonEntity* myDemon2;
+	DemonEntity* myDemon3;
 	EyeMonsterEntity* myEyeMonster;
 	std::vector<Entity*> myEntitites;
 //	std::vector<SkeletonEntity*> mySkeletons;
@@ -79,7 +83,7 @@ private:
 	float lastPlayerX;
 	float myScreenDirection;
 
-	
+	bool myBossBattle;
 private:
 	//Debug stuff
 	Layer * myDebugLayer;

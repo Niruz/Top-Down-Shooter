@@ -33,3 +33,20 @@ https://gamedev.stackexchange.com/questions/60008/smooth-jumping-in-2d-platforme
 https://jonathanwhiting.com/tutorial/collision/
 https://answers.unity.com/questions/29751/gradually-moving-an-object-up-to-speed-rather-then.html
 https://gamedev.stackexchange.com/questions/121389/how-i-can-make-better-jump-to-my-game-c-sfml
+
+
+
+
+Sprites to download
+https://rvros.itch.io/animated-pixel-hero
+https://rvros.itch.io/
+https://ansimuz.itch.io/sunnyland-forest
+https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
+https://lionheart963.itch.io/royal-knight-design
+https://sinestesia.itch.io/2d-explosions-animations
+https://sinestesia.itch.io/free-2d-explosion-animations-2
+https://kvsr.itch.io/pixel-fire-set
+https://thewisehedgehog.itch.io/thpp
+https://psionicgames.itch.io/100-survival-horror-sound-fx-wavs
+https://stuckeast.itch.io/sdap
+

@@ -248,6 +248,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="MeshFactory.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageDispatcher.h" />
+    <ClInclude Include="Messages.h" />
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="MinerOwnedStates.h" />

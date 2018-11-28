@@ -22,9 +22,13 @@ DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& mySta
 
 
 	myStateMachine = new StateMachine<DemonEntity>(this);
-
-	myStateMachine->setCurrentState(DemonIdle::Instance());
+/*	myStateMachine->setCurrentState(DemonIdle::Instance());
 	myStateMachine->changeState(DemonIdle::Instance());
+	myStateMachine->update();*/
+	myStateMachine->setCurrentState(DemonAwaitingOrders::Instance());
+	myStateMachine->changeState(DemonAwaitingOrders::Instance());
+/*	myStateMachine->setCurrentState(DemonIdle::Instance());
+	myStateMachine->changeState(DemonIdle::Instance());*/
 }
 DemonEntity::~DemonEntity()
 {
@@ -52,7 +56,7 @@ void DemonEntity::Update()
 }
 bool DemonEntity::HandleMessage(const Message& msg)
 {
-	return false;
+	return myStateMachine->HandleMessage(msg);
 }
 void DemonEntity::HandleMovement()
 {
@@ -85,6 +89,8 @@ void DemonEntity::HandleMovement()
 	*/
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
+	//myAnimatedSprite->myPosition.x = mPosition.x;
+	//myAnimatedSprite->myPosition.y = mPosition.y;
 
 }
 void DemonEntity::SetAnimation(const std::string& name)

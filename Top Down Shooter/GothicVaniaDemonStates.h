@@ -118,3 +118,32 @@ public:
 	virtual bool OnMessage(DemonEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class DemonAwaitingOrders : public State<DemonEntity>
+{
+private:
+
+	DemonAwaitingOrders() {}
+
+	//copy ctor and assignment should be private
+	DemonAwaitingOrders(const DemonAwaitingOrders&);
+	DemonAwaitingOrders& operator=(const DemonAwaitingOrders&);
+
+public:
+
+	//this is a singleton
+	static DemonAwaitingOrders* Instance();
+
+	virtual void Enter(DemonEntity* entity);
+
+	virtual void Execute(DemonEntity* entity);
+
+	virtual void Exit(DemonEntity* entity);
+
+	virtual bool OnMessage(DemonEntity* entity, const Message& msg);
+
+};

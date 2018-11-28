@@ -136,6 +136,9 @@
     <Filter Include="Games\GothicVania\Entities\States\Entity States\Enemies">
       <UniqueIdentifier>{0e9830a8-0d1d-4633-b3ed-e71094be460c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Entities\States\Messages">
+      <UniqueIdentifier>{e153074d-e5ac-4ea6-93fa-30e9b10b0ad1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -697,6 +700,9 @@
     </ClInclude>
     <ClInclude Include="GothicVaniaDemonStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Messages.h">
+      <Filter>Games\GothicVania\Entities\States\Messages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

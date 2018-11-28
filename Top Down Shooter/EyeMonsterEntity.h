@@ -17,5 +17,6 @@ struct EyeMonsterEntity : public BaseEnemy
 	void SetAnimation(const std::string& name);
 public:
 
+	float angle;
 };
 

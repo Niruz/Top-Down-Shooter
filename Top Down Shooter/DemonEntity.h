@@ -21,4 +21,5 @@ public:
 	float myStartTime;
 	bool setonce;
 	bool breatheFire;
+	float storedY;
 };
