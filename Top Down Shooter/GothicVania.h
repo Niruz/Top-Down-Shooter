@@ -51,6 +51,8 @@ private:
 	Layer* myMountainsLayer;
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
+	Label* myBossAnnouncer;
+	Group* bossAnnouncerGroup;
 	TileMap* myMap;
 	
 	Camera myCamera;
@@ -64,14 +66,26 @@ private:
 	//Entities
 	HeroEntity* myPlayer;
 	SkeletonEntity* mySkeleton;
+	SkeletonEntity* mySkeleton2;
+	SkeletonEntity* mySkeleton3;
+	SkeletonEntity* mySkeleton4;
 	GhostEntity* myGhost;
 	GhostEntity* myGhost2;
 	GhostEntity* myGhost3;
 	HellCatEntity* myHellCat;
+	HellCatEntity* myHellCat2;
+	HellCatEntity* myHellCat3;
+	HellCatEntity* myHellCat4;
 	DemonEntity* myDemon;
 	DemonEntity* myDemon2;
 	DemonEntity* myDemon3;
 	EyeMonsterEntity* myEyeMonster;
+	EyeMonsterEntity* myEyeMonster2;
+	EyeMonsterEntity* myEyeMonster3;
+	EyeMonsterEntity* myEyeMonster4;
+	EyeMonsterEntity* myEyeMonster5;
+	EyeMonsterEntity* myEyeMonster6;
+	EyeMonsterEntity* myEyeMonster7;
 	std::vector<Entity*> myEntitites;
 //	std::vector<SkeletonEntity*> mySkeletons;
 
@@ -82,8 +96,11 @@ private:
 	bool myMouseMovement;
 	float lastPlayerX;
 	float myScreenDirection;
-
+	float startScreenTime;
+	float delayCutscene;
+	float alphaStart;
 	bool myBossBattle;
+	bool cutSceneStarted;
 private:
 	//Debug stuff
 	Layer * myDebugLayer;

@@ -12,6 +12,14 @@ HellCatEntity::HellCatEntity(int id, const std::string& name, const glm::vec3& m
 
 	myAnimatedSprite->SetAnimation("HellCatPatrol");
 	myXDirection = 1.0f;
+	if (myStartPosition.x > patrolTo.x)
+	{
+		myXDirection = -1.0f;
+		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+		glm::vec3 temp = startPatrol;
+		startPatrol = endPatrol;
+		endPatrol = temp;
+	}
 }
 HellCatEntity::~HellCatEntity()
 {

@@ -16,10 +16,15 @@ struct DemonEntity : public BaseEnemy
 	void HandleMovement();
 	void SetAnimation(const std::string& name);
 	void ResetAttackTimer();
+
+	void HandleSwoopDown();
 public:
 
 	float myStartTime;
 	bool setonce;
 	bool breatheFire;
 	float storedY;
+
+	bool touchedDown;
+	bool firstAttack;
 };

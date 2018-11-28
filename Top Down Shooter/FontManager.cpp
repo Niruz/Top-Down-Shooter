@@ -11,7 +11,8 @@ void FontManager::onInitialize()
 	//LoadTexture("Textures/floor.png", "floor");
 	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont32", 32);
 	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont64", 64);
-
+	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont128", 128);
+	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont96", 96);
 }
 void FontManager::onDeinitialize()
 {

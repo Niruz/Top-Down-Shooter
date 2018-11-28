@@ -35,6 +35,11 @@ void DemonIdle::Execute(DemonEntity* entity)
 	entity->myAnimatedSprite->Update();
 	entity->HandleMovement();
 
+	if(entity->firstAttack)
+	{
+		entity->firstAttack = false;
+		entity->GetFSM()->changeState(DemonWindup::Instance());
+	}
 	if ((Clock->GetCurrentTime() - entity->myAttackTimer) >= 4.0f)
 	{
 		entity->GetFSM()->changeState(DemonWindup::Instance());
@@ -179,6 +184,55 @@ void DemonAwaitingOrders::Exit(DemonEntity* entity)
 
 }
 bool DemonAwaitingOrders::OnMessage(DemonEntity* entity, const Message& msg)
+{
+	switch (msg.mMsg)
+	{
+	case Msg_GoFuckShitUp:
+
+		//entity->mPosition.y = entity->storedY;
+		entity->myAnimatedSprite->myPosition.y -= 2000.0f;
+		entity->GetFSM()->changeState(DemonSwoopDown::Instance());
+		return true;
+
+	}
+
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostPatrol
+DemonSwoopDown* DemonSwoopDown::Instance()
+{
+	static DemonSwoopDown instance;
+
+	return &instance;
+}
+void DemonSwoopDown::Enter(DemonEntity* entity)
+{
+	entity->myAnimatedSprite->myTexture = TextureMan->GetTexture("demonidle");
+	entity->SetAnimation("DemonIdle");
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x + 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	}
+	else
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	}
+}
+void DemonSwoopDown::Execute(DemonEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	//entity->HandleMovement();
+	entity->HandleSwoopDown();
+	if(entity->touchedDown)
+		entity->GetFSM()->changeState(DemonIdle::Instance());
+}
+void DemonSwoopDown::Exit(DemonEntity* entity)
+{
+
+}
+bool DemonSwoopDown::OnMessage(DemonEntity* entity, const Message& msg)
 {
 	switch (msg.mMsg)
 	{

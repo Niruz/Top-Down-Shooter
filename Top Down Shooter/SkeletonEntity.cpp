@@ -12,6 +12,14 @@ SkeletonEntity::SkeletonEntity(int id, const std::string& name, const glm::vec3&
 	mySprite->Add(myAnimatedSprite);
 	myAnimatedSprite->SetAnimation("SkeletonWalk");
 	myXDirection = 1.0f;
+	if (myStartPosition.x > patrolTo.x)
+	{
+		myXDirection = -1.0f;
+		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+		glm::vec3 temp = startPatrol;
+		startPatrol = endPatrol;
+		endPatrol = temp;
+	}
 }
 SkeletonEntity::~SkeletonEntity()
 {

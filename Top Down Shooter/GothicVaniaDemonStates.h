@@ -147,3 +147,32 @@ public:
 	virtual bool OnMessage(DemonEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class DemonSwoopDown : public State<DemonEntity>
+{
+private:
+
+	DemonSwoopDown() {}
+
+	//copy ctor and assignment should be private
+	DemonSwoopDown(const DemonSwoopDown&);
+	DemonSwoopDown& operator=(const DemonSwoopDown&);
+
+public:
+
+	//this is a singleton
+	static DemonSwoopDown* Instance();
+
+	virtual void Enter(DemonEntity* entity);
+
+	virtual void Execute(DemonEntity* entity);
+
+	virtual void Exit(DemonEntity* entity);
+
+	virtual bool OnMessage(DemonEntity* entity, const Message& msg);
+
+};

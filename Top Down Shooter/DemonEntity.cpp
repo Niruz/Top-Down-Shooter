@@ -29,6 +29,8 @@ DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& mySta
 	myStateMachine->changeState(DemonAwaitingOrders::Instance());
 /*	myStateMachine->setCurrentState(DemonIdle::Instance());
 	myStateMachine->changeState(DemonIdle::Instance());*/
+	touchedDown = false;
+	firstAttack = true;
 }
 DemonEntity::~DemonEntity()
 {
@@ -57,6 +59,34 @@ void DemonEntity::Update()
 bool DemonEntity::HandleMessage(const Message& msg)
 {
 	return myStateMachine->HandleMessage(msg);
+}
+void DemonEntity::HandleSwoopDown()
+{
+	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
+	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		myAnimatedSprite->myPosition.x = mPosition.x + 16.0f;
+		myAnimatedSprite->myPosition.y = mPosition.y - 11.0f;
+	}
+	else
+	{
+		myAnimatedSprite->myPosition.x = mPosition.x - 16.0f;
+		myAnimatedSprite->myPosition.y = mPosition.y - 11.0f;
+	}
+
+	if (!touchedDown)
+	{
+		//-96 - 15
+		if (mPosition.y > -95 - 15)
+			mPosition.y--;
+		else
+		{
+			touchedDown = true;
+			mPosition.y = -95 - 15;
+		}
+			
+	}
 }
 void DemonEntity::HandleMovement()
 {
