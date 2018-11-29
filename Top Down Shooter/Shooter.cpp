@@ -21,10 +21,10 @@ void Shooter::Initialize()
 	myMouseMovement = false;
 
 	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
-	myCamera.setScreenPosition(glm::vec2(lastX, lastY));
-	myCamera.setProjectionMatrix(ortho);
-	myCamera.setWidth(myWidth);
-	myCamera.setHeight(myHeight);
+	myCamera->setScreenPosition(glm::vec2(lastX, lastY));
+	myCamera->setProjectionMatrix(ortho);
+	myCamera->setWidth(myWidth);
+	myCamera->setHeight(myHeight);
 
 
 	myShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
@@ -108,14 +108,14 @@ void Shooter::UpdatePlayer()
 			break;
 		}
 	}
-	myPlayer->setDirection(myCamera.getPlayerDirection(myPlayer->mPosition));
-	myPlayer->UpdateTransformationMatrix(myCamera);
-	glm::vec2 mouseScreenWorld = myCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
+	myPlayer->setDirection(myCamera->getPlayerDirection(myPlayer->mPosition));
+	myPlayer->UpdateTransformationMatrix(*myCamera);
+	glm::vec2 mouseScreenWorld = myCamera->mouseScreenToWorld(glm::vec2(lastX, lastY));
 	glm::mat4 tran = glm::mat4(1.0f);
 	tran = glm::translate(tran, glm::vec3(mouseScreenWorld.x, mouseScreenWorld.y, 0.0f));
 	myCursor->SetTransformationMatrix(tran);
 
-	tileGroup->SetTransformationMatrix(myCamera.mTranslationMatrix);
+	tileGroup->SetTransformationMatrix(myCamera->mTranslationMatrix);
 	
 }
 void Shooter::Tick()
@@ -148,7 +148,7 @@ void Shooter::ProcessKeyBoard(int direction, float deltaTime, int action)
 		myPlayer->processKeyBoard(DOWN, deltaTime, action);
 
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
-	myCamera.setPosition(-myPlayer->mPosition);
+	myCamera->setPosition(-myPlayer->mPosition);
 }
 void Shooter::ProcessMouse(double xpos, double ypos, bool movement)
 {
@@ -157,5 +157,5 @@ void Shooter::ProcessMouse(double xpos, double ypos, bool movement)
 	lastX = xpos;
 	lastY = ypos;
 
-	myCamera.setScreenPosition(glm::vec2(lastX, lastY));
+	myCamera->setScreenPosition(glm::vec2(lastX, lastY));
 }

@@ -2,12 +2,12 @@
 #include "Entity.h"
 #include <glm/glm.hpp>
 #include "Shake.h"
-class Camera //: public Entity
+class Camera : public Entity
 {
 public:
-	Camera();
-	Camera(const glm::mat4& projection)
-		: mProjectionMatrix(projection)
+	Camera(int id, const std::string& name);
+	Camera(const glm::mat4& projection, int id, const std::string& name)
+		: Entity(id,name),mProjectionMatrix(projection)
 	{
 		mInverseProjectionMatrix = glm::inverse(mProjectionMatrix);
 	};
@@ -31,6 +31,7 @@ public:
 	void setHeight(float height) { windowHeight = height; };
 
 	void Update();
+	bool HandleMessage(const Message& msg) ;
 	void ShakeCamera(float duration, float frequency, float amplitude);
 
 public:

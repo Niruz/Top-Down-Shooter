@@ -30,6 +30,8 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/eyemonstersheet.png", "eyemonster", true, false, false);
 	LoadTexture("Textures/demon.png", "demon", true, false, false);
 	LoadTexture("Textures/demon-idle.png", "demonidle", true, false, false); 
+	LoadTexture("Textures/demon2.png", "demon2", true, false, false);
+	LoadTexture("Textures/demon-idle3.png", "demonidle3", true, false, false);
 	LoadTexture("Textures/plasma2.png", "plasma", true, false, false);
 	LoadTexture("Textures/testtile.png", "grass", true, false, false);
 	LoadTexture("Textures/testtile2.png", "grass2", true, false, false);

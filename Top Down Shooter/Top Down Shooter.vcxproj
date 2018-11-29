@@ -271,6 +271,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="Shake.h" />
+    <ClInclude Include="ShakeInfo.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SimpleObject.h" />
     <ClInclude Include="SimpleTimer.h" />

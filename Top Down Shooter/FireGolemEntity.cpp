@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Sprite.h"
 #include "GothicVaniaFireGolemStates.h"
+#include "ShakeInfo.h"
 FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo)
 {
@@ -26,10 +27,14 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 
 	myStateMachine->setCurrentState(FireGolemIdle::Instance());
 	myStateMachine->changeState(FireGolemIdle::Instance());
+
+	shakeAttack1 = false;
+	shakeAttack2 = false;
+	myShakeInfo = new ShakeInfo(500, 40, 5);
 }
 FireGolemEntity::~FireGolemEntity()
 {
-
+	delete myShakeInfo;
 }
 void FireGolemEntity::Update()
 {

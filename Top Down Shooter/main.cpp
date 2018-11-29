@@ -75,7 +75,7 @@ GLfloat lastY = 360.0f;
 float distanceToMouse = 0.0f;
 glm::vec3 cameraPos = glm::vec3(0.0f);
 bool mouseMovement = false;
-Camera mCamera;
+Camera* mCamera;
 Player mPlayer;
 Mesh* mMesh;
 Texture* mTexture;
@@ -131,7 +131,7 @@ static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	mCamera.setScreenPosition(glm::vec2(lastX, lastY));
+//	mCamera->setScreenPosition(glm::vec2(lastX, lastY));
 	myGame->ProcessMouse(lastX, lastY, mouseMovement);
 
 	//	mCamera.processMouseMovement(xoffset, yoffset);

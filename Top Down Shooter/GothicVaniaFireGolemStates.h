@@ -60,3 +60,32 @@ public:
 	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemAttack2 : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemAttack2() {}
+
+	//copy ctor and assignment should be private
+	FireGolemAttack2(const FireGolemAttack2&);
+	FireGolemAttack2& operator=(const FireGolemAttack2&);
+
+public:
+
+	//this is a singleton
+	static FireGolemAttack2* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};

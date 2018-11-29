@@ -1,7 +1,10 @@
 #include "SimpleTimer.h"
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>
-Camera::Camera()
+#include "Messages.h"
+#include "ShakeInfo.h"
+Camera::Camera(int id, const std::string& name)
+	:Entity(id,name)
 {
 	mTranslationMatrix = glm::mat4(1.0f);
 	mProjectionMatrix = glm::mat4(1.0f);
@@ -119,4 +122,17 @@ void Camera::Update()
 			myYShake = nullptr;
 		}
 	}
+}
+bool Camera::HandleMessage(const Message& msg)
+{
+	switch (msg.mMsg)
+	{
+	case Msg_ShakeCamera:
+
+		ShakeInfo * extraInfo = static_cast<ShakeInfo*>(msg.extraInfo);
+		ShakeCamera(extraInfo->myDuration, extraInfo->myFrequency, extraInfo->myAmplitude);
+		return true;
+	}
+
+	return false;
 }

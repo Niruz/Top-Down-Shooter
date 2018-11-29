@@ -56,7 +56,7 @@ private:
 	Group* bossAnnouncerGroup;
 	TileMap* myMap;
 	
-	Camera myCamera;
+	Camera* myCamera;
 	Group* myCursor;
 	Group* tileGroup;
 	Sprite* myMountain;

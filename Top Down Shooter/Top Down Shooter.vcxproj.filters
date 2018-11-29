@@ -728,6 +728,9 @@
     <ClInclude Include="GothicVaniaFireGolemStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="ShakeInfo.h">
+      <Filter>Graphics\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\forwardVertex.glsl">

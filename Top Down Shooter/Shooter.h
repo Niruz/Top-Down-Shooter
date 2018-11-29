@@ -40,7 +40,7 @@ private:
 	Label* myFPSLabel;
 	TileMap* myMap;
 	Player* myPlayer;
-	Camera myCamera;
+	Camera* myCamera;
 	Group* myCursor;
 	Group* tileGroup;
 

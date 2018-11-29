@@ -24,7 +24,7 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 {
 	Entity* pSender = NULL;
 	if(sender != 1337)
-		Entity* pSender   = EntityMan->getEntityFromID(sender);
+		 pSender   = EntityMan->getEntityFromID(sender);
 	Entity* pReceiver = EntityMan->getEntityFromID(receiver);
 
 	if (pReceiver == nullptr)

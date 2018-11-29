@@ -32,11 +32,12 @@ void GothicVania::Initialize()
 	myMouseMovement = false;
 
 	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
-	myCamera.setScreenPosition(glm::vec2(lastX, lastY));
-	myCamera.setProjectionMatrix(ortho);
-	myCamera.setWidth(myWidth);
-	myCamera.setHeight(myHeight);
-
+	myCamera = new Camera(666, "Camera1");
+	myCamera->setScreenPosition(glm::vec2(lastX, lastY));
+	myCamera->setProjectionMatrix(ortho);
+	myCamera->setWidth(myWidth);
+	myCamera->setHeight(myHeight);
+	EntityMan->registerEntity(myCamera);
 
 	myShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
 	myTileLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -1.0f, 1.0f));
@@ -79,6 +80,7 @@ void GothicVania::Initialize()
 	myEyeMonster6 = new EyeMonsterEntity(19, "EyeMonster6", glm::vec3(2064.0f, -128.0f, 0.091f), glm::vec3(2480.0f, -128.0f, 0.91));
 	myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));
 	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(0.0, -0.0, 0.1f), glm::vec3(0.0, 0.0, 0.1f));
+	
 
 	myEntitites.push_back(myPlayer);
 	myEntitites.push_back(mySkeleton);
@@ -346,13 +348,13 @@ void GothicVania::UpdatePlayer()
 		}
 	}*/
 	//myPlayer->setDirection(myCamera.getPlayerDirection(myPlayer->mPosition));
-	myPlayer->UpdateTransformationMatrix(myCamera);
-	glm::vec2 mouseScreenWorld = myCamera.mouseScreenToWorld(glm::vec2(lastX, lastY));
+	myPlayer->UpdateTransformationMatrix(*myCamera);
+	glm::vec2 mouseScreenWorld = myCamera->mouseScreenToWorld(glm::vec2(lastX, lastY));
 	glm::mat4 tran = glm::mat4(1.0f);
 	tran = glm::translate(tran, glm::vec3(mouseScreenWorld.x, mouseScreenWorld.y, 0.0f));
 	myCursor->SetTransformationMatrix(tran);
 
-	tileGroup->SetTransformationMatrix(myCamera.mTranslationMatrix);
+	tileGroup->SetTransformationMatrix(myCamera->mTranslationMatrix);
 
 	myScreenDirection = 0.0f;
 	if ((myPlayer->mPosition.x > -0.5f) && (myPlayer->mPosition.x < 3150.0f) && (!myBossBattle))
@@ -433,9 +435,9 @@ void GothicVania::Update()
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	//myCamera.setPosition(-myPlayer->mPosition);
 	if(myPlayer->mPosition.x > -0.5f && myPlayer->mPosition.x < 3150.0f &&(!myBossBattle))
-		myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 32.0f, -myPlayer->mPosition.z));
+		myCamera->setPosition(glm::vec3(-myPlayer->mPosition.x, 32.0f, -myPlayer->mPosition.z));
 	
-	myCamera.Update();
+	myCamera->Update();
 	myGraveyard->increaseUVAlongX(myScreenDirection *0.002f);
 	myMountain->increaseUVAlongX(myScreenDirection *0.001f);
 }
@@ -492,7 +494,7 @@ void GothicVania::ProcessKeyBoard(int key, float deltaTime, int action)
 	if (key == GLFW_KEY_V)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_T)
-		myCamera.ShakeCamera(2000,40,32);
+		myCamera->ShakeCamera(2000,40,32);
 	if (key == GLFW_KEY_SPACE)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_LEFT_CONTROL)
@@ -523,5 +525,5 @@ void GothicVania::ProcessMouse(double xpos, double ypos, bool movement)
 	lastX = xpos;
 	lastY = ypos;
 
-	myCamera.setScreenPosition(glm::vec2(lastX, lastY));
+	myCamera->setScreenPosition(glm::vec2(lastX, lastY));
 }
