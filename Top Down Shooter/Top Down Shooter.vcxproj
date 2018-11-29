@@ -148,12 +148,15 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="ext\freetype\src\winfonts\winfnt.c" />
     <ClCompile Include="EyeMonsterEntity.cpp" />
     <ClCompile Include="EyeMonsterSprite.cpp" />
+    <ClCompile Include="FireGolemEntity.cpp" />
+    <ClCompile Include="FireGolemSprite.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GhostEntity.cpp" />
     <ClCompile Include="GhostSprite.cpp" />
     <ClCompile Include="GothicVania.cpp" />
     <ClCompile Include="GothicVaniaDemonStates.cpp" />
+    <ClCompile Include="GothicVaniaFireGolemStates.cpp" />
     <ClCompile Include="GothicVaniaGhostStates.cpp" />
     <ClCompile Include="GothicVaniaHeroStates.cpp" />
     <ClCompile Include="Group.cpp" />
@@ -180,6 +183,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="Shake.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SimpleObject.cpp" />
     <ClCompile Include="SimpleTimer.cpp" />
@@ -226,6 +230,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="ext\freetype\include\ft2build.h" />
     <ClInclude Include="EyeMonsterEntity.h" />
     <ClInclude Include="EyeMonsterSprite.h" />
+    <ClInclude Include="FireGolemEntity.h" />
+    <ClInclude Include="FireGolemSprite.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
@@ -233,6 +239,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="GhostSprite.h" />
     <ClInclude Include="GothicVania.h" />
     <ClInclude Include="GothicVaniaDemonStates.h" />
+    <ClInclude Include="GothicVaniaFireGolemStates.h" />
     <ClInclude Include="GothicVaniaGhostStates.h" />
     <ClInclude Include="GothicVaniaHeroStates.h" />
     <ClInclude Include="Group.h" />
@@ -263,6 +270,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="RendererBase.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Shake.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SimpleObject.h" />
     <ClInclude Include="SimpleTimer.h" />

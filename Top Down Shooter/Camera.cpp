@@ -1,3 +1,4 @@
+#include "SimpleTimer.h"
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>
 Camera::Camera()
@@ -5,6 +6,7 @@ Camera::Camera()
 	mTranslationMatrix = glm::mat4(1.0f);
 	mProjectionMatrix = glm::mat4(1.0f);
 	mInverseProjectionMatrix = glm::mat4(1.0f);
+	AMPLITUDE = 0;
 }
 Camera::~Camera()
 {
@@ -13,6 +15,7 @@ Camera::~Camera()
 void Camera::setPosition(const glm::vec3& position)
 {
 	mPosition = position;
+	myOldPosition = mPosition;
 	mTranslationMatrix = glm::mat4(1.0f);
 	mTranslationMatrix = glm::translate(mTranslationMatrix, mPosition);
 }
@@ -57,4 +60,63 @@ glm::vec2 Camera::mouseScreenToWorld(glm::vec2 screenPos)
 	//ndc.y *= -1.0f;
 	//glm::vec4 ndc = glm::vec4(ndcx, ndcy, 0.0f, 1.0f);
 	return glm::vec2(ndc);
+}
+void Camera::ShakeCamera(float duration, float frequency, float amplitude)
+{
+	
+
+	myXShake = new Shake(duration, frequency);
+	myYShake = new Shake(duration, frequency);
+	AMPLITUDE = amplitude;
+	float HEIGHT = 720.0f;
+	float WIDTH = 1280.0f;
+
+	float t, x, y, s;
+
+	for (s = 0; s <= myXShake->mySamples.size(); s++) {
+		t = s / myXShake->myFrequency * 1000;
+		x = s / myXShake->mySamples.size() * WIDTH;
+		y = (myXShake->Amplitude(t)*HEIGHT + HEIGHT) / 2;
+	}
+
+	for (s = 0; s <= myYShake->mySamples.size(); s++) {
+		t = s / myYShake->myFrequency * 1000;
+		x = s / myYShake->mySamples.size() * WIDTH;
+		y = (myYShake->Amplitude(t)*HEIGHT + HEIGHT) / 2;
+	}
+
+
+	myXShake->Start();
+	myYShake->Start();
+
+	startShakeTime = Clock->GetCurrentTime();
+
+}
+
+void Camera::Update()
+{
+	if(myXShake != nullptr && myYShake != nullptr)
+	{
+		myXShake->Update();
+		myYShake->Update();
+
+		if(myXShake->myIsShaking || myYShake->myIsShaking)
+		{
+			float x = myXShake->Amplitude() * AMPLITUDE;
+			float y = myYShake->Amplitude() * AMPLITUDE;
+
+			mPosition = myOldPosition;
+			mPosition.x += x;
+			mPosition.y += y;
+			mTranslationMatrix = glm::mat4(1.0f);
+			mTranslationMatrix = glm::translate(mTranslationMatrix, mPosition);
+		}
+		else
+		{
+			delete myXShake;
+			delete myYShake;
+			myXShake = nullptr;
+			myYShake = nullptr;
+		}
+	}
 }

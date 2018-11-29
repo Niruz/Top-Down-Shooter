@@ -57,6 +57,8 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/stairtile.png", "stair", true, false, false);
 	LoadTexture("Textures/healthtemp.png", "hpbar", true, false, false);
 	LoadTexture("Textures/spikedpillar.png", "spikedpillar", true, false, false);
+	LoadTexture("Textures/firegolemsheet.png", "firegolem", true, false, false);
+
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
 	LoadTexture("Textures/3.png", "3");

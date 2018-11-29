@@ -22,6 +22,7 @@
 #include "Messages.h"
 #include "EntityManager.h"
 #include "Entity.h"
+#include "FireGolemEntity.h"
 void GothicVania::Initialize()
 {
 	lastX = 640.0f;
@@ -77,6 +78,7 @@ void GothicVania::Initialize()
 	myEyeMonster5 = new EyeMonsterEntity(18, "EyeMonster5", glm::vec3(2064.0f, -160.0f, 0.09f), glm::vec3(2448.0f, -160.0f, 0.9f));
 	myEyeMonster6 = new EyeMonsterEntity(19, "EyeMonster6", glm::vec3(2064.0f, -128.0f, 0.091f), glm::vec3(2480.0f, -128.0f, 0.91));
 	myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));
+	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(0.0, -0.0, 0.1f), glm::vec3(0.0, 0.0, 0.1f));
 
 	myEntitites.push_back(myPlayer);
 	myEntitites.push_back(mySkeleton);
@@ -99,6 +101,8 @@ void GothicVania::Initialize()
 	myEntitites.push_back(myEyeMonster5);
 	myEntitites.push_back(myEyeMonster6);
 	myEntitites.push_back(myEyeMonster7);
+	myEntitites.push_back(myFireGolem1);
+
 	for (Entity* entity : myEntitites)
 		EntityMan->registerEntity(entity);
 
@@ -314,6 +318,8 @@ void GothicVania::Initialize()
 	tileGroup->Add(myEyeMonster5->mySprite);
 	tileGroup->Add(myEyeMonster6->mySprite);
 	tileGroup->Add(myEyeMonster7->mySprite);
+	tileGroup->Add(myFireGolem1->mySprite);
+
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
 	//screen
@@ -404,7 +410,12 @@ void GothicVania::UpdatePlayer()
 			if (alphaStart > 0.0f)
 			{
 				alphaStart -= 0.01f;
-				myBossAnnouncer->SetPosition(glm::vec4(-230.0f, 2000.0f, 0, 1));
+				myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
+				if (alphaStart < 0.0f)
+				{
+					alphaStart = 0.0f;
+					myBossAnnouncer->SetPosition(glm::vec4(-230.0f, 2000.0f, 0, 1));
+				}
 			}
 				
 		}
@@ -423,6 +434,8 @@ void GothicVania::Update()
 	//myCamera.setPosition(-myPlayer->mPosition);
 	if(myPlayer->mPosition.x > -0.5f && myPlayer->mPosition.x < 3150.0f &&(!myBossBattle))
 		myCamera.setPosition(glm::vec3(-myPlayer->mPosition.x, 32.0f, -myPlayer->mPosition.z));
+	
+	myCamera.Update();
 	myGraveyard->increaseUVAlongX(myScreenDirection *0.002f);
 	myMountain->increaseUVAlongX(myScreenDirection *0.001f);
 }
@@ -478,6 +491,8 @@ void GothicVania::ProcessKeyBoard(int key, float deltaTime, int action)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_V)
 		myPlayer->processKeyBoard(key, deltaTime, action);
+	if (key == GLFW_KEY_T)
+		myCamera.ShakeCamera(2000,40,32);
 	if (key == GLFW_KEY_SPACE)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_LEFT_CONTROL)

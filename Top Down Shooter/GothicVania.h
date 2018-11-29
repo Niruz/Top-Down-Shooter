@@ -16,6 +16,7 @@ class BaseEnemy;
 class Entity;
 class EyeMonsterEntity;
 class DemonEntity;
+class FireGolemEntity;
 class GothicVania : public Game
 {
 public:
@@ -86,6 +87,7 @@ private:
 	EyeMonsterEntity* myEyeMonster5;
 	EyeMonsterEntity* myEyeMonster6;
 	EyeMonsterEntity* myEyeMonster7;
+	FireGolemEntity* myFireGolem1;
 	std::vector<Entity*> myEntitites;
 //	std::vector<SkeletonEntity*> mySkeletons;
 

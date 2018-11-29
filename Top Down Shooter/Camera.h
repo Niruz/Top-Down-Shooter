@@ -1,7 +1,8 @@
 #pragma once
+#include "Entity.h"
 #include <glm/glm.hpp>
-
-class Camera
+#include "Shake.h"
+class Camera //: public Entity
 {
 public:
 	Camera();
@@ -29,6 +30,9 @@ public:
 	void setWidth(float width) { windowWidth = width; };
 	void setHeight(float height) { windowHeight = height; };
 
+	void Update();
+	void ShakeCamera(float duration, float frequency, float amplitude);
+
 public:
 
 	glm::mat4 mProjectionMatrix;
@@ -41,4 +45,11 @@ public:
 
 	float windowWidth;
 	float windowHeight;
+
+	Shake* myXShake;
+	Shake* myYShake;
+	float startShakeTime;
+
+	float AMPLITUDE;
+	glm::vec3 myOldPosition;
 };
