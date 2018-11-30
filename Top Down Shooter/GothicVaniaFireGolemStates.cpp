@@ -22,30 +22,29 @@ void FireGolemIdle::Enter(FireGolemEntity* entity)
 void FireGolemIdle::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->FirstTimeSeeingPlayer())
+	
+
+	entity->SetFacing();
+	if (!entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange())
 	{
-		entity->firstTimeSeeingPlayer = false;
-		entity->GetFSM()->changeState(FireGolemSlam::Instance());
+		entity->GetFSM()->changeState(FireGolemRunToPlayer::Instance());
 	}
-	else
+	else if (entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange() && entity->IsAttackCoolDownReady())
 	{
-		entity->SetFacing();
-		if (!entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange())
-		{
-			entity->GetFSM()->changeState(FireGolemRunToPlayer::Instance());
-		}
-		else if (entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange() && entity->IsAttackCoolDownReady())
-		{
-			srand(time(NULL));
-			int nextAttack = rand() % 3;
-			if (nextAttack == 0)
-				entity->GetFSM()->changeState(FireGolemSlam::Instance());
-			if (nextAttack == 1)
-				entity->GetFSM()->changeState(FireGolemAttack1::Instance());
-			if (nextAttack == 2)
-				entity->GetFSM()->changeState(FireGolemAttack2::Instance());
-		}
+		srand(time(NULL));
+		int nextAttack = rand() % 3;
+		if (nextAttack == 0)
+			entity->GetFSM()->changeState(FireGolemSlam::Instance());
+		if (nextAttack == 1)
+			entity->GetFSM()->changeState(FireGolemAttack1::Instance());
+		if (nextAttack == 2)
+			entity->GetFSM()->changeState(FireGolemAttack2::Instance());
 	}
+	else if (!entity->IsPlayerWithinPatrolRange())
+	{
+		entity->GetFSM()->changeState(FireGolemPatrol::Instance());
+	}
+
 }
 void FireGolemIdle::Exit(FireGolemEntity* entity)
 {
@@ -164,6 +163,10 @@ void FireGolemRunToPlayer::Execute(FireGolemEntity* entity)
 	{
 		entity->GetFSM()->changeState(FireGolemIdle::Instance());
 	}
+	else if (!entity->IsPlayerWithinPatrolRange())
+	{
+		entity->GetFSM()->changeState(FireGolemPatrol::Instance());
+	}
 }
 void FireGolemRunToPlayer::Exit(FireGolemEntity* entity)
 {
@@ -274,6 +277,65 @@ void FireGolemReturnHome::Exit(FireGolemEntity* entity)
 
 }
 bool FireGolemReturnHome::OnMessage(FireGolemEntity* entity, const Message& msg)
+{
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostAttack
+FireGolemPatrol* FireGolemPatrol::Instance()
+{
+	static FireGolemPatrol instance;
+
+	return &instance;
+}
+void FireGolemPatrol::Enter(FireGolemEntity* entity)
+{
+	entity->SetAnimation("FireGolemRun");
+}
+void FireGolemPatrol::Execute(FireGolemEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	entity->HandleMovement();
+	if (entity->IsPlayerWithinPatrolRange())
+	{
+		entity->GetFSM()->changeState(FireGolemRunToPlayer::Instance());
+	}
+
+
+}
+void FireGolemPatrol::Exit(FireGolemEntity* entity)
+{
+
+}
+bool FireGolemPatrol::OnMessage(FireGolemEntity* entity, const Message& msg)
+{
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostAttack
+FireGolemWaiting* FireGolemWaiting::Instance()
+{
+	static FireGolemWaiting instance;
+
+	return &instance;
+}
+void FireGolemWaiting::Enter(FireGolemEntity* entity)
+{
+	entity->SetAnimation("FireGolemIdle");
+	entity->ResetAttackTimer();
+}
+void FireGolemWaiting::Execute(FireGolemEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->FirstTimeSeeingPlayer())
+	{
+		entity->firstTimeSeeingPlayer = false;
+		entity->GetFSM()->changeState(FireGolemSlam::Instance());
+	}
+}
+void FireGolemWaiting::Exit(FireGolemEntity* entity)
+{
+
+}
+bool FireGolemWaiting::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
 	return false;
 }

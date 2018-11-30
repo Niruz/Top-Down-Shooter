@@ -79,7 +79,7 @@ void GothicVania::Initialize()
 	myEyeMonster5 = new EyeMonsterEntity(18, "EyeMonster5", glm::vec3(2064.0f, -160.0f, 0.09f), glm::vec3(2448.0f, -160.0f, 0.9f));
 	myEyeMonster6 = new EyeMonsterEntity(19, "EyeMonster6", glm::vec3(2064.0f, -128.0f, 0.091f), glm::vec3(2480.0f, -128.0f, 0.91));
 	myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));*/
-	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(-288.0f, -125.0, 0.1f), glm::vec3(-32.0f, -125.0, 0.1f));
+	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(-320.0f, -125.0, 0.1f), glm::vec3(-32.0f, -125.0, 0.1f));
 	
 
 	

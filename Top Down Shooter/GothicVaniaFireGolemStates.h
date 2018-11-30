@@ -234,3 +234,61 @@ public:
 	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemPatrol : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemPatrol() {}
+
+	//copy ctor and assignment should be private
+	FireGolemPatrol(const FireGolemPatrol&);
+	FireGolemPatrol& operator=(const FireGolemPatrol&);
+
+public:
+
+	//this is a singleton
+	static FireGolemPatrol* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemWaiting : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemWaiting() {}
+
+	//copy ctor and assignment should be private
+	FireGolemWaiting(const FireGolemWaiting&);
+	FireGolemWaiting& operator=(const FireGolemWaiting&);
+
+public:
+
+	//this is a singleton
+	static FireGolemWaiting* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};

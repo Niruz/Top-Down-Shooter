@@ -25,8 +25,8 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 	}
 	myStateMachine = new StateMachine<FireGolemEntity>(this);
 
-	myStateMachine->setCurrentState(FireGolemIdle::Instance());
-	myStateMachine->changeState(FireGolemIdle::Instance());
+	myStateMachine->setCurrentState(FireGolemWaiting::Instance());
+	myStateMachine->changeState(FireGolemWaiting::Instance());
 
 	shakeAttack1 = false;
 	shakeAttack2 = false;
@@ -62,27 +62,66 @@ void FireGolemEntity::SetFacing()
 }
 void FireGolemEntity::HandleMovement()
 {
-	if (!IsPlayerWithinAttackDistance() && IsPlayerWithinPatrolRange() && AmIWithinMyPatrolDistance())
+	if(GetFSM()->isInState(*FireGolemPatrol::Instance()))
 	{
-		if(IsPlayerToTheRight()) 
+		if (myXDirection > 0.0f)
 		{
-			if (myAnimatedSprite->myHeading != Heading::LEFTFACING)
+			if (mPosition.x <= endPatrol.x)
+			{
+				if (myAnimatedSprite->myHeading != Heading::LEFTFACING)
+					myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+				mPosition.x += myXDirection;
+				myAnimatedSprite->myPosition.x = mPosition.x;
+			}
+			else
+			{
+
+				myXDirection = -1.0f;
 				myAnimatedSprite->SetHeading(Heading::LEFTFACING);
-			mPosition.x += 1.3f;
-			if (!AmIWithinMyPatrolDistance())
-				mPosition.x -= 1.3f;
-			myAnimatedSprite->myPosition.x = mPosition.x;
+			}
 		}
-		else
+		if (myXDirection < 0.0f)
 		{
-			if (myAnimatedSprite->myHeading != Heading::RIGHTFACING)
+			if (mPosition.x >= startPatrol.x)
+			{
+
+				if (myAnimatedSprite->myHeading != Heading::RIGHTFACING)
+					myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+				mPosition.x += myXDirection;
+				myAnimatedSprite->myPosition.x = mPosition.x;
+			}
+			else
+			{
+				myXDirection = 1.0f;
 				myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
-			mPosition.x -= 1.3f;
-			if (!AmIWithinMyPatrolDistance())
-				mPosition.x += 1.3f;
-			myAnimatedSprite->myPosition.x = mPosition.x;
+			}
 		}
 	}
+	else
+	{
+		if (!IsPlayerWithinAttackDistance() && IsPlayerWithinPatrolRange() && AmIWithinMyPatrolDistance())
+		{
+			if (IsPlayerToTheRight())
+			{
+				if (myAnimatedSprite->myHeading != Heading::LEFTFACING)
+					myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+				mPosition.x += 1.3f;
+				if (!AmIWithinMyPatrolDistance())
+					mPosition.x -= 1.3f;
+				myAnimatedSprite->myPosition.x = mPosition.x;
+			}
+			else
+			{
+				if (myAnimatedSprite->myHeading != Heading::RIGHTFACING)
+					myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+				mPosition.x -= 1.3f;
+				if (!AmIWithinMyPatrolDistance())
+					mPosition.x += 1.3f;
+				myAnimatedSprite->myPosition.x = mPosition.x;
+			}
+		}
+	}
+
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
 
