@@ -59,7 +59,7 @@ void GothicVania::Initialize()
 	//myDebugLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
 
 	myPlayer = new HeroEntity(0, "Player");
-	mySkeleton = new SkeletonEntity(1, "Skeleton1", glm::vec3(64.0f, -152.0f, 0.1f), glm::vec3(224.0f, -152.0f, 0.1f));
+/*	mySkeleton = new SkeletonEntity(1, "Skeleton1", glm::vec3(64.0f, -152.0f, 0.1f), glm::vec3(224.0f, -152.0f, 0.1f));
 	myGhost = new GhostEntity(2, "Ghost1", glm::vec3(-128.0f, -96.0f, 0.1f), glm::vec3(-128.0f, 32.0f, 0.1f));
 	myHellCat = new HellCatEntity(3, "HellCat1", glm::vec3(640.0f, -150.0f, 0.1f), glm::vec3(864.0f, -150.0f, 0.1f));
 	myEyeMonster = new EyeMonsterEntity(4, "EyeMonster1", glm::vec3(96.0f, -96.0f, 0.09f), glm::vec3(256.0f, -96.0f, 0.09f));
@@ -78,12 +78,14 @@ void GothicVania::Initialize()
 	myEyeMonster4 = new EyeMonsterEntity(17, "EyeMonster4", glm::vec3(1424.0f, -96.0f, 0.09f), glm::vec3(1872.0f, -96.0f, 0.9f));
 	myEyeMonster5 = new EyeMonsterEntity(18, "EyeMonster5", glm::vec3(2064.0f, -160.0f, 0.09f), glm::vec3(2448.0f, -160.0f, 0.9f));
 	myEyeMonster6 = new EyeMonsterEntity(19, "EyeMonster6", glm::vec3(2064.0f, -128.0f, 0.091f), glm::vec3(2480.0f, -128.0f, 0.91));
-	myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));
-	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(0.0, -0.0, 0.1f), glm::vec3(0.0, 0.0, 0.1f));
+	myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));*/
+	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(-288.0f, -125.0, 0.1f), glm::vec3(-32.0f, -125.0, 0.1f));
+	
+
 	
 
 	myEntitites.push_back(myPlayer);
-	myEntitites.push_back(mySkeleton);
+	/*myEntitites.push_back(mySkeleton);
 	myEntitites.push_back(myGhost); 
 	myEntitites.push_back(myGhost2);
 	myEntitites.push_back(myGhost3);
@@ -102,13 +104,13 @@ void GothicVania::Initialize()
 	myEntitites.push_back(myEyeMonster4);
 	myEntitites.push_back(myEyeMonster5);
 	myEntitites.push_back(myEyeMonster6);
-	myEntitites.push_back(myEyeMonster7);
+	myEntitites.push_back(myEyeMonster7);*/
 	myEntitites.push_back(myFireGolem1);
 
 	for (Entity* entity : myEntitites)
 		EntityMan->registerEntity(entity);
 
-	myDemon2->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	//myDemon2->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	
 	//Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-580, 340, 0.8)));
 	Group* fpsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(260, 160, 0.8)));
@@ -300,7 +302,7 @@ void GothicVania::Initialize()
 	tileGroup->Add(myPlayerTileBottomRight);
 	tileGroup->Add(myPlayerTileMidLeft);
 	tileGroup->Add(myPlayerTileMidRight);*/
-	tileGroup->Add(myGhost->mySprite);
+/*	tileGroup->Add(myGhost->mySprite);
 	tileGroup->Add(myGhost2->mySprite);
 	tileGroup->Add(myGhost3->mySprite);
 	tileGroup->Add(myHellCat->mySprite);
@@ -319,7 +321,7 @@ void GothicVania::Initialize()
 	tileGroup->Add(myEyeMonster4->mySprite);
 	tileGroup->Add(myEyeMonster5->mySprite);
 	tileGroup->Add(myEyeMonster6->mySprite);
-	tileGroup->Add(myEyeMonster7->mySprite);
+	tileGroup->Add(myEyeMonster7->mySprite);*/
 	tileGroup->Add(myFireGolem1->mySprite);
 
 	myTileLayer->Add(tileGroup);
@@ -332,6 +334,8 @@ void GothicVania::Initialize()
 	myScreenDirection = 0.0f;
 	myBossBattle = false;
 	cutSceneStarted = false;
+
+
 }
 void GothicVania::UpdatePlayer()
 {

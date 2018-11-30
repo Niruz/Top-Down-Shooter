@@ -10,7 +10,7 @@
 FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo)
 {
-	myAnimatedSprite = new FireGolemSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(64, 57), TextureMan->GetTexture("firegolem"), Heading::LEFTFACING);
+	myAnimatedSprite = new FireGolemSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(128, 114), TextureMan->GetTexture("firegolem"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
 
 	myAnimatedSprite->SetAnimation("FireGolemRun");
@@ -30,11 +30,14 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 
 	shakeAttack1 = false;
 	shakeAttack2 = false;
-	myShakeInfo = new ShakeInfo(500, 40, 5);
+	firstTimeSeeingPlayer = true;
+	myShakeInfoBasicAttack = new ShakeInfo(500, 40, 5);
+	myShakeInfoSlamAttack = new ShakeInfo(600, 55, 7);
 }
 FireGolemEntity::~FireGolemEntity()
 {
-	delete myShakeInfo;
+	delete myShakeInfoBasicAttack;
+	delete myShakeInfoSlamAttack;
 }
 void FireGolemEntity::Update()
 {

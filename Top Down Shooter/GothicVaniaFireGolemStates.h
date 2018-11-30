@@ -89,3 +89,119 @@ public:
 	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemRunToPlayer : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemRunToPlayer() {}
+
+	//copy ctor and assignment should be private
+	FireGolemRunToPlayer(const FireGolemRunToPlayer&);
+	FireGolemRunToPlayer& operator=(const FireGolemRunToPlayer&);
+
+public:
+
+	//this is a singleton
+	static FireGolemRunToPlayer* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemHurt : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemHurt() {}
+
+	//copy ctor and assignment should be private
+	FireGolemHurt(const FireGolemHurt&);
+	FireGolemHurt& operator=(const FireGolemHurt&);
+
+public:
+
+	//this is a singleton
+	static FireGolemHurt* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemDie : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemDie() {}
+
+	//copy ctor and assignment should be private
+	FireGolemDie(const FireGolemDie&);
+	FireGolemDie& operator=(const FireGolemDie&);
+
+public:
+
+	//this is a singleton
+	static FireGolemDie* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class FireGolemSlam : public State<FireGolemEntity>
+{
+private:
+
+	FireGolemSlam() {}
+
+	//copy ctor and assignment should be private
+	FireGolemSlam(const FireGolemSlam&);
+	FireGolemSlam& operator=(const FireGolemSlam&);
+
+public:
+
+	//this is a singleton
+	static FireGolemSlam* Instance();
+
+	virtual void Enter(FireGolemEntity* entity);
+
+	virtual void Execute(FireGolemEntity* entity);
+
+	virtual void Exit(FireGolemEntity* entity);
+
+	virtual bool OnMessage(FireGolemEntity* entity, const Message& msg);
+
+};

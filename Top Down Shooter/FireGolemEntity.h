@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseEnemy.h"
-
+#include "TileMap.h"
 class ShakeInfo;
 //Simple enemy that patrols back and forth, might try and go for the player later
 struct FireGolemEntity : public BaseEnemy
@@ -20,5 +20,10 @@ struct FireGolemEntity : public BaseEnemy
 public:
 	bool shakeAttack1;
 	bool shakeAttack2;
-	ShakeInfo* myShakeInfo;
+	ShakeInfo* myShakeInfoBasicAttack;
+	ShakeInfo* myShakeInfoSlamAttack;
+	bool firstTimeSeeingPlayer;
+
+	//Bad design...
+	TileMap* myTileMap;
 };
