@@ -16,8 +16,8 @@ class Sprite;
 
 struct BaseEnemy : public Entity
 {
-
-	BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo);
+	
+	BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo, bool createAABB = true);
 	virtual ~BaseEnemy() {};
 
 	virtual void Update() = 0;

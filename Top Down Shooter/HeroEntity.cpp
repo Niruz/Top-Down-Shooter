@@ -46,6 +46,14 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myStartJumpTime = 0.0f;
 
 	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 2.5), 9.0f, 22.0f);
+
+
+	mySwordAABB = new AABB(glm::vec2(mPosition.x + 30.0f, mPosition.y + 1.5), 17.0f, 15.0f);
+	mySwordSpriteAABB = new Sprite(glm::vec4(mPosition.x + 30.0f, mPosition.y + 1.5, 0.25f, 1.0f), glm::vec2(34.0f, 10.0f), glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
+	mySprite->Add(mySwordSpriteAABB);
+
+	mySwordAABBRightX = mPosition.x + 30.0f;
+	mySwordAABBLeftX = mPosition.y - 30.0f;
 }
 HeroEntity::~HeroEntity()
 {
@@ -213,7 +221,17 @@ void HeroEntity::HandleMovement()
 	myNegYDirection = myPosYDirection = myNegXDirection = myPosXDirection = 0.0f;*/
 	myNegYDirection = myPosYDirection = myNegXDirection = myPosXDirection = 0.0f;
 	mPosition.z = 0.1f;
-	
+
+	if(myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		mySwordAABB->myOrigin.x = mPosition.x + 30;
+		mySwordSpriteAABB->myPosition.x = mySwordAABBRightX;
+	}
+	else
+	{
+		mySwordAABB->myOrigin.x = mPosition.x - 30;
+		mySwordSpriteAABB->myPosition.x = mySwordAABBLeftX;
+	}
 	
 }
 void HeroEntity::CheckIfFalling()

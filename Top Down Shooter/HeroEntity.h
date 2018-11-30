@@ -77,6 +77,10 @@ struct HeroEntity : public Entity
 	AABB* myAABB;
 	StateTest myState;
 
+	Sprite* mySwordSpriteAABB;
+	AABB* mySwordAABB;
+	float mySwordAABBRightX;
+	float mySwordAABBLeftX;
 };
 
 
