@@ -5,7 +5,8 @@
 #include "MessageDispatcher.h"
 #include "Messages.h"
 #include "ShakeInfo.h"
-
+#include <ctime>
+#include "EngineUtilities.h"
 //------------------------------------------------------------------------methods for GhostAttack
 FireGolemIdle* FireGolemIdle::Instance()
 {
@@ -21,31 +22,29 @@ void FireGolemIdle::Enter(FireGolemEntity* entity)
 void FireGolemIdle::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	/*if (entity->myTileMap->lastPlayerTile->myWorldPosition.x < entity->endPatrol.x && entity->firstTimeSeeingPlayer)
+	if (entity->FirstTimeSeeingPlayer())
 	{
 		entity->firstTimeSeeingPlayer = false;
 		entity->GetFSM()->changeState(FireGolemSlam::Instance());
 	}
 	else
 	{
-		glm::vec2 playerPos = entity->myTileMap->lastPlayerTile->myWorldPosition;
-		glm::vec2 myPos = glm::vec2(entity->mPosition);
-
-		float distance = glm::length(myPos - playerPos);
-
-		if ((distance > 50.0f) && playerPos.x > entity->startPatrol.x && playerPos.x < entity->endPatrol.x)
+		entity->SetFacing();
+		if (!entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange())
 		{
 			entity->GetFSM()->changeState(FireGolemRunToPlayer::Instance());
 		}
-		else if ((distance < 50.0f) && playerPos.x > entity->startPatrol.x && playerPos.x < entity->endPatrol.x)
+		else if (entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange() && entity->IsAttackCoolDownReady())
 		{
-			entity->GetFSM()->changeState(FireGolemSlam::Instance());
+			srand(time(NULL));
+			int nextAttack = rand() % 3;
+			if (nextAttack == 0)
+				entity->GetFSM()->changeState(FireGolemSlam::Instance());
+			if (nextAttack == 1)
+				entity->GetFSM()->changeState(FireGolemAttack1::Instance());
+			if (nextAttack == 2)
+				entity->GetFSM()->changeState(FireGolemAttack2::Instance());
 		}
-	}
-	*/
-	 if ((Clock->GetCurrentTime() - entity->myAttackTimer) >= 1.5f)
-	{
-		entity->GetFSM()->changeState(FireGolemSlam::Instance());
 	}
 }
 void FireGolemIdle::Exit(FireGolemEntity* entity)
@@ -85,7 +84,7 @@ void FireGolemAttack1::Execute(FireGolemEntity* entity)
 }
 void FireGolemAttack1::Exit(FireGolemEntity* entity)
 {
-
+	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool FireGolemAttack1::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
@@ -127,7 +126,7 @@ void FireGolemAttack2::Execute(FireGolemEntity* entity)
 }
 void FireGolemAttack2::Exit(FireGolemEntity* entity)
 {
-
+	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool FireGolemAttack2::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
@@ -147,21 +146,23 @@ void FireGolemRunToPlayer::Enter(FireGolemEntity* entity)
 void FireGolemRunToPlayer::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	glm::vec2 playerPos = entity->myTileMap->lastPlayerTile->myWorldPosition;
-	glm::vec2 myPos = glm::vec2(entity->mPosition);
 
-	float distance = glm::length(myPos - playerPos);
 
-	if ((distance > 50.0f) && (playerPos.x > entity->startPatrol.x && playerPos.x < entity->endPatrol.x) 
-		                   && (entity->mPosition.x >= entity->startPatrol.x && entity->mPosition.x <= entity->endPatrol.x))
+	entity->HandleMovement();
+	if (entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange() && entity->AmIWithinMyPatrolDistance() && entity->IsAttackCoolDownReady())
 	{
-		entity->mPosition.x += 1.3f;
-		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x;
+		srand(time(NULL));
+		int nextAttack = rand() % 3;
+		if(nextAttack == 0)
+			entity->GetFSM()->changeState(FireGolemSlam::Instance());
+		if(nextAttack == 1)
+			entity->GetFSM()->changeState(FireGolemAttack1::Instance());
+		if(nextAttack == 2)
+			entity->GetFSM()->changeState(FireGolemAttack2::Instance());
 	}
-	else if((distance < 50.0f) && ((playerPos.x > entity->startPatrol.x) && (playerPos.x < entity->endPatrol.x))
-		&& ((entity->mPosition.x >= entity->startPatrol.x) && (entity->mPosition.x <= entity->endPatrol.x)))
+	else if (entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange() && entity->AmIWithinMyPatrolDistance() && !entity->IsAttackCoolDownReady())
 	{
-		entity->GetFSM()->changeState(FireGolemSlam::Instance());
+		entity->GetFSM()->changeState(FireGolemIdle::Instance());
 	}
 }
 void FireGolemRunToPlayer::Exit(FireGolemEntity* entity)
@@ -247,9 +248,32 @@ void FireGolemSlam::Execute(FireGolemEntity* entity)
 }
 void FireGolemSlam::Exit(FireGolemEntity* entity)
 {
-
+	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool FireGolemSlam::OnMessage(FireGolemEntity* entity, const Message& msg)
+{
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostAttack
+FireGolemReturnHome* FireGolemReturnHome::Instance()
+{
+	static FireGolemReturnHome instance;
+
+	return &instance;
+}
+void FireGolemReturnHome::Enter(FireGolemEntity* entity)
+{
+	entity->SetAnimation("FireGolemRun");
+}
+void FireGolemReturnHome::Execute(FireGolemEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+}
+void FireGolemReturnHome::Exit(FireGolemEntity* entity)
+{
+
+}
+bool FireGolemReturnHome::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
 	return false;
 }

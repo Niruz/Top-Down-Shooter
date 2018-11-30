@@ -12,7 +12,7 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 {
 	myAnimatedSprite = new FireGolemSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(128, 114), TextureMan->GetTexture("firegolem"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
-
+	mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("FireGolemRun");
 	myXDirection = 1.0f;
 	if (myStartPosition.x > patrolTo.x)
@@ -32,7 +32,9 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 	shakeAttack2 = false;
 	firstTimeSeeingPlayer = true;
 	myShakeInfoBasicAttack = new ShakeInfo(500, 40, 5);
-	myShakeInfoSlamAttack = new ShakeInfo(600, 55, 7);
+	myShakeInfoSlamAttack = new ShakeInfo(600, 55, 7); 
+
+	myAttackCooldown = 0.0f;
 }
 FireGolemEntity::~FireGolemEntity()
 {
@@ -42,43 +44,45 @@ FireGolemEntity::~FireGolemEntity()
 void FireGolemEntity::Update()
 {
 	myStateMachine->update();
-	//myAnimatedSprite->Update();
-	//HandleMovement();
-
 }
 bool FireGolemEntity::HandleMessage(const Message& msg)
 {
 	return false;
 }
+void FireGolemEntity::SetFacing()
+{
+	if (IsPlayerToTheRight() && myAnimatedSprite->myHeading != Heading::LEFTFACING)
+	{
+		myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	else if( !IsPlayerToTheRight() && myAnimatedSprite->myHeading != Heading::RIGHTFACING)
+	{
+		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+}
 void FireGolemEntity::HandleMovement()
 {
-	if (myXDirection > 0.0f)
+	if (!IsPlayerWithinAttackDistance() && IsPlayerWithinPatrolRange() && AmIWithinMyPatrolDistance())
 	{
-		if (mPosition.x <= endPatrol.x)
+		if(IsPlayerToTheRight()) 
 		{
-			mPosition.x += myXDirection;
+			if (myAnimatedSprite->myHeading != Heading::LEFTFACING)
+				myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+			mPosition.x += 1.3f;
+			if (!AmIWithinMyPatrolDistance())
+				mPosition.x -= 1.3f;
 			myAnimatedSprite->myPosition.x = mPosition.x;
 		}
 		else
 		{
-			myXDirection = -1.0f;
-			myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
-		}
-	}
-	if (myXDirection < 0.0f)
-	{
-		if (mPosition.x >= startPatrol.x)
-		{
-			mPosition.x += myXDirection;
+			if (myAnimatedSprite->myHeading != Heading::RIGHTFACING)
+				myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+			mPosition.x -= 1.3f;
+			if (!AmIWithinMyPatrolDistance())
+				mPosition.x += 1.3f;
 			myAnimatedSprite->myPosition.x = mPosition.x;
 		}
-		else
-		{
-			myXDirection = 1.0f;
-			myAnimatedSprite->SetHeading(Heading::LEFTFACING);
-		}
 	}
-
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
 
@@ -91,4 +95,37 @@ void FireGolemEntity::SetAnimation(const std::string& name)
 void FireGolemEntity::ResetAttackTimer()
 {
 	myAttackTimer = Clock->GetCurrentTime();
+}
+bool FireGolemEntity::FirstTimeSeeingPlayer()
+{
+	return myTileMap->myPlayerWorldPosition.x < endPatrol.x && firstTimeSeeingPlayer;
+	//return myTileMap->lastPlayerTile->myWorldPosition.x < endPatrol.x && firstTimeSeeingPlayer;
+}
+bool FireGolemEntity::IsPlayerWithinPatrolRange()
+{
+	//glm::vec2 playerPos = myTileMap->lastPlayerTile->myWorldPosition;
+	glm::vec2 playerPos = myTileMap->myPlayerWorldPosition;
+	return  playerPos.x >= startPatrol.x && playerPos.x <= endPatrol.x;
+}
+bool FireGolemEntity::IsPlayerWithinAttackDistance()
+{
+	//glm::vec2 playerPos = myTileMap->lastPlayerTile->myWorldPosition;
+	glm::vec2 playerPos = myTileMap->myPlayerWorldPosition;
+	glm::vec2 myPos = glm::vec2(mPosition);
+
+	float distance = glm::length(myPos - playerPos);
+	return distance < 60.0f;
+}
+bool FireGolemEntity::AmIWithinMyPatrolDistance()
+{
+	return (mPosition.x >= startPatrol.x && mPosition.x <= endPatrol.x);
+}
+bool FireGolemEntity::IsPlayerToTheRight()
+{
+	return myTileMap->myPlayerWorldPosition.x > mPosition.x;
+	//return myTileMap->lastPlayerTile->myWorldPosition.x > mPosition.x;
+}
+bool FireGolemEntity::IsAttackCoolDownReady()
+{
+	return Clock->GetCurrentTime() > myAttackCooldown;
 }

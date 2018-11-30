@@ -40,6 +40,8 @@ public:
 	Tile* lastPlayerTileBottomLeft;
 	Tile* lastPlayerTileMidRight;
 	Tile* lastPlayerTileMidLeft;
+
+	glm::vec2 myPlayerWorldPosition;
 private:
 
 	bool PathFind(Tile* aStartTile, Tile* aGoalTile, std::vector<Tile*>& aPathList);
@@ -56,5 +58,7 @@ private:
 	glm::vec2 myWorldYRange;
 	glm::vec2 myWorldXTileRange;
 	glm::vec2 myWorldYTileRange;
+	
+	
 
 };

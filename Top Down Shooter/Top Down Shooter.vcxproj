@@ -101,6 +101,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DemonEntity.cpp" />
     <ClCompile Include="DemonSprite.cpp" />
+    <ClCompile Include="EngineUtilities.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="ext\freetype-gl\platform.c" />
@@ -212,6 +213,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="DemonEntity.h" />
     <ClInclude Include="DemonSprite.h" />
+    <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />

@@ -6,7 +6,7 @@ struct Shake
 	Shake(float duration, float frequency);
 
 
-	float RandomFloat(float a, float b);
+	//float RandomFloat(float a, float b);
 	float Amplitude(float t = -1);
 	float Noise(float s);
 	float Decay(float t);

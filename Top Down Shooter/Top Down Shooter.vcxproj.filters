@@ -462,6 +462,9 @@
     <ClCompile Include="GothicVaniaFireGolemStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="EngineUtilities.cpp">
+      <Filter>Miscellaneous</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -730,6 +733,9 @@
     </ClInclude>
     <ClInclude Include="ShakeInfo.h">
       <Filter>Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineUtilities.h">
+      <Filter>Miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

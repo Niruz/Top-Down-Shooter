@@ -17,6 +17,14 @@ struct FireGolemEntity : public BaseEnemy
 	void SetAnimation(const std::string& name);
 
 	void ResetAttackTimer();
+	void SetFacing();
+
+	bool FirstTimeSeeingPlayer();
+	bool IsPlayerWithinPatrolRange();
+	bool IsPlayerWithinAttackDistance();
+	bool AmIWithinMyPatrolDistance();
+	bool IsPlayerToTheRight();
+	bool IsAttackCoolDownReady();
 public:
 	bool shakeAttack1;
 	bool shakeAttack2;
@@ -26,4 +34,6 @@ public:
 
 	//Bad design...
 	TileMap* myTileMap;
+
+	float myAttackCooldown;
 };

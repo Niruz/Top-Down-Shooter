@@ -400,6 +400,7 @@ void TileMap::setPlayerTile(float x, float y)
 		}
 		
 	}*/
+	myPlayerWorldPosition = playerPos;
 	lastPlayerTile->isPlayerOnTile = true;
 
 }

@@ -2,6 +2,7 @@
 #include "Shake.h"
 #include <math.h>
 #include "glm\common.hpp"
+#include "EngineUtilities.h"
 Shake::Shake(float duration, float frequency)
 	:myDuration(duration), myFrequency(frequency), myIsShaking(false)
 {
@@ -15,7 +16,7 @@ Shake::Shake(float duration, float frequency)
 
 	for (int i = 0; i < sampleCount; i++) 
 	{
-		mySamples.push_back(RandomFloat(-1, 1));
+		mySamples.push_back(EngineUtilities::RandomFloat(-1, 1));
 	}
 
 
@@ -54,14 +55,14 @@ void Shake::Update()
 	if (myT > myDuration /*/1000.0f*/)
 		myIsShaking = false;
 
-}
+}/*
 float Shake::RandomFloat(float a, float b)
 {
 	float random = ((float)rand()) / (float)RAND_MAX;
 	float diff = b - a;
 	float r = random * diff;
 	return a + r;
-}
+}*/
 float Shake::Noise(float s)
 {
 	if (s >= mySamples.size()) return 0;

@@ -335,7 +335,7 @@ void GothicVania::Initialize()
 	myBossBattle = false;
 	cutSceneStarted = false;
 
-
+	myFireGolem1->myTileMap = myMap;
 }
 void GothicVania::UpdatePlayer()
 {
