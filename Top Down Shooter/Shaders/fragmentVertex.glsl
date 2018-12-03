@@ -9,6 +9,7 @@ in DATA
 	vec4 col;
 	float tid;
 	vec2 texCoords;
+	float invert;
 } fs_in;
 
 uniform vec2 lightPos;
@@ -22,6 +23,8 @@ void main()
 	{
 		int tid = int(fs_in.tid - 0.5);
 		texColor = fs_in.col *texture(textureArray[tid],fs_in.texCoords);
+		if(fs_in.invert == 1)
+			texColor = vec4(1.0f - texColor.x, 1.0f - texColor.y, 1.0f - texColor.z, texColor.w); 
 	}
 	//texColor.xyz *= intensity;
 	color = texColor;// * intensity;

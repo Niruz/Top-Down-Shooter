@@ -5,7 +5,7 @@
 #include "Sprite.h"
 
 BaseEnemy::BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo, bool createAABB)
-	: Entity(id, name), startPatrol(myStartPosition), endPatrol(patrolTo), mPosition(myStartPosition), myAttackTimer(0.0f)
+	: Entity(id, name), startPatrol(myStartPosition), endPatrol(patrolTo), mPosition(myStartPosition), myAttackTimer(0.0f),myHealth(100),myDamageFrameCounter(0), myIsDamaged(false)
 {
 	if(createAABB)
 	{

@@ -95,6 +95,13 @@ void FireGolemAttack1::Exit(FireGolemEntity* entity)
 }
 bool FireGolemAttack1::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -137,6 +144,13 @@ void FireGolemAttack2::Exit(FireGolemEntity* entity)
 }
 bool FireGolemAttack2::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -182,6 +196,14 @@ void FireGolemRunToPlayer::Exit(FireGolemEntity* entity)
 }
 bool FireGolemRunToPlayer::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->GetFSM()->changeState(FireGolemHurt::Instance());
+		return true;
+
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -194,6 +216,7 @@ FireGolemHurt* FireGolemHurt::Instance()
 void FireGolemHurt::Enter(FireGolemEntity* entity)
 {
 	entity->SetAnimation("FireGolemHurt");
+	entity->HandleDamaged(10);
 }
 void FireGolemHurt::Execute(FireGolemEntity* entity)
 {
@@ -225,7 +248,8 @@ void FireGolemDie::Enter(FireGolemEntity* entity)
 }
 void FireGolemDie::Execute(FireGolemEntity* entity)
 {
-	entity->myAnimatedSprite->Update();
+	if(!entity->myAnimatedSprite->IsDone())
+		entity->myAnimatedSprite->Update();
 }
 void FireGolemDie::Exit(FireGolemEntity* entity)
 {
@@ -268,6 +292,13 @@ void FireGolemSlam::Exit(FireGolemEntity* entity)
 }
 bool FireGolemSlam::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -312,8 +343,6 @@ void FireGolemPatrol::Execute(FireGolemEntity* entity)
 	{
 		entity->GetFSM()->changeState(FireGolemRunToPlayer::Instance());
 	}
-
-
 }
 void FireGolemPatrol::Exit(FireGolemEntity* entity)
 {
@@ -321,6 +350,14 @@ void FireGolemPatrol::Exit(FireGolemEntity* entity)
 }
 bool FireGolemPatrol::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->GetFSM()->changeState(FireGolemHurt::Instance());
+		return true;
+
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack

@@ -26,11 +26,13 @@ void BatchRenderer::Initialize()
 	glEnableVertexAttribArray(SHADER_UV_INDEX);
 	glEnableVertexAttribArray(SHADER_TID_INDEX);
 	glEnableVertexAttribArray(SHADER_COLOR_INDEX);
+	glEnableVertexAttribArray(SHADER_INVERT_INDEX);
 	glVertexAttribPointer(SHADER_VERTEX_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::vertex)));
 	//glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(4*sizeof(GLfloat)));
 	glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
 	glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::tid)));
 	glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
+	glVertexAttribPointer(SHADER_INVERT_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::invertColor)));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
 	//GLushort indices[RENDERER_INDICES_SIZE];
@@ -85,8 +87,9 @@ void BatchRenderer::Submit(const Renderable* renderable)
 	const unsigned int color    = renderable->GetColor();
 	const std::vector<glm::vec2>& uv = renderable->GetUVs();
 	const GLuint tid = renderable->GetTID();
-
-
+	const GLuint invert = renderable->GetInvertColor();
+	if (invert == 1)
+		int shit = 5;
 	float ts = 0.0f;
 	if(tid > 0 ) 
 	{
@@ -128,24 +131,28 @@ void BatchRenderer::Submit(const Renderable* renderable)
 	myBuffer->uv = uv[0];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
+	myBuffer->invertColor = invert;
 	myBuffer++;
 
 	myBuffer->vertex = *myTransformationStackBack  *glm::vec4(position.x - halfSize.x, position.y + halfSize.y, position.z, 1);
 	myBuffer->uv = uv[1];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
+	myBuffer->invertColor = invert;
 	myBuffer++;
 
 	myBuffer->vertex = *myTransformationStackBack  *glm::vec4(position.x + halfSize.x, position.y + halfSize.y, position.z, 1);
 	myBuffer->uv = uv[2];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
+	myBuffer->invertColor = invert;
 	myBuffer++;
 
 	myBuffer->vertex = *myTransformationStackBack  *glm::vec4(position.x + halfSize.x, position.y - halfSize.y, position.z, 1);
 	myBuffer->uv = uv[3];
 	myBuffer->tid = ts;
 	myBuffer->color = color;
+	myBuffer->invertColor = invert;
 	myBuffer++;
 	/*myBuffer->vertex = *myTransformationStackBack * position;
 	myBuffer->uv = uv[0];

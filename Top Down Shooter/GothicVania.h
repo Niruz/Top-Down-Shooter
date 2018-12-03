@@ -17,6 +17,9 @@ class Entity;
 class EyeMonsterEntity;
 class DemonEntity;
 class FireGolemEntity;
+class GhoulEntity;
+class UndeadWarriorEntity;
+class ReaperEntity;
 class GothicVania : public Game
 {
 public:
@@ -87,7 +90,12 @@ private:
 	EyeMonsterEntity* myEyeMonster5;
 	EyeMonsterEntity* myEyeMonster6;
 	EyeMonsterEntity* myEyeMonster7;
+
+	//newer stuff
 	FireGolemEntity* myFireGolem1;
+	GhoulEntity* myGhoul1;
+	UndeadWarriorEntity* myUDWar1;
+	ReaperEntity* myReaperEntity;
 	std::vector<Entity*> myEntitites;
 //	std::vector<SkeletonEntity*> mySkeletons;
 

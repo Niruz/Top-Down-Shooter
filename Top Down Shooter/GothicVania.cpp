@@ -23,6 +23,9 @@
 #include "EntityManager.h"
 #include "Entity.h"
 #include "FireGolemEntity.h"
+#include "GhoulEntity.h"
+#include "UndeadWarriorEntity.h"
+#include "ReaperEntity.h"
 #include "CollisionManager.h"
 void GothicVania::Initialize()
 {
@@ -81,9 +84,9 @@ void GothicVania::Initialize()
 	myEyeMonster6 = new EyeMonsterEntity(19, "EyeMonster6", glm::vec3(2064.0f, -128.0f, 0.091f), glm::vec3(2480.0f, -128.0f, 0.91));
 	myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));*/
 	myFireGolem1 =  new FireGolemEntity(21, "FireGolem1", glm::vec3(-320.0f, -125.0, 0.1f), glm::vec3(-32.0f, -125.0, 0.1f));
-	
-
-	
+	myGhoul1 = new GhoulEntity(22, "Ghoul1", glm::vec3(640.0f, -160.0f, 0.1f), glm::vec3(864.0f, -150.0f, 0.1f));
+	myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(64.0f, -152.0f, 0.1f), glm::vec3(224.0f, -152.0f, 0.1f));
+	myReaperEntity = new ReaperEntity(24, "Reaper1", glm::vec3(256.0f, -152.0f, 0.1f), glm::vec3(416.0f, -152.0f, 0.1f));
 
 	myEntitites.push_back(myPlayer);
 	/*myEntitites.push_back(mySkeleton);
@@ -107,6 +110,9 @@ void GothicVania::Initialize()
 	myEntitites.push_back(myEyeMonster6);
 	myEntitites.push_back(myEyeMonster7);*/
 	myEntitites.push_back(myFireGolem1);
+	myEntitites.push_back(myGhoul1);
+	myEntitites.push_back(myUDWar1);
+	myEntitites.push_back(myReaperEntity);
 
 	for (Entity* entity : myEntitites)
 	{
@@ -326,6 +332,9 @@ void GothicVania::Initialize()
 	tileGroup->Add(myEyeMonster6->mySprite);
 	tileGroup->Add(myEyeMonster7->mySprite);*/
 	tileGroup->Add(myFireGolem1->mySprite);
+	tileGroup->Add(myGhoul1->mySprite);
+	tileGroup->Add(myUDWar1->mySprite);
+	tileGroup->Add(myReaperEntity->mySprite);
 
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
@@ -339,6 +348,9 @@ void GothicVania::Initialize()
 	cutSceneStarted = false;
 
 	myFireGolem1->myTileMap = myMap;
+	myGhoul1->myTileMap = myMap;
+	myUDWar1->myTileMap = myMap;
+	myReaperEntity->myTileMap = myMap;
 }
 void GothicVania::UpdatePlayer()
 {

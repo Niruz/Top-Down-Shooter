@@ -16,7 +16,7 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 
 	myAnimatedSprite = new FireGolemSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(128, 114), TextureMan->GetTexture("firegolem"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
-	mySprite->Add(myPlayerAABB);
+	//mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("FireGolemRun");
 	myXDirection = 1.0f;
 	if (myStartPosition.x > patrolTo.x)
@@ -50,6 +50,22 @@ FireGolemEntity::~FireGolemEntity()
 void FireGolemEntity::Update()
 {
 	myStateMachine->update();
+	if(myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 20)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 20 && myDamageFrameCounter < 30)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 30)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+	}
 }
 bool FireGolemEntity::HandleMessage(const Message& msg)
 {
@@ -174,4 +190,13 @@ bool FireGolemEntity::IsPlayerToTheRight()
 bool FireGolemEntity::IsAttackCoolDownReady()
 {
 	return Clock->GetCurrentTime() > myAttackCooldown;
+}
+void FireGolemEntity::HandleDamaged(int damageRecieved)
+{
+	myAnimatedSprite->SetInverted(1);
+	myIsDamaged = true;
+	myDamageFrameCounter = 0;
+	myHealth -= damageRecieved;
+	if(myHealth <= 0)
+		GetFSM()->changeState(FireGolemDie::Instance());
 }

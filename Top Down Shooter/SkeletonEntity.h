@@ -12,7 +12,7 @@ struct SkeletonEntity : public BaseEnemy
 
 	void Update() override;
 	bool HandleMessage(const Message& msg) override;
-
+	void HandleDamaged(int damageRecieved) {}
 	void HandleMovement();
 	void SetAnimation(const std::string& name);
 public:

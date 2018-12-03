@@ -26,6 +26,8 @@ struct BaseEnemy : public Entity
 	virtual void HandleMovement() = 0;
 	virtual void SetAnimation(const std::string& name) = 0;
 
+	virtual void HandleDamaged(int damageRecieved) = 0;
+	
 public:
 	Group * mySprite;
 	AnimatedSprite* myAnimatedSprite;
@@ -39,5 +41,9 @@ public:
 	float myXDirection;
 
 	float myAttackTimer;
+
+	int myHealth;
+	int myDamageFrameCounter;
+	bool myIsDamaged;
 };
 

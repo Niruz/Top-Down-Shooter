@@ -25,6 +25,8 @@ struct FireGolemEntity : public BaseEnemy
 	bool AmIWithinMyPatrolDistance();
 	bool IsPlayerToTheRight();
 	bool IsAttackCoolDownReady();
+
+	void HandleDamaged(int damageRecieved);
 public:
 	bool shakeAttack1;
 	bool shakeAttack2;

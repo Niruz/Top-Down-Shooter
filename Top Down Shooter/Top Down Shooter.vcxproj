@@ -156,11 +156,15 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GhostEntity.cpp" />
     <ClCompile Include="GhostSprite.cpp" />
+    <ClCompile Include="GhoulEntity.cpp" />
+    <ClCompile Include="GhoulSprite.cpp" />
     <ClCompile Include="GothicVania.cpp" />
     <ClCompile Include="GothicVaniaDemonStates.cpp" />
     <ClCompile Include="GothicVaniaFireGolemStates.cpp" />
     <ClCompile Include="GothicVaniaGhostStates.cpp" />
+    <ClCompile Include="GothicVaniaGhoulStates.cpp" />
     <ClCompile Include="GothicVaniaHeroStates.cpp" />
+    <ClCompile Include="GothicVaniaUndeadWarriorStates.cpp" />
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="HellCatEntity.cpp" />
     <ClCompile Include="HellCatSprite.cpp" />
@@ -181,6 +185,9 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="PlasmaSprite.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PacmanEntity.cpp" />
+    <ClCompile Include="GothicVaniaReaperStates.cpp" />
+    <ClCompile Include="ReaperEntity.cpp" />
+    <ClCompile Include="ReaperSprite.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -200,6 +207,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileLayer.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="UndeadWarriorEntity.cpp" />
+    <ClCompile Include="UndeadWarriorSprite.cpp" />
     <ClCompile Include="Vampire.cpp" />
     <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
@@ -241,11 +250,15 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Game.h" />
     <ClInclude Include="GhostEntity.h" />
     <ClInclude Include="GhostSprite.h" />
+    <ClInclude Include="GhoulEntity.h" />
+    <ClInclude Include="GhoulSprite.h" />
     <ClInclude Include="GothicVania.h" />
     <ClInclude Include="GothicVaniaDemonStates.h" />
     <ClInclude Include="GothicVaniaFireGolemStates.h" />
     <ClInclude Include="GothicVaniaGhostStates.h" />
+    <ClInclude Include="GothicVaniaGhoulStates.h" />
     <ClInclude Include="GothicVaniaHeroStates.h" />
+    <ClInclude Include="GothicVaniaUndeadWarriorStates.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="HellCatEntity.h" />
     <ClInclude Include="HellCatSprite.h" />
@@ -269,6 +282,9 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="PlasmaSprite.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PacmanEntity.h" />
+    <ClInclude Include="GothicVaniaReaperStates.h" />
+    <ClInclude Include="ReaperEntity.h" />
+    <ClInclude Include="ReaperSprite.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RendererBase.h" />
@@ -292,6 +308,8 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileLayer.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="UndeadWarriorEntity.h" />
+    <ClInclude Include="UndeadWarriorSprite.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vampire.h" />
     <ClInclude Include="VertexArray.h" />

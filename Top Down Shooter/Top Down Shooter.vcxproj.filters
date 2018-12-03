@@ -139,6 +139,12 @@
     <Filter Include="Games\GothicVania\Entities\States\Messages">
       <UniqueIdentifier>{e153074d-e5ac-4ea6-93fa-30e9b10b0ad1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Entities\More Complex Enemies">
+      <UniqueIdentifier>{4e673b53-3aef-4910-a07b-e5b3c40fa129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies">
+      <UniqueIdentifier>{88f02eaf-9e51-45a9-94bb-783a15340a97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -456,17 +462,44 @@
     <ClCompile Include="FireGolemSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="FireGolemEntity.cpp">
-      <Filter>Games\GothicVania\Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="GothicVaniaFireGolemStates.cpp">
-      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="EngineUtilities.cpp">
       <Filter>Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="GhoulSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="FireGolemEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GhoulEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaGhoulStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaFireGolemStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="UndeadWarriorSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="UndeadWarriorEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaUndeadWarriorStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ReaperSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaReaperStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ReaperEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -728,12 +761,6 @@
     <ClInclude Include="FireGolemSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="FireGolemEntity.h">
-      <Filter>Games\GothicVania\Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="GothicVaniaFireGolemStates.h">
-      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="ShakeInfo.h">
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
@@ -742,6 +769,39 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="GhoulSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="FireGolemEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GhoulEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaGhoulStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaFireGolemStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="UndeadWarriorSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="UndeadWarriorEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaUndeadWarriorStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ReaperSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaReaperStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ReaperEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

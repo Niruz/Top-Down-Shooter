@@ -11,6 +11,7 @@ struct VertexData
 	glm::vec2 uv;
 	float tid;
 	unsigned int color;
+	float invertColor;
 };
 
 class Renderable
@@ -22,6 +23,7 @@ public:
 	unsigned int myColor;
 	std::vector<glm::vec2> myUVs;
 	Texture* myTexture;
+	float myInvertColor;
 
 protected:
 	Renderable() : myTexture(nullptr)
@@ -32,12 +34,12 @@ protected:
 public:
 
 	Renderable(const glm::vec4& position, const glm::vec2& size, const unsigned int& color)
-		: myPosition(position), mySize(size), myColor(color), myTexture(nullptr)
+		: myPosition(position), mySize(size), myColor(color), myTexture(nullptr), myInvertColor(0)
 	{
 		SetUVDefaults();
 	}
 	Renderable(const glm::vec4& position, const glm::vec2& size, const glm::vec4& color)
-		: myPosition(position), mySize(size), myTexture(nullptr)
+		: myPosition(position), mySize(size), myTexture(nullptr), myInvertColor(0)
 	{
 		SetColor(color);
 		SetUVDefaults();
@@ -68,11 +70,13 @@ public:
 	void SetUVs(int row, int column);
 	void SetTexture(Texture* texture) { myTexture = texture; }
 	void SetPosition(const glm::vec4& position) { myPosition = position; }
+	void SetInverted(int inverted) { myInvertColor = inverted; }
 	inline const glm::vec4& GetPosition()			 const { return myPosition; }
 	inline const glm::vec2& GetSize()                const { return mySize; }
 	inline const unsigned int GetColor()               const { return myColor; }
 	inline const std::vector<glm::vec2>& GetUVs()    const { return myUVs; }
 	inline const GLuint GetTID() const { return myTexture ? myTexture->getID() : 0; }
+	inline const float GetInvertColor() const { return myInvertColor; }
 
 private:
 	void SetUVDefaults()

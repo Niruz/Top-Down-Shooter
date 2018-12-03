@@ -15,7 +15,7 @@ struct GhostEntity : public BaseEnemy
 
 	void SetAnimation(const std::string& name);
 	void ResetAttackTimer();
-
+	void HandleDamaged(int damageRecieved) {}
 	bool myAtTarget;
 	AnimatedSprite* myPlasmaSprite;
 public:
