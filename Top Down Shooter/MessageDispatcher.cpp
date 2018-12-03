@@ -23,7 +23,8 @@ void MessageDispatcher::Discharge(Entity* receiver, const Message& msg)
 void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, int msg, void* extraInfo)
 {
 	Entity* pSender = NULL;
-	if(sender != 1337)
+	//Should add something like sender irrelevant later...
+	if(sender != 1337 && sender != 555)
 		 pSender   = EntityMan->getEntityFromID(sender);
 	Entity* pReceiver = EntityMan->getEntityFromID(receiver);
 
@@ -36,16 +37,22 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 
 	if(delay <= 0.0f)
 	{
-		if(sender != 1337) 
+		if(sender != 1337 && sender != 555)
 		{
-			std::cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
-				<< " by " << pSender->GetName() << " for " << pReceiver->GetName();
+			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTime()
+				<< " by " << pSender->GetName() << " for " << pReceiver->GetName() << "\n";
 		}
-		else
+		else if(sender == 1337)
 		{
-			std::cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
-				<< " by " << 1337 << " for " << pReceiver->GetName();
+			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTime()
+				<< " by " << 1337 <<" alias: <game world> " << " for " << pReceiver->GetName() << "\n";
 		}
+		else if (sender == 555)
+		{
+			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTime()
+				<< " by " << 555 << " alias: <CollisionManager> "<< " for " << pReceiver->GetName() << "\n";
+		}
+		
 
 		//			<< ". Msg is " << MsgToStr(msg);
 

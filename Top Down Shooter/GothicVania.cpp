@@ -23,6 +23,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
 #include "FireGolemEntity.h"
+#include "CollisionManager.h"
 void GothicVania::Initialize()
 {
 	lastX = 640.0f;
@@ -108,7 +109,9 @@ void GothicVania::Initialize()
 	myEntitites.push_back(myFireGolem1);
 
 	for (Entity* entity : myEntitites)
+	{
 		EntityMan->registerEntity(entity);
+	}
 
 	myDemon2->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	

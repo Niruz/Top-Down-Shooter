@@ -465,6 +465,9 @@
     <ClCompile Include="EngineUtilities.cpp">
       <Filter>Miscellaneous</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -736,6 +739,9 @@
     </ClInclude>
     <ClInclude Include="EngineUtilities.h">
       <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

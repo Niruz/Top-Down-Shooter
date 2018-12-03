@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "GothicVaniaFireGolemStates.h"
 #include "ShakeInfo.h"
+#include "CollisionManager.h"
 FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo,false)
 {
@@ -38,6 +39,8 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 	myShakeInfoSlamAttack = new ShakeInfo(600, 55, 7); 
 
 	myAttackCooldown = 0.0f;
+
+	CollisionMan->RegisterEntity(this);
 }
 FireGolemEntity::~FireGolemEntity()
 {
@@ -50,6 +53,7 @@ void FireGolemEntity::Update()
 }
 bool FireGolemEntity::HandleMessage(const Message& msg)
 {
+	myStateMachine->HandleMessage(msg);
 	return false;
 }
 void FireGolemEntity::SetFacing()

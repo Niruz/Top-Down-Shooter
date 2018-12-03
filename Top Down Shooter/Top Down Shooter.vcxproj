@@ -99,6 +99,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DemonEntity.cpp" />
     <ClCompile Include="DemonSprite.cpp" />
     <ClCompile Include="EngineUtilities.cpp" />
@@ -210,6 +211,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="BatchRenderer.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="DemonEntity.h" />
     <ClInclude Include="DemonSprite.h" />

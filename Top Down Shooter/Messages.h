@@ -1,7 +1,9 @@
 #pragma once
-//All the messages that can be sent to various entities
+
+//Messages specific to GothicVania
 enum MESSAGE_TYPE
 {
 	Msg_GoFuckShitUp,
-	Msg_ShakeCamera
+	Msg_ShakeCamera,
+	Msg_TakeDamage
 };

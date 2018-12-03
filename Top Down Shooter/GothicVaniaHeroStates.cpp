@@ -2,6 +2,7 @@
 #include "HeroEntity.h"
 #include "HeroSprite.h"
 #include "GLFW\glfw3.h"
+#include "CollisionManager.h"
 //------------------------------------------------------------------------methods for HeroIdle
 HeroIdle* HeroIdle::Instance()
 {
@@ -94,6 +95,7 @@ void HeroAttack::Execute(HeroEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if(entity->myAnimatedSprite->IsDone())
 	{
+		CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB);
 		entity->GetFSM()->changeState(HeroIdle::Instance());
 	}
 }

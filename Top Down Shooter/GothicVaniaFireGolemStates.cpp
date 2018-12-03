@@ -52,6 +52,14 @@ void FireGolemIdle::Exit(FireGolemEntity* entity)
 }
 bool FireGolemIdle::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->GetFSM()->changeState(FireGolemHurt::Instance());
+		return true;
+
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -190,6 +198,11 @@ void FireGolemHurt::Enter(FireGolemEntity* entity)
 void FireGolemHurt::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(FireGolemIdle::Instance());
+	}
+
 }
 void FireGolemHurt::Exit(FireGolemEntity* entity)
 {

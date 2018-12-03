@@ -225,11 +225,13 @@ void HeroEntity::HandleMovement()
 	if(myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		mySwordAABB->myOrigin.x = mPosition.x + 30;
+		mySwordAABB->myOrigin.y = mPosition.y + 1.5;
 		mySwordSpriteAABB->myPosition.x = mySwordAABBRightX;
 	}
 	else
 	{
 		mySwordAABB->myOrigin.x = mPosition.x - 30;
+		mySwordAABB->myOrigin.y = mPosition.y + 1.5;
 		mySwordSpriteAABB->myPosition.x = mySwordAABBLeftX;
 	}
 	
