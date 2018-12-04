@@ -20,6 +20,8 @@ class FireGolemEntity;
 class GhoulEntity;
 class UndeadWarriorEntity;
 class ReaperEntity;
+class ImpEntity;
+class NecromancerEntity;
 class GothicVania : public Game
 {
 public:
@@ -96,6 +98,8 @@ private:
 	GhoulEntity* myGhoul1;
 	UndeadWarriorEntity* myUDWar1;
 	ReaperEntity* myReaperEntity;
+	ImpEntity* myImpEntity;
+	NecromancerEntity* myNecromancerEntity;
 	std::vector<Entity*> myEntitites;
 //	std::vector<SkeletonEntity*> mySkeletons;
 

@@ -26,6 +26,8 @@
 #include "GhoulEntity.h"
 #include "UndeadWarriorEntity.h"
 #include "ReaperEntity.h"
+#include "ImpEntity.h"
+#include "NecromancerEntity.h"
 #include "CollisionManager.h"
 void GothicVania::Initialize()
 {
@@ -87,6 +89,8 @@ void GothicVania::Initialize()
 	myGhoul1 = new GhoulEntity(22, "Ghoul1", glm::vec3(640.0f, -160.0f, 0.1f), glm::vec3(864.0f, -150.0f, 0.1f));
 	myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(64.0f, -152.0f, 0.1f), glm::vec3(224.0f, -152.0f, 0.1f));
 	myReaperEntity = new ReaperEntity(24, "Reaper1", glm::vec3(256.0f, -152.0f, 0.1f), glm::vec3(416.0f, -152.0f, 0.1f));
+	myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f, -150.0f, 0.09f), glm::vec3(1120.0f, -150.0f, 0.9f));
+	myNecromancerEntity = new NecromancerEntity(26, "Necromancer1", glm::vec3(1456.0f, -120.0f, 0.1f), glm::vec3(1840.0f, -120.0f, 0.1f));
 
 	myEntitites.push_back(myPlayer);
 	/*myEntitites.push_back(mySkeleton);
@@ -113,6 +117,8 @@ void GothicVania::Initialize()
 	myEntitites.push_back(myGhoul1);
 	myEntitites.push_back(myUDWar1);
 	myEntitites.push_back(myReaperEntity);
+	myEntitites.push_back(myImpEntity);
+	myEntitites.push_back(myNecromancerEntity);
 
 	for (Entity* entity : myEntitites)
 	{
@@ -335,6 +341,8 @@ void GothicVania::Initialize()
 	tileGroup->Add(myGhoul1->mySprite);
 	tileGroup->Add(myUDWar1->mySprite);
 	tileGroup->Add(myReaperEntity->mySprite);
+	tileGroup->Add(myImpEntity->mySprite);
+	tileGroup->Add(myNecromancerEntity->mySprite);
 
 	myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
@@ -351,6 +359,8 @@ void GothicVania::Initialize()
 	myGhoul1->myTileMap = myMap;
 	myUDWar1->myTileMap = myMap;
 	myReaperEntity->myTileMap = myMap;
+	myImpEntity->myTileMap = myMap;
+	myNecromancerEntity->myTileMap = myMap;
 }
 void GothicVania::UpdatePlayer()
 {

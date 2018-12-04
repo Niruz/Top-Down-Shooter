@@ -16,4 +16,6 @@ public:
 	virtual bool OnMessage(T*, const Message&) = 0;
 	//Not everyone needs to handle input
 	virtual bool HandleInput(T*, int key, int action) { return false; };
+
+	virtual bool ProcessMouse(T*, double xpos, double ypos, bool movement) { return false; }
 };

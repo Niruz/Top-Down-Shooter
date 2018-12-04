@@ -99,6 +99,25 @@ public:
 		return false;
 	}
 
+	bool ProcessMouse(double xpos, double ypos, bool movement)
+	{
+		//first see if the current state is valid and that it can handle
+		//the message
+		if (mCurrentState && mCurrentState->ProcessMouse(mOwner, xpos, ypos, movement))
+		{
+			return true;
+		}
+
+		//if not, and if a global state has been implemented, send 
+		//the message to the global state
+		if (mGlobalState && mGlobalState->ProcessMouse(mOwner, xpos, ypos, movement))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 
 	State<T>* getCurrentState()  const { return mCurrentState; }
 	State<T>* getGlobalState()   const { return mGlobalState; }
