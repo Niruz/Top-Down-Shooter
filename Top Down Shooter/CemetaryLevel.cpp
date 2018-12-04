@@ -149,7 +149,7 @@ void CemetaryLevel::Initialize()
 	fpsGroup->Add(myFPSLabel);
 
 	bossAnnouncerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
-	myBossAnnouncer = new Label("Fire & Fury", glm::vec4(-180.0f, 2000.0f, 0, 1), "DefaultFont96", glm::vec4(1, 1, 1, 1));
+	myBossAnnouncer = new Label("Fire & Fury", glm::vec4(-180.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
 	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 0));
 	//bossAnnouncerGroup->Add(new Sprite(glm::vec4(0, 0, -0.1, 1), glm::vec2(320.0f, 180.0f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	bossAnnouncerGroup->Add(myBossAnnouncer);
@@ -174,23 +174,30 @@ void CemetaryLevel::Initialize()
 	std::vector<Tile*> map = myMap->GetMap();
 	
 	//Tilegroup = grass group
-	tileGroup        = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f,0.0f,-9.2)));
-	Group* treeGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.6)));
-	Group* bushGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.5)));
-	Group* statueGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.4)));
-	Group* onewayGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.3)));
-	Group* enemyGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f, -5.0)));
-	Group* playerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  0.0)));
 
-		/*trees -9.6
-bush  -9.5
-statue-9.4
-oneway-9.3
-grass -9.2
+	Group* treeGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.6)), -9.6);
+	Group* bushGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.5)), -9.5);
+	Group* statueGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.4)), -9.4);
+	Group* onewayGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.3)), -9.3);
+	tileGroup          = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.2)), -9.2);
+	Group* enemyGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f, -5.0)), -5.0);
+	Group* playerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  0.0)), -0.0);
+	
+	myRenderGroups.push_back(tileGroup);
+	myRenderGroups.push_back(treeGroup);
+	myRenderGroups.push_back(bushGroup);
+	myRenderGroups.push_back(statueGroup);
+	myRenderGroups.push_back(onewayGroup);
+	myRenderGroups.push_back(enemyGroup);
+	myRenderGroups.push_back(playerGroup);
 
-enemy  -5
-
-player 0*/
+		/*	myTileLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myTreeLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myBushLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myStatueLayer         = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myOneWayPlatformLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myEnemyLayer          = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myPlayerLayer         = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));*/
 	float startX = -32.0f * 10.0f;
 	float startY = 32.0f * 6;
 	srand(54);
@@ -215,12 +222,12 @@ player 0*/
 			//myLayer->Add(new Sprite(glm::vec4(startX, startY, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("wall")/*, glm::vec2(0, 15)*/));
 			if (map[i]->myIsSpikedFloor)
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
+				onewayGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
 			}
 			else if (map[i]->myIsPillar)
 			{
 				std::string pillar = (rand() % 2) == 0 ? "pillar1" : "pillar2";
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY + 32.5, 0.01, 1), glm::vec2(32.0f, 96.0f), TextureMan->GetTexture(pillar)/*, glm::vec2(0, 15)*/));
+				onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 32.5, 0.0, 1), glm::vec2(32.0f, 96.0f), TextureMan->GetTexture(pillar)/*, glm::vec2(0, 15)*/));
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else if (map[i]->myIsOneWayTile)
@@ -228,14 +235,14 @@ player 0*/
 				//tileGroup->Add(new Sprite(glm::vec4(startX, startY+14.5f, 0.011, 1), glm::vec2(32.0f, 4.50f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 				if (map[i]->myTileType == "F")
 				{
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0092, 1), glm::vec2(32.0f, 41), TextureMan->GetTexture("floatinggrass")/*, glm::vec2(0, 15)*/));
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0, 1), glm::vec2(32.0f, 41), TextureMan->GetTexture("floatinggrass")/*, glm::vec2(0, 15)*/));
 					//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 				}
 			}
 			else
 			{
 				if (!(map[i]->myTileType == "o"))
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.01, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")/*, glm::vec2(0, 15)*/));
+					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")/*, glm::vec2(0, 15)*/));
 				grassType *= -1;
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f,0.0f,1.0f,0.5f)));
 			}
@@ -246,69 +253,69 @@ player 0*/
 			if (map[i]->myIsSpikedFloor)
 			{
 				if (map[i]->myTileType == "y")
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 31, 0.01, 1), glm::vec2(32.0f, 94.0f), TextureMan->GetTexture("spikedpillar")/*, glm::vec2(0, 15)*/));
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 31, 0.0, 1), glm::vec2(32.0f, 94.0f), TextureMan->GetTexture("spikedpillar")/*, glm::vec2(0, 15)*/));
 				else
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")/*, glm::vec2(0, 15)*/));
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 16.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else if (map[i]->myTileType == "f")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY + 0.5f, 0.0092, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid2")/*, glm::vec2(0, 15)*/));
+				onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 0.5f, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid2")/*, glm::vec2(0, 15)*/));
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 16.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else if (map[i]->myTileType == "e")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY - 21.0f, 0.0092, 1), glm::vec2(32.0f, 64.0f), TextureMan->GetTexture("floatingleftgrass")/*, glm::vec2(0, 15)*/));
+				onewayGroup->Add(new Sprite(glm::vec4(startX, startY - 21.0f, 0.0, 1), glm::vec2(32.0f, 64.0f), TextureMan->GetTexture("floatingleftgrass")/*, glm::vec2(0, 15)*/));
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 16.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else if (map[i]->myTileType == "E")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY - 19.0f, 0.008, 1), glm::vec2(32.0f, 64.0f), TextureMan->GetTexture("floatingrightgrass")/*, glm::vec2(0, 15)*/));
+				onewayGroup->Add(new Sprite(glm::vec4(startX, startY - 19.0f, 0.0, 1), glm::vec2(32.0f, 64.0f), TextureMan->GetTexture("floatingrightgrass")/*, glm::vec2(0, 15)*/));
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 16.0f), glm::vec4(0.0f, 0.0f, 1.0f, 0.5f)));
 			}
 			else if (map[i]->myTileType == "1")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.009, 1), glm::vec2(27.0f, 39.0f), TextureMan->GetTexture("stone1")/*, glm::vec2(0, 15)*/));
+				statueGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(27.0f, 39.0f), TextureMan->GetTexture("stone1")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "2")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.009, 1), glm::vec2(27.0f, 40.0f), TextureMan->GetTexture("stone2")/*, glm::vec2(0, 15)*/));
+				statueGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(27.0f, 40.0f), TextureMan->GetTexture("stone2")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "3")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.009, 1), glm::vec2(27.0f, 33.0f), TextureMan->GetTexture("stone3")/*, glm::vec2(0, 15)*/));
+				statueGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(27.0f, 33.0f), TextureMan->GetTexture("stone3")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "4")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.009, 1), glm::vec2(19.0f, 38.0f), TextureMan->GetTexture("stone4")/*, glm::vec2(0, 15)*/));
+				statueGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(19.0f, 38.0f), TextureMan->GetTexture("stone4")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "S")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY + 20.0f, 0.009, 1), glm::vec2(63.0f, 75.0f), TextureMan->GetTexture("statue")/*, glm::vec2(0, 15)*/));
+				statueGroup->Add(new Sprite(glm::vec4(startX, startY + 20.0f, 0.0, 1), glm::vec2(63.0f, 75.0f), TextureMan->GetTexture("statue")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "b")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.009, 1), glm::vec2(34.0f, 29.0f), TextureMan->GetTexture("bushsmall")/*, glm::vec2(0, 15)*/));
+				bushGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(34.0f, 29.0f), TextureMan->GetTexture("bushsmall")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "B")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY + 10, 0.009, 1), glm::vec2(76.0f, 65.0f), TextureMan->GetTexture("bushlarge")/*, glm::vec2(0, 15)*/));
+				bushGroup->Add(new Sprite(glm::vec4(startX, startY + 10, 0.0, 1), glm::vec2(76.0f, 65.0f), TextureMan->GetTexture("bushlarge")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "T")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY + 40.0f, 0.0091, 1), glm::vec2(166.0f, 117.0f), TextureMan->GetTexture("tree1")/*, glm::vec2(0, 15)*/));
+				treeGroup->Add(new Sprite(glm::vec4(startX, startY + 40.0f, 0.0, 1), glm::vec2(166.0f, 117.0f), TextureMan->GetTexture("tree1")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			else if (map[i]->myTileType == "t")
 			{
-				tileGroup->Add(new Sprite(glm::vec4(startX, startY + 60.0f, 0.0091, 1), glm::vec2(176.0f, 171.0f), TextureMan->GetTexture("tree3")/*, glm::vec2(0, 15)*/));
+				treeGroup->Add(new Sprite(glm::vec4(startX, startY + 60.0f, 0.0, 1), glm::vec2(176.0f, 171.0f), TextureMan->GetTexture("tree3")/*, glm::vec2(0, 15)*/));
 				//tileGroup->Add()
 			}
 			//myLayer->Add(new Sprite(glm::vec4(startX, startY, 0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floor")/*, glm::vec2(1, 15)*/));
@@ -317,12 +324,16 @@ player 0*/
 		startX += 32.0f;
 	}
 	myTileLayer->Add(tileGroup);
+	myTreeLayer->Add(treeGroup);
+	myBushLayer->Add(bushGroup);
+	myStatueLayer->Add(statueGroup);
+	myOneWayPlatformLayer->Add(onewayGroup);
 
 	//Temp
 	myGuiGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(-260, 160, 0.8)));
 	myHPBar = new Sprite(glm::vec4(0.0f, 0.0f, 0.2f, 1.0f), glm::vec2(85, 25), TextureMan->GetTexture("hpbar"));
 	myGuiGroup->Add(myHPBar);
-	myTileLayer->Add(myGuiGroup);
+	myPlayerLayer->Add(myGuiGroup);
 
 	//Debug
 	myPlayerTile = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.02)));
@@ -355,8 +366,8 @@ player 0*/
 	tileGroup->Add(myHellCat->mySprite);
 	tileGroup->Add(myEyeMonster->mySprite);
 	tileGroup->Add(myDemon->mySprite);*/
-	tileGroup->Add(myDemon2->mySprite);
-	tileGroup->Add(myDemon3->mySprite);/*
+	enemyGroup->Add(myDemon2->mySprite);
+	enemyGroup->Add(myDemon3->mySprite);/*
 									   tileGroup->Add(mySkeleton->mySprite);
 									   tileGroup->Add(mySkeleton2->mySprite);
 									   tileGroup->Add(mySkeleton3->mySprite);
@@ -369,17 +380,19 @@ player 0*/
 									   tileGroup->Add(myEyeMonster5->mySprite);
 									   tileGroup->Add(myEyeMonster6->mySprite);
 									   tileGroup->Add(myEyeMonster7->mySprite);*/
-	tileGroup->Add(myFireGolem1->mySprite);
-	tileGroup->Add(myGhoul1->mySprite);
-	tileGroup->Add(myUDWar1->mySprite);
-	tileGroup->Add(myReaperEntity->mySprite);
-	tileGroup->Add(myImpEntity->mySprite);
-	tileGroup->Add(myNecromancerEntity->mySprite);
+	enemyGroup->Add(myFireGolem1->mySprite);
+	enemyGroup->Add(myGhoul1->mySprite);
+	enemyGroup->Add(myUDWar1->mySprite);
+	enemyGroup->Add(myReaperEntity->mySprite);
+	enemyGroup->Add(myImpEntity->mySprite);
+	enemyGroup->Add(myNecromancerEntity->mySprite);
+
+	myEnemyLayer->Add(enemyGroup);
 
 	//myTileLayer->Add(tileGroup);
-	myTileLayer->Add(myPlayer->mySprite);
+	myPlayerLayer->Add(myPlayer->mySprite);
 	//screen
-	myTileLayer->Add(bossAnnouncerGroup);
+	myPlayerLayer->Add(bossAnnouncerGroup);
 	myPlayer->myTileMap = myMap;
 	//myDebugLayer->Add(myPlayerTile);
 	lastPlayerX = myPlayer->mPosition.x;
@@ -399,7 +412,24 @@ player 0*/
 	myLayers.push_back(myBackgroundLayer);
 	myLayers.push_back(myMountainsLayer);
 	myLayers.push_back(myGraveyardLayer);
-	
+	myLayers.push_back(myTreeLayer);
+	myLayers.push_back(myBushLayer);
+	myLayers.push_back(myStatueLayer);
+	myLayers.push_back(myOneWayPlatformLayer);
+	myLayers.push_back(myTileLayer);
+	myLayers.push_back(myEnemyLayer);
+	myLayers.push_back(myPlayerLayer);
+	/*
+
+	myTileLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myTreeLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myBushLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myStatueLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myOneWayPlatformLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myEnemyLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myPlayerLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	*/
+	//myPlayerLayer->Add(myPlayer);
 	/*
 	myTileLayer
 		myTreeLayer
@@ -433,7 +463,12 @@ void CemetaryLevel::UpdatePlayer()
 	tran = glm::translate(tran, glm::vec3(mouseScreenWorld.x, mouseScreenWorld.y, 0.0f));
 	myCursor->SetTransformationMatrix(tran);
 
-	tileGroup->SetTransformationMatrix(myCamera->mTranslationMatrix);
+	for(Group* group : myRenderGroups)
+	{
+		glm::mat4 camTranslation = myCamera->mTranslationMatrix;
+		group->UpdateXYAxis(glm::vec2(myCamera->mPosition.x, myCamera->mPosition.y));
+	}
+	//tileGroup->SetTransformationMatrix(myCamera->mTranslationMatrix);
 
 	myScreenDirection = 0.0f;
 	if ((myPlayer->mPosition.x > -0.5f) && (myPlayer->mPosition.x < 3150.0f) && (!myBossBattle))
@@ -468,6 +503,8 @@ void CemetaryLevel::UpdatePlayer()
 		alphaStart = 0.0f;
 		delayCutscene = Clock->GetCurrentTime() + 1.5f;
 	}
+	//myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
+//	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 1));
 	if (myBossBattle)
 	{
 		if (Clock->GetCurrentTime() > delayCutscene && !cutSceneStarted)
@@ -477,7 +514,7 @@ void CemetaryLevel::UpdatePlayer()
 		}
 		if (Clock->GetCurrentTime() - startScreenTime < 4.0 && cutSceneStarted)
 		{
-			myBossAnnouncer->SetPosition(glm::vec4(-230.0f, 0.0f, 0, 1));
+			myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
 			myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
 			if (alphaStart < 1.0f)
 				alphaStart += 0.01f;
@@ -528,8 +565,8 @@ void CemetaryLevel::Render()
 	for (Layer* layer : myLayers)
 		layer->Render();
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	myTileLayer->Render();
+	/*glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	myTileLayer->Render();*/
 	//myDebugLayer->Render();
 }
 void CemetaryLevel::UpdatePlayerTiles()

@@ -28,10 +28,10 @@ public:
 	{
 
 	}
-	~CemetaryLevel()
+	virtual ~CemetaryLevel()
 	{
 		delete myMap;
-		delete myTileLayer;
+		//delete myTileLayer;
 	}
 	void Initialize() override;
 	void Tick(const unsigned int ups, const unsigned int fps) override;
@@ -68,6 +68,7 @@ public:
 
 	Camera* myCamera;
 	Group* myCursor;
+	std::vector<Group*> myRenderGroups;
 	Group* tileGroup;
 	Sprite* myMountain;
 	Sprite* myGraveyard;

@@ -33,6 +33,23 @@ void GothicVania::Initialize()
 {
 	myLevels.push_back(new CemetaryLevel());
 	myLevels[0]->Initialize();
+
+	activeLevel = 0;
+
+	/*myLevels.push_back(new CemetaryLevel());
+	myLevels[1]->Initialize();
+	delete myLevels[0];
+	myLevels.clear();
+
+	myLevels.push_back(new CemetaryLevel());
+	myLevels[0]->Initialize();
+	delete myLevels[0];
+	myLevels.clear();
+
+	myLevels.push_back(new CemetaryLevel());
+	myLevels[0]->Initialize();
+	delete myLevels[0];
+	myLevels.clear();*/
 }
 void GothicVania::Tick()
 {
@@ -50,6 +67,13 @@ void GothicVania::Render()
 void GothicVania::ProcessKeyBoard(int key, float deltaTime, int action)
 {
 	myLevels[0]->ProcessKeyBoard(key, deltaTime, action);
+	/*if (key == GLFW_KEY_T)
+		activeLevel = 1;
+	else
+	{
+		myLevels[activeLevel]->ProcessKeyBoard(key, deltaTime, action);
+	}*/
+	
 }
 void GothicVania::ProcessMouse(double xpos, double ypos, bool movement)
 {

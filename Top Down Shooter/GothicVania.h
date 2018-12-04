@@ -30,6 +30,7 @@ private:
 	
 private:
 
+	int activeLevel;
 	std::vector<Level*> myLevels;
 };
 

@@ -1,5 +1,5 @@
 #include "TextureManager.h"
-
+#include <iostream>
 
 TextureManager* TextureManager::Instance()
 {
@@ -89,6 +89,11 @@ void TextureManager::onDeinitialize()
 }
 bool TextureManager::LoadTexture(std::string filename, std::string identifier, GLboolean alpha, GLboolean isBackground, GLboolean repeating)
 {
+	if (GetTexture(filename) != nullptr)
+	{
+		std::cout << "Texture: " + filename + " already loaded.\n";
+		return false;
+	}
 	//image format
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	//pointer to the image, once loaded

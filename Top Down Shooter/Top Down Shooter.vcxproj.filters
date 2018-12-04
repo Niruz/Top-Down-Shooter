@@ -154,6 +154,9 @@
     <Filter Include="Games\GothicVania\Levels">
       <UniqueIdentifier>{ff47297b-ff83-47e4-bc8e-b8ba2c04b4d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Game Layers">
+      <UniqueIdentifier>{d345f67f-4e88-4801-a81e-545d714aaa3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -537,6 +540,9 @@
     <ClCompile Include="CemetaryLevel.cpp">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="GameLayer.cpp">
+      <Filter>Games\GothicVania\Game Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -865,6 +871,9 @@
     </ClInclude>
     <ClInclude Include="CemetaryLevel.h">
       <Filter>Games\GothicVania\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLayer.h">
+      <Filter>Games\GothicVania\Game Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,10 @@ void FontManager::onInitialize()
 	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont64", 64);
 	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont128", 128);
 	LoadFont("Fonts/SourceSansPro-Light.ttf", "DefaultFont96", 96);
+	LoadFont("Fonts/Adventurer.ttf", "Adventurer96", 96);
+	LoadFont("Fonts/Adventurer.ttf", "Adventurer64", 64);
+	LoadFont("Fonts/Adventurer.ttf", "Adventurer58", 58);
+	LoadFont("Fonts/Adventurer.ttf", "Adventurer48", 48);
 }
 void FontManager::onDeinitialize()
 {
