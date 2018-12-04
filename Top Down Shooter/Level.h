@@ -8,7 +8,11 @@ class Level
 {
 public:
 	Level() {};
-	virtual ~Level() {};
+	virtual ~Level() 
+	{
+		for (Layer* layer : myLayers)
+			delete layer;
+	};
 
 	virtual void Initialize() = 0;
 	virtual void Tick(const unsigned int ups, const unsigned int fps) = 0;

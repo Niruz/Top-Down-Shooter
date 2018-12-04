@@ -23,6 +23,16 @@ class NecromancerEntity;
 class CemetaryLevel : public Level
 {
 public:
+
+	CemetaryLevel()
+	{
+
+	}
+	~CemetaryLevel()
+	{
+		delete myMap;
+		delete myTileLayer;
+	}
 	void Initialize() override;
 	void Tick(const unsigned int ups, const unsigned int fps) override;
 	void Update() override;
@@ -42,6 +52,13 @@ public:
 	Layer* myBackgroundLayer;
 	Layer* myGraveyardLayer;
 	Layer* myMountainsLayer;
+	Layer* myTreeLayer;
+	Layer* myBushLayer;
+	Layer* myStatueLayer;
+	Layer* myOneWayPlatformLayer;
+	Layer* myEnemyLayer;
+	Layer* myPlayerLayer;
+
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
 	Label* myBossAnnouncer;
@@ -56,7 +73,7 @@ public:
 	Sprite* myHPBar;
 	Group* myGuiGroup;
 
-	//Entities
+	//Entities... Temporary for easier debugging
 	HeroEntity* myPlayer;
 	SkeletonEntity* mySkeleton;
 	SkeletonEntity* mySkeleton2;

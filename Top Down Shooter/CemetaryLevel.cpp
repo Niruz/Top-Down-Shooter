@@ -38,7 +38,7 @@ void CemetaryLevel::Initialize()
 	myWidth = 1280.0f;
 	myMouseMovement = false;
 
-	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f);
+	glm::mat4 ortho = glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -10.0f, 10.0f);
 	myCamera = new Camera(666, "Camera1");
 	myCamera->setScreenPosition(glm::vec2(lastX, lastY));
 	myCamera->setProjectionMatrix(ortho);
@@ -47,19 +47,32 @@ void CemetaryLevel::Initialize()
 	EntityMan->registerEntity(myCamera);
 
 	myShader = ShaderMan->getShader(SIMPLE_FORWARD_SHADER);
-	myTileLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -1.0f, 1.0f));
-	myBackgroundLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND1_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -1.0f, 1.0f));
-	myGraveyardLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND2_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -1.0f, 1.0f));
-	myMountainsLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND3_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -1.0f, 1.0f));
 
-	myBackgroundLayer->Add(new Sprite(glm::vec4(0, 0, -0.9, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("moonbackground")/*, glm::vec2(0, 15)*/));
+	
 
-	myGraveyard = new Sprite(glm::vec4(0, -0.25f, -0.7, 1), glm::vec2(1.0f, 0.5f), TextureMan->GetTexture("graveyard")/*, glm::vec2(0, 15)*/);
+
+
+	myTileLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myTreeLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myBushLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myStatueLayer         = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myOneWayPlatformLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myEnemyLayer          = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myPlayerLayer         = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myBackgroundLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND1_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
+	myGraveyardLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND2_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
+	myMountainsLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND3_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
+
+
+
+	myBackgroundLayer->Add(new Sprite(glm::vec4(0, 0, -9.90f, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("moonbackground")/*, glm::vec2(0, 15)*/));
+
+	myGraveyard = new Sprite(glm::vec4(0, -0.25f, -9.80f, 1), glm::vec2(1.0f, 0.5f), TextureMan->GetTexture("graveyard")/*, glm::vec2(0, 15)*/);
 	myGraveyardLayer->Add(myGraveyard);
 	//myGraveyardLayer->Add(new Sprite(glm::vec4(0, -0.25f, -0.7, 1), glm::vec2(1.0f, 0.5f), TextureMan->GetTexture("graveyard")/*, glm::vec2(0, 15)*/));
 
 
-	myMountain = new Sprite(glm::vec4(0, -0.25, -0.8, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/);
+	myMountain = new Sprite(glm::vec4(0, -0.25, -9.70f, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/);
 	myMountain->setUVSpecialized(glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(2, 1), glm::vec2(2, 0));
 	myMountainsLayer->Add(myMountain);
 	//myMountainsLayer->Add(new Sprite(glm::vec4(0, -0.25, -0.8, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/));
