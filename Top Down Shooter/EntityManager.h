@@ -22,7 +22,7 @@ public:
 
 	Entity* getEntityFromID(int id) const;
 
-	
+	void Update();
 
 private:
 

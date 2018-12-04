@@ -99,6 +99,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CemetaryLevel.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DemonEntity.cpp" />
     <ClCompile Include="DemonSprite.cpp" />
@@ -177,6 +178,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshFactory.cpp" />
@@ -217,6 +219,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="UndeadWarriorSprite.cpp" />
     <ClCompile Include="Vampire.cpp" />
     <ClCompile Include="VertexArray.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
@@ -226,6 +229,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="BatchRenderer.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CemetaryLevel.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="DemonEntity.h" />
@@ -277,6 +281,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Locations.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshFactory.h" />
@@ -325,6 +330,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vampire.h" />
     <ClInclude Include="VertexArray.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\forwardVertex.glsl" />

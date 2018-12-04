@@ -145,6 +145,15 @@
     <Filter Include="Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies">
       <UniqueIdentifier>{88f02eaf-9e51-45a9-94bb-783a15340a97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{aaac2604-8ab8-471d-9b00-ca85f7a305f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\Level">
+      <UniqueIdentifier>{c4f6b933-8d5d-46a0-9203-56d78fcc037c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Levels">
+      <UniqueIdentifier>{ff47297b-ff83-47e4-bc8e-b8ba2c04b4d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -519,6 +528,15 @@
     <ClCompile Include="GothicVaniaNecromancerStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>World\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CemetaryLevel.cpp">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -838,6 +856,15 @@
     </ClInclude>
     <ClInclude Include="GothicVaniaNecromancerStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>World\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CemetaryLevel.h">
+      <Filter>Games\GothicVania\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -28,3 +28,16 @@ void EntityManager::registerEntity(Entity* NewEntity)
 {
 	mEntityMap.insert(std::make_pair(NewEntity->GetID(), NewEntity));
 }
+
+void EntityManager::Update()
+{
+	std::map<int, Entity*>::iterator it = mEntityMap.begin();
+
+	while (it != mEntityMap.end())
+	{
+		Entity* entity = it->second;
+		entity->Update();
+
+		it++;
+	}
+}
