@@ -10,7 +10,7 @@ EyeMonsterEntity::EyeMonsterEntity(int id, const std::string& name, const glm::v
 	BaseEnemy(id, name, myStartPosition, patrolTo)
 {
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myAnimatedSprite = new EyeMonsterSprite(glm::vec4(mPosition.x, mPosition.y, myStartPosition.z, 1), glm::vec2(80, 80), TextureMan->GetTexture("eyemonster"), Heading::LEFTFACING);
+	myAnimatedSprite = new EyeMonsterSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(80, 80), TextureMan->GetTexture("eyemonster"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myAnimatedSprite->SetAnimation("EyePatrol");
 	myXDirection = 1.0f;

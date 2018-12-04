@@ -12,9 +12,9 @@ UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const 
 	: BaseEnemy(id, name, myStartPosition, patrolTo, false)
 {
 	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 10.0f, 13.0f);
-	myPlayerAABB = new Sprite(glm::vec4(mPosition.x - 5, mPosition.y, 0.2f, 1.0f), glm::vec2(20.0f, 26.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+	myPlayerAABB = new Sprite(glm::vec4(mPosition.x - 5, mPosition.y, mPosition.z+0.01, 1.0f), glm::vec2(20.0f, 26.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 
-	myAnimatedSprite = new UndeadWarriorSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(94 + 47, 36 + 18), TextureMan->GetTexture("undeadwarrior"), Heading::LEFTFACING);
+	myAnimatedSprite = new UndeadWarriorSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(94 + 47, 36 + 18), TextureMan->GetTexture("undeadwarrior"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
 	//mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("UndeadWarriorRun");

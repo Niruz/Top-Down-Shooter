@@ -13,7 +13,7 @@ DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& mySta
 
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
 	//myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x+16.0f, mPosition.y - 11, 0.09f, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);
-	myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);
+	myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myAnimatedSprite->SetAnimation("DemonIdle");
 	myXDirection = 1.0f;

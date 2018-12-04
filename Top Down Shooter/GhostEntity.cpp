@@ -12,7 +12,7 @@ GhostEntity::GhostEntity(int id, const std::string& name, const glm::vec3& mySta
 	BaseEnemy(id, name, myStartPosition, patrolTo), myAtTarget(false)
 {
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myAnimatedSprite = new GhostSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(37, 65), TextureMan->GetTexture("ghost"), Heading::LEFTFACING);
+	myAnimatedSprite = new GhostSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(37, 65), TextureMan->GetTexture("ghost"), Heading::LEFTFACING);
 	
 
 	myAnimatedSprite->SetAnimation("GhostDie");
@@ -21,7 +21,7 @@ GhostEntity::GhostEntity(int id, const std::string& name, const glm::vec3& mySta
 
 
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myPlasmaSprite = new PlasmaSprite(glm::vec4(mPosition.x+6.0f, mPosition.y, 0.089f, 1), glm::vec2(200, 200), TextureMan->GetTexture("plasma"), Heading::LEFTFACING);
+	myPlasmaSprite = new PlasmaSprite(glm::vec4(mPosition.x+6.0f, mPosition.y, mPosition.z - 0.001, 1), glm::vec2(200, 200), TextureMan->GetTexture("plasma"), Heading::LEFTFACING);
 	mySprite->Add(myPlasmaSprite);
 	mySprite->Add(myAnimatedSprite);
 	myPlasmaSprite->SetAnimation("PlasmaExplode");

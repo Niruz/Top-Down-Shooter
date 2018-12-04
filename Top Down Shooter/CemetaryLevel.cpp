@@ -67,12 +67,12 @@ void CemetaryLevel::Initialize()
 
 	myBackgroundLayer->Add(new Sprite(glm::vec4(0, 0, -9.90f, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("moonbackground")/*, glm::vec2(0, 15)*/));
 
-	myGraveyard = new Sprite(glm::vec4(0, -0.25f, -9.80f, 1), glm::vec2(1.0f, 0.5f), TextureMan->GetTexture("graveyard")/*, glm::vec2(0, 15)*/);
+	myGraveyard = new Sprite(glm::vec4(0, -0.25f, -9.70f, 1), glm::vec2(1.0f, 0.5f), TextureMan->GetTexture("graveyard")/*, glm::vec2(0, 15)*/);
 	myGraveyardLayer->Add(myGraveyard);
 	//myGraveyardLayer->Add(new Sprite(glm::vec4(0, -0.25f, -0.7, 1), glm::vec2(1.0f, 0.5f), TextureMan->GetTexture("graveyard")/*, glm::vec2(0, 15)*/));
 
 
-	myMountain = new Sprite(glm::vec4(0, -0.25, -9.70f, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/);
+	myMountain = new Sprite(glm::vec4(0, -0.25, -9.80f, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/);
 	myMountain->setUVSpecialized(glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(2, 1), glm::vec2(2, 0));
 	myMountainsLayer->Add(myMountain);
 	//myMountainsLayer->Add(new Sprite(glm::vec4(0, -0.25, -0.8, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/));
@@ -86,8 +86,8 @@ void CemetaryLevel::Initialize()
 	myDemon = new DemonEntity(5, "Demon1", glm::vec3(128, -96 - 15, 0.1f), glm::vec3(128.0f, -32.0f, 0.1f));
 	myGhost2 = new GhostEntity(6, "Ghost2", glm::vec3(1328.0f, -160.0f, 0.1f), glm::vec3(1328.0f, -32.0f, 0.1f));
 	myGhost3 = new GhostEntity(7, "Ghost3", glm::vec3(2624.0f, -128.0f, 0.1f), glm::vec3(2624.0f, -32.0f, 0.1f));*/
-	myDemon2 = new DemonEntity(8, "Demon2", glm::vec3(3008.0f, 224 - 15, 0.0999f), glm::vec3(3008.0f, -32.0f, 0.1f));
-	myDemon3 = new DemonEntity(9, "Demon3", glm::vec3(3264.0f, 224 - 15, 0.1f), glm::vec3(3264.0f, -32.0f, 0.1f));/*
+	myDemon2 = new DemonEntity(8, "Demon2", glm::vec3(3008.0f, 224 - 15, 0.0f), glm::vec3(3008.0f, -32.0f, 0.0f));
+	myDemon3 = new DemonEntity(9, "Demon3", glm::vec3(3264.0f, 224 - 15, 0.01f), glm::vec3(3264.0f, -32.0f, 0.01f));/*
 																												  mySkeleton2 = new SkeletonEntity(10, "Skeleton2", glm::vec3(0.0f, -152.0f, 0.1f), glm::vec3(-192.0f, -152.0f, 0.1f));
 																												  mySkeleton3 = new SkeletonEntity(11, "Skeleton3", glm::vec3(256.0f, -152.0f, 0.1f), glm::vec3(416.0f, -152.0f, 0.1f));
 																												  mySkeleton4 = new SkeletonEntity(12, "Skeleton4", glm::vec3(448.0f, -152.0f, 0.1f), glm::vec3(608.0f, -152.0f, 0.1f));
@@ -99,12 +99,12 @@ void CemetaryLevel::Initialize()
 																												  myEyeMonster5 = new EyeMonsterEntity(18, "EyeMonster5", glm::vec3(2064.0f, -160.0f, 0.09f), glm::vec3(2448.0f, -160.0f, 0.9f));
 																												  myEyeMonster6 = new EyeMonsterEntity(19, "EyeMonster6", glm::vec3(2064.0f, -128.0f, 0.091f), glm::vec3(2480.0f, -128.0f, 0.91));
 																												  myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));*/
-	myFireGolem1 = new FireGolemEntity(21, "FireGolem1", glm::vec3(-320.0f, -125.0, 0.1f), glm::vec3(-32.0f, -125.0, 0.1f));
-	myGhoul1 = new GhoulEntity(22, "Ghoul1", glm::vec3(640.0f, -160.0f, 0.1f), glm::vec3(864.0f, -150.0f, 0.1f));
-	myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(64.0f, -152.0f, 0.1f), glm::vec3(224.0f, -152.0f, 0.1f));
-	myReaperEntity = new ReaperEntity(24, "Reaper1", glm::vec3(256.0f, -152.0f, 0.1f), glm::vec3(416.0f, -152.0f, 0.1f));
-	myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f, -150.0f, 0.09f), glm::vec3(1120.0f, -150.0f, 0.9f));
-	myNecromancerEntity = new NecromancerEntity(26, "Necromancer1", glm::vec3(1456.0f, -120.0f, 0.1f), glm::vec3(1840.0f, -120.0f, 0.1f));
+	myFireGolem1 = new FireGolemEntity(21, "FireGolem1", glm::vec3(-320.0f, -125.0, 0.02f), glm::vec3(-32.0f, -125.0, 0.02f));
+	myGhoul1 = new GhoulEntity(22, "Ghoul1", glm::vec3(640.0f, -160.0f, 0.03f), glm::vec3(864.0f, -150.0f, 0.03f));
+	myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(64.0f, -152.0f, 0.04f), glm::vec3(224.0f, -152.0f, 0.04f));
+	myReaperEntity = new ReaperEntity(24, "Reaper1", glm::vec3(256.0f, -152.0f, 0.05f), glm::vec3(416.0f, -152.0f, 0.05f));
+	myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f, -150.0f, 0.06f), glm::vec3(1120.0f, -150.0f, 0.06f));
+	myNecromancerEntity = new NecromancerEntity(26, "Necromancer1", glm::vec3(1456.0f, -120.0f, 0.07f), glm::vec3(1840.0f, -120.0f, 0.07f));
 
 	myEntitites.push_back(myPlayer);
 	/*myEntitites.push_back(mySkeleton);
@@ -172,7 +172,25 @@ void CemetaryLevel::Initialize()
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	std::vector<Tile*> map = myMap->GetMap();
-	tileGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)));
+	
+	//Tilegroup = grass group
+	tileGroup        = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f,0.0f,-9.2)));
+	Group* treeGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.6)));
+	Group* bushGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.5)));
+	Group* statueGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.4)));
+	Group* onewayGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.3)));
+	Group* enemyGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f, -5.0)));
+	Group* playerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  0.0)));
+
+		/*trees -9.6
+bush  -9.5
+statue-9.4
+oneway-9.3
+grass -9.2
+
+enemy  -5
+
+player 0*/
 	float startX = -32.0f * 10.0f;
 	float startY = 32.0f * 6;
 	srand(54);
@@ -358,7 +376,7 @@ void CemetaryLevel::Initialize()
 	tileGroup->Add(myImpEntity->mySprite);
 	tileGroup->Add(myNecromancerEntity->mySprite);
 
-	myTileLayer->Add(tileGroup);
+	//myTileLayer->Add(tileGroup);
 	myTileLayer->Add(myPlayer->mySprite);
 	//screen
 	myTileLayer->Add(bossAnnouncerGroup);
@@ -375,6 +393,24 @@ void CemetaryLevel::Initialize()
 	myReaperEntity->myTileMap = myMap;
 	myImpEntity->myTileMap = myMap;
 	myNecromancerEntity->myTileMap = myMap;
+
+
+
+	myLayers.push_back(myBackgroundLayer);
+	myLayers.push_back(myMountainsLayer);
+	myLayers.push_back(myGraveyardLayer);
+	
+	/*
+	myTileLayer
+		myTreeLayer
+		myBushLayer
+		myStatueLayer
+		myOneWayPlatformLayer
+		myEnemyLayer
+		myPlayerLayer
+		myBackgroundLayer = ne
+		myGraveyardLayer = new
+		myMountainsLayer = new*/
 }
 void CemetaryLevel::UpdatePlayer()
 {
@@ -486,9 +522,11 @@ void CemetaryLevel::Update()
 }
 void CemetaryLevel::Render() 
 {
-	myBackgroundLayer->Render();
+/*	myBackgroundLayer->Render();
 	myMountainsLayer->Render();
-	myGraveyardLayer->Render();
+	myGraveyardLayer->Render();*/
+	for (Layer* layer : myLayers)
+		layer->Render();
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	myTileLayer->Render();

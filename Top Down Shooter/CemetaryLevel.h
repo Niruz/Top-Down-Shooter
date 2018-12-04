@@ -48,6 +48,7 @@ public:
 
 public:
 	Shader * myShader;
+	//Tilelayer = grass layer
 	Layer* myTileLayer;
 	Layer* myBackgroundLayer;
 	Layer* myGraveyardLayer;

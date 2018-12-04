@@ -7,7 +7,7 @@
 HellCatEntity::HellCatEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name,myStartPosition,patrolTo)
 {
-	myAnimatedSprite = new HellCatSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(96, 53), TextureMan->GetTexture("gato"), Heading::LEFTFACING);
+	myAnimatedSprite = new HellCatSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(96, 53), TextureMan->GetTexture("gato"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
 
 	myAnimatedSprite->SetAnimation("HellCatPatrol");

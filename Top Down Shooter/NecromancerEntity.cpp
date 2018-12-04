@@ -12,9 +12,9 @@ NecromancerEntity::NecromancerEntity(int id, const std::string& name, const glm:
 	: BaseEnemy(id, name, myStartPosition, patrolTo, false)
 {
 	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 20.0f, 46.0f);
-	myPlayerAABB = new Sprite(glm::vec4(mPosition.x -10, mPosition.y-26.0f, 0.2f, 1.0f), glm::vec2(40.0f, 92.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+	myPlayerAABB = new Sprite(glm::vec4(mPosition.x -10, mPosition.y-26.0f, mPosition.z+0.01, 1.0f), glm::vec2(40.0f, 92.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 
-	myAnimatedSprite = new NecromancerSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(204, 122), TextureMan->GetTexture("necromancer"), Heading::LEFTFACING);
+	myAnimatedSprite = new NecromancerSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(204, 122), TextureMan->GetTexture("necromancer"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
 	//mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("NecromancerRun");

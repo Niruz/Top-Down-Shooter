@@ -8,7 +8,7 @@ SkeletonEntity::SkeletonEntity(int id, const std::string& name, const glm::vec3&
 	BaseEnemy(id, name,myStartPosition, patrolTo)
 {
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
-	myAnimatedSprite = new SkeletonSprite(glm::vec4(mPosition.x, mPosition.y, 0.09f, 1), glm::vec2(44, 52), TextureMan->GetTexture("skeleton"), Heading::LEFTFACING);
+	myAnimatedSprite = new SkeletonSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(44, 52), TextureMan->GetTexture("skeleton"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myAnimatedSprite->SetAnimation("SkeletonWalk");
 	myXDirection = 1.0f;

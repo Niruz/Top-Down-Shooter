@@ -10,7 +10,7 @@ BaseEnemy::BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPo
 	if(createAABB)
 	{
 		myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 16.0f, 16.0f);
-		myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, 0.2f, 1.0f), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+		myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z+0.1f, 1.0f), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 	}
 	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
 };
