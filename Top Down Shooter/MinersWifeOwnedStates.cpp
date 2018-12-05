@@ -47,7 +47,7 @@ bool WifesGlobalState::OnMessage(MinersWife* wife, const Message& msg)
 	case Msg_HiHoneyImHome:
 	{
 		cout << "\nMessage handled by " << "Elsa" << " at time: "
-			<< Clock->GetCurrentTime();
+			<< Clock->GetCurrentTimeInSeconds();
 
 		SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
@@ -201,7 +201,7 @@ bool CookStew::OnMessage(MinersWife* wife, const Message& msg)
 	case Msg_StewReady:
 	{
 		cout << "\nMessage received by " <<"Elsa" <<
-			" at time: " << Clock->GetCurrentTime();
+			" at time: " << Clock->GetCurrentTimeInSeconds();
 
 		SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		cout << "\n" << "Elsa" << ": StewReady! Lets eat";

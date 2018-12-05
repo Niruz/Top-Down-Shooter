@@ -25,6 +25,6 @@ public:
 
 	static SimpleTimer* Instance();
 
-	double GetCurrentTime() { return timeGetTime() * 0.001 - mStartTime; }
+	double GetCurrentTimeInSeconds() { return timeGetTime() * 0.001 - mStartTime; }
 	double GetCurrentTimeInMillis() { return timeGetTime() - mStartTime; }
 };

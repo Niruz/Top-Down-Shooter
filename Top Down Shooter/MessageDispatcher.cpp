@@ -39,17 +39,17 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 	{
 		if(sender != 1337 && sender != 555)
 		{
-			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTime()
+			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTimeInSeconds()
 				<< " by " << pSender->GetName() << " for " << pReceiver->GetName() << "\n";
 		}
 		else if(sender == 1337)
 		{
-			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTime()
+			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTimeInSeconds()
 				<< " by " << 1337 <<" alias: <game world> " << " for " << pReceiver->GetName() << "\n";
 		}
 		else if (sender == 555)
 		{
-			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTime()
+			std::cout << "\nInstant message dispatched at time: " << Clock->GetCurrentTimeInSeconds()
 				<< " by " << 555 << " alias: <CollisionManager> "<< " for " << pReceiver->GetName() << "\n";
 		}
 		
@@ -61,21 +61,21 @@ void MessageDispatcher::dispatchMessage(double delay, int sender, int receiver, 
 
 	else
 	{
-		double CurrentTime = Clock->GetCurrentTime();
+		double CurrentTime = Clock->GetCurrentTimeInSeconds();
 
 		message.dispatchTime = CurrentTime + delay;
 
 		PriorityQ.insert(message);
 
 		std::cout << "\nDelayed telegram from " << pSender->GetName()<< " recorded at time "
-			<< Clock->GetCurrentTime() << " for " << pReceiver->GetName();
+			<< Clock->GetCurrentTimeInSeconds() << " for " << pReceiver->GetName();
 			//<< ". Msg is " << MsgToStr(msg);
 	}
 }
 
 void MessageDispatcher::dispatchDelayedMessages()
 {
-	double CurrentTime = Clock->GetCurrentTime();
+	double CurrentTime = Clock->GetCurrentTimeInSeconds();
 
 	while (!PriorityQ.empty() &&
 		(PriorityQ.begin()->dispatchTime < CurrentTime) &&

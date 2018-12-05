@@ -20,7 +20,8 @@ void Group::Submit(RendererBase* renderer) const
 	renderer->Push(myTransformationMatrix);
 	for(Renderable* renderable : myRenderables)
 	{
-		renderable->Submit(renderer);
+		if (!renderable->myMarkedForDeletion)
+			renderable->Submit(renderer);
 	}
 	renderer->Pop();
 };

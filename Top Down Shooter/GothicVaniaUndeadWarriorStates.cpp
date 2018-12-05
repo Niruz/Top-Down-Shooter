@@ -7,6 +7,7 @@
 #include "ShakeInfo.h"
 #include <ctime>
 #include "EngineUtilities.h"
+#include "CollisionManager.h"
 //------------------------------------------------------------------------methods for GhostAttack
 UndeadWarriorIdle* UndeadWarriorIdle::Instance()
 {
@@ -66,13 +67,15 @@ void UndeadWarriorAttack::Enter(UndeadWarriorEntity* entity)
 {
 	entity->SetAnimation("UndeadWarriorAttack");
 	entity->ResetAttackTimer();
+	entity->myAlreadyAttacked = false;
+	entity->SetFacing();
 }
 void UndeadWarriorAttack::Execute(UndeadWarriorEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5 && !entity->myAlreadyAttacked)
 	{
-
+		entity->myAlreadyAttacked = CollisionMan->CheckSwordHeroCollisiion(entity);
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
@@ -81,7 +84,7 @@ void UndeadWarriorAttack::Execute(UndeadWarriorEntity* entity)
 }
 void UndeadWarriorAttack::Exit(UndeadWarriorEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool UndeadWarriorAttack::OnMessage(UndeadWarriorEntity* entity, const Message& msg)
 {

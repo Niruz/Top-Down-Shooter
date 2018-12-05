@@ -5,11 +5,11 @@
 class Entity 
 {
 public:
-	Entity(int id) 
+	Entity(int id) : myMarkedForDeletion(false)
 	{
 		setID(id);
 	};
-	Entity(int id, const std::string& name)
+	Entity(int id, const std::string& name) : myMarkedForDeletion(false)
 	{
 		setID(id);
 		setName(name);
@@ -29,7 +29,8 @@ public:
 		return mName;
 	}
 
-
+	void SetMarkedForDeletion(bool deletion) { myMarkedForDeletion = deletion; }
+	bool GetMarkedForDeletion() { return myMarkedForDeletion; }
 private:
 	int mID;
 	//Optional name
@@ -38,4 +39,6 @@ private:
 
 	void setID(int val);
 	void setName(const std::string& name);
+
+	bool myMarkedForDeletion;
 };

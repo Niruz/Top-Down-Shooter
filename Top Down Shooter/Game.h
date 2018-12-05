@@ -1,5 +1,5 @@
 #pragma once
-#include "SimpleTimer.h"
+
 class Game
 {
 protected:
@@ -24,6 +24,7 @@ public:
 	//Runs once on initialization
 	virtual void Initialize() = 0;
 
+	void Run();
 private:
 	//Runs once per second
 	virtual void Tick() {};
@@ -39,29 +40,7 @@ public:
 	virtual void ProcessMouse(double xpos, double ypos, bool movement) {};
 public:
 
-	void Run() 
-	{
-		
 
-		if (Clock->GetCurrentTime() - myUpdateTimer > myUpdateTick)
-		{
-			Update();
-			myUpdates++;
-			myUpdateTimer += myUpdateTick;
-		}
-		Render();
-		myFrames++;
-		if (Clock->GetCurrentTime() - myTimer > 1.0f)
-		{
-			myTimer += 1.0f;
-			myFramesPerSecond = myFrames;
-			myUpdatesPerSecond = myUpdates;
-			myFrames = 0;
-			myUpdates = 0;
-			Tick();
-		}
-
-	}
 
 private:
 	unsigned int myFramesPerSecond, myUpdatesPerSecond;

@@ -91,7 +91,7 @@ void FireGolemAttack1::Execute(FireGolemEntity* entity)
 }
 void FireGolemAttack1::Exit(FireGolemEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool FireGolemAttack1::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
@@ -140,7 +140,7 @@ void FireGolemAttack2::Execute(FireGolemEntity* entity)
 }
 void FireGolemAttack2::Exit(FireGolemEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool FireGolemAttack2::OnMessage(FireGolemEntity* entity, const Message& msg)
 {
@@ -288,7 +288,7 @@ void FireGolemSlam::Execute(FireGolemEntity* entity)
 }
 void FireGolemSlam::Exit(FireGolemEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool FireGolemSlam::OnMessage(FireGolemEntity* entity, const Message& msg)
 {

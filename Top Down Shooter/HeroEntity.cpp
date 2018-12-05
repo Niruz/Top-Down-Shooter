@@ -1,3 +1,4 @@
+#include "SimpleTimer.h"
 #include "HeroEntity.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
@@ -11,7 +12,7 @@
 #include "GLFW\glfw3.h"
 #include "GothicVaniaHeroStates.h"
 #include "Sprite.h"
-
+#include "CollisionManager.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),
@@ -23,7 +24,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
-//	mySprite->Add(myPlayerAABB);
+	mySprite->Add(myPlayerAABB);
 
 	
 
@@ -50,10 +51,14 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 
 	mySwordAABB = new AABB(glm::vec2(mPosition.x + 30.0f, mPosition.y + 1.5), 17.0f, 15.0f);
 	mySwordSpriteAABB = new Sprite(glm::vec4(mPosition.x + 30.0f, mPosition.y + 1.5, 0.25f, 1.0f), glm::vec2(34.0f, 10.0f), glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
-//	mySprite->Add(mySwordSpriteAABB);
+	//mySprite->Add(mySwordSpriteAABB);
 
 	mySwordAABBRightX = mPosition.x + 30.0f;
 	mySwordAABBLeftX = mPosition.y - 30.0f;
+	myHealth = 100;
+	myDamageFrameCounter = 0;
+	myIsDamaged = false;
+	CollisionMan->RegisterPlayer(this);
 }
 HeroEntity::~HeroEntity()
 {
@@ -342,7 +347,7 @@ void HeroEntity::HandleGravity()
 }
 void HeroEntity::StartJump()
 {
-	myStartJumpTime = Clock->GetCurrentTime();
+	myStartJumpTime = Clock->GetCurrentTimeInSeconds();
 }
 bool HeroEntity::IsOnSpikes()
 {
@@ -451,9 +456,14 @@ void HeroEntity::HandleJump()
 	//if (!myTileMap->IsDirectionWalkable(tileX, tileY))
 	//	mPosition.y = myTileMap->GetTile2(tileX, tileY + 1)->myWorldPosition.y;
 }
-void HeroEntity::HandleDamaged()
+void HeroEntity::HandleDamaged(int damageRecieved)
 {
-
+	myAnimatedSprite->SetInverted(1);
+	myIsDamaged = true;
+	myDamageFrameCounter = 0;
+	myHealth -= damageRecieved;
+	if (myHealth <= 0)
+		GetFSM()->changeState(HeroDamaged::Instance());
 }
 void HeroEntity::Update()
 {
@@ -461,12 +471,30 @@ void HeroEntity::Update()
 	//HandleMovement();
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
+			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
 	myStateMachine->update();
 	
+
+	if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
 	/*if(!inAir)
 		HandleGravity();
 	if (inAir)
@@ -483,8 +511,7 @@ void HeroEntity::Update()
 }
 bool HeroEntity::HandleMessage(const Message& msg)
 {
-	myStateMachine->HandleMessage(msg);
-	return true;
+	return myStateMachine->HandleMessage(msg);
 }
 void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 {

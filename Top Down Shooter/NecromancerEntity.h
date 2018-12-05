@@ -26,10 +26,12 @@ struct NecromancerEntity : public BaseEnemy
 	bool IsAttackCoolDownReady();
 	void HandleDamaged(int damageRecieved);
 
+	void SpawnProjectile();
 public:
 
 	//Bad design...
 	TileMap * myTileMap;
+	bool myFiredProjectile;
 
 	float myAttackCooldown;
 };

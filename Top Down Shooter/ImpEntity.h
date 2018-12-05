@@ -25,11 +25,12 @@ struct ImpEntity : public BaseEnemy
 	bool IsPlayerToTheRight();
 	bool IsAttackCoolDownReady();
 	void HandleDamaged(int damageRecieved);
-
+	void SpawnProjectile();
 public:
 
 	//Bad design...
 	TileMap * myTileMap;
 
 	float myAttackCooldown;
+	bool myFiredProjectile;
 };

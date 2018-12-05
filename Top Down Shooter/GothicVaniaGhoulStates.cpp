@@ -81,7 +81,7 @@ void GhoulAttack::Execute(GhoulEntity* entity)
 }
 void GhoulAttack::Exit(GhoulEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool GhoulAttack::OnMessage(GhoulEntity* entity, const Message& msg)
 {

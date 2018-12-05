@@ -190,7 +190,7 @@ bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Message& msg)
 	case Msg_StewReady:
 
 		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->GetID())
-			<< " at time: " << Clock->GetCurrentTime();
+			<< " at time: " << Clock->GetCurrentTimeInSeconds();
 
 		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 

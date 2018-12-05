@@ -8,6 +8,8 @@
 #include "GothicVaniaNecromancerStates.h"
 #include "ShakeInfo.h"
 #include "CollisionManager.h"
+#include "World.h"
+#include "Level.h"
 NecromancerEntity::NecromancerEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo, false)
 {
@@ -31,7 +33,7 @@ NecromancerEntity::NecromancerEntity(int id, const std::string& name, const glm:
 
 	myStateMachine->setCurrentState(NecromancerIdle::Instance());
 	myStateMachine->changeState(NecromancerIdle::Instance());
-
+	myFiredProjectile = false;
 
 	myAttackCooldown = 0.0f;
 
@@ -170,7 +172,7 @@ void NecromancerEntity::SetAnimation(const std::string& name)
 }
 void NecromancerEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }
 bool NecromancerEntity::IsPlayerWithinPatrolRange()
 {
@@ -199,7 +201,22 @@ bool NecromancerEntity::IsPlayerToTheRight()
 }
 bool NecromancerEntity::IsAttackCoolDownReady()
 {
-	return Clock->GetCurrentTime() > myAttackCooldown;
+	return Clock->GetCurrentTimeInSeconds() > myAttackCooldown;
+}
+void NecromancerEntity::SpawnProjectile()
+{
+	if (myFiredProjectile)
+		return;
+	if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Necromancer Projectile", glm::vec3(mPosition.x + 56.0f, mPosition.y-17.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
+	else if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Necromancer Projectile", glm::vec3(mPosition.x - 56.0f, mPosition.y - 17.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
 }
 void NecromancerEntity::HandleDamaged(int damageRecieved)
 {

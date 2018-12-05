@@ -156,7 +156,7 @@ void FireGolemEntity::SetAnimation(const std::string& name)
 }
 void FireGolemEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }
 bool FireGolemEntity::FirstTimeSeeingPlayer()
 {
@@ -189,7 +189,7 @@ bool FireGolemEntity::IsPlayerToTheRight()
 }
 bool FireGolemEntity::IsAttackCoolDownReady()
 {
-	return Clock->GetCurrentTime() > myAttackCooldown;
+	return Clock->GetCurrentTimeInSeconds() > myAttackCooldown;
 }
 void FireGolemEntity::HandleDamaged(int damageRecieved)
 {

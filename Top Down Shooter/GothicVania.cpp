@@ -29,11 +29,14 @@
 #include "ImpEntity.h"
 #include "NecromancerEntity.h"
 #include "CollisionManager.h"
+#include "World.h"
 void GothicVania::Initialize()
 {
-	myLevels.push_back(new CemetaryLevel());
+	CemetaryLevel* levelOne = new CemetaryLevel("Cemetary");
+	myLevels.push_back(levelOne);
 	myLevels[0]->Initialize();
 
+	GameWorld->RegisterLevel(levelOne);
 	activeLevel = 0;
 
 	/*myLevels.push_back(new CemetaryLevel());

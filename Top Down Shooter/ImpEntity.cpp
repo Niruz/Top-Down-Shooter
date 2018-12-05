@@ -8,6 +8,8 @@
 #include "GothicVaniaImpStates.h"
 #include "ShakeInfo.h"
 #include "CollisionManager.h"
+#include "World.h"
+#include "Level.h"
 ImpEntity::ImpEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo, false)
 {
@@ -33,7 +35,7 @@ ImpEntity::ImpEntity(int id, const std::string& name, const glm::vec3& myStartPo
 	myStateMachine->setCurrentState(ImpIdle::Instance());
 	myStateMachine->changeState(ImpIdle::Instance());
 
-
+	myFiredProjectile = false;
 	myAttackCooldown = 0.0f;
 
 	CollisionMan->RegisterEntity(this);
@@ -161,7 +163,7 @@ void ImpEntity::SetAnimation(const std::string& name)
 }
 void ImpEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }
 bool ImpEntity::IsPlayerWithinPatrolRange()
 {
@@ -190,7 +192,7 @@ bool ImpEntity::IsPlayerToTheRight()
 }
 bool ImpEntity::IsAttackCoolDownReady()
 {
-	return Clock->GetCurrentTime() > myAttackCooldown;
+	return Clock->GetCurrentTimeInSeconds() > myAttackCooldown;
 }
 void ImpEntity::HandleDamaged(int damageRecieved)
 {
@@ -200,4 +202,19 @@ void ImpEntity::HandleDamaged(int damageRecieved)
 	myHealth -= damageRecieved;
 	if (myHealth <= 0)
 		GetFSM()->changeState(ImpDie::Instance());
+}
+void ImpEntity::SpawnProjectile()
+{
+	if (myFiredProjectile)
+		return;
+	if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Imp Projectile", glm::vec3(mPosition.x + 28.0f, mPosition.y - 8.5f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
+	else if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Imp Projectile", glm::vec3(mPosition.x - 28.0f, mPosition.y - 8.5f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
 }

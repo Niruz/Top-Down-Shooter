@@ -7,7 +7,11 @@
 class Level
 {
 public:
-	Level() {};
+	Level(const std::string& name)
+		:myName(name), myNumberOfEntities(0)
+	{
+
+	};
 	virtual ~Level() 
 	{
 		for (Layer* layer : myLayers)
@@ -23,7 +27,14 @@ public:
 	virtual void ProcessKeyBoard(int key, float deltaTime, int action) = 0;
 	virtual void ProcessMouse(double xpos, double ypos, bool movement) = 0;
 
+	virtual void AddEntity(Entity* entity) = 0;
+	virtual void SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir) = 0;
+	virtual void RemoveEntity(Entity* entity) = 0;
+
+	std::string GetName() const { return myName; }
+
 	Camera* myCamera;
 	std::vector<Layer*> myLayers;
-
+	std::string myName;
+	int myNumberOfEntities;
 };

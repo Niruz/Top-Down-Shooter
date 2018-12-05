@@ -30,6 +30,10 @@
 #include "ImpEntity.h"
 #include "NecromancerEntity.h"
 #include "CollisionManager.h"
+#include "BaseProjectileEntity.h"
+#include "NecromancerProjectile.h"
+#include "ImpProjectile.h"
+#include "CollisionManager.h"
 void CemetaryLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -105,6 +109,7 @@ void CemetaryLevel::Initialize()
 	myReaperEntity = new ReaperEntity(24, "Reaper1", glm::vec3(256.0f, -152.0f, 0.05f), glm::vec3(416.0f, -152.0f, 0.05f));
 	myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f, -150.0f, 0.06f), glm::vec3(1120.0f, -150.0f, 0.06f));
 	myNecromancerEntity = new NecromancerEntity(26, "Necromancer1", glm::vec3(1456.0f, -120.0f, 0.07f), glm::vec3(1840.0f, -120.0f, 0.07f));
+	myNumberOfEntities = 26;
 
 	myEntitites.push_back(myPlayer);
 	/*myEntitites.push_back(mySkeleton);
@@ -175,13 +180,13 @@ void CemetaryLevel::Initialize()
 	
 	//Tilegroup = grass group
 
-	Group* treeGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.6)), -9.6);
-	Group* bushGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.5)), -9.5);
-	Group* statueGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.4)), -9.4);
-	Group* onewayGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.3)), -9.3);
+	treeGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.6)), -9.6);
+	bushGroup = new Group(glm::translate(glm::mat4(1.0f),   glm::vec3(0.0f, 0.0f, -9.5)), -9.5);
+	statueGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.4)), -9.4);
+	onewayGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.3)), -9.3);
 	tileGroup          = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.2)), -9.2);
-	Group* enemyGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f, -5.0)), -5.0);
-	Group* playerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  0.0)), -0.0);
+	enemyGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f, -5.0)), -5.0);
+	playerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  0.0)), -0.0);
 	
 	myRenderGroups.push_back(tileGroup);
 	myRenderGroups.push_back(treeGroup);
@@ -444,8 +449,10 @@ void CemetaryLevel::Initialize()
 }
 void CemetaryLevel::UpdatePlayer()
 {
-	for (int i = 0; i < myEntitites.size(); i++)
-		myEntitites[i]->Update();
+	//for (int i = 0; i < myEntitites.size(); i++)
+	//	myEntitites[i]->Update();
+	EntityMan->Update();
+	CollisionMan->Update();
 	UpdatePlayerTiles();
 	/*	for (int i = 0; i < myMap->GetMap().size(); i++)
 	{
@@ -499,20 +506,20 @@ void CemetaryLevel::UpdatePlayer()
 		//1337 is the game itself
 		MessageMan->dispatchMessage(0, 1337, myDemon2->GetID(), Msg_GoFuckShitUp, 0);
 		MessageMan->dispatchMessage(0, 1337, myDemon3->GetID(), Msg_GoFuckShitUp, 0);
-		startScreenTime = Clock->GetCurrentTime();
+		startScreenTime = Clock->GetCurrentTimeInSeconds();
 		alphaStart = 0.0f;
-		delayCutscene = Clock->GetCurrentTime() + 1.5f;
+		delayCutscene = Clock->GetCurrentTimeInSeconds() + 1.5f;
 	}
 	//myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
 //	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 1));
 	if (myBossBattle)
 	{
-		if (Clock->GetCurrentTime() > delayCutscene && !cutSceneStarted)
+		if (Clock->GetCurrentTimeInSeconds() > delayCutscene && !cutSceneStarted)
 		{
-			startScreenTime = Clock->GetCurrentTime();
+			startScreenTime = Clock->GetCurrentTimeInSeconds();
 			cutSceneStarted = true;
 		}
-		if (Clock->GetCurrentTime() - startScreenTime < 4.0 && cutSceneStarted)
+		if (Clock->GetCurrentTimeInSeconds() - startScreenTime < 4.0 && cutSceneStarted)
 		{
 			myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
 			myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
@@ -645,4 +652,42 @@ void CemetaryLevel::ProcessMouse(double xpos, double ypos, bool movement)
 	lastY = ypos;
 
 	myCamera->setScreenPosition(glm::vec2(lastX, lastY));
+}
+void CemetaryLevel::AddEntity(Entity* entity)
+{
+	myEntitites.push_back(entity);
+}
+
+void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir)
+{
+	myNumberOfEntities++;
+	if (type == "Necromancer Projectile") 
+	{
+		NecromancerProjectile* necroProjectile = new NecromancerProjectile(myNumberOfEntities, "NecromancerProjectile" + std::to_string(myNumberOfEntities), inpos, indir);
+		myEntitites.push_back(necroProjectile);
+		enemyGroup->Add(necroProjectile->mySprite);
+		CollisionMan->RegisterProjectile(necroProjectile);
+		EntityMan->registerEntity(necroProjectile);
+	}
+	else if (type == "Imp Projectile")
+	{
+		ImpProjectile* impProjectile = new ImpProjectile(myNumberOfEntities, "ImpProjectile" + std::to_string(myNumberOfEntities), inpos, indir);
+		myEntitites.push_back(impProjectile);
+		enemyGroup->Add(impProjectile->mySprite);
+		CollisionMan->RegisterProjectile(impProjectile);
+		EntityMan->registerEntity(impProjectile);
+	}
+}
+void CemetaryLevel::RemoveEntity(Entity* entity)
+{
+	if(dynamic_cast<BaseProjectileEntity*>(entity))
+	{
+		CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
+		EntityMan->removeEntity(entity);
+	}
+	else
+	{
+		CollisionMan->RemoveEntity((BaseEnemy*)entity);
+		EntityMan->removeEntity(entity);
+	}
 }

@@ -24,7 +24,8 @@ class CemetaryLevel : public Level
 {
 public:
 
-	CemetaryLevel()
+	CemetaryLevel(const std::string& name)
+		: Level(name)
 	{
 
 	}
@@ -42,7 +43,9 @@ public:
 	void ProcessKeyBoard(int key, float deltaTime, int action) override;
 	void ProcessMouse(double xpos, double ypos, bool movement) override;
 
-
+	void AddEntity(Entity* entity) override;
+	void SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir) override;
+	void RemoveEntity(Entity* entity) override;
 	void UpdatePlayer();
 	void UpdatePlayerTiles();
 
@@ -70,6 +73,12 @@ public:
 	Group* myCursor;
 	std::vector<Group*> myRenderGroups;
 	Group* tileGroup;
+	Group* treeGroup;
+	Group * bushGroup;
+	Group * statueGroup;
+	Group* onewayGroup;
+	Group* enemyGroup;
+	Group * playerGroup;
 	Sprite* myMountain;
 	Sprite* myGraveyard;
 	Sprite* myHPBar;

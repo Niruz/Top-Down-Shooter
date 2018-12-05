@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Entity.h"
 #include "Camera.h"
 #include "StateMachine.h"
-#include "SimpleTimer.h"
+
 #include "AABB.h"
 class TileMap;
 class Group;
@@ -61,7 +62,7 @@ struct HeroEntity : public Entity
 	void HandleMovement();
 	void HandleGravity();
 	void HandleJump();
-	void HandleDamaged();
+	void HandleDamaged(int damageRecieved);
 	void StartJump();
 	void CheckIfFalling();
 	bool IsOnSpikes();
@@ -81,6 +82,10 @@ struct HeroEntity : public Entity
 	AABB* mySwordAABB;
 	float mySwordAABBRightX;
 	float mySwordAABBLeftX;
+
+	int myHealth;
+	int myDamageFrameCounter;
+	bool myIsDamaged;
 };
 
 

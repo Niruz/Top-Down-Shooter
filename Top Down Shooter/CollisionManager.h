@@ -6,14 +6,18 @@
 #include <string>
 
 #include "AABB.h"
-#include "BaseEnemy.h"
+
 
 #define CollisionMan CollisionManager::Instance()
 
+class BaseEnemy;
+class HeroEntity;
+class BaseProjectileEntity;
 class CollisionManager
 {
 private:
 	typedef std::map<int, BaseEnemy*> EnemyMap;
+	typedef std::map<int, BaseProjectileEntity*> ProjectileMap;
 public:
 
 	static CollisionManager* Instance();
@@ -24,10 +28,15 @@ public:
 	BaseEnemy* GetEntityFromID(int id) const;
 
 	void CheckSwordEnemyCollision(AABB* swordAABB);
-
-
+	bool CheckSwordHeroCollisiion(BaseEnemy* enemy);
 	bool TestAABBAABB(AABB* one, AABB* two);
 
+	void RegisterProjectile(BaseProjectileEntity* projectile);
+	void RemoveProjectile(BaseProjectileEntity* projectile);
+
+	void RegisterPlayer(HeroEntity* hero);
+
+	void Update();
 private:
 
 	CollisionManager() {}
@@ -35,4 +44,6 @@ private:
 	CollisionManager& operator=(const CollisionManager&);
 
 	EnemyMap myEnemies;
+	ProjectileMap myProjectiles;
+	HeroEntity* myHero;
 };

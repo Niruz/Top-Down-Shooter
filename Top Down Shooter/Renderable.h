@@ -24,6 +24,7 @@ public:
 	std::vector<glm::vec2> myUVs;
 	Texture* myTexture;
 	float myInvertColor;
+	bool myMarkedForDeletion;
 
 protected:
 	Renderable() : myTexture(nullptr)
@@ -34,12 +35,12 @@ protected:
 public:
 
 	Renderable(const glm::vec4& position, const glm::vec2& size, const unsigned int& color)
-		: myPosition(position), mySize(size), myColor(color), myTexture(nullptr), myInvertColor(0)
+		: myPosition(position), mySize(size), myColor(color), myTexture(nullptr), myInvertColor(0), myMarkedForDeletion(false)
 	{
 		SetUVDefaults();
 	}
 	Renderable(const glm::vec4& position, const glm::vec2& size, const glm::vec4& color)
-		: myPosition(position), mySize(size), myTexture(nullptr), myInvertColor(0)
+		: myPosition(position), mySize(size), myTexture(nullptr), myInvertColor(0), myMarkedForDeletion(false)
 	{
 		SetColor(color);
 		SetUVDefaults();

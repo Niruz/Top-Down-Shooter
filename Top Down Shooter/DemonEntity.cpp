@@ -18,7 +18,7 @@ DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& mySta
 	myAnimatedSprite->SetAnimation("DemonIdle");
 	myXDirection = 1.0f;
 	//mySprite->Add(myPlayerAABB);
-	myStartTime = Clock->GetCurrentTime();
+	myStartTime = Clock->GetCurrentTimeInSeconds();
 	setonce = false;
 	breatheFire = false;
 
@@ -132,5 +132,5 @@ void DemonEntity::SetAnimation(const std::string& name)
 }
 void DemonEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }

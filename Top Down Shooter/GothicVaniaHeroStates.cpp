@@ -3,6 +3,7 @@
 #include "HeroSprite.h"
 #include "GLFW\glfw3.h"
 #include "CollisionManager.h"
+#include "Messages.h"
 //------------------------------------------------------------------------methods for HeroIdle
 HeroIdle* HeroIdle::Instance()
 {
@@ -34,6 +35,14 @@ void HeroIdle::Exit(HeroEntity* entity)
 bool HeroIdle::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	}
 	return false;
 }
 bool HeroIdle::HandleInput(HeroEntity* entity, int key, int action)
@@ -110,6 +119,14 @@ void HeroAttack::Exit(HeroEntity* entity)
 bool HeroAttack::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	}
 	return false;
 }
 bool HeroAttack::HandleInput(HeroEntity* entity, int key, int action)
@@ -147,6 +164,14 @@ void HeroCrouch::Exit(HeroEntity* entity)
 bool HeroCrouch::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	}
 	return false;
 }
 bool HeroCrouch::HandleInput(HeroEntity* entity, int key, int action)
@@ -219,6 +244,14 @@ void HeroRunning::Exit(HeroEntity* entity)
 bool HeroRunning::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	}
 	return false;
 }
 bool HeroRunning::HandleInput(HeroEntity* entity, int key, int action)
@@ -291,6 +324,14 @@ void HeroFalling::Exit(HeroEntity* entity)
 bool HeroFalling::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	}
 	return false;
 }
 bool HeroFalling::HandleInput(HeroEntity* entity, int key, int action)
@@ -343,6 +384,14 @@ void HeroJumping::Exit(HeroEntity* entity)
 bool HeroJumping::OnMessage(HeroEntity* entity, const Message& msg)
 {
 
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	}
 	return false;
 }
 bool HeroJumping::HandleInput(HeroEntity* entity, int key, int action)
@@ -384,7 +433,7 @@ void HeroDamaged::Enter(HeroEntity* entity)
 void HeroDamaged::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	entity->HandleDamaged();
+//	entity->HandleDamaged();
 }
 
 

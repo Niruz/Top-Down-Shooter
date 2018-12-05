@@ -67,13 +67,14 @@ void NecromancerAttack::Enter(NecromancerEntity* entity)
 	entity->SetAnimation("NecromancerAttack");
 	entity->ResetAttackTimer();
 	entity->SetFacing();
+	entity->myFiredProjectile = false;
 }
 void NecromancerAttack::Execute(NecromancerEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
 	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5)
 	{
-
+		entity->SpawnProjectile();
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
@@ -82,7 +83,7 @@ void NecromancerAttack::Execute(NecromancerEntity* entity)
 }
 void NecromancerAttack::Exit(NecromancerEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool NecromancerAttack::OnMessage(NecromancerEntity* entity, const Message& msg)
 {

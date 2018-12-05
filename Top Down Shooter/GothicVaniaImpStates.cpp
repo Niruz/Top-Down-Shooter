@@ -67,22 +67,24 @@ void ImpAttack::Enter(ImpEntity* entity)
 	entity->SetAnimation("ImpAttack");
 	entity->ResetAttackTimer();
 	entity->SetFacing();
+	entity->myFiredProjectile = false;
 }
 void ImpAttack::Execute(ImpEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
 	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5)
 	{
-
+		entity->SpawnProjectile();
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
 		entity->GetFSM()->changeState(ImpIdle::Instance());
 	}
+
 }
 void ImpAttack::Exit(ImpEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool ImpAttack::OnMessage(ImpEntity* entity, const Message& msg)
 {

@@ -26,7 +26,7 @@ void GhostPatrol::Execute(GhostEntity* entity)
 	{
 		entity->GetFSM()->changeState(GhostAttack::Instance());
 	}
-	if ((Clock->GetCurrentTime() - entity->myAttackTimer) >= 3.0f)
+	if ((Clock->GetCurrentTimeInSeconds() - entity->myAttackTimer) >= 3.0f)
 	{
 		
 	}
@@ -58,7 +58,7 @@ void GhostAttack::Execute(GhostEntity* entity)
 	entity->myAnimatedSprite->Update();
 	entity->myPlasmaSprite->Update();
 	//entity->HandleMovement();
-	if ((Clock->GetCurrentTime() - entity->myAttackTimer) >= 2.0f)
+	if ((Clock->GetCurrentTimeInSeconds() - entity->myAttackTimer) >= 2.0f)
 	{
 		entity->GetFSM()->changeState(GhostPatrol::Instance());
 		entity->myAtTarget = false;

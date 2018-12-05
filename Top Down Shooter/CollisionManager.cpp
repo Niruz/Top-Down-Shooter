@@ -1,9 +1,12 @@
+
+#include "MessageDispatcher.h"
 #include "CollisionManager.h"
 #include <cassert>
-#include "MessageDispatcher.h"
+
 #include "Messages.h"
-
-
+#include "BaseEnemy.h"
+#include "HeroEntity.h"
+#include "BaseProjectileEntity.h"
 CollisionManager* CollisionManager::Instance()
 {
 	static CollisionManager instance;
@@ -50,9 +53,56 @@ void CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 		it++;
 	}
 }
+bool CollisionManager::CheckSwordHeroCollisiion(BaseEnemy* enemy)
+{
+	int enemyID = enemy->GetID();
+	if (TestAABBAABB(myHero->myAABB, enemy->myAABB))
+	{
+		MessageMan->dispatchMessage(0, enemy->GetID(), myHero->GetID(), Msg_TakeDamage, 0);
+		return true;
+	}
+	return false;
+}
+void CollisionManager::Update()
+{
+	if (myProjectiles.size() != 0)
+	{
+		std::map<int, BaseProjectileEntity*>::iterator it = myProjectiles.begin();
+
+		while (it != myProjectiles.end())
+		{
+			int enemyID = it->first;
+			BaseProjectileEntity* enemy = it->second;
+
+			if (TestAABBAABB(myHero->myAABB, enemy->myAABB))
+			{
+				MessageMan->dispatchMessage(0, 555, myHero->GetID(), Msg_TakeDamage, 0);
+				enemy->MarkForDeletion();
+				break;
+			}
+
+
+			it++;
+		}
+	}
+}
 bool CollisionManager::TestAABBAABB(AABB* one, AABB* two)
 {
 	if (std::fabs(one->myOrigin[0] - two->myOrigin[0]) > (one->halfX + two->halfX)) return false;
 	if (std::fabs(one->myOrigin[1] - two->myOrigin[1]) > (one->halfY + two->halfY)) return false;
 	return true;
+}
+
+void CollisionManager::RegisterProjectile(BaseProjectileEntity* projectile)
+{
+	myProjectiles.insert(std::make_pair(projectile->GetID(), projectile));
+}
+void CollisionManager::RemoveProjectile(BaseProjectileEntity* projectile)
+{
+	myProjectiles.erase(myProjectiles.find(projectile->GetID()));
+}
+
+void CollisionManager::RegisterPlayer(HeroEntity* hero)
+{
+	myHero = hero;
 }

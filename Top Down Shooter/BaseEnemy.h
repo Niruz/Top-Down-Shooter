@@ -18,7 +18,11 @@ struct BaseEnemy : public Entity
 {
 	
 	BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo, bool createAABB = true);
-	virtual ~BaseEnemy() {};
+	virtual ~BaseEnemy() 
+	{
+		delete myAABB;
+		delete myHitAABB;
+	};
 
 	virtual void Update() = 0;
 	virtual bool HandleMessage(const Message& msg) = 0;
@@ -45,5 +49,9 @@ public:
 	int myHealth;
 	int myDamageFrameCounter;
 	bool myIsDamaged;
+
+
+	Sprite* myHitSpriteAABB;
+	AABB* myHitAABB;
 };
 

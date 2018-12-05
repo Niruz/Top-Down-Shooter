@@ -40,7 +40,7 @@ void DemonIdle::Execute(DemonEntity* entity)
 		entity->firstAttack = false;
 		entity->GetFSM()->changeState(DemonWindup::Instance());
 	}
-	if ((Clock->GetCurrentTime() - entity->myAttackTimer) >= 4.0f)
+	if ((Clock->GetCurrentTimeInSeconds() - entity->myAttackTimer) >= 4.0f)
 	{
 		entity->GetFSM()->changeState(DemonWindup::Instance());
 	}
@@ -73,7 +73,7 @@ void DemonAttack::Execute(DemonEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
 	entity->HandleMovement();
-	if ((Clock->GetCurrentTime() - entity->myAttackTimer) >= 5.0f)
+	if ((Clock->GetCurrentTimeInSeconds() - entity->myAttackTimer) >= 5.0f)
 	{
 		entity->GetFSM()->changeState(DemonWindDown::Instance());
 	}

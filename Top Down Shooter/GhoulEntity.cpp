@@ -160,7 +160,7 @@ void GhoulEntity::SetAnimation(const std::string& name)
 }
 void GhoulEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }
 bool GhoulEntity::IsPlayerWithinPatrolRange()
 {
@@ -188,7 +188,7 @@ bool GhoulEntity::IsPlayerToTheRight()
 }
 bool GhoulEntity::IsAttackCoolDownReady()
 {
-	return Clock->GetCurrentTime() > myAttackCooldown;
+	return Clock->GetCurrentTimeInSeconds() > myAttackCooldown;
 }
 void GhoulEntity::HandleDamaged(int damageRecieved)
 {

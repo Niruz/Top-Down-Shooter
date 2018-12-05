@@ -160,7 +160,7 @@ void ReaperEntity::SetAnimation(const std::string& name)
 }
 void ReaperEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }
 bool ReaperEntity::IsPlayerWithinPatrolRange()
 {
@@ -188,7 +188,7 @@ bool ReaperEntity::IsPlayerToTheRight()
 }
 bool ReaperEntity::IsAttackCoolDownReady()
 {
-	return Clock->GetCurrentTime() > myAttackCooldown;
+	return Clock->GetCurrentTimeInSeconds() > myAttackCooldown;
 }
 void ReaperEntity::HandleDamaged(int damageRecieved)
 {

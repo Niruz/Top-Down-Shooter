@@ -85,5 +85,5 @@ void GhostEntity::SetAnimation(const std::string& name)
 }
 void GhostEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }

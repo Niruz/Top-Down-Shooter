@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Level.h"
-
 #include <map>
 #include <cassert>
 #include <string>
 
 #define GameWorld World::Instance()
 
+class Level;
 class World
 {
 private:
@@ -15,6 +14,11 @@ private:
 public:
 
 	static World* Instance();
+
+	void RegisterLevel(Level* level);
+	void RemoveLevel(Level* entity);
+
+	Level* GetLevelFromName(const std::string& name) const;
 
 private:
 

@@ -81,7 +81,7 @@ void ReaperAttack::Execute(ReaperEntity* entity)
 }
 void ReaperAttack::Exit(ReaperEntity* entity)
 {
-	entity->myAttackCooldown = Clock->GetCurrentTime() + EngineUtilities::RandomFloat(0.3, 2);
+	entity->myAttackCooldown = Clock->GetCurrentTimeInSeconds() + EngineUtilities::RandomFloat(0.3, 2);
 }
 bool ReaperAttack::OnMessage(ReaperEntity* entity, const Message& msg)
 {

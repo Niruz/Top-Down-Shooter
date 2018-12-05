@@ -92,7 +92,7 @@ void Camera::ShakeCamera(float duration, float frequency, float amplitude)
 	myXShake->Start();
 	myYShake->Start();
 
-	startShakeTime = Clock->GetCurrentTime();
+	startShakeTime = Clock->GetCurrentTimeInSeconds();
 
 }
 

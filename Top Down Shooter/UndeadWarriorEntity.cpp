@@ -36,6 +36,12 @@ UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const 
 	myAttackCooldown = 0.0f;
 
 	CollisionMan->RegisterEntity(this);
+
+	myHitAABB = new AABB(glm::vec2(mPosition.x-20.0f, mPosition.y - 10.0f), 10.0f, 13.0f);
+	myHitSpriteAABB = new Sprite(glm::vec4(mPosition.x - 20.0f, mPosition.y - 10.0f, mPosition.z + 0.01, 1.0f), glm::vec2(20.0f, 26.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+	mySprite->Add(myHitSpriteAABB);
+
+	myAlreadyAttacked = false;
 }
 UndeadWarriorEntity::~UndeadWarriorEntity()
 {
@@ -75,6 +81,22 @@ void UndeadWarriorEntity::SetFacing()
 	else if (!IsPlayerToTheRight() && myAnimatedSprite->myHeading != Heading::RIGHTFACING)
 	{
 		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		myAABB->myOrigin = glm::vec2(mPosition.x - 5.0f, mPosition.y);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x - 30.0f, mPosition.y - 10.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x - 30.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
+	}
+	else
+	{
+		myAABB->myOrigin = glm::vec2(mPosition.x + 5.0f, mPosition.y);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x + 30.0f, mPosition.y - 10.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x + 30.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
 	}
 }
 void UndeadWarriorEntity::HandleMovement()
@@ -144,11 +166,17 @@ void UndeadWarriorEntity::HandleMovement()
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 5.0f, mPosition.y);
 		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x - 30.0f, mPosition.y - 10.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x - 30.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
 	}
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 5.0f, mPosition.y);
 		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x + 30.0f, mPosition.y - 10.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x + 30.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
 	}
 
 
@@ -160,7 +188,7 @@ void UndeadWarriorEntity::SetAnimation(const std::string& name)
 }
 void UndeadWarriorEntity::ResetAttackTimer()
 {
-	myAttackTimer = Clock->GetCurrentTime();
+	myAttackTimer = Clock->GetCurrentTimeInSeconds();
 }
 bool UndeadWarriorEntity::IsPlayerWithinPatrolRange()
 {
@@ -188,7 +216,7 @@ bool UndeadWarriorEntity::IsPlayerToTheRight()
 }
 bool UndeadWarriorEntity::IsAttackCoolDownReady()
 {
-	return Clock->GetCurrentTime() > myAttackCooldown;
+	return Clock->GetCurrentTimeInSeconds() > myAttackCooldown;
 }
 void UndeadWarriorEntity::HandleDamaged(int damageRecieved)
 {
