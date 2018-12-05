@@ -56,7 +56,7 @@ void CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 bool CollisionManager::CheckSwordHeroCollisiion(BaseEnemy* enemy)
 {
 	int enemyID = enemy->GetID();
-	if (TestAABBAABB(myHero->myAABB, enemy->myAABB))
+	if (TestAABBAABB(myHero->myAABB, enemy->myHitAABB))
 	{
 		MessageMan->dispatchMessage(0, enemy->GetID(), myHero->GetID(), Msg_TakeDamage, 0);
 		return true;
