@@ -165,6 +165,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="GothicVania.cpp" />
     <ClCompile Include="GothicVaniaDemonStates.cpp" />
     <ClCompile Include="GothicVaniaFireGolemStates.cpp" />
+    <ClCompile Include="GothicVaniaGameStates.cpp" />
     <ClCompile Include="GothicVaniaGhostStates.cpp" />
     <ClCompile Include="GothicVaniaGhoulStates.cpp" />
     <ClCompile Include="GothicVaniaHeroStates.cpp" />
@@ -274,6 +275,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="GothicVania.h" />
     <ClInclude Include="GothicVaniaDemonStates.h" />
     <ClInclude Include="GothicVaniaFireGolemStates.h" />
+    <ClInclude Include="GothicVaniaGameStates.h" />
     <ClInclude Include="GothicVaniaGhostStates.h" />
     <ClInclude Include="GothicVaniaGhoulStates.h" />
     <ClInclude Include="GothicVaniaHeroStates.h" />

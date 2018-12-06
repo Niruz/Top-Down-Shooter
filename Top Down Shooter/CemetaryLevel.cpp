@@ -156,7 +156,7 @@ void CemetaryLevel::Initialize()
 	fpsGroup->Add(myFPSLabel);
 
 	bossAnnouncerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
-	myBossAnnouncer = new Label("Fire & Fury", glm::vec4(-180.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
+	myBossAnnouncer = new Label("Fire & Fury", glm::vec4(-195.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
 	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 0));
 	//bossAnnouncerGroup->Add(new Sprite(glm::vec4(0, 0, -0.1, 1), glm::vec2(320.0f, 180.0f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	bossAnnouncerGroup->Add(myBossAnnouncer);
@@ -524,7 +524,7 @@ void CemetaryLevel::UpdatePlayer()
 		}
 		if (Clock->GetCurrentTimeInSeconds() - startScreenTime < 4.0 && cutSceneStarted)
 		{
-			myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
+			myBossAnnouncer->SetPosition(glm::vec4(-136.0f, 0.0f, 0, 1));
 			myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
 			if (alphaStart < 1.0f)
 				alphaStart += 0.01f;

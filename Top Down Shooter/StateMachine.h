@@ -37,7 +37,20 @@ public:
 		if (mCurrentState)
 			mCurrentState->Execute(mOwner);
 	}
-
+	void tick() const
+	{
+		if (mGlobalState)
+			mGlobalState->Tick(mOwner);
+		if (mCurrentState)
+			mCurrentState->Tick(mOwner);
+	}
+	void render() const
+	{
+		if (mGlobalState)
+			mGlobalState->Render(mOwner);
+		if (mCurrentState)
+			mCurrentState->Render(mOwner);
+	}
 	void changeState(State<T>* newState)
 	{
 		assert(newState && "<StateMachine::changeState>: trying to change to a NULL state");

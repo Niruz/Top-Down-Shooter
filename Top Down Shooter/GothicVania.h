@@ -4,10 +4,13 @@
 #include <vector>
 #include "CemetaryLevel.h"
 
+#include "StateMachine.h"
 class GothicVania : public Game
 {
 public:
 
+	StateMachine<GothicVania>*  myStateMachine;
+	StateMachine<GothicVania>*  GetFSM()const { return myStateMachine; }
 	GothicVania()
 	{
 
@@ -25,13 +28,26 @@ public:
 
 	void ProcessKeyBoard(int key, float deltaTime, int action) override;
 	void ProcessMouse(double xpos, double ypos, bool movement) override;
+
+	void RenderLevel();
+	void UpdateLevel();
+	void RenderGameScreen();
+	void UpdateGameScreen();
+
 private:
 
 	
-private:
+public:
 
 	int activeLevel;
 	std::vector<Level*> myLevels;
+
+	Layer* myGameScreenLayer;
+	Label* myBossAnnouncer;
+	Group* bossAnnouncerGroup;
+	float myAlphaGameLayer;
+	float myAlphaDirection;
+	bool myGameScreenDone;
 };
 
 

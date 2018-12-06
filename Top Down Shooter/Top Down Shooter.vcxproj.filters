@@ -567,6 +567,9 @@
     <ClCompile Include="ImpProjectile.cpp">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="GothicVaniaGameStates.cpp">
+      <Filter>Games\GothicVania</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -913,6 +916,9 @@
     </ClInclude>
     <ClInclude Include="ImpProjectile.h">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaGameStates.h">
+      <Filter>Games\GothicVania</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
