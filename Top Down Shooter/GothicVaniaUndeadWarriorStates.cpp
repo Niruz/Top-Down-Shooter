@@ -8,6 +8,7 @@
 #include <ctime>
 #include "EngineUtilities.h"
 #include "CollisionManager.h"
+#include "NecromancerEntity.h"
 //------------------------------------------------------------------------methods for GhostAttack
 UndeadWarriorIdle* UndeadWarriorIdle::Instance()
 {
@@ -218,6 +219,8 @@ UndeadWarriorDie* UndeadWarriorDie::Instance()
 void UndeadWarriorDie::Enter(UndeadWarriorEntity* entity)
 {
 	entity->SetAnimation("UndeadWarriorDie");
+	if(entity->myMaster != nullptr)
+		MessageMan->dispatchMessage(1.5, entity->GetID(), entity->myMaster->GetID(), Msg_RessurectMe, 0);
 }
 void UndeadWarriorDie::Execute(UndeadWarriorEntity* entity)
 {
@@ -230,5 +233,14 @@ void UndeadWarriorDie::Exit(UndeadWarriorEntity* entity)
 }
 bool UndeadWarriorDie::OnMessage(UndeadWarriorEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_Revive:
+
+		entity->myHealth = 100.0f;
+		entity->GetFSM()->changeState(UndeadWarriorIdle::Instance());
+		return true;
+
+	}
 	return false;
 }

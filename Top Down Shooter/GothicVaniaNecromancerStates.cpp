@@ -31,7 +31,20 @@ void NecromancerIdle::Execute(NecromancerEntity* entity)
 	}
 	else if (entity->IsPlayerWithinAttackDistance() && entity->IsPlayerWithinPatrolRange() && entity->IsAttackCoolDownReady())
 	{
-		entity->GetFSM()->changeState(NecromancerAttack::Instance());
+		if(entity->myHaveRecievedRessurectionRequest)
+		{
+			srand(time(NULL));
+			int nextAttack = rand() % 2;
+			if (nextAttack == 0)
+				entity->GetFSM()->changeState(NecromancerAttack::Instance());
+			if (nextAttack == 1)
+				entity->GetFSM()->changeState(NecromancerRessurect::Instance());
+		}
+		else
+		{
+			entity->GetFSM()->changeState(NecromancerAttack::Instance());
+		}
+		
 	}
 	else if (!entity->IsPlayerWithinPatrolRange())
 	{
@@ -51,7 +64,10 @@ bool NecromancerIdle::OnMessage(NecromancerEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(NecromancerHurt::Instance());
 		return true;
-
+	case Msg_RessurectMe:
+		entity->myMinionsToRessurect.push_back(msg.mSender);
+		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
 	}
 	return false;
 }
@@ -93,6 +109,11 @@ bool NecromancerAttack::OnMessage(NecromancerEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		return true;
+
+	case Msg_RessurectMe:
+		entity->myMinionsToRessurect.push_back(msg.mSender);
+		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
 	}
 	return false;
 }
@@ -123,6 +144,13 @@ void NecromancerHurt::Exit(NecromancerEntity* entity)
 }
 bool NecromancerHurt::OnMessage(NecromancerEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_RessurectMe:
+		entity->myMinionsToRessurect.push_back(msg.mSender);
+		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -168,6 +196,10 @@ bool NecromancerRunToPlayer::OnMessage(NecromancerEntity* entity, const Message&
 		entity->GetFSM()->changeState(NecromancerHurt::Instance());
 		return true;
 
+	case Msg_RessurectMe:
+		entity->myMinionsToRessurect.push_back(msg.mSender);
+		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
 	}
 	return false;
 }
@@ -204,6 +236,10 @@ bool NecromancerPatrol::OnMessage(NecromancerEntity* entity, const Message& msg)
 		entity->GetFSM()->changeState(NecromancerHurt::Instance());
 		return true;
 
+	case Msg_RessurectMe:
+		entity->myMinionsToRessurect.push_back(msg.mSender);
+		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
 	}
 	return false;
 }
@@ -229,5 +265,52 @@ void NecromancerDie::Exit(NecromancerEntity* entity)
 }
 bool NecromancerDie::OnMessage(NecromancerEntity* entity, const Message& msg)
 {
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostAttack
+NecromancerRessurect* NecromancerRessurect::Instance()
+{
+	static NecromancerRessurect instance;
+
+	return &instance;
+}
+void NecromancerRessurect::Enter(NecromancerEntity* entity)
+{
+	entity->myHaveRessurected = false;
+	entity->SetAnimation("NecromancerSummon");
+}
+void NecromancerRessurect::Execute(NecromancerEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->myHaveRessurected = false;
+		entity->myHaveRecievedRessurectionRequest = false;
+		for(int i = 0; i < entity->myMinionsToRessurect.size(); i++)
+		{
+			MessageMan->dispatchMessage(1.5, entity->GetID(), entity->myMinionsToRessurect[i], Msg_Revive, 0);
+		}
+		entity->myMinionsToRessurect.clear();
+		entity->GetFSM()->changeState(NecromancerIdle::Instance());
+	}
+}
+void NecromancerRessurect::Exit(NecromancerEntity* entity)
+{
+	
+}
+bool NecromancerRessurect::OnMessage(NecromancerEntity* entity, const Message& msg)
+{
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+
+	case Msg_RessurectMe:
+		entity->myMinionsToRessurect.push_back(msg.mSender);
+		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
+	}
 	return false;
 }

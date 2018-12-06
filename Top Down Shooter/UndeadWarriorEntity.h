@@ -2,7 +2,8 @@
 #include "BaseEnemy.h"
 #include "TileMap.h"
 class ShakeInfo;
-//Simple enemy that patrols back and forth, might try and go for the player later
+class NecromancerEntity;
+//Simple enemy that prols back and forth, might try and go for the player later
 struct UndeadWarriorEntity : public BaseEnemy
 {
 	StateMachine<UndeadWarriorEntity>*  myStateMachine;
@@ -26,10 +27,12 @@ struct UndeadWarriorEntity : public BaseEnemy
 	bool IsAttackCoolDownReady();
 	void HandleDamaged(int damageRecieved);
 
+	void SetMaster(NecromancerEntity* master);
 public:
 
 	//Bad design...
 	TileMap * myTileMap;
+	NecromancerEntity* myMaster;
 
 	float myAttackCooldown;
 	bool myAlreadyAttacked;

@@ -39,7 +39,7 @@ bool HeroIdle::OnMessage(HeroEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
 
@@ -129,7 +129,7 @@ bool HeroAttack::OnMessage(HeroEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
 
@@ -174,7 +174,7 @@ bool HeroCrouch::OnMessage(HeroEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
 
@@ -254,7 +254,7 @@ bool HeroRunning::OnMessage(HeroEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
 
@@ -334,7 +334,7 @@ bool HeroFalling::OnMessage(HeroEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
 
@@ -394,7 +394,7 @@ bool HeroJumping::OnMessage(HeroEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
 

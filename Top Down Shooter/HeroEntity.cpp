@@ -466,8 +466,8 @@ void HeroEntity::HandleDamaged(int damageRecieved)
 	myIsDamaged = true;
 	myDamageFrameCounter = 0;
 	myHealth -= damageRecieved;
-	if (myHealth <= 0)
-		GetFSM()->changeState(HeroDamaged::Instance());
+	//if (myHealth <= 0)
+	//	GetFSM()->changeState(HeroDamaged::Instance());
 }
 void HeroEntity::Update()
 {

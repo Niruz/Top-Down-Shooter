@@ -111,6 +111,8 @@ void CemetaryLevel::Initialize()
 	myNecromancerEntity = new NecromancerEntity(26, "Necromancer1", glm::vec3(1456.0f, -120.0f, 0.07f), glm::vec3(1840.0f, -120.0f, 0.07f));
 	myNumberOfEntities = 26;
 
+	myUDWar1->SetMaster(myNecromancerEntity);
+
 	myEntitites.push_back(myPlayer);
 	/*myEntitites.push_back(mySkeleton);
 	myEntitites.push_back(myGhost);
@@ -453,6 +455,7 @@ void CemetaryLevel::UpdatePlayer()
 	//	myEntitites[i]->Update();
 	EntityMan->Update();
 	CollisionMan->Update();
+	MessageMan->dispatchDelayedMessages();
 	UpdatePlayerTiles();
 	/*	for (int i = 0; i < myMap->GetMap().size(); i++)
 	{

@@ -8,6 +8,7 @@
 #include "GothicVaniaUndeadWarriorStates.h"
 #include "ShakeInfo.h"
 #include "CollisionManager.h"
+#include "NecromancerEntity.h"
 UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo, false)
 {
@@ -42,10 +43,16 @@ UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const 
 	//mySprite->Add(myHitSpriteAABB);
 
 	myAlreadyAttacked = false;
+
+	myMaster = nullptr;
 }
 UndeadWarriorEntity::~UndeadWarriorEntity()
 {
 
+}
+void UndeadWarriorEntity::SetMaster(NecromancerEntity* master)
+{
+	myMaster = master;
 }
 void UndeadWarriorEntity::Update()
 {

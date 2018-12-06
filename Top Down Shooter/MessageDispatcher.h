@@ -9,6 +9,8 @@ const int NO_ADDITIONAL_INFO = 0;
 
 #define MessageMan MessageDispatcher::Instance()
 
+const int    SENDER_ID_IRRELEVANT = -1;
+const int    BROADCAST_TO_ALL     = -2;
 
 class MessageDispatcher
 {

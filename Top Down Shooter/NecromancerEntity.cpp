@@ -34,7 +34,8 @@ NecromancerEntity::NecromancerEntity(int id, const std::string& name, const glm:
 	myStateMachine->setCurrentState(NecromancerIdle::Instance());
 	myStateMachine->changeState(NecromancerIdle::Instance());
 	myFiredProjectile = false;
-
+	myHaveRessurected = false;
+	myHaveRecievedRessurectionRequest = false;
 	myAttackCooldown = 0.0f;
 
 	CollisionMan->RegisterEntity(this);

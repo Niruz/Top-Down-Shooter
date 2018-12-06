@@ -32,6 +32,9 @@ public:
 	//Bad design...
 	TileMap * myTileMap;
 	bool myFiredProjectile;
-
+	bool myHaveRessurected;
+	bool myHaveRecievedRessurectionRequest;
 	float myAttackCooldown;
+
+	std::vector<int> myMinionsToRessurect;
 };

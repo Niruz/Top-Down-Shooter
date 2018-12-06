@@ -177,3 +177,32 @@ public:
 	virtual bool OnMessage(NecromancerEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+//
+//  Patrol state for the Ghost
+//  
+//------------------------------------------------------------------------
+class NecromancerRessurect : public State<NecromancerEntity>
+{
+private:
+
+	NecromancerRessurect() {}
+
+	//copy ctor and assignment should be private
+	NecromancerRessurect(const NecromancerRessurect&);
+	NecromancerRessurect& operator=(const NecromancerRessurect&);
+
+public:
+
+	//this is a singleton
+	static NecromancerRessurect* Instance();
+
+	virtual void Enter(NecromancerEntity* entity);
+
+	virtual void Execute(NecromancerEntity* entity);
+
+	virtual void Exit(NecromancerEntity* entity);
+
+	virtual bool OnMessage(NecromancerEntity* entity, const Message& msg);
+
+};
