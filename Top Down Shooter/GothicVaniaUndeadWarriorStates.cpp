@@ -73,7 +73,7 @@ void UndeadWarriorAttack::Enter(UndeadWarriorEntity* entity)
 void UndeadWarriorAttack::Execute(UndeadWarriorEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5 && !entity->myAlreadyAttacked)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->myAlreadyAttacked)
 	{
 		entity->myAlreadyAttacked = CollisionMan->CheckSwordHeroCollisiion(entity);
 	}

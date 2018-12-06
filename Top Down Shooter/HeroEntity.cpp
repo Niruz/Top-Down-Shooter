@@ -13,6 +13,7 @@
 #include "GothicVaniaHeroStates.h"
 #include "Sprite.h"
 #include "CollisionManager.h"
+#include "ShakeInfo.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),
@@ -24,7 +25,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
-	mySprite->Add(myPlayerAABB);
+	//mySprite->Add(myPlayerAABB);
 
 	
 
@@ -59,9 +60,12 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myDamageFrameCounter = 0;
 	myIsDamaged = false;
 	CollisionMan->RegisterPlayer(this);
+	basicAttack = false;
+	myShakeInfoBasicAttack = new ShakeInfo(500, 15, 1);
 }
 HeroEntity::~HeroEntity()
 {
+	delete myShakeInfoBasicAttack;
 	delete myStateMachine;
 }
 void HeroEntity::SetAnimation(const std::string& name)

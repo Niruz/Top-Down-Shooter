@@ -39,7 +39,7 @@ UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const 
 
 	myHitAABB = new AABB(glm::vec2(mPosition.x-20.0f, mPosition.y - 10.0f), 10.0f, 13.0f);
 	myHitSpriteAABB = new Sprite(glm::vec4(mPosition.x - 20.0f, mPosition.y - 10.0f, mPosition.z + 0.01, 1.0f), glm::vec2(20.0f, 26.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
-	mySprite->Add(myHitSpriteAABB);
+	//mySprite->Add(myHitSpriteAABB);
 
 	myAlreadyAttacked = false;
 }
@@ -54,6 +54,23 @@ void UndeadWarriorEntity::Update()
 	{
 		myDamageFrameCounter++;
 		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
+	/*if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
 		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 10)
 			myAnimatedSprite->SetInverted(1);
 		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 20)
@@ -65,7 +82,7 @@ void UndeadWarriorEntity::Update()
 			myIsDamaged = false;
 			myAnimatedSprite->SetInverted(0);
 		}
-	}
+	}*/
 }
 bool UndeadWarriorEntity::HandleMessage(const Message& msg)
 {

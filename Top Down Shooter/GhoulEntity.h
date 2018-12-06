@@ -32,4 +32,5 @@ public:
 	TileMap* myTileMap;
 
 	float myAttackCooldown;
+	bool myAlreadyAttacked;
 };

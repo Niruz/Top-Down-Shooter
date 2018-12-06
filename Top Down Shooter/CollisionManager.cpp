@@ -34,8 +34,9 @@ void CollisionManager::RegisterEntity(BaseEnemy* NewEntity)
 {
 	myEnemies.insert(std::make_pair(NewEntity->GetID(), NewEntity));
 }
-void CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
+bool CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 {
+	bool foundCollision = false;
 	std::map<int, BaseEnemy*>::iterator it = myEnemies.begin();
 
 	while(it != myEnemies.end())
@@ -45,6 +46,7 @@ void CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 
 		if(TestAABBAABB(swordAABB, enemy->myAABB))
 		{
+			foundCollision = true;
 			MessageMan->dispatchMessage(0, 555, enemy->GetID(), Msg_TakeDamage, 0);
 			break;
 		}
@@ -52,6 +54,7 @@ void CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 
 		it++;
 	}
+	return foundCollision;
 }
 bool CollisionManager::CheckSwordHeroCollisiion(BaseEnemy* enemy)
 {

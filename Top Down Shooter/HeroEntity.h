@@ -9,6 +9,7 @@ class TileMap;
 class Group;
 class HeroSprite;
 class Sprite;
+class ShakeInfo;
 
 enum StateTest
 {
@@ -86,6 +87,8 @@ struct HeroEntity : public Entity
 	int myHealth;
 	int myDamageFrameCounter;
 	bool myIsDamaged;
+	bool basicAttack;
+	ShakeInfo* myShakeInfoBasicAttack;
 };
 
 

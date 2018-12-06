@@ -4,6 +4,7 @@
 #include "GLFW\glfw3.h"
 #include "CollisionManager.h"
 #include "Messages.h"
+#include "MessageDispatcher.h"
 //------------------------------------------------------------------------methods for HeroIdle
 HeroIdle* HeroIdle::Instance()
 {
@@ -96,15 +97,21 @@ void HeroAttack::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("HeroAttack");
 	entity->myAnimatedSprite->Reset();
+	entity->basicAttack = false;
 }
 
 
 void HeroAttack::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if(entity->myAnimatedSprite->IsDone())
+	//if(entity->myAnimatedSprite->IsDone())
+	if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
-		CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB);
+		if(CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
+		{
+			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+			entity->basicAttack = true;
+		}
 		entity->GetFSM()->changeState(HeroIdle::Instance());
 	}
 }

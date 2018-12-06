@@ -16,7 +16,7 @@ ReaperEntity::ReaperEntity(int id, const std::string& name, const glm::vec3& myS
 
 	myAnimatedSprite = new ReaperSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(48+ 24, 46 + 23), TextureMan->GetTexture("reaper"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
-	//mySprite->Add(myPlayerAABB);
+	mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("ReaperRun");
 	myXDirection = 1.0f;
 	if (myStartPosition.x > patrolTo.x)
@@ -36,6 +36,12 @@ ReaperEntity::ReaperEntity(int id, const std::string& name, const glm::vec3& myS
 	myAttackCooldown = 0.0f;
 
 	CollisionMan->RegisterEntity(this);
+
+	myHitAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 30.0f, 20.0f);
+	myHitSpriteAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z + 0.01, 1.0f), glm::vec2(60.0f, 40.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+	//mySprite->Add(myHitSpriteAABB);
+
+	myAlreadyAttacked = false;
 }
 ReaperEntity::~ReaperEntity()
 {
@@ -45,6 +51,23 @@ void ReaperEntity::Update()
 {
 	myStateMachine->update();
 	if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
+	/*if (myIsDamaged)
 	{
 		myDamageFrameCounter++;
 		//fix this later
@@ -59,7 +82,7 @@ void ReaperEntity::Update()
 			myIsDamaged = false;
 			myAnimatedSprite->SetInverted(0);
 		}
-	}
+	}*/
 }
 bool ReaperEntity::HandleMessage(const Message& msg)
 {
@@ -75,6 +98,16 @@ void ReaperEntity::SetFacing()
 	else if (!IsPlayerToTheRight() && myAnimatedSprite->myHeading != Heading::RIGHTFACING)
 	{
 		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x;
+	}
+	else
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x;
 	}
 }
 void ReaperEntity::HandleMovement()
@@ -144,13 +177,16 @@ void ReaperEntity::HandleMovement()
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 10.0f, mPosition.y);
 		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x;
 	}
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 10.0f, mPosition.y);
 		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x;
 	}
-
 
 }
 void ReaperEntity::SetAnimation(const std::string& name)

@@ -41,6 +41,13 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 	myAttackCooldown = 0.0f;
 
 	CollisionMan->RegisterEntity(this);
+
+
+	myHitAABB = new AABB(glm::vec2(mPosition.x + 40.0f, mPosition.y - 45.0f), 20.0f, 10.0f);
+	myHitSpriteAABB = new Sprite(glm::vec4(mPosition.x + 40.0f, mPosition.y - 45.0f, mPosition.z + 0.01, 1.0f), glm::vec2(40.0f, 20.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+	//mySprite->Add(myHitSpriteAABB);
+
+	myAlreadyAttacked = false;
 }
 FireGolemEntity::~FireGolemEntity()
 {
@@ -50,7 +57,24 @@ FireGolemEntity::~FireGolemEntity()
 void FireGolemEntity::Update()
 {
 	myStateMachine->update();
-	if(myIsDamaged)
+	if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
+	/*if(myIsDamaged)
 	{
 		myDamageFrameCounter++;
 		//fix this later
@@ -65,7 +89,7 @@ void FireGolemEntity::Update()
 			myIsDamaged = false;
 			myAnimatedSprite->SetInverted(0);
 		}
-	}
+	}*/
 }
 bool FireGolemEntity::HandleMessage(const Message& msg)
 {
@@ -81,6 +105,18 @@ void FireGolemEntity::SetFacing()
 	else if( !IsPlayerToTheRight() && myAnimatedSprite->myHeading != Heading::RIGHTFACING)
 	{
 		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x - 40.0f, mPosition.y - 45.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x - 40.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 45.0f;
+	}
+	else
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x + 40.0f, mPosition.y - 45.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x + 40.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 45.0f;
 	}
 }
 void FireGolemEntity::HandleMovement()
@@ -147,7 +183,18 @@ void FireGolemEntity::HandleMovement()
 
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	myPlayerAABB->myPosition = glm::vec4(mPosition.x, mPosition.y - 14.0f, mPosition.z, 1.0f);
-
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x - 40.0f, mPosition.y - 45.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x - 40.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 45.0f;
+	}												  
+	else											  
+	{												  
+		myHitAABB->myOrigin = glm::vec2(mPosition.x + 40.0f, mPosition.y - 45.0f);
+		myHitSpriteAABB->myPosition.x = mPosition.x + 40.0f;
+		myHitSpriteAABB->myPosition.y = mPosition.y - 45.0f;
+	}
 }
 void FireGolemEntity::SetAnimation(const std::string& name)
 {

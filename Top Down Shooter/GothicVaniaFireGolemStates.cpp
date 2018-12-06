@@ -7,6 +7,7 @@
 #include "ShakeInfo.h"
 #include <ctime>
 #include "EngineUtilities.h"
+#include "CollisionManager.h"
 //------------------------------------------------------------------------methods for GhostAttack
 FireGolemIdle* FireGolemIdle::Instance()
 {
@@ -78,9 +79,9 @@ void FireGolemAttack1::Enter(FireGolemEntity* entity)
 void FireGolemAttack1::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5 && !entity->shakeAttack1)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->shakeAttack1)
 	{
-		
+		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->shakeAttack1 = true;
 	}
@@ -121,15 +122,15 @@ void FireGolemAttack2::Enter(FireGolemEntity* entity)
 void FireGolemAttack2::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5 && !entity->shakeAttack1)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->shakeAttack1)
 	{
-
+		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->shakeAttack1 = true;
 	}
-	else if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 9 && !entity->shakeAttack2)
+	else if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 8 && !entity->shakeAttack2)
 	{
-
+		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->shakeAttack2 = true;
 	}
@@ -275,9 +276,9 @@ void FireGolemSlam::Enter(FireGolemEntity* entity)
 void FireGolemSlam::Execute(FireGolemEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->shakeAttack1)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 3 && !entity->shakeAttack1)
 	{
-
+		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoSlamAttack);
 		entity->shakeAttack1 = true;
 	}

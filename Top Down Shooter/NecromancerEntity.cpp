@@ -50,6 +50,23 @@ void NecromancerEntity::Update()
 	{
 		myDamageFrameCounter++;
 		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
+	/*if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
 		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 10)
 			myAnimatedSprite->SetInverted(1);
 		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 20)
@@ -61,7 +78,7 @@ void NecromancerEntity::Update()
 			myIsDamaged = false;
 			myAnimatedSprite->SetInverted(0);
 		}
-	}
+	}*/
 }
 bool NecromancerEntity::HandleMessage(const Message& msg)
 {

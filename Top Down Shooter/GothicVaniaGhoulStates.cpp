@@ -7,6 +7,7 @@
 #include "ShakeInfo.h"
 #include <ctime>
 #include "EngineUtilities.h"
+#include "CollisionManager.h"
 //------------------------------------------------------------------------methods for GhostAttack
 GhoulIdle* GhoulIdle::Instance()
 {
@@ -66,13 +67,14 @@ void GhoulAttack::Enter(GhoulEntity* entity)
 {
 	entity->SetAnimation("GhoulAttack");
 	entity->ResetAttackTimer();
+	entity->myAlreadyAttacked = false;
 }
 void GhoulAttack::Execute(GhoulEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5 )
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->myAlreadyAttacked)
 	{
-
+		entity->myAlreadyAttacked = CollisionMan->CheckSwordHeroCollisiion(entity);
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{

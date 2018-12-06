@@ -27,7 +27,7 @@ public:
 
 	BaseEnemy* GetEntityFromID(int id) const;
 
-	void CheckSwordEnemyCollision(AABB* swordAABB);
+	bool CheckSwordEnemyCollision(AABB* swordAABB);
 	bool CheckSwordHeroCollisiion(BaseEnemy* enemy);
 	bool TestAABBAABB(AABB* one, AABB* two);
 

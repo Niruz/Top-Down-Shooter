@@ -7,6 +7,7 @@
 #include "ShakeInfo.h"
 #include <ctime>
 #include "EngineUtilities.h"
+#include "CollisionManager.h"
 //------------------------------------------------------------------------methods for GhostAttack
 ReaperIdle* ReaperIdle::Instance()
 {
@@ -66,13 +67,14 @@ void ReaperAttack::Enter(ReaperEntity* entity)
 {
 	entity->SetAnimation("ReaperAttack");
 	entity->ResetAttackTimer();
+	entity->myAlreadyAttacked = false;
 }
 void ReaperAttack::Execute(ReaperEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 5)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->myAlreadyAttacked)
 	{
-
+		entity->myAlreadyAttacked = CollisionMan->CheckSwordHeroCollisiion(entity);
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{

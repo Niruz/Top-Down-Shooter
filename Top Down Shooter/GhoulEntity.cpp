@@ -36,6 +36,12 @@ GhoulEntity::GhoulEntity(int id, const std::string& name, const glm::vec3& mySta
 	myAttackCooldown = 0.0f;
 
 	CollisionMan->RegisterEntity(this);
+
+	myHitAABB = new AABB(glm::vec2(mPosition.x-20.0f, mPosition.y), 20.0f, 7.50f);
+	myHitSpriteAABB = new Sprite(glm::vec4(mPosition.x - 20.0f, mPosition.y, mPosition.z + 0.01, 1.0f), glm::vec2(40.0f, 15.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
+	//mySprite->Add(myHitSpriteAABB);
+
+	myAlreadyAttacked = false;
 }
 GhoulEntity::~GhoulEntity()
 {
@@ -45,6 +51,23 @@ void GhoulEntity::Update()
 {
 	myStateMachine->update();
 	if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
+	/*if (myIsDamaged)
 	{
 		myDamageFrameCounter++;
 		//fix this later
@@ -59,7 +82,7 @@ void GhoulEntity::Update()
 			myIsDamaged = false;
 			myAnimatedSprite->SetInverted(0);
 		}
-	}
+	}*/
 }
 bool GhoulEntity::HandleMessage(const Message& msg)
 {
@@ -75,6 +98,16 @@ void GhoulEntity::SetFacing()
 	else if (!IsPlayerToTheRight() && myAnimatedSprite->myHeading != Heading::RIGHTFACING)
 	{
 		myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x - 20.0f, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x - 20.0f;
+	}
+	else
+	{
+		myHitAABB->myOrigin = glm::vec2(mPosition.x + 20.0f, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x + 20.0f;
 	}
 }
 void GhoulEntity::HandleMovement()
@@ -144,14 +177,16 @@ void GhoulEntity::HandleMovement()
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 10.0f, mPosition.y);
 		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x - 20.0f, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x - 20.0f;
 	}
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 10.0f, mPosition.y);
 		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myHitAABB->myOrigin = glm::vec2(mPosition.x + 20.0f, mPosition.y);
+		myHitSpriteAABB->myPosition.x = mPosition.x + 20.0f;
 	}
-	
-
 }
 void GhoulEntity::SetAnimation(const std::string& name)
 {
