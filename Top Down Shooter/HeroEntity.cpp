@@ -25,7 +25,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
-	//mySprite->Add(myPlayerAABB);
+//	mySprite->Add(myPlayerAABB);
 
 	
 
@@ -62,11 +62,20 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	CollisionMan->RegisterPlayer(this);
 	basicAttack = false;
 	myShakeInfoBasicAttack = new ShakeInfo(500, 15, 1);
+
+	myStartDeadTimer = 0.0f;
 }
 HeroEntity::~HeroEntity()
 {
 	delete myShakeInfoBasicAttack;
 	delete myStateMachine;
+}
+void HeroEntity::Respawn()
+{
+	Tile* closestTile = myTileMap->getClosestRespawnTile(glm::vec2(myAABB->myOrigin.x, myAABB->myOrigin.y));
+
+	mPosition.x = closestTile->myWorldPosition.x;
+	mPosition.y = closestTile->myWorldPosition.y;
 }
 void HeroEntity::SetAnimation(const std::string& name)
 {

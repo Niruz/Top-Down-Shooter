@@ -68,7 +68,7 @@ struct HeroEntity : public Entity
 	void CheckIfFalling();
 	bool IsOnSpikes();
 	bool inAir;
-
+	void Respawn();
 	float mAngle;
 
 	int currentKeyInput;
@@ -89,6 +89,8 @@ struct HeroEntity : public Entity
 	bool myIsDamaged;
 	bool basicAttack;
 	ShakeInfo* myShakeInfoBasicAttack;
+
+	float myStartDeadTimer;
 };
 
 

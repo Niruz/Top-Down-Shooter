@@ -66,6 +66,7 @@ public:
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
 	Label* myBossAnnouncer;
+	Label* myEvilVanquished;
 	Group* bossAnnouncerGroup;
 	TileMap* myMap;
 
@@ -130,6 +131,13 @@ public:
 	float alphaStart;
 	bool myBossBattle;
 	bool cutSceneStarted;
+	bool myBossDead;
+
+	float startScreenTime2;
+	float delayCutscene2;
+	bool cutSceneStarted2;
+
+	bool levelFinished = false;
 private:
 	//Debug stuff
 	Layer * myDebugLayer;

@@ -217,6 +217,7 @@ ReaperDie* ReaperDie::Instance()
 void ReaperDie::Enter(ReaperEntity* entity)
 {
 	entity->SetAnimation("ReaperDie");
+	entity->myIsActive = false;
 }
 void ReaperDie::Execute(ReaperEntity* entity)
 {

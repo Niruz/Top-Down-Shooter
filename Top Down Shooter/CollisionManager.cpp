@@ -43,13 +43,16 @@ bool CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 	{
 		int enemyID = it->first;
 		BaseEnemy* enemy = it->second;
-
-		if(TestAABBAABB(swordAABB, enemy->myAABB))
+		if (enemy->myIsActive)
 		{
-			foundCollision = true;
-			MessageMan->dispatchMessage(0, 555, enemy->GetID(), Msg_TakeDamage, 0);
-			break;
+			if (TestAABBAABB(swordAABB, enemy->myAABB))
+			{
+				foundCollision = true;
+				MessageMan->dispatchMessage(0, 555, enemy->GetID(), Msg_TakeDamage, 0);
+				break;
+			}
 		}
+
 
 
 		it++;

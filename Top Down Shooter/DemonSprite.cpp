@@ -7,7 +7,7 @@ DemonSprite::DemonSprite(const glm::vec4& position, const glm::vec2& size, Textu
 	myAnimations["DemonAttack"] = new Animation(3, 7, 240, 192, 2640, 192, 0, 0);
 	myAnimations["DemonWindDown"] = new Animation(4, 7, 240, 192, 2640, 192, 0, 0);
 	myAnimations["DemonIdle"] = new Animation(6, 0, 160, 144, 960, 144, 0, 0);
-
+	myAnimations["DemonDie"] = new Animation(5, 0, 44, 52, 220, 52, 0, 0);
 }
 DemonSprite::~DemonSprite()
 {

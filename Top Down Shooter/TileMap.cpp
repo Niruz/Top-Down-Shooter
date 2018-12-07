@@ -44,6 +44,8 @@ bool TileMap::InitializeFromMap(const std::string& name)
 		{
 			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V')||(line[i] == 'F') || (line[i] == 'o'),  (line[i] == 'Y') || (line[i] == 'y'), (line[i] == 'v') || (line[i] == 'F'), (line[i] == 'V'), std::string(1,line[i]));
 			myMapTiles.push_back(tile);
+			if (line[i] == 'U')
+				myRespawnTiles.push_back(tile);
 		}
 		lineIndex++;
 	}
@@ -76,6 +78,29 @@ bool TileMap::IsDirectionJumpable(int checkX, int checkY)
 		return true;
 	else
 		return !myMapTiles[GetTileIndex(checkX, checkY)]->myIsBlockingFlag;
+}
+Tile* TileMap::getClosestRespawnTile(const glm::vec2& position)
+{
+	/*Tile* closest = myRespawnTiles[0];
+	float distance = glm::abs(position.x - myRespawnTiles[0]->myWorldPosition.x);
+	for (int i = 1; i < myRespawnTiles.size(); i++)
+	{
+		if (glm::abs(position.x - myRespawnTiles[i]->myWorldPosition.x) < distance)
+			closest = myRespawnTiles[i];
+	}
+	return closest; */
+	Tile* closest = myRespawnTiles[0];
+	float distance = glm::length(position - myRespawnTiles[0]->myWorldPosition);
+	for(int i = 1; i < myRespawnTiles.size(); i++)
+	{
+		if (glm::length(position - myRespawnTiles[i]->myWorldPosition) < distance)
+		{
+			closest = myRespawnTiles[i];
+			distance = glm::length(position - myRespawnTiles[i]->myWorldPosition);
+		}
+			
+	}
+	return closest;
 }
 void TileMap::GenerateGraph()
 {

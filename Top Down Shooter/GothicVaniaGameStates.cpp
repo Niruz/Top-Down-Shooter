@@ -18,6 +18,7 @@ void GothicVaniaIntroState::Enter(GothicVania* game)
 void GothicVaniaIntroState::Execute(GothicVania* game)
 {
 	game->UpdateGameScreen();
+	game->myGameScreenDone = true;
 	if(game->myGameScreenDone)
 	{
 		game->GetFSM()->changeState(GothicVaniaPlayState::Instance());

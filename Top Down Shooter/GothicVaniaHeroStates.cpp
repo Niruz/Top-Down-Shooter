@@ -1,3 +1,4 @@
+#include "SimpleTimer.h"
 #include "GothicVaniaHeroStates.h"
 #include "HeroEntity.h"
 #include "HeroSprite.h"
@@ -434,19 +435,27 @@ void HeroDamaged::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("HeroHurt");
 	entity->myAnimatedSprite->Reset();
+	entity->myStartDeadTimer = Clock->GetCurrentTimeInSeconds();
+	entity->HandleDamaged(10);
 }
 
 
 void HeroDamaged::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+	if(Clock->GetCurrentTimeInSeconds() > entity->myStartDeadTimer + 0.3f)
+	{
+		entity->Respawn();
+		
+		entity->GetFSM()->changeState(HeroRunning::Instance());
+	}
 //	entity->HandleDamaged();
 }
 
 
 void HeroDamaged::Exit(HeroEntity* entity)
 {
-
+	entity->HandleDamaged(10);
 }
 
 

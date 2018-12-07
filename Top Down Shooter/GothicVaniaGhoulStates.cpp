@@ -217,6 +217,7 @@ GhoulDie* GhoulDie::Instance()
 void GhoulDie::Enter(GhoulEntity* entity)
 {
 	entity->SetAnimation("GhoulDie");
+	entity->myIsActive = false;
 }
 void GhoulDie::Execute(GhoulEntity* entity)
 {

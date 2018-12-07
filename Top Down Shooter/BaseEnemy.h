@@ -53,5 +53,7 @@ public:
 
 	Sprite* myHitSpriteAABB;
 	AABB* myHitAABB;
+
+	bool myIsActive;
 };
 

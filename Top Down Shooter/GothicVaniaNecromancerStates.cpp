@@ -253,6 +253,7 @@ NecromancerDie* NecromancerDie::Instance()
 void NecromancerDie::Enter(NecromancerEntity* entity)
 {
 	entity->SetAnimation("NecromancerDie");
+	entity->myIsActive = false;
 }
 void NecromancerDie::Execute(NecromancerEntity* entity)
 {
@@ -288,7 +289,7 @@ void NecromancerRessurect::Execute(NecromancerEntity* entity)
 		entity->myHaveRecievedRessurectionRequest = false;
 		for(int i = 0; i < entity->myMinionsToRessurect.size(); i++)
 		{
-			MessageMan->dispatchMessage(1.5, entity->GetID(), entity->myMinionsToRessurect[i], Msg_Revive, 0);
+			MessageMan->dispatchMessage(0.0, entity->GetID(), entity->myMinionsToRessurect[i], Msg_Revive, 0);
 		}
 		entity->myMinionsToRessurect.clear();
 		entity->GetFSM()->changeState(NecromancerIdle::Instance());

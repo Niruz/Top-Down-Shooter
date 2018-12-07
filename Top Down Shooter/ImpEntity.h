@@ -30,7 +30,7 @@ public:
 
 	//Bad design...
 	TileMap * myTileMap;
-
+	float angle;
 	float myAttackCooldown;
 	bool myFiredProjectile;
 };

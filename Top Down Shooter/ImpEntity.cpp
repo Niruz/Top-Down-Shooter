@@ -10,6 +10,7 @@
 #include "CollisionManager.h"
 #include "World.h"
 #include "Level.h"
+# define M_PI           3.14159265358979323846  /* pi */
 ImpEntity::ImpEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo, false)
 {
@@ -37,7 +38,7 @@ ImpEntity::ImpEntity(int id, const std::string& name, const glm::vec3& myStartPo
 
 	myFiredProjectile = false;
 	myAttackCooldown = 0.0f;
-
+	angle = 0.0f;
 	CollisionMan->RegisterEntity(this);
 }
 ImpEntity::~ImpEntity()
@@ -109,6 +110,9 @@ void ImpEntity::HandleMovement()
 					myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 				mPosition.x += myXDirection;
 				myAnimatedSprite->myPosition.x = mPosition.x;
+				mPosition.y += sin(angle * M_PI / 180.0f);
+				myAnimatedSprite->myPosition.y += sin(angle * M_PI / 180.0f);
+				angle += 5;
 			}
 			else
 			{
@@ -126,6 +130,9 @@ void ImpEntity::HandleMovement()
 					myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 				mPosition.x += myXDirection;
 				myAnimatedSprite->myPosition.x = mPosition.x;
+				mPosition.y += sin(angle * M_PI / 180.0f);
+				myAnimatedSprite->myPosition.y += sin(angle * M_PI / 180.0f);
+				angle += 5;
 			}
 			else
 			{

@@ -177,3 +177,28 @@ public:
 	virtual bool OnMessage(UndeadWarriorEntity* entity, const Message& msg);
 
 };
+//------------------------------------------------------------------------
+class UndeadWarriorRessurect : public State<UndeadWarriorEntity>
+{
+private:
+
+	UndeadWarriorRessurect() {}
+
+	//copy ctor and assignment should be private
+	UndeadWarriorRessurect(const UndeadWarriorRessurect&);
+	UndeadWarriorRessurect& operator=(const UndeadWarriorRessurect&);
+
+public:
+
+	//this is a singleton
+	static UndeadWarriorRessurect* Instance();
+
+	virtual void Enter(UndeadWarriorEntity* entity);
+
+	virtual void Execute(UndeadWarriorEntity* entity);
+
+	virtual void Exit(UndeadWarriorEntity* entity);
+
+	virtual bool OnMessage(UndeadWarriorEntity* entity, const Message& msg);
+
+};

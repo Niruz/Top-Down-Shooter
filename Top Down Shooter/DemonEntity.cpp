@@ -6,10 +6,13 @@
 #include "TextureManager.h"
 #include "Sprite.h"
 #include "GothicVaniaDemonStates.h"
+#include "CollisionManager.h"
 DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo) :
-	BaseEnemy(id, name, myStartPosition, patrolTo)
+	BaseEnemy(id, name, myStartPosition, patrolTo,false)
 {
 
+	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 25.0f, 40.0f);
+	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z - 0.01, 1.0f), glm::vec2(50.0f, 80.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 
 	//THe facing is weird since all the enemies from the sprites look in the opposite direction from the start
 	//myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x+16.0f, mPosition.y - 11, 0.09f, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);
@@ -33,6 +36,7 @@ DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& mySta
 	myStateMachine->changeState(DemonIdle::Instance());*/
 	touchedDown = false;
 	firstAttack = true;
+	CollisionMan->RegisterEntity(this);
 }
 DemonEntity::~DemonEntity()
 {
@@ -41,6 +45,23 @@ DemonEntity::~DemonEntity()
 void DemonEntity::Update()
 {
 	myStateMachine->update();
+	if (myIsDamaged)
+	{
+		myDamageFrameCounter++;
+		//fix this later
+		if (myDamageFrameCounter > 0 && myDamageFrameCounter < 5)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 5 && myDamageFrameCounter < 10)
+			myAnimatedSprite->SetInverted(0);
+		if (myDamageFrameCounter >= 10 && myDamageFrameCounter < 15)
+			myAnimatedSprite->SetInverted(1);
+		if (myDamageFrameCounter >= 15)
+		{
+			myIsDamaged = false;
+			myAnimatedSprite->SetInverted(0);
+		}
+
+	}
 	/*myAnimatedSprite->Update();
 	HandleMovement();
 
@@ -120,7 +141,7 @@ void DemonEntity::HandleMovement()
 	}
 	*/
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
-	myPlayerAABB->myPosition = glm::vec4(mPosition, 1.0f);
+	myPlayerAABB->myPosition = glm::vec4(mPosition.x, mPosition.y, mPosition.z + 0.01, 1.0f);
 	//myAnimatedSprite->myPosition.x = mPosition.x;
 	//myAnimatedSprite->myPosition.y = mPosition.y;
 
@@ -133,4 +154,13 @@ void DemonEntity::SetAnimation(const std::string& name)
 void DemonEntity::ResetAttackTimer()
 {
 	myAttackTimer = Clock->GetCurrentTimeInSeconds();
+}
+void DemonEntity::HandleDamaged(int damageRecieved)
+{
+	myAnimatedSprite->SetInverted(1);
+	myIsDamaged = true;
+	myDamageFrameCounter = 0;
+	myHealth -= damageRecieved;
+	if (myHealth <= 0)
+		GetFSM()->changeState(DemonDie::Instance());
 }

@@ -105,9 +105,11 @@ void CemetaryLevel::Initialize()
 																												  myEyeMonster7 = new EyeMonsterEntity(20, "EyeMonster7", glm::vec3(2064.0f, -96.0f, 0.092f), glm::vec3(2512.0f, -96.0f, 0.92));*/
 	myFireGolem1 = new FireGolemEntity(21, "FireGolem1", glm::vec3(-320.0f, -125.0, 0.02f), glm::vec3(-32.0f, -125.0, 0.02f));
 	myGhoul1 = new GhoulEntity(22, "Ghoul1", glm::vec3(640.0f, -160.0f, 0.03f), glm::vec3(864.0f, -150.0f, 0.03f));
-	myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(64.0f, -152.0f, 0.04f), glm::vec3(224.0f, -152.0f, 0.04f));
+	//myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(64.0f, -152.0f, 0.04f), glm::vec3(224.0f, -152.0f, 0.04f));
+	myUDWar1 = new UndeadWarriorEntity(23, "UndeadWarrior1", glm::vec3(1456.0f, -152.0f, 0.04f), glm::vec3(1616.0f, -152.0f, 0.04f));
 	myReaperEntity = new ReaperEntity(24, "Reaper1", glm::vec3(256.0f, -152.0f, 0.05f), glm::vec3(416.0f, -152.0f, 0.05f));
-	myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f, -150.0f, 0.06f), glm::vec3(1120.0f, -150.0f, 0.06f));
+	//myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f, -150.0f, 0.06f), glm::vec3(1120.0f, -150.0f, 0.06f));
+	myImpEntity = new ImpEntity(25, "Imp1", glm::vec3(960.0f+320.0f-64.0f, -96, 0.06f), glm::vec3(1120.0f+320.0f, -96, 0.06f));
 	myNecromancerEntity = new NecromancerEntity(26, "Necromancer1", glm::vec3(1456.0f, -120.0f, 0.07f), glm::vec3(1840.0f, -120.0f, 0.07f));
 	myNumberOfEntities = 26;
 
@@ -157,9 +159,12 @@ void CemetaryLevel::Initialize()
 
 	bossAnnouncerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
 	myBossAnnouncer = new Label("Fire & Fury", glm::vec4(-195.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
+	myEvilVanquished = new Label("Evil Vanquished", glm::vec4(-195.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
+	myEvilVanquished->SetColor(glm::vec4(1, 1, 1, 0));
 	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 0));
 	//bossAnnouncerGroup->Add(new Sprite(glm::vec4(0, 0, -0.1, 1), glm::vec2(320.0f, 180.0f), glm::vec4(0.2f, 0.2f, 0.2f, 0.9)));
 	bossAnnouncerGroup->Add(myBossAnnouncer);
+	bossAnnouncerGroup->Add(myEvilVanquished);
 
 	myCursor = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.8)));
 	myCursor->Add(new Sprite(glm::vec4(0, 0, 0.3, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("cursor")/*, glm::vec2(0, 15)*/));
@@ -406,7 +411,8 @@ void CemetaryLevel::Initialize()
 	myScreenDirection = 0.0f;
 	myBossBattle = false;
 	cutSceneStarted = false;
-
+	myBossDead = false;
+	cutSceneStarted2 = false;
 	myFireGolem1->myTileMap = myMap;
 	myGhoul1->myTileMap = myMap;
 	myUDWar1->myTileMap = myMap;
@@ -513,11 +519,20 @@ void CemetaryLevel::UpdatePlayer()
 		alphaStart = 0.0f;
 		delayCutscene = Clock->GetCurrentTimeInSeconds() + 1.5f;
 	}
+//	myEvilVanquished->SetPosition(glm::vec4(-170.0f, 0.0f, 0, 1));
+//	myEvilVanquished->SetColor(glm::vec4(1, 1, 1, 1));
 	//myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
 //	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 1));
 	if (myBossBattle)
 	{
-		if (Clock->GetCurrentTimeInSeconds() > delayCutscene && !cutSceneStarted)
+		if (!myDemon2->myIsActive && !myDemon3->myIsActive && !myBossDead)
+		{
+			myBossDead = true;
+			startScreenTime2 = Clock->GetCurrentTimeInSeconds();
+			alphaStart = 0.0f;
+			delayCutscene2 = Clock->GetCurrentTimeInSeconds() + 1.5f;
+		}
+	    if (Clock->GetCurrentTimeInSeconds() > delayCutscene && !cutSceneStarted)
 		{
 			startScreenTime = Clock->GetCurrentTimeInSeconds();
 			cutSceneStarted = true;
@@ -534,15 +549,53 @@ void CemetaryLevel::UpdatePlayer()
 		else
 		{
 
-			myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
+			if(!myBossDead)
+			{
+				myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
+				if (alphaStart > 0.0f)
+				{
+					alphaStart -= 0.01f;
+					myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
+					if (alphaStart < 0.0f)
+					{
+						alphaStart = 0.0f;
+						myBossAnnouncer->SetPosition(glm::vec4(-230.0f, 2000.0f, 0, 1));
+					}
+				}
+			}
+
+
+		}
+	}
+	if(myBossDead)
+	{
+		if (Clock->GetCurrentTimeInSeconds() > delayCutscene2 && !cutSceneStarted2)
+		{
+			startScreenTime2 = Clock->GetCurrentTimeInSeconds();
+			cutSceneStarted2 = true;
+		}
+		if (Clock->GetCurrentTimeInSeconds() - startScreenTime2 < 4.0 && cutSceneStarted2)
+		{
+			myEvilVanquished->SetPosition(glm::vec4(-170.0f, 0.0f, 0, 1));
+			myEvilVanquished->SetColor(glm::vec4(1, 1, 1, alphaStart));
+			if (alphaStart < 1.0f)
+				alphaStart += 0.01f;
+			if (alphaStart > 1.0f)
+				alphaStart = 1.0f;
+		}
+		else
+		{
+
+			myEvilVanquished->SetColor(glm::vec4(1, 1, 1, alphaStart));
 			if (alphaStart > 0.0f)
 			{
 				alphaStart -= 0.01f;
-				myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
+				myEvilVanquished->SetColor(glm::vec4(1, 1, 1, alphaStart));
 				if (alphaStart < 0.0f)
 				{
+					levelFinished = true;
 					alphaStart = 0.0f;
-					myBossAnnouncer->SetPosition(glm::vec4(-230.0f, 2000.0f, 0, 1));
+					myEvilVanquished->SetPosition(glm::vec4(-230.0f, 2000.0f, 0, 1));
 				}
 			}
 

@@ -246,6 +246,7 @@ FireGolemDie* FireGolemDie::Instance()
 void FireGolemDie::Enter(FireGolemEntity* entity)
 {
 	entity->SetAnimation("FireGolemDie");
+	entity->myIsActive = false;
 }
 void FireGolemDie::Execute(FireGolemEntity* entity)
 {

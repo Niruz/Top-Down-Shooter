@@ -51,6 +51,13 @@ void DemonIdle::Exit(DemonEntity* entity)
 }
 bool DemonIdle::OnMessage(DemonEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostPatrol
@@ -84,6 +91,13 @@ void DemonAttack::Exit(DemonEntity* entity)
 }
 bool DemonAttack::OnMessage(DemonEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostPatrol
@@ -125,6 +139,13 @@ void DemonWindup::Exit(DemonEntity* entity)
 }
 bool DemonWindup::OnMessage(DemonEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostPatrol
@@ -158,6 +179,13 @@ void DemonWindDown::Exit(DemonEntity* entity)
 }
 bool DemonWindDown::OnMessage(DemonEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+
+		entity->HandleDamaged(10);
+		return true;
+	}
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostPatrol
@@ -169,6 +197,7 @@ DemonAwaitingOrders* DemonAwaitingOrders::Instance()
 }
 void DemonAwaitingOrders::Enter(DemonEntity* entity)
 {
+	entity->myIsActive = true;
 	entity->myAnimatedSprite->myTexture = TextureMan->GetTexture("demonidle");
 	entity->SetAnimation("DemonIdle");
 	//entity->storedY = entity->myAnimatedSprite->myPosition.y;
@@ -245,5 +274,51 @@ bool DemonSwoopDown::OnMessage(DemonEntity* entity, const Message& msg)
 
 	}
 
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostPatrol
+DemonDie* DemonDie::Instance()
+{
+	static DemonDie instance;
+
+	return &instance;
+}
+void DemonDie::Enter(DemonEntity* entity)
+{
+	entity->myIsActive = false;
+	entity->myAnimatedSprite->myTexture = TextureMan->GetTexture("enemyDeath");
+	entity->myAnimatedSprite->mySize = glm::vec2(88, 102);
+	entity->SetAnimation("DemonDie");
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x + 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	}
+	else
+	{
+		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
+		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
+	}
+}
+void DemonDie::Execute(DemonEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->mPosition.y = -2000.0f;
+		entity->myAnimatedSprite->myPosition.y = -2000.0f;
+		entity->myPlayerAABB->myPosition.y = -2000.0f;
+	}
+	//entity->HandleMovement();
+/*	entity->HandleSwoopDown();
+	if (entity->touchedDown)
+		entity->GetFSM()->changeState(DemonIdle::Instance());*/
+}
+void DemonDie::Exit(DemonEntity* entity)
+{
+
+}
+bool DemonDie::OnMessage(DemonEntity* entity, const Message& msg)
+{
 	return false;
 }

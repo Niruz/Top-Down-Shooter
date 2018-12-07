@@ -221,6 +221,7 @@ void UndeadWarriorDie::Enter(UndeadWarriorEntity* entity)
 	entity->SetAnimation("UndeadWarriorDie");
 	if(entity->myMaster != nullptr)
 		MessageMan->dispatchMessage(1.5, entity->GetID(), entity->myMaster->GetID(), Msg_RessurectMe, 0);
+	entity->myIsActive = false;
 }
 void UndeadWarriorDie::Execute(UndeadWarriorEntity* entity)
 {
@@ -238,9 +239,35 @@ bool UndeadWarriorDie::OnMessage(UndeadWarriorEntity* entity, const Message& msg
 	case Msg_Revive:
 
 		entity->myHealth = 100.0f;
-		entity->GetFSM()->changeState(UndeadWarriorIdle::Instance());
+		entity->myIsActive = true;
+		entity->GetFSM()->changeState(UndeadWarriorRessurect::Instance());
 		return true;
 
 	}
+	return false;
+}
+//------------------------------------------------------------------------methods for GhostAttack
+UndeadWarriorRessurect* UndeadWarriorRessurect::Instance()
+{
+	static UndeadWarriorRessurect instance;
+
+	return &instance;
+}
+void UndeadWarriorRessurect::Enter(UndeadWarriorEntity* entity)
+{
+	entity->SetAnimation("UndeadWarriorRessurect");
+}
+void UndeadWarriorRessurect::Execute(UndeadWarriorEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+		entity->GetFSM()->changeState(UndeadWarriorIdle::Instance());
+}
+void UndeadWarriorRessurect::Exit(UndeadWarriorEntity* entity)
+{
+
+}
+bool UndeadWarriorRessurect::OnMessage(UndeadWarriorEntity* entity, const Message& msg)
+{
 	return false;
 }

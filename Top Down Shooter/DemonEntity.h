@@ -16,8 +16,9 @@ struct DemonEntity : public BaseEnemy
 	void HandleMovement();
 	void SetAnimation(const std::string& name);
 	void ResetAttackTimer();
-	void HandleDamaged(int damageRecieved) {}
 	void HandleSwoopDown();
+
+	void HandleDamaged(int damageRecieved);
 public:
 
 	float myStartTime;

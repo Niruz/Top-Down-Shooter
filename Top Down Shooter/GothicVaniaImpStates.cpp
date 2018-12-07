@@ -218,6 +218,7 @@ ImpDie* ImpDie::Instance()
 void ImpDie::Enter(ImpEntity* entity)
 {
 	entity->SetAnimation("ImpDie");
+	entity->myIsActive = false;
 }
 void ImpDie::Execute(ImpEntity* entity)
 {
