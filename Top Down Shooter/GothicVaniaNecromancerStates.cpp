@@ -33,11 +33,11 @@ void NecromancerIdle::Execute(NecromancerEntity* entity)
 	{
 		if(entity->myHaveRecievedRessurectionRequest)
 		{
-			srand(time(NULL));
+		/*	srand(time(NULL));
 			int nextAttack = rand() % 2;
 			if (nextAttack == 0)
 				entity->GetFSM()->changeState(NecromancerAttack::Instance());
-			if (nextAttack == 1)
+			if (nextAttack == 1)*/
 				entity->GetFSM()->changeState(NecromancerRessurect::Instance());
 		}
 		else

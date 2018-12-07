@@ -220,7 +220,7 @@ void UndeadWarriorDie::Enter(UndeadWarriorEntity* entity)
 {
 	entity->SetAnimation("UndeadWarriorDie");
 	if(entity->myMaster != nullptr)
-		MessageMan->dispatchMessage(1.5, entity->GetID(), entity->myMaster->GetID(), Msg_RessurectMe, 0);
+		MessageMan->dispatchMessage(2.0, entity->GetID(), entity->myMaster->GetID(), Msg_RessurectMe, 0);
 	entity->myIsActive = false;
 }
 void UndeadWarriorDie::Execute(UndeadWarriorEntity* entity)
