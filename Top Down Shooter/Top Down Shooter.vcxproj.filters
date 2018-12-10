@@ -570,6 +570,9 @@
     <ClCompile Include="GothicVaniaGameStates.cpp">
       <Filter>Games\GothicVania</Filter>
     </ClCompile>
+    <ClCompile Include="AdventurerSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -919,6 +922,9 @@
     </ClInclude>
     <ClInclude Include="GothicVaniaGameStates.h">
       <Filter>Games\GothicVania</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
