@@ -262,6 +262,32 @@ void updateInput(GLfloat deltaTime)
 		oldKeyState[GLFW_KEY_SPACE] = false;
 		std::cout << "Space Released" << std::endl;
 	}
+	//E
+	if (currentKeyState[GLFW_KEY_E] && !oldKeyState[GLFW_KEY_E])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_E, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_E] = true;
+		std::cout << "E Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_E] && oldKeyState[GLFW_KEY_E])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_E, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_E] = false;
+		std::cout << "E Released" << std::endl;
+	}
+	//Q
+	/*if (currentKeyState[GLFW_KEY_Q] && !oldKeyState[GLFW_KEY_Q])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_Q, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_Q] = true;
+		std::cout << "Q Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_Q] && oldKeyState[GLFW_KEY_Q])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_Q, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_Q] = false;
+		std::cout << "Q Released" << std::endl;
+	}*/
 
 	if (currentKeyState[GLFW_KEY_W])
 		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime, GLFW_PRESS);
@@ -271,6 +297,8 @@ void updateInput(GLfloat deltaTime)
 		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_D])
 		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_PRESS);
+	if (currentKeyState[GLFW_KEY_Q])
+		myGame->ProcessKeyBoard(GLFW_KEY_Q, deltaTime, GLFW_PRESS);
 	/*if (currentKeyState[GLFW_KEY_1])
 		myGame->ProcessKeyBoard(GLFW_KEY_1, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_2])

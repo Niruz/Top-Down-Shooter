@@ -271,7 +271,38 @@ public:
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
 
 	virtual bool HandleInput(HeroEntity* entity, int key, int action);
-};//------------------------------------------------------------------------
+};
+//------------------------------------------------------------------------
+//
+//  Running state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroSliding : public State<HeroEntity>
+{
+private:
+
+	HeroSliding() {}
+
+	//copy ctor and assignment should be private
+	HeroSliding(const HeroSliding&);
+	HeroSliding& operator=(const HeroSliding&);
+
+public:
+
+	//this is a singleton
+	static HeroSliding* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//------------------------------------------------------------------------
 //
 //  Falling state for the hero
 //  
@@ -349,6 +380,126 @@ public:
 
 	//this is a singleton
 	static HeroDamaged* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroFireBowGround : public State<HeroEntity>
+{
+private:
+
+	HeroFireBowGround() {}
+
+	//copy ctor and assignment should be private
+	HeroFireBowGround(const HeroFireBowGround&);
+	HeroFireBowGround& operator=(const HeroFireBowGround&);
+
+public:
+
+	//this is a singleton
+	static HeroFireBowGround* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroFireBowAir : public State<HeroEntity>
+{
+private:
+
+	HeroFireBowAir() {}
+
+	//copy ctor and assignment should be private
+	HeroFireBowAir(const HeroFireBowAir&);
+	HeroFireBowAir& operator=(const HeroFireBowAir&);
+
+public:
+
+	//this is a singleton
+	static HeroFireBowAir* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroDie : public State<HeroEntity>
+{
+private:
+
+	HeroDie() {}
+
+	//copy ctor and assignment should be private
+	HeroDie(const HeroDie&);
+	HeroDie& operator=(const HeroDie&);
+
+public:
+
+	//this is a singleton
+	static HeroDie* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroDropKick : public State<HeroEntity>
+{
+private:
+
+	HeroDropKick() {}
+
+	//copy ctor and assignment should be private
+	HeroDropKick(const HeroDropKick&);
+	HeroDropKick& operator=(const HeroDropKick&);
+
+public:
+
+	//this is a singleton
+	static HeroDropKick* Instance();
 
 	virtual void Enter(HeroEntity* entity);
 

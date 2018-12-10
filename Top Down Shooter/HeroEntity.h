@@ -60,12 +60,17 @@ struct HeroEntity : public Entity
 	float myNegYDirection;
 	float myYVelocity;
 	float myGravity;
+	float myXVelocity;
 
 	void HandleMovement();
 	void HandleGravity();
 	void HandleJump();
+	void HandleSliding();
+	void HandleDropKick();
 	void HandleDamaged(int damageRecieved);
 	void StartJump();
+	void StartSliding(int direction);
+	void StartDropKick(int direction);
 	void CheckIfFalling();
 	bool IsOnSpikes();
 	bool inAir;
@@ -74,6 +79,7 @@ struct HeroEntity : public Entity
 
 	int currentKeyInput;
 	float myStartJumpTime;
+	float myStartSlidingTime;
 
 	TileMap* myTileMap;
 	Sprite* myPlayerAABB;

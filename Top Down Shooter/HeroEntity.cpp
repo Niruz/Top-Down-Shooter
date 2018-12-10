@@ -47,6 +47,8 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 
 	inAir = false;
 	myStartJumpTime = 0.0f;
+	myStartSlidingTime = 0.0f;
+	myXVelocity = 0.0f;
 
 	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 2.5), 9.0f, 22.0f);
 
@@ -363,6 +365,115 @@ void HeroEntity::StartJump()
 {
 	myStartJumpTime = Clock->GetCurrentTimeInSeconds();
 }
+void HeroEntity::StartSliding(int direction)
+{
+	myStartSlidingTime = Clock->GetCurrentTimeInSeconds();
+	if (direction < 0)
+		myXVelocity = -3.0f;
+	else
+		myXVelocity = 3.0f;
+}
+void HeroEntity::StartDropKick(int direction)
+{
+	if (direction < 0)
+		myXVelocity = -3.0f;
+	else
+		myXVelocity = 3.0f;
+}
+void HeroEntity::HandleDropKick()
+{
+	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+	float fallingSpeed = -5.0f;
+
+	float velocity = 1.6f;
+
+	if (myXVelocity > 0.0f)
+	{
+		glm::vec3 oldPosition = mPosition;
+		mPosition.x += myXVelocity * velocity;
+		myAABB->myOrigin.x = mPosition.x;
+		myTileMap->SetPlayerTile2(myAABB);
+
+		bool bottomRightFree = myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag && !myTileMap->lastPlayerTileBottomRight->myIsOneWayTile;
+		bool midRightFree = myTileMap->lastPlayerTileMidRight->myIsBlockingFlag && !myTileMap->lastPlayerTileMidRight->myIsOneWayTile;
+		bool topRightFree = myTileMap->lastPlayerTileTopRight->myIsBlockingFlag && !myTileMap->lastPlayerTileTopRight->myIsOneWayTile;
+		bool rightBlocking = /*bottomRightFree ||*/ midRightFree || topRightFree;
+
+		if (rightBlocking)
+		{
+			mPosition = oldPosition;
+			mPosition.x = myTileMap->lastPlayerTileBottomRight->myWorldPosition.x - 16.5f - myAABB->halfX;
+			myAABB->myOrigin.x = mPosition.x;
+			myTileMap->SetPlayerTile2(myAABB);
+		}
+	}
+	else if (myXVelocity < 0.0f)
+	{
+		glm::vec3 oldPosition = mPosition;
+		mPosition.x += myXVelocity * velocity;
+		myAABB->myOrigin.x = mPosition.x;
+		myTileMap->SetPlayerTile2(myAABB);
+
+		bool bottomLeftFree = myTileMap->lastPlayerTileBottomLeft->myIsBlockingFlag && !myTileMap->lastPlayerTileBottomLeft->myIsOneWayTile;
+		bool midLeftFree = myTileMap->lastPlayerTileMidLeft->myIsBlockingFlag && !myTileMap->lastPlayerTileMidLeft->myIsOneWayTile;
+		bool topLeftFree = myTileMap->lastPlayerTileTopLeft->myIsBlockingFlag && !myTileMap->lastPlayerTileTopLeft->myIsOneWayTile;
+		bool leftBlocking =/* bottomLeftFree ||*/ midLeftFree || topLeftFree;
+
+		if (leftBlocking)
+		{
+			mPosition = oldPosition;
+			mPosition.x = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.x + 16.0f + myAABB->halfX;
+			myAABB->myOrigin.x = mPosition.x;
+			myTileMap->SetPlayerTile2(myAABB);
+		}
+
+	}
+
+
+	glm::vec3 oldPosition = mPosition;
+	mPosition.y += fallingSpeed;
+	//myYVelocity += myGravity;
+	//mPosition.y += myYVelocity/2.0f;
+	myAABB->myOrigin.y = mPosition.y;
+	myTileMap->SetPlayerTile2(myAABB);
+	bool bottomRightFree = myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag;
+	bool bottomLeftFree = myTileMap->lastPlayerTileBottomLeft->myIsBlockingFlag;
+	bool bottomRightOneWay = myTileMap->lastPlayerTileBottomRight->myIsOneWayTile;
+	bool bottomLeftOneWay = myTileMap->lastPlayerTileBottomLeft->myIsOneWayTile;
+
+	bool bottomBlocking = bottomLeftFree || bottomRightFree;
+	bool bottomIsOneWayTile = bottomRightOneWay || bottomLeftOneWay;
+
+	if (bottomIsOneWayTile)
+	{
+		if ((myAABB->myOrigin.y - myAABB->halfY) > (myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 10.0f))
+		{
+			mPosition = oldPosition;
+			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
+			myAABB->myOrigin.y = mPosition.y;
+			myTileMap->SetPlayerTile2(myAABB);
+			myStateMachine->changeState(HeroIdle::Instance());
+		}
+	}
+	else if (bottomBlocking)
+	{
+		//This will prevent clipping upwards
+		if ((myAABB->myOrigin.y - myAABB->halfY) > (myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 10.0f))
+		{
+			mPosition = oldPosition;
+			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
+			myAABB->myOrigin.y = mPosition.y;
+			myTileMap->SetPlayerTile2(myAABB);
+			myStateMachine->changeState(HeroIdle::Instance());
+		}
+
+	}
+
+
+	myNegXDirection = myPosXDirection = 0.0f;
+	mPosition.z = 0.1f;
+}
 bool HeroEntity::IsOnSpikes()
 {
 	return myTileMap->lastPlayerTile->myIsSpikedFloor;
@@ -470,6 +581,71 @@ void HeroEntity::HandleJump()
 	//if (!myTileMap->IsDirectionWalkable(tileX, tileY))
 	//	mPosition.y = myTileMap->GetTile2(tileX, tileY + 1)->myWorldPosition.y;
 }
+void HeroEntity::HandleSliding()
+{
+	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+
+	float velocity = 1.6f;
+
+	if (myXVelocity > 0.0f)
+	{
+		glm::vec3 oldPosition = mPosition;
+		mPosition.x += myXVelocity * velocity;
+		myAABB->myOrigin.x = mPosition.x;
+		myTileMap->SetPlayerTile2(myAABB);
+
+		bool bottomRightFree = myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag && !myTileMap->lastPlayerTileBottomRight->myIsOneWayTile;
+		bool midRightFree = myTileMap->lastPlayerTileMidRight->myIsBlockingFlag && !myTileMap->lastPlayerTileMidRight->myIsOneWayTile;
+		bool topRightFree = myTileMap->lastPlayerTileTopRight->myIsBlockingFlag && !myTileMap->lastPlayerTileTopRight->myIsOneWayTile;
+		bool rightBlocking = /*bottomRightFree && */midRightFree || topRightFree;
+
+		if (rightBlocking)
+		{
+			mPosition = oldPosition;
+			mPosition.x = myTileMap->lastPlayerTileBottomRight->myWorldPosition.x - 16.5f - myAABB->halfX;
+			myAABB->myOrigin.x = mPosition.x;
+			myTileMap->SetPlayerTile2(myAABB);
+		}
+	}
+	else if (myXVelocity < 0.0f)
+	{
+		glm::vec3 oldPosition = mPosition;
+		mPosition.x += myXVelocity * velocity;
+		myAABB->myOrigin.x = mPosition.x;
+		myTileMap->SetPlayerTile2(myAABB);
+
+		bool bottomLeftFree = myTileMap->lastPlayerTileBottomLeft->myIsBlockingFlag && !myTileMap->lastPlayerTileBottomRight->myIsOneWayTile;
+		bool midLeftFree = myTileMap->lastPlayerTileMidLeft->myIsBlockingFlag && !myTileMap->lastPlayerTileMidLeft->myIsOneWayTile;
+		bool topLeftFree = myTileMap->lastPlayerTileTopLeft->myIsBlockingFlag && !myTileMap->lastPlayerTileTopLeft->myIsOneWayTile;
+		bool leftBlocking = /*bottomRightFree && */midLeftFree || topLeftFree;
+
+		if (leftBlocking)
+		{
+			mPosition = oldPosition;
+			mPosition.x = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.x + 16.0f + myAABB->halfX;
+			myAABB->myOrigin.x = mPosition.x;
+			myTileMap->SetPlayerTile2(myAABB);
+		}
+
+	}
+
+	myNegYDirection = myPosYDirection = myNegXDirection = myPosXDirection = 0.0f;
+	mPosition.z = 0.1f;
+
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		mySwordAABB->myOrigin.x = mPosition.x + 30;
+		mySwordAABB->myOrigin.y = mPosition.y + 1.5;
+		mySwordSpriteAABB->myPosition.x = mySwordAABBRightX;
+	}
+	else
+	{
+		mySwordAABB->myOrigin.x = mPosition.x - 30;
+		mySwordAABB->myOrigin.y = mPosition.y + 1.5;
+		mySwordSpriteAABB->myPosition.x = mySwordAABBLeftX;
+	}
+}
 void HeroEntity::HandleDamaged(int damageRecieved)
 {
 	myAnimatedSprite->SetInverted(1);
@@ -477,7 +653,7 @@ void HeroEntity::HandleDamaged(int damageRecieved)
 	myDamageFrameCounter = 0;
 	myHealth -= damageRecieved;
 	//if (myHealth <= 0)
-	//	GetFSM()->changeState(HeroDamaged::Instance());
+	//	GetFSM()->changeState(HeroDie::Instance());
 }
 void HeroEntity::Update()
 {
@@ -485,7 +661,7 @@ void HeroEntity::Update()
 	//HandleMovement();
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);

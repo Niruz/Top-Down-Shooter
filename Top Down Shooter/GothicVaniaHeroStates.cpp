@@ -308,6 +308,14 @@ bool HeroIdle::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->GetFSM()->changeState(HeroJumping::Instance());
 	}
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroSliding::Instance());
+	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
+	}
 	return true;
 }
 //------------------------------------------------------------------------methods for HeroAttack
@@ -611,7 +619,7 @@ HeroRunning* HeroRunning::Instance()
 
 void HeroRunning::Enter(HeroEntity* entity)
 {
-	entity->SetAnimation("AdventurerRun");
+	entity->SetAnimation("AdventurerRunSword");
 	entity->myAnimatedSprite->Reset();
 }
 
@@ -672,6 +680,99 @@ bool HeroRunning::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->GetFSM()->changeState(HeroAttackSword1::Instance());
 	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroJumping::Instance());
+	}
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroSliding::Instance());
+	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroRunning
+HeroSliding* HeroSliding::Instance()
+{
+	static HeroSliding instance;
+
+	return &instance;
+}
+
+
+void HeroSliding::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerSlide");
+	entity->myAnimatedSprite->Reset();
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+		entity->StartSliding(1);
+	else
+		entity->StartSliding(-1);
+}
+
+
+void HeroSliding::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+
+	entity->HandleSliding();
+	entity->CheckIfFalling();
+
+	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
+		entity->GetFSM()->changeState(HeroIdle::Instance());
+}
+
+
+void HeroSliding::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroSliding::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	/*switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}*/
+	return true;
+}
+bool HeroSliding::HandleInput(HeroEntity* entity, int key, int action)
+{
+	/*if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+	entity->myPosYDirection = 1.0f;
+	}
+	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
+	{
+	entity->myNegYDirection = -1.0f;
+	}*/
+	/*if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myPosXDirection = 1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myNegXDirection = -1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	if (key == GLFW_KEY_C && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCrouch::Instance());
+	}
+	if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroAttackSword1::Instance());
+	}*/
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroJumping::Instance());
@@ -739,6 +840,14 @@ bool HeroFalling::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroAttackSwordAir1::Instance());
+	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowAir::Instance());
+	}
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroDropKick::Instance());
 	}
 	return true;
 }
@@ -810,6 +919,14 @@ bool HeroJumping::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->GetFSM()->changeState(HeroAttackSwordAir1::Instance());
 	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowAir::Instance());
+	}
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroDropKick::Instance());
+	}
 	return true;
 }
 //------------------------------------------------------------------------methods for HeroFalling
@@ -865,5 +982,168 @@ bool HeroDamaged::HandleInput(HeroEntity* entity, int key, int action)
 		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroFireBowGround* HeroFireBowGround::Instance()
+{
+	static HeroFireBowGround instance;
+
+	return &instance;
+}
+
+void HeroFireBowGround::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerBowGround");
+	entity->myAnimatedSprite->Reset();
+}
+
+void HeroFireBowGround::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroIdle::Instance());
+	}
+}
+
+void HeroFireBowGround::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroFireBowGround::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroFireBowGround::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroFireBowAir* HeroFireBowAir::Instance()
+{
+	static HeroFireBowAir instance;
+
+	return &instance;
+}
+
+void HeroFireBowAir::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerBowInAir");
+	entity->myAnimatedSprite->Reset();
+}
+
+void HeroFireBowAir::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroFalling::Instance());
+	}
+}
+
+void HeroFireBowAir::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroFireBowAir::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroFireBowAir::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroDie* HeroDie::Instance()
+{
+	static HeroDie instance;
+
+	return &instance;
+}
+
+void HeroDie::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerDie");
+	entity->myAnimatedSprite->Reset();
+}
+
+void HeroDie::Execute(HeroEntity* entity)
+{
+	if(!entity->myAnimatedSprite->IsDone())
+		entity->myAnimatedSprite->Update();
+}
+
+void HeroDie::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroDie::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return false;
+}
+bool HeroDie::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroDropKick* HeroDropKick::Instance()
+{
+	static HeroDropKick instance;
+
+	return &instance;
+}
+
+void HeroDropKick::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerDropKick");
+	entity->myAnimatedSprite->Reset();
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+		entity->StartSliding(1);
+	else
+		entity->StartSliding(-1);
+}
+
+void HeroDropKick::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->IsOnSpikes())
+		entity->GetFSM()->changeState(HeroDamaged::Instance());
+	entity->myNegYDirection = -1.0f;
+	entity->HandleDropKick();
+}
+
+void HeroDropKick::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroDropKick::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return false;
+}
+bool HeroDropKick::HandleInput(HeroEntity* entity, int key, int action)
+{
 	return true;
 }
