@@ -8,6 +8,7 @@
 class TileMap;
 class Group;
 class HeroSprite;
+class AdventurerSprite;
 class Sprite;
 class ShakeInfo;
 
@@ -32,7 +33,7 @@ struct HeroEntity : public Entity
 	~HeroEntity();
 
 	Group* mySprite;
-	HeroSprite* myAnimatedSprite;
+	AdventurerSprite* myAnimatedSprite;
 
 	
 	void Update() override;
@@ -89,6 +90,9 @@ struct HeroEntity : public Entity
 	bool myIsDamaged;
 	bool basicAttack;
 	ShakeInfo* myShakeInfoBasicAttack;
+
+	bool myShouldEnterNextSwordAttack;
+	float myCurrentSwordAttackCooldownTimer;
 
 	float myStartDeadTimer;
 };

@@ -7,7 +7,7 @@
 
 #include "TileMap.h"
 #include "Group.h"
-#include "HeroSprite.h"
+#include "AdventurerSprite.h"
 #include "TextureManager.h"
 #include "GLFW\glfw3.h"
 #include "GothicVaniaHeroStates.h"
@@ -21,14 +21,15 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 {
 	mPosition = glm::vec3(0.0f, 0.0f, 0.1f);
 	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
-	myAnimatedSprite = new HeroSprite(glm::vec4(0.0f, 5.0f, 0.1f, 1), glm::vec2(100, 59), TextureMan->GetTexture("hero"), Heading::RIGHTFACING);
+	myAnimatedSprite = new AdventurerSprite(glm::vec4(0.0f, 5.0f, 0.1f, 1), glm::vec2(100, 59), TextureMan->GetTexture("adventurer2"), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
 //	mySprite->Add(myPlayerAABB);
 
 	
-
+	myShouldEnterNextSwordAttack = false;
+	myCurrentSwordAttackCooldownTimer = 0;
 	currentKeyInput = 0;
 	myState = IDLE;
 	myPosXDirection = 0;
@@ -111,7 +112,7 @@ void HeroEntity::UpdateTransformationMatrix(const Camera& camera)
 }
 void HeroEntity::HandleMovement()
 {
-	if (myStateMachine->isInState(*HeroCrouch::Instance()) || myStateMachine->isInState(*HeroAttack::Instance()))
+	if (myStateMachine->isInState(*HeroCrouch::Instance()) || myStateMachine->isInState(*HeroAttackSword1::Instance()) || myStateMachine->isInState(*HeroAttackSword2::Instance()) || myStateMachine->isInState(*HeroAttackSword3::Instance()))
 		return;
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
@@ -484,7 +485,7 @@ void HeroEntity::Update()
 	//HandleMovement();
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
@@ -508,6 +509,8 @@ void HeroEntity::Update()
 		}
 
 	}
+
+
 	/*if(!inAir)
 		HandleGravity();
 	if (inAir)

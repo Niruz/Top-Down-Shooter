@@ -37,20 +37,110 @@ public:
 //  Attack state for the hero
 //  
 //------------------------------------------------------------------------
-class HeroAttack : public State<HeroEntity>
+class HeroAttackSwordAir1 : public State<HeroEntity>
 {
 private:
 
-	HeroAttack() {}
+	HeroAttackSwordAir1() {}
 
 	//copy ctor and assignment should be private
-	HeroAttack(const HeroAttack&);
-	HeroAttack& operator=(const HeroAttack&);
+	HeroAttackSwordAir1(const HeroAttackSwordAir1&);
+	HeroAttackSwordAir1& operator=(const HeroAttackSwordAir1&);
 
 public:
 
 	//this is a singleton
-	static HeroAttack* Instance();
+	static HeroAttackSwordAir1* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//------------------------------------------------------------------------
+//
+//  Attack state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroAttackSwordAir2 : public State<HeroEntity>
+{
+private:
+
+	HeroAttackSwordAir2() {}
+
+	//copy ctor and assignment should be private
+	HeroAttackSwordAir2(const HeroAttackSwordAir2&);
+	HeroAttackSwordAir2& operator=(const HeroAttackSwordAir2&);
+
+public:
+
+	//this is a singleton
+	static HeroAttackSwordAir2* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//------------------------------------------------------------------------
+//
+//  Attack state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroAttackSwordAir3 : public State<HeroEntity>
+{
+private:
+
+	HeroAttackSwordAir3() {}
+
+	//copy ctor and assignment should be private
+	HeroAttackSwordAir3(const HeroAttackSwordAir3&);
+	HeroAttackSwordAir3& operator=(const HeroAttackSwordAir3&);
+
+public:
+
+	//this is a singleton
+	static HeroAttackSwordAir3* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//------------------------------------------------------------------------
+//
+//  Attack state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroAttackSword1 : public State<HeroEntity>
+{
+private:
+
+	HeroAttackSword1() {}
+
+	//copy ctor and assignment should be private
+	HeroAttackSword1(const HeroAttackSword1&);
+	HeroAttackSword1& operator=(const HeroAttackSword1&);
+
+public:
+
+	//this is a singleton
+	static HeroAttackSword1* Instance();
 
 	virtual void Enter(HeroEntity* entity);
 
@@ -60,6 +150,66 @@ public:
 
 	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
 	
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//------------------------------------------------------------------------
+//
+//  Attack state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroAttackSword2 : public State<HeroEntity>
+{
+private:
+
+	HeroAttackSword2() {}
+
+	//copy ctor and assignment should be private
+	HeroAttackSword2(const HeroAttackSword2&);
+	HeroAttackSword2& operator=(const HeroAttackSword2&);
+
+public:
+
+	//this is a singleton
+	static HeroAttackSword2* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//------------------------------------------------------------------------
+//
+//  Attack state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroAttackSword3 : public State<HeroEntity>
+{
+private:
+
+	HeroAttackSword3() {}
+
+	//copy ctor and assignment should be private
+	HeroAttackSword3(const HeroAttackSword3&);
+	HeroAttackSword3& operator=(const HeroAttackSword3&);
+
+public:
+
+	//this is a singleton
+	static HeroAttackSword3* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
 	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 };
 //------------------------------------------------------------------------
