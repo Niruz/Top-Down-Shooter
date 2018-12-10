@@ -1130,8 +1130,12 @@ void HeroDropKick::Execute(HeroEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if (entity->IsOnSpikes())
 		entity->GetFSM()->changeState(HeroDamaged::Instance());
-	entity->myNegYDirection = -1.0f;
-	entity->HandleDropKick();
+	else
+	{
+		entity->myNegYDirection = -1.0f;
+		entity->HandleDropKick();
+	}
+
 }
 
 void HeroDropKick::Exit(HeroEntity* entity)
