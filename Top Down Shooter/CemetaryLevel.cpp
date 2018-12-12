@@ -694,6 +694,8 @@ void CemetaryLevel::ProcessKeyBoard(int key, float deltaTime, int action)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_R)
 		myPlayer->processKeyBoard(key, deltaTime, action);
+	if (key == GLFW_KEY_G)
+		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_1)
 		myPlayer->SetAnimation("HeroRun");
 	if (key == GLFW_KEY_2)

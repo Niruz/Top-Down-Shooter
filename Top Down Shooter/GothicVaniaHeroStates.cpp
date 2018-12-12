@@ -486,6 +486,10 @@ bool HeroIdle::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->GetFSM()->changeState(HeroCastSpell::Instance());
 	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroSheatheSword::Instance());
+	}
 	return true;
 }
 //------------------------------------------------------------------------methods for HeroAttack
@@ -900,7 +904,10 @@ void HeroSliding::Execute(HeroEntity* entity)
 	entity->CheckIfFalling();
 
 	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
+	{
 		entity->GetFSM()->changeState(HeroIdle::Instance());
+	}
+		
 }
 
 
@@ -1389,5 +1396,332 @@ bool HeroCastSpell::OnMessage(HeroEntity* entity, const Message& msg)
 }
 bool HeroCastSpell::HandleInput(HeroEntity* entity, int key, int action)
 {
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroSheatheSword* HeroSheatheSword::Instance()
+{
+	static HeroSheatheSword instance;
+
+	return &instance;
+}
+
+void HeroSheatheSword::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerSheatheSword");
+	entity->myAnimatedSprite->Reset();
+}
+
+void HeroSheatheSword::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroMeleeIdle::Instance());
+	}
+
+}
+
+void HeroSheatheSword::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroSheatheSword::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroSheatheSword::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroIdle
+HeroMeleeIdle* HeroMeleeIdle::Instance()
+{
+	static HeroMeleeIdle instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeIdle::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerIdleSheathe");
+}
+
+
+void HeroMeleeIdle::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	entity->CheckIfFalling();
+}
+
+
+void HeroMeleeIdle::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroMeleeIdle::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroMeleeIdle::HandleInput(HeroEntity* entity, int key, int action)
+{
+	/*if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+	entity->GetFSM()->changeState(HeroRunning::Instance());
+	entity->myPosYDirection = 1.0f;
+	}
+	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
+	{
+	entity->GetFSM()->changeState(HeroRunning::Instance());
+	entity->myNegYDirection = -1.0f;
+	}*/
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeRun::Instance());
+		entity->myPosXDirection = 1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeRun::Instance());
+		entity->myNegXDirection = -1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeDrawSword::Instance());
+	}
+/*	if (key == GLFW_KEY_C && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCrouch::Instance());
+	}
+	if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroAttackSword1::Instance());
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroJumping::Instance());
+	}*/
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeSliding::Instance());
+	}
+/*	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
+	}
+	if (key == GLFW_KEY_R && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCastSpell::Instance());
+	}*/
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroRunning
+HeroMeleeRun* HeroMeleeRun::Instance()
+{
+	static HeroMeleeRun instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeRun::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerRun");
+	entity->myAnimatedSprite->Reset();
+}
+
+
+void HeroMeleeRun::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+
+	entity->HandleMovement();
+	entity->CheckIfFalling();
+}
+
+
+void HeroMeleeRun::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroMeleeRun::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroMeleeRun::HandleInput(HeroEntity* entity, int key, int action)
+{
+	/*if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+	entity->myPosYDirection = 1.0f;
+	}
+	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
+	{
+	entity->myNegYDirection = -1.0f;
+	}*/
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myPosXDirection = 1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myNegXDirection = -1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+/*	if (key == GLFW_KEY_C && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCrouch::Instance());
+	}
+	if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroAttackSword1::Instance());
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroJumping::Instance());
+	}*/
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeSliding::Instance());
+	}/*
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
+	}
+	if (key == GLFW_KEY_R && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCastSpell::Instance());
+	}*/
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroMeleeDrawSword* HeroMeleeDrawSword::Instance()
+{
+	static HeroMeleeDrawSword instance;
+
+	return &instance;
+}
+
+void HeroMeleeDrawSword::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerDrawSword");
+	entity->myAnimatedSprite->Reset();
+}
+
+void HeroMeleeDrawSword::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroIdle::Instance());
+	}
+
+}
+
+void HeroMeleeDrawSword::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroMeleeDrawSword::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroMeleeDrawSword::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+HeroMeleeSliding* HeroMeleeSliding::Instance()
+{
+	static HeroMeleeSliding instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeSliding::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerSlide");
+	entity->myAnimatedSprite->Reset();
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+		entity->StartSliding(1);
+	else
+		entity->StartSliding(-1);
+}
+
+
+void HeroMeleeSliding::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+
+	entity->HandleSliding();
+	entity->CheckIfFalling();
+
+	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
+	{
+		entity->GetFSM()->changeState(HeroMeleeIdle::Instance());
+	}
+
+}
+
+void HeroMeleeSliding::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroMeleeSliding::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return true;
+}
+bool HeroMeleeSliding::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroJumping::Instance());
+	}
 	return true;
 }

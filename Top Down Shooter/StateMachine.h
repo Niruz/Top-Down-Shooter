@@ -149,4 +149,17 @@ public:
 
 		return s;
 	}
+	//only ever used during debugging to grab the name of the current state
+	std::string         GetNameOfPreviousState()const
+	{
+		std::string s(typeid(*mPreviousState).name());
+
+		//remove the 'class ' part from the front of the string
+		if (s.size() > 5)
+		{
+			s.erase(0, 6);
+		}
+
+		return s;
+	}
 };

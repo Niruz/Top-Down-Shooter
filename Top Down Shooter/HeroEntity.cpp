@@ -118,6 +118,7 @@ void HeroEntity::UpdateTransformationMatrix(const Camera& camera)
 }
 void HeroEntity::HandleMovement()
 {
+	//is this necessary anymore?
 	if (myStateMachine->isInState(*HeroCrouch::Instance()) || myStateMachine->isInState(*HeroAttackSword1::Instance()) || myStateMachine->isInState(*HeroAttackSword2::Instance()) || myStateMachine->isInState(*HeroAttackSword3::Instance()))
 		return;
 	int tileX = myTileMap->lastPlayerTile->myX;
@@ -716,10 +717,16 @@ void HeroEntity::Update()
 {
 
 	//HandleMovement();
+	//Really need to remove this nonsense and add it to the states instead
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroAttackSwordAir5::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroSheatheSword::Instance()) && !myStateMachine->isInState(*HeroMeleeDrawSword::Instance()) && !myStateMachine->isInState(*HeroMeleeIdle::Instance()) && !myStateMachine->isInState(*HeroAttackSwordAir5::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroMeleeSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+		{
+			if(myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeIdle::Instance());
+			else
 				myStateMachine->changeState(HeroIdle::Instance());
+		}	
 	}
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
 	myStateMachine->update();
@@ -798,125 +805,4 @@ void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 
 	myStateMachine->HandleInput(key, action);
 
-	/*if (key == GLFW_KEY_W && action == GLFW_PRESS)
-	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
-			myStateMachine->changeState(HeroRunning::Instance());
-		currentKeyInput = GLFW_KEY_W;
-		myPosYDirection = 1.0f;
-		myState = RUNNING;
-		
-	}
-	else if (key == GLFW_KEY_W && action == GLFW_RELEASE)
-	{
-		if(myStateMachine->isInState(*HeroRunning::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-		myPosYDirection = 0.0f;
-	}
-	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
-	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
-			myStateMachine->changeState(HeroRunning::Instance());
-		currentKeyInput = GLFW_KEY_S;
-		myNegYDirection = -1.0f;
-		myState = RUNNING;
-	}
-	else if (key == GLFW_KEY_S && action == GLFW_RELEASE)
-	{
-		if (myStateMachine->isInState(*HeroRunning::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-		myNegYDirection = 0.0f;
-	}
-	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
-	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
-			myStateMachine->changeState(HeroRunning::Instance());
-		currentKeyInput = GLFW_KEY_D;
-		myPosXDirection = 1.0f;
-		myState = RUNNING;
-		if (!myStateMachine->isInState(*HeroAttack::Instance()))
-			myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
-	}
-	else if (key == GLFW_KEY_D && action == GLFW_RELEASE)
-	{
-		if (myStateMachine->isInState(*HeroRunning::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-		myPosXDirection = 0.0f;
-	}
-	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
-	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroRunning::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
-			myStateMachine->changeState(HeroRunning::Instance());
-		currentKeyInput = GLFW_KEY_A;
-		myNegXDirection = -1.0f;
-		myState = RUNNING;
-		if(!myStateMachine->isInState(*HeroAttack::Instance()))
-			myAnimatedSprite->SetHeading(Heading::LEFTFACING);
-	}
-	else if (key == GLFW_KEY_A && action == GLFW_RELEASE)
-	{
-		if (myStateMachine->isInState(*HeroRunning::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-		myNegXDirection = 0.0f;
-	}
-	if (key == GLFW_KEY_C && action == GLFW_PRESS)
-	{
-		//myAnimatedSprite->SetAnimation("HeroCrouch");
-		currentKeyInput = GLFW_KEY_C;
-
-		//myPosXDirection = myPosYDirection = myNegXDirection = myNegYDirection = 0.0f;
-
-		myState = CROUCH;
-		//myXDirection = myYDirection = 0.0f;
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()))
-			myStateMachine->changeState(HeroCrouch::Instance());
-		else if (myStateMachine->isInState(*HeroCrouch::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-
-	}
-	if (key == GLFW_KEY_C && action == GLFW_RELEASE)
-	{
-		if(myStateMachine->isInState(*HeroCrouch::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-	}
-	if (key == GLFW_KEY_V && action == GLFW_PRESS)
-	{
-		currentKeyInput = GLFW_KEY_V;
-		myState = ATTACKING;
-
-		if(!myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()))
-			myStateMachine->changeState(HeroAttack::Instance());
-	}
-	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-	{
-		currentKeyInput = GLFW_KEY_SPACE;
-		if (!myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()))
-			myStateMachine->changeState(HeroJumping::Instance());
-
-		
-	}
-	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
-	{
-		currentKeyInput = GLFW_KEY_SPACE;
-		if (myStateMachine->isInState(*HeroJumping::Instance()))
-			myStateMachine->changeState(HeroFalling::Instance());
-
-
-	}*/
-
-	if (currentKeyInput == 0)
-	{
-	//	myStateMachine->changeState(HeroIdle::Instance());
-	}
-	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection))
-	{
-	//	if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()))
-		//	myStateMachine->changeState(HeroIdle::Instance());
-	}
-		
-/*	if ((myPosXDirection == -1* myNegXDirection) || (myPosYDirection == -1 * myNegYDirection))
-	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttack::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()))
-			myStateMachine->changeState(HeroIdle::Instance());
-	}*/
 }

@@ -310,6 +310,8 @@ void updateInput(GLfloat deltaTime)
 		std::cout << "Q Released" << std::endl;
 	}*/
 
+	if (currentKeyState[GLFW_KEY_G])
+		myGame->ProcessKeyBoard(GLFW_KEY_G, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_W])
 		myGame->ProcessKeyBoard(GLFW_KEY_W, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_S])

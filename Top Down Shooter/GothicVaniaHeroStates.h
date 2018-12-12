@@ -602,3 +602,182 @@ public:
 	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 
 };
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroSheatheSword : public State<HeroEntity>
+{
+private:
+
+	HeroSheatheSword() {}
+
+	//copy ctor and assignment should be private
+	HeroSheatheSword(const HeroSheatheSword&);
+	HeroSheatheSword& operator=(const HeroSheatheSword&);
+
+public:
+
+	//this is a singleton
+	static HeroSheatheSword* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+
+
+
+/*********************************************
+************************************************
+*************************************************
+**************************************************
+BEGINNNING OF THE MELEE STATES*/
+/*********************************************
+************************************************
+*************************************************
+**************************************************
+BEGINNNING OF THE MELEE STATES*/
+/*********************************************
+************************************************
+*************************************************
+**************************************************
+BEGINNNING OF THE MELEE STATES*/
+/*********************************************
+************************************************
+*************************************************
+**************************************************
+BEGINNNING OF THE MELEE STATES*/
+/*********************************************
+************************************************
+*************************************************
+**************************************************
+BEGINNNING OF THE MELEE STATES*/
+
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeIdle : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeIdle() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeIdle(const HeroMeleeIdle&);
+	HeroMeleeIdle& operator=(const HeroMeleeIdle&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeIdle* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeRun : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeRun() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeRun(const HeroMeleeRun&);
+	HeroMeleeRun& operator=(const HeroMeleeRun&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeRun* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeDrawSword : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeDrawSword() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeDrawSword(const HeroMeleeDrawSword&);
+	HeroMeleeDrawSword& operator=(const HeroMeleeDrawSword&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeDrawSword* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeSliding : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeSliding() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeSliding(const HeroMeleeSliding&);
+	HeroMeleeSliding& operator=(const HeroMeleeSliding&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeSliding* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
