@@ -67,6 +67,7 @@ struct HeroEntity : public Entity
 	void HandleJump();
 	void HandleSliding();
 	void HandleDropKick();
+	void HandleAirSlam(float speed);
 	void HandleDamaged(int damageRecieved);
 	void StartJump();
 	void StartSliding(int direction);
@@ -104,6 +105,9 @@ struct HeroEntity : public Entity
 	float myCurrentSwordAttackCooldownTimer;
 
 	float myStartDeadTimer;
+
+	bool myAirSlamReceived;
+	bool myAirSlamReleased;
 };
 
 

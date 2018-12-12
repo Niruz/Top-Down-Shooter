@@ -67,6 +67,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myIsDamaged = false;
 	CollisionMan->RegisterPlayer(this);
 	basicAttack = false;
+	myAirSlamReceived = false;
 	myShakeInfoBasicAttack = new ShakeInfo(500, 15, 1);
 
 	myStartDeadTimer = 0.0f;
@@ -383,6 +384,59 @@ void HeroEntity::StartDropKick(int direction)
 	else
 		myXVelocity = 3.0f;
 }
+void HeroEntity::HandleAirSlam(float speed)
+{
+	int tileX = myTileMap->lastPlayerTile->myX;
+	int tileY = myTileMap->lastPlayerTile->myY;
+	//float fallingSpeed = -6.0f;
+	float fallingSpeed = speed;
+
+	float velocity = 1.6f;
+
+
+	glm::vec3 oldPosition = mPosition;
+	mPosition.y += fallingSpeed;
+	//myYVelocity += myGravity;
+	//mPosition.y += myYVelocity/2.0f;
+	myAABB->myOrigin.y = mPosition.y;
+	myTileMap->SetPlayerTile2(myAABB);
+	bool bottomRightFree = myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag;
+	bool bottomLeftFree = myTileMap->lastPlayerTileBottomLeft->myIsBlockingFlag;
+	bool bottomRightOneWay = myTileMap->lastPlayerTileBottomRight->myIsOneWayTile;
+	bool bottomLeftOneWay = myTileMap->lastPlayerTileBottomLeft->myIsOneWayTile;
+
+	bool bottomBlocking = bottomLeftFree || bottomRightFree;
+	bool bottomIsOneWayTile = bottomRightOneWay || bottomLeftOneWay;
+
+	if (bottomIsOneWayTile)
+	{
+		if ((myAABB->myOrigin.y - myAABB->halfY) > (myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 10.0f))
+		{
+			mPosition = oldPosition;
+			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
+			myAABB->myOrigin.y = mPosition.y;
+			myTileMap->SetPlayerTile2(myAABB);
+			myStateMachine->changeState(HeroAttackSwordAir5::Instance());
+		}
+	}
+	else if (bottomBlocking)
+	{
+		//This will prevent clipping upwards
+		if ((myAABB->myOrigin.y - myAABB->halfY) > (myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 10.0f))
+		{
+			mPosition = oldPosition;
+			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
+			myAABB->myOrigin.y = mPosition.y;
+			myTileMap->SetPlayerTile2(myAABB);
+			myStateMachine->changeState(HeroAttackSwordAir5::Instance());
+		}
+
+	}
+
+
+	myNegXDirection = myPosXDirection = 0.0f;
+	mPosition.z = 0.1f;
+}
 void HeroEntity::HandleDropKick()
 {
 	int tileX = myTileMap->lastPlayerTile->myX;
@@ -664,7 +718,7 @@ void HeroEntity::Update()
 	//HandleMovement();
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroAttackSwordAir5::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);

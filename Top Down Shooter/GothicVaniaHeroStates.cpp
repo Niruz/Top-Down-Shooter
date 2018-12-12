@@ -98,6 +98,7 @@ void HeroAttackSwordAir2::Enter(HeroEntity* entity)
 	entity->myShouldEnterNextSwordAttack = false;
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
+	entity->myAirSlamReceived = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -114,7 +115,7 @@ void HeroAttackSwordAir2::Execute(HeroEntity* entity)
 			entity->basicAttack = true;
 		}
 		if (entity->myShouldEnterNextSwordAttack)
-			entity->GetFSM()->changeState(HeroAttackSwordAir1::Instance());
+			entity->GetFSM()->changeState(HeroAttackSwordAir3::Instance());
 		else
 			entity->GetFSM()->changeState(HeroFalling::Instance());
 	}
@@ -147,6 +148,11 @@ bool HeroAttackSwordAir2::HandleInput(HeroEntity* entity, int key, int action)
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
 			entity->myShouldEnterNextSwordAttack = true;
 	}
+	if (key == GLFW_KEY_V && action == GLFW_REPEAT)
+	{
+		entity->myAirSlamReceived = true;
+	}
+
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
@@ -168,7 +174,7 @@ HeroAttackSwordAir3* HeroAttackSwordAir3::Instance()
 
 void HeroAttackSwordAir3::Enter(HeroEntity* entity)
 {
-	entity->SetAnimation("AdventurerAttack2AirSword");
+	entity->SetAnimation("AdventurerAirSlamBegin");
 	entity->myShouldEnterNextSwordAttack = false;
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
@@ -187,17 +193,33 @@ void HeroAttackSwordAir3::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		/*	if (entity->myShouldEnterNextSwordAttack)
-		entity->GetFSM()->changeState(HeroAttackSword2::Instance());
-		else*/
-		entity->GetFSM()->changeState(HeroFalling::Instance());
+		if (entity->myAirSlamReceived)
+			entity->GetFSM()->changeState(HeroAttackSwordAir4::Instance());
+		else
+			entity->GetFSM()->changeState(HeroFalling::Instance());
 	}
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	{
+		if (entity->myAirSlamReceived)
+			entity->GetFSM()->changeState(HeroAttackSwordAir4::Instance());
+	}
+	if(entity->myAirSlamReceived && entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+		entity->HandleAirSlam(-6.0f);
+	/*else if (entity->myAirSlamReceived)
+		entity->GetFSM()->changeState(HeroAttackSwordAir4::Instance());
+	if (entity->IsOnSpikes())
+		entity->GetFSM()->changeState(HeroDamaged::Instance());*/
+	/*else
+	{
+		entity->HandleAirSlam(0.0f);
+	}*/
 }
 
 
 void HeroAttackSwordAir3::Exit(HeroEntity* entity)
 {
 	entity->myShouldEnterNextSwordAttack = false;
+	entity->myAirSlamReceived = false;
 }
 
 
@@ -228,6 +250,150 @@ bool HeroAttackSwordAir3::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}*/
+	/*if (key == GLFW_KEY_V && action == GLFW_RELEASE)
+	{
+		entity->myAirSlamReceived = false;
+	}
+	if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+		entity->myAirSlamReceived = true;
+	}*/
+	if (key == GLFW_KEY_V && action == GLFW_RELEASE)
+	{
+		entity->myAirSlamReceived = false;
+	}
+	if (key == GLFW_KEY_V && action == GLFW_REPEAT)
+	{
+		entity->myAirSlamReceived = true;
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroAttackSwordAir4* HeroAttackSwordAir4::Instance()
+{
+	static HeroAttackSwordAir4 instance;
+
+	return &instance;
+}
+
+
+void HeroAttackSwordAir4::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerAirSlamLoop");
+	entity->myShouldEnterNextSwordAttack = false;
+	entity->myAnimatedSprite->Reset();
+	entity->basicAttack = false;
+}
+
+
+void HeroAttackSwordAir4::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->IsOnSpikes())
+		entity->GetFSM()->changeState(HeroDamaged::Instance());
+	else
+	{
+		entity->HandleAirSlam(-6.0f);
+	}
+}
+
+
+void HeroAttackSwordAir4::Exit(HeroEntity* entity)
+{
+	entity->myShouldEnterNextSwordAttack = false;
+}
+
+
+bool HeroAttackSwordAir4::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroAttackSwordAir4::HandleInput(HeroEntity* entity, int key, int action)
+{
+	/*if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
+	entity->myShouldEnterNextSwordAttack = true;
+	}
+	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+	entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+	entity->myShouldEnterNextSwordAttack = false;
+	}*/
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroAttackSwordAir5* HeroAttackSwordAir5::Instance()
+{
+	static HeroAttackSwordAir5 instance;
+
+	return &instance;
+}
+
+
+void HeroAttackSwordAir5::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerAirSlamEnd");
+	entity->myShouldEnterNextSwordAttack = false;
+	entity->myAnimatedSprite->Reset();
+	entity->basicAttack = false;
+}
+
+
+void HeroAttackSwordAir5::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if(entity->myAnimatedSprite->IsDone())
+		entity->GetFSM()->changeState(HeroIdle::Instance());
+}
+
+
+void HeroAttackSwordAir5::Exit(HeroEntity* entity)
+{
+	entity->myShouldEnterNextSwordAttack = false;
+}
+
+
+bool HeroAttackSwordAir5::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroAttackSwordAir5::HandleInput(HeroEntity* entity, int key, int action)
+{
+	/*if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
+	entity->myShouldEnterNextSwordAttack = true;
+	}
+	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+	entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+	entity->myShouldEnterNextSwordAttack = false;
 	}*/
 	return true;
 }
@@ -670,6 +836,10 @@ bool HeroRunning::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->myPosXDirection = 1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	if (key == GLFW_KEY_D && action == GLFW_REPEAT)
+	{
+		int shit = 5;
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{

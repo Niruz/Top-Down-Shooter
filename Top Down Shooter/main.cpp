@@ -66,6 +66,7 @@ bool currentKeyState[1024] = { false };
 bool oldKeyState[1024] = { false };
 bool keyPressRelease[1024] = { false };
 bool oldKeyPressRelease[1024] = { false };
+bool currentKeyRepeat[1024] = { false };
 
 
 bool firstMouse = true;
@@ -109,9 +110,14 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		if (action == GLFW_PRESS)
 			currentKeyState[key] = true;
 		else if (action == GLFW_RELEASE)
+		{
+			currentKeyRepeat[key] = false;
 			currentKeyState[key] = false;
+		}
 		else if (action == GLFW_REPEAT)
-			int shit = 5;
+		{
+			currentKeyRepeat[key] = true;
+		}
 	}
 }
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -314,6 +320,8 @@ void updateInput(GLfloat deltaTime)
 		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_Q])
 		myGame->ProcessKeyBoard(GLFW_KEY_Q, deltaTime, GLFW_PRESS);
+	if (currentKeyRepeat[GLFW_KEY_V])
+		myGame->ProcessKeyBoard(GLFW_KEY_V, deltaTime, GLFW_REPEAT);
 	/*if (currentKeyState[GLFW_KEY_1])
 		myGame->ProcessKeyBoard(GLFW_KEY_1, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_2])
