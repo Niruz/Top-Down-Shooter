@@ -91,6 +91,44 @@ void CollisionManager::Update()
 			it++;
 		}
 	}
+
+	if(myHeroProjectiles.size() != 0)
+	{
+		std::map<int, BaseProjectileEntity*>::iterator it = myHeroProjectiles.begin();
+
+		while (it != myHeroProjectiles.end())
+		{
+			int projectileID = it->first;
+			BaseProjectileEntity* projectile = it->second;
+			
+
+
+			std::map<int, BaseEnemy*>::iterator iter = myEnemies.begin();
+
+			while (iter != myEnemies.end())
+			{
+				int enemyID = iter->first;
+				BaseEnemy* enemy = iter->second;
+				if (enemy->myIsActive)
+				{
+					if (TestAABBAABB(projectile->myAABB, enemy->myAABB))
+					{
+						MessageMan->dispatchMessage(0, 555, enemy->GetID(), Msg_TakeDamage, 0);
+						projectile->MarkForDeletion();
+						break;
+					}
+				}
+
+
+
+				iter++;
+			}
+
+
+
+			it++;
+		}
+	}
 }
 bool CollisionManager::TestAABBAABB(AABB* one, AABB* two)
 {
@@ -107,6 +145,16 @@ void CollisionManager::RemoveProjectile(BaseProjectileEntity* projectile)
 {
 	myProjectiles.erase(myProjectiles.find(projectile->GetID()));
 }
+
+void CollisionManager::RegisterHeroProjectile(BaseProjectileEntity* projectile)
+{
+	myHeroProjectiles.insert(std::make_pair(projectile->GetID(), projectile));
+}
+void CollisionManager::RemoveHeroProjectile(BaseProjectileEntity* projectile)
+{
+	myHeroProjectiles.erase(myHeroProjectiles.find(projectile->GetID()));
+}
+
 
 void CollisionManager::RegisterPlayer(HeroEntity* hero)
 {

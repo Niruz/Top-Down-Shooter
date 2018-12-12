@@ -75,6 +75,8 @@ struct HeroEntity : public Entity
 	bool IsOnSpikes();
 	bool inAir;
 	void Respawn();
+	void SpawnProjectile();
+	void SpawnArrow();
 	float mAngle;
 
 	int currentKeyInput;
@@ -91,6 +93,7 @@ struct HeroEntity : public Entity
 	float mySwordAABBRightX;
 	float mySwordAABBLeftX;
 
+	bool myFiredProjectile;
 	int myHealth;
 	int myDamageFrameCounter;
 	bool myIsDamaged;

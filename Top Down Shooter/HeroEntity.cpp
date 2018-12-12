@@ -14,6 +14,8 @@
 #include "Sprite.h"
 #include "CollisionManager.h"
 #include "ShakeInfo.h"
+#include "World.h"
+#include "Level.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),
@@ -52,6 +54,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 
 	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 2.5), 9.0f, 22.0f);
 
+	myFiredProjectile = false;
 
 	mySwordAABB = new AABB(glm::vec2(mPosition.x + 30.0f, mPosition.y + 1.5), 17.0f, 15.0f);
 	mySwordSpriteAABB = new Sprite(glm::vec4(mPosition.x + 30.0f, mPosition.y + 1.5, 0.25f, 1.0f), glm::vec2(34.0f, 10.0f), glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
@@ -661,7 +664,7 @@ void HeroEntity::Update()
 	//HandleMovement();
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+			if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance())  && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
 				myStateMachine->changeState(HeroIdle::Instance());
 	}
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
@@ -704,6 +707,36 @@ void HeroEntity::Update()
 bool HeroEntity::HandleMessage(const Message& msg)
 {
 	return myStateMachine->HandleMessage(msg);
+}
+void HeroEntity::SpawnArrow()
+{
+	if (myFiredProjectile)
+		return;
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
+	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
+}
+void HeroEntity::SpawnProjectile()
+{
+	if (myFiredProjectile)
+		return;
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
+	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
+		myFiredProjectile = true;
+	}
 }
 void HeroEntity::processKeyBoard(int key, float deltaTime, int action)
 {

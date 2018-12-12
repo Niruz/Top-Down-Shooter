@@ -17,7 +17,7 @@ UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const 
 
 	myAnimatedSprite = new UndeadWarriorSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(94 + 47, 36 + 18), TextureMan->GetTexture("undeadwarrior"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
-	//mySprite->Add(myPlayerAABB);
+//	mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("UndeadWarriorRun");
 	myXDirection = 1.0f;
 	if (myStartPosition.x > patrolTo.x)
@@ -109,7 +109,7 @@ void UndeadWarriorEntity::SetFacing()
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 5.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 5.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x - 30.0f, mPosition.y - 10.0f);
 		myHitSpriteAABB->myPosition.x = mPosition.x - 30.0f;
 		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
@@ -117,7 +117,7 @@ void UndeadWarriorEntity::SetFacing()
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 5.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 5.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x + 30.0f, mPosition.y - 10.0f);
 		myHitSpriteAABB->myPosition.x = mPosition.x + 30.0f;
 		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
@@ -189,7 +189,7 @@ void UndeadWarriorEntity::HandleMovement()
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 5.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 5.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x - 30.0f, mPosition.y - 10.0f);
 		myHitSpriteAABB->myPosition.x = mPosition.x - 30.0f;
 		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;
@@ -197,7 +197,7 @@ void UndeadWarriorEntity::HandleMovement()
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 5.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 5.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 5.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x + 30.0f, mPosition.y - 10.0f);
 		myHitSpriteAABB->myPosition.x = mPosition.x + 30.0f;
 		myHitSpriteAABB->myPosition.y = mPosition.y - 10.0f;

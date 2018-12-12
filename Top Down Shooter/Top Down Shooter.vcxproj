@@ -93,6 +93,9 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdventurerProjectile.cpp" />
+    <ClCompile Include="AdventurerProjectileArrow.cpp" />
+    <ClCompile Include="AdventurerProjectileSprite.cpp" />
     <ClCompile Include="AdventurerSprite.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
@@ -232,6 +235,9 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
+    <ClInclude Include="AdventurerProjectile.h" />
+    <ClInclude Include="AdventurerProjectileArrow.h" />
+    <ClInclude Include="AdventurerProjectileSprite.h" />
     <ClInclude Include="AdventurerSprite.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />

@@ -316,6 +316,10 @@ bool HeroIdle::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
 	}
+	if (key == GLFW_KEY_R && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCastSpell::Instance());
+	}
 	return true;
 }
 //------------------------------------------------------------------------methods for HeroAttack
@@ -692,6 +696,10 @@ bool HeroRunning::HandleInput(HeroEntity* entity, int key, int action)
 	{
 		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
 	}
+	if (key == GLFW_KEY_R && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroCastSpell::Instance());
+	}
 	return true;
 }
 //------------------------------------------------------------------------methods for HeroRunning
@@ -996,20 +1004,26 @@ void HeroFireBowGround::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerBowGround");
 	entity->myAnimatedSprite->Reset();
+	entity->myFiredProjectile = false;
 }
 
 void HeroFireBowGround::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 8 )
+	{
+		entity->SpawnArrow();
+	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
+		
 		entity->GetFSM()->changeState(HeroIdle::Instance());
 	}
 }
 
 void HeroFireBowGround::Exit(HeroEntity* entity)
 {
-
+	
 }
 
 bool HeroFireBowGround::OnMessage(HeroEntity* entity, const Message& msg)
@@ -1041,14 +1055,20 @@ void HeroFireBowAir::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerBowInAir");
 	entity->myAnimatedSprite->Reset();
+	entity->myFiredProjectile = false;
 }
 
 void HeroFireBowAir::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 6)
+	{
+		entity->SpawnArrow();
+	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
-		entity->GetFSM()->changeState(HeroFalling::Instance());
+
+		entity->GetFSM()->changeState(HeroIdle::Instance());
 	}
 }
 
@@ -1148,6 +1168,56 @@ bool HeroDropKick::OnMessage(HeroEntity* entity, const Message& msg)
 	return false;
 }
 bool HeroDropKick::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroCastSpell* HeroCastSpell::Instance()
+{
+	static HeroCastSpell instance;
+
+	return &instance;
+}
+
+void HeroCastSpell::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerCastSpell");
+	entity->myAnimatedSprite->Reset();
+	entity->myFiredProjectile = false;
+}
+
+void HeroCastSpell::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 3)
+	{
+		entity->SpawnProjectile();
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroIdle::Instance());
+	}
+}
+
+void HeroCastSpell::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroCastSpell::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroCastSpell::HandleInput(HeroEntity* entity, int key, int action)
 {
 	return true;
 }

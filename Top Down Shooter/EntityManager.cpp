@@ -41,7 +41,11 @@ void EntityManager::Update()
 		{
 			if (dynamic_cast<BaseProjectileEntity*>(entity))
 			{
-				CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
+				if ((dynamic_cast<BaseProjectileEntity*>(entity)->isHeroProjectile))
+					CollisionMan->RemoveHeroProjectile((BaseProjectileEntity*)entity);
+				else
+					CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
+				
 				it = mEntityMap.erase(it);
 			}
 		}

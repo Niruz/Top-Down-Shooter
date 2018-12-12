@@ -573,6 +573,15 @@
     <ClCompile Include="AdventurerSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="AdventurerProjectileSprite.cpp">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="AdventurerProjectile.cpp">
+      <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="AdventurerProjectileArrow.cpp">
+      <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -925,6 +934,15 @@
     </ClInclude>
     <ClInclude Include="AdventurerSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerProjectileSprite.h">
+      <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerProjectile.h">
+      <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerProjectileArrow.h">
+      <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

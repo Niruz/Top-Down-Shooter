@@ -176,14 +176,14 @@ void GhoulEntity::HandleMovement()
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 10.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 10.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x - 20.0f, mPosition.y);
 		myHitSpriteAABB->myPosition.x = mPosition.x - 20.0f;
 	}
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 10.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 10.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x + 20.0f, mPosition.y);
 		myHitSpriteAABB->myPosition.x = mPosition.x + 20.0f;
 	}

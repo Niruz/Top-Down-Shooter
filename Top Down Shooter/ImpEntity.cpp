@@ -18,7 +18,7 @@ ImpEntity::ImpEntity(int id, const std::string& name, const glm::vec3& myStartPo
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z+0.01f, 1.0f), glm::vec2(20.0f, 20.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 
 	myAnimatedSprite = new ImpSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(50, 50), TextureMan->GetTexture("imp"), Heading::LEFTFACING);
-	//mySprite->Add(myPlayerAABB);
+//	mySprite->Add(myPlayerAABB);
 	mySprite->Add(myAnimatedSprite);
 	
 	myAnimatedSprite->SetAnimation("ImpRun");
@@ -170,12 +170,12 @@ void ImpEntity::HandleMovement()
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x, mPosition.y, mPosition.z + 0.01, 1.0f);
 	}
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x , mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x , mPosition.y, mPosition.z + 0.01, 1.0f);
 	}
 
 

@@ -110,6 +110,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 			currentKeyState[key] = true;
 		else if (action == GLFW_RELEASE)
 			currentKeyState[key] = false;
+		else if (action == GLFW_REPEAT)
+			int shit = 5;
 	}
 }
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -274,6 +276,19 @@ void updateInput(GLfloat deltaTime)
 		myGame->ProcessKeyBoard(GLFW_KEY_E, deltaTime, GLFW_RELEASE);
 		oldKeyState[GLFW_KEY_E] = false;
 		std::cout << "E Released" << std::endl;
+	}
+	//R
+	if (currentKeyState[GLFW_KEY_R] && !oldKeyState[GLFW_KEY_R])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_R, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_R] = true;
+		std::cout << "R Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_R] && oldKeyState[GLFW_KEY_R])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_R, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_R] = false;
+		std::cout << "R Released" << std::endl;
 	}
 	//Q
 	/*if (currentKeyState[GLFW_KEY_Q] && !oldKeyState[GLFW_KEY_Q])

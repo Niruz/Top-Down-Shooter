@@ -33,6 +33,8 @@
 #include "BaseProjectileEntity.h"
 #include "NecromancerProjectile.h"
 #include "ImpProjectile.h"
+#include "AdventurerProjectile.h"
+#include "AdventurerProjectileArrow.h"
 #include "CollisionManager.h"
 void CemetaryLevel::Initialize()
 {
@@ -690,6 +692,8 @@ void CemetaryLevel::ProcessKeyBoard(int key, float deltaTime, int action)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_C)
 		myPlayer->processKeyBoard(key, deltaTime, action);
+	if (key == GLFW_KEY_R)
+		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_1)
 		myPlayer->SetAnimation("HeroRun");
 	if (key == GLFW_KEY_2)
@@ -737,12 +741,31 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 		CollisionMan->RegisterProjectile(impProjectile);
 		EntityMan->registerEntity(impProjectile);
 	}
+	else if (type == "Adventurer Projectile")
+	{
+		AdventurerProjectile* impProjectile = new AdventurerProjectile(myNumberOfEntities, "AdventurerProjectile" + std::to_string(myNumberOfEntities), inpos, indir);
+		myEntitites.push_back(impProjectile);
+		enemyGroup->Add(impProjectile->mySprite);
+		CollisionMan->RegisterHeroProjectile(impProjectile);
+		EntityMan->registerEntity(impProjectile);
+	}
+	else if (type == "Adventurer Arrow")
+	{
+		AdventurerProjectileArrow* impProjectile = new AdventurerProjectileArrow(myNumberOfEntities, "AdventurerProjectile" + std::to_string(myNumberOfEntities), inpos, indir);
+		myEntitites.push_back(impProjectile);
+		enemyGroup->Add(impProjectile->mySprite);
+		CollisionMan->RegisterHeroProjectile(impProjectile);
+		EntityMan->registerEntity(impProjectile);
+	}
 }
 void CemetaryLevel::RemoveEntity(Entity* entity)
 {
 	if(dynamic_cast<BaseProjectileEntity*>(entity))
 	{
-		CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
+		if((dynamic_cast<BaseProjectileEntity*>(entity)->isHeroProjectile))
+			CollisionMan->RemoveHeroProjectile((BaseProjectileEntity*)entity);
+		else
+			CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
 		EntityMan->removeEntity(entity);
 	}
 	else

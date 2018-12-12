@@ -34,6 +34,9 @@ public:
 	void RegisterProjectile(BaseProjectileEntity* projectile);
 	void RemoveProjectile(BaseProjectileEntity* projectile);
 
+	void RegisterHeroProjectile(BaseProjectileEntity* projectile);
+	void RemoveHeroProjectile(BaseProjectileEntity* projectile);
+
 	void RegisterPlayer(HeroEntity* hero);
 
 	void Update();
@@ -45,5 +48,6 @@ private:
 
 	EnemyMap myEnemies;
 	ProjectileMap myProjectiles;
+	ProjectileMap myHeroProjectiles;
 	HeroEntity* myHero;
 };

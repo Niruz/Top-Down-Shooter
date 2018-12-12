@@ -16,7 +16,7 @@ ReaperEntity::ReaperEntity(int id, const std::string& name, const glm::vec3& myS
 
 	myAnimatedSprite = new ReaperSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(48+ 24, 46 + 23), TextureMan->GetTexture("reaper"), Heading::LEFTFACING);
 	mySprite->Add(myAnimatedSprite);
-	mySprite->Add(myPlayerAABB);
+	//mySprite->Add(myPlayerAABB);
 	myAnimatedSprite->SetAnimation("ReaperRun");
 	myXDirection = 1.0f;
 	if (myStartPosition.x > patrolTo.x)
@@ -176,14 +176,14 @@ void ReaperEntity::HandleMovement()
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x + 10.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x + 10.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 		myHitSpriteAABB->myPosition.x = mPosition.x;
 	}
 	else
 	{
 		myAABB->myOrigin = glm::vec2(mPosition.x - 10.0f, mPosition.y);
-		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 10.0f, mPosition.y, mPosition.z, 1.0f);
+		myPlayerAABB->myPosition = glm::vec4(mPosition.x - 10.0f, mPosition.y, mPosition.z + 0.01, 1.0f);
 		myHitAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 		myHitSpriteAABB->myPosition.x = mPosition.x;
 	}

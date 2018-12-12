@@ -8,7 +8,7 @@
 
 
 BaseProjectileEntity::BaseProjectileEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& direction)
-	:Entity(id,name), mPosition(myStartPosition), myDirection(direction), myStartPos(myStartPosition)
+	:Entity(id,name), mPosition(myStartPosition), myDirection(direction), myStartPos(myStartPosition), isHeroProjectile(false)
 {
 	
 	//myAnimatedSprite = new DemonSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z, 1), glm::vec2(160, 144), TextureMan->GetTexture("demonidle"), Heading::RIGHTFACING);

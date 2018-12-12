@@ -23,4 +23,6 @@ struct BaseProjectileEntity : public Entity
 	glm::vec3 myDirection;
 	
 	void MarkForDeletion();
+
+	bool isHeroProjectile;
 };
