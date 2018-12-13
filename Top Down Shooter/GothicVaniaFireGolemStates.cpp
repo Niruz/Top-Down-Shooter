@@ -279,7 +279,10 @@ void FireGolemSlam::Execute(FireGolemEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 3 && !entity->shakeAttack1)
 	{
-		CollisionMan->CheckSwordHeroCollisiion(entity);
+		if(CollisionMan->CheckSwordHeroCollisiion(entity))
+		{
+			MessageMan->dispatchMessage(0, entity->GetID(), 0, Msg_SmashedDown, entity->myShakeInfoSlamAttack);
+		}
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoSlamAttack);
 		entity->shakeAttack1 = true;
 	}
