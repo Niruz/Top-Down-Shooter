@@ -961,3 +961,93 @@ public:
 	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 
 };
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleePunch1 : public State<HeroEntity>
+{
+private:
+
+	HeroMeleePunch1() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleePunch1(const HeroMeleePunch1&);
+	HeroMeleePunch1& operator=(const HeroMeleePunch1&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleePunch1* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleePunch2 : public State<HeroEntity>
+{
+private:
+
+	HeroMeleePunch2() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleePunch2(const HeroMeleePunch2&);
+	HeroMeleePunch2& operator=(const HeroMeleePunch2&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleePunch2* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleePunch3 : public State<HeroEntity>
+{
+private:
+
+	HeroMeleePunch3() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleePunch3(const HeroMeleePunch3&);
+	HeroMeleePunch3& operator=(const HeroMeleePunch3&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleePunch3* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
