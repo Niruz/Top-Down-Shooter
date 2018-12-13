@@ -67,8 +67,12 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myIsDamaged = false;
 	CollisionMan->RegisterPlayer(this);
 	basicAttack = false;
+	myShouldChangeStance = false;
+	myShouldKickNext = false;
+	myShouldPunchNext = false;
+	myShouldSwordNext = false;
 	myAirSlamReceived = false;
-	myShakeInfoBasicAttack = new ShakeInfo(500, 15, 1);
+	myShakeInfoBasicAttack = new ShakeInfo(500, 100, 1);
 
 	myStartDeadTimer = 0.0f;
 }

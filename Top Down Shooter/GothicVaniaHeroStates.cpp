@@ -509,6 +509,9 @@ void HeroAttackSword1::Enter(HeroEntity* entity)
 	entity->myShouldEnterNextSwordAttack = false;
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldKickNext = false;
+	entity->myShouldPunchNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -524,7 +527,15 @@ void HeroAttackSword1::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if(entity->myShouldEnterNextSwordAttack)
+		if(entity->myShouldChangeStance)
+		{
+			if(entity->myShouldKickNext)
+				entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
+			else if(entity->myShouldPunchNext)
+				entity->GetFSM()->changeState(HeroMeleePunch1::Instance());
+
+		}
+		else if(entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroAttackSword2::Instance());
 		else
 			entity->GetFSM()->changeState(HeroIdle::Instance());
@@ -558,7 +569,11 @@ bool HeroAttackSword1::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >=4)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldKickNext = false;
+			entity->myShouldPunchNext = true;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -567,6 +582,15 @@ bool HeroAttackSword1::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
+	}
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		entity->myShouldKickNext = true;
+		entity->myShouldPunchNext = false;
 	}
 	return true;
 }
@@ -585,6 +609,9 @@ void HeroAttackSword2::Enter(HeroEntity* entity)
 	entity->SetAnimation("AdventurerAttack2Sword");
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldKickNext = false;
+	entity->myShouldPunchNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -600,7 +627,15 @@ void HeroAttackSword2::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if (entity->myShouldEnterNextSwordAttack)
+		if (entity->myShouldChangeStance)
+		{
+			if (entity->myShouldKickNext)
+				entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
+			else if (entity->myShouldPunchNext)
+				entity->GetFSM()->changeState(HeroMeleePunch1::Instance());
+
+		}
+		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroAttackSword3::Instance());
 		else
 			entity->GetFSM()->changeState(HeroIdle::Instance());
@@ -634,7 +669,11 @@ bool HeroAttackSword2::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 5)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldKickNext = false;
+			entity->myShouldPunchNext = true;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -643,6 +682,15 @@ bool HeroAttackSword2::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
+	}
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		entity->myShouldKickNext = true;
+		entity->myShouldPunchNext = false;
 	}
 	return true;
 }
@@ -661,6 +709,9 @@ void HeroAttackSword3::Enter(HeroEntity* entity)
 	entity->SetAnimation("AdventurerAttack3Sword");
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldKickNext = false;
+	entity->myShouldPunchNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -676,9 +727,17 @@ void HeroAttackSword3::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-	/*	if (entity->myShouldEnterNextSwordAttack)
+		if (entity->myShouldChangeStance)
+		{
+			if (entity->myShouldKickNext)
+				entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
+			else if (entity->myShouldPunchNext)
+				entity->GetFSM()->changeState(HeroMeleePunch1::Instance());
+
+		}
+		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroAttackSword1::Instance());
-		else*/
+		else
 			entity->GetFSM()->changeState(HeroIdle::Instance());
 	}
 }
@@ -709,7 +768,21 @@ bool HeroAttackSword3::HandleInput(HeroEntity* entity, int key, int action)
 {
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
-		//entity->myShouldEnterNextSwordAttack = true;
+		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 4)
+		{
+			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldKickNext = false;
+			entity->myShouldPunchNext = true;
+		}
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
+	}
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		entity->myShouldKickNext = true;
+		entity->myShouldPunchNext = false;
 	}
 	return true;
 }
@@ -2122,6 +2195,8 @@ void HeroMeleeKick1::Enter(HeroEntity* entity)
 	entity->basicAttack = false;
 	entity->myShouldSwitchAttack = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
+	entity->myShouldChangeStance = false;
+	entity->myShouldSwordNext = false;
 }
 
 void HeroMeleeKick1::Execute(HeroEntity* entity)
@@ -2135,7 +2210,11 @@ void HeroMeleeKick1::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if(entity->myShouldSwitchAttack)
+		if (entity->myShouldChangeStance && entity->myShouldSwordNext)
+			entity->GetFSM()->changeState(HeroAttackSword2::Instance());
+		else if (entity->myShouldChangeStance)
+			entity->GetFSM()->changeState(HeroIdle::Instance()); 
+		else if(entity->myShouldSwitchAttack)
 			entity->GetFSM()->changeState(HeroMeleePunch1::Instance());
 		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroMeleeKick2::Instance());
@@ -2170,12 +2249,18 @@ bool HeroMeleeKick1::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_B && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldSwordNext = false;
+		}
 	}
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
+		{
 			entity->myShouldSwitchAttack = true;
+			entity->myShouldSwordNext = true;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -2184,6 +2269,10 @@ bool HeroMeleeKick1::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
 	}
 	return true;
 }
@@ -2204,6 +2293,8 @@ void HeroMeleeKick2::Enter(HeroEntity* entity)
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
 	entity->myShouldSwitchAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldSwordNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -2219,7 +2310,11 @@ void HeroMeleeKick2::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if (entity->myShouldSwitchAttack)
+		if (entity->myShouldChangeStance && entity->myShouldSwordNext)
+			entity->GetFSM()->changeState(HeroAttackSword2::Instance());
+		else if (entity->myShouldChangeStance)
+			entity->GetFSM()->changeState(HeroIdle::Instance());
+		else if (entity->myShouldSwitchAttack)
 			entity->GetFSM()->changeState(HeroMeleePunch1::Instance());
 		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
@@ -2255,12 +2350,18 @@ bool HeroMeleeKick2::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_B && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldSwordNext = false;
+		}
 	}
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
+		{
 			entity->myShouldSwitchAttack = true;
+			entity->myShouldSwordNext = true;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -2269,6 +2370,10 @@ bool HeroMeleeKick2::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
 	}
 	return true;
 }
@@ -2332,6 +2437,8 @@ void HeroMeleePunch1::Enter(HeroEntity* entity)
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
 	entity->myShouldSwitchAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldSwordNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -2347,7 +2454,11 @@ void HeroMeleePunch1::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if (entity->myShouldSwitchAttack)
+		if (entity->myShouldChangeStance && entity->myShouldSwordNext)
+			entity->GetFSM()->changeState(HeroAttackSword2::Instance());
+		else if (entity->myShouldChangeStance)
+			entity->GetFSM()->changeState(HeroIdle::Instance());
+		else if (entity->myShouldSwitchAttack)
 			entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
 		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroMeleePunch2::Instance());
@@ -2383,12 +2494,18 @@ bool HeroMeleePunch1::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldSwordNext = true;
+		}
 	}
 	if (key == GLFW_KEY_B && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+		{
 			entity->myShouldSwitchAttack = true;
+			entity->myShouldSwordNext = false;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -2397,6 +2514,10 @@ bool HeroMeleePunch1::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
 	}
 	return true;
 }
@@ -2416,6 +2537,8 @@ void HeroMeleePunch2::Enter(HeroEntity* entity)
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
 	entity->myShouldSwitchAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldSwordNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -2431,7 +2554,11 @@ void HeroMeleePunch2::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if (entity->myShouldSwitchAttack)
+		if (entity->myShouldChangeStance && entity->myShouldSwordNext)
+			entity->GetFSM()->changeState(HeroAttackSword2::Instance());
+		else if (entity->myShouldChangeStance)
+			entity->GetFSM()->changeState(HeroIdle::Instance());
+		else if (entity->myShouldSwitchAttack)
 			entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
 		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroMeleePunch3::Instance());
@@ -2467,12 +2594,18 @@ bool HeroMeleePunch2::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldSwordNext = true;
+		}
 	}
 	if (key == GLFW_KEY_B && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+		{
 			entity->myShouldSwitchAttack = true;
+			entity->myShouldSwordNext = false;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -2481,6 +2614,10 @@ bool HeroMeleePunch2::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
 	}
 	return true;
 }
@@ -2500,6 +2637,8 @@ void HeroMeleePunch3::Enter(HeroEntity* entity)
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
 	entity->myShouldSwitchAttack = false;
+	entity->myShouldChangeStance = false;
+	entity->myShouldSwordNext = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -2515,7 +2654,11 @@ void HeroMeleePunch3::Execute(HeroEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
-		if (entity->myShouldSwitchAttack)
+		if (entity->myShouldChangeStance && entity->myShouldSwordNext)
+			entity->GetFSM()->changeState(HeroAttackSword2::Instance());
+		else if (entity->myShouldChangeStance)
+			entity->GetFSM()->changeState(HeroIdle::Instance());
+		else if (entity->myShouldSwitchAttack)
 			entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
 		else if (entity->myShouldEnterNextSwordAttack)
 			entity->GetFSM()->changeState(HeroMeleePunch1::Instance());
@@ -2552,12 +2695,18 @@ bool HeroMeleePunch3::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 4)
+		{
 			entity->myShouldEnterNextSwordAttack = true;
+			entity->myShouldSwordNext = true;
+		}
 	}
 	if (key == GLFW_KEY_B && action == GLFW_PRESS)
 	{
 		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 4)
+		{
 			entity->myShouldSwitchAttack = true;
+			entity->myShouldSwordNext = false;
+		}
 	}
 	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
@@ -2566,6 +2715,10 @@ bool HeroMeleePunch3::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
 	{
 		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		entity->myShouldChangeStance = !entity->myShouldChangeStance;
 	}
 	return true;
 }

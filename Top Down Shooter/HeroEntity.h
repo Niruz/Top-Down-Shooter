@@ -104,6 +104,10 @@ struct HeroEntity : public Entity
 	bool myShouldEnterNextSwordAttack;
 	float myCurrentSwordAttackCooldownTimer;
 	bool myShouldSwitchAttack;
+	bool myShouldChangeStance;
+	bool myShouldKickNext;
+	bool myShouldPunchNext;
+	bool myShouldSwordNext;
 
 	float myStartDeadTimer;
 
