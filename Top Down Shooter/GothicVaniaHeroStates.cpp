@@ -434,7 +434,9 @@ bool HeroIdle::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -545,7 +547,9 @@ bool HeroAttackSword1::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -619,7 +623,9 @@ bool HeroAttackSword2::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -693,7 +699,9 @@ bool HeroAttackSword3::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -742,7 +750,9 @@ bool HeroCrouch::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -822,7 +832,9 @@ bool HeroRunning::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -1235,7 +1247,9 @@ bool HeroFireBowGround::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -1413,7 +1427,9 @@ bool HeroCastSpell::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -1763,7 +1779,9 @@ bool HeroMeleeDrawSword::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_SmashedDown:
+		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
 	}
 	return false;
 }
@@ -2625,6 +2643,82 @@ bool HeroMeleeGetUp::OnMessage(HeroEntity* entity, const Message& msg)
 }
 
 bool HeroMeleeGetUp::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroKnockedDownSword* HeroKnockedDownSword::Instance()
+{
+	static HeroKnockedDownSword instance;
+
+	return &instance;
+}
+
+
+void HeroKnockedDownSword::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerKnockedDownMelee");
+}
+
+
+void HeroKnockedDownSword::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroSwordGetUp::Instance());
+	}
+}
+
+void HeroKnockedDownSword::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroKnockedDownSword::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return true;
+}
+
+bool HeroKnockedDownSword::HandleInput(HeroEntity* entity, int key, int action)
+{
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroSwordGetUp* HeroSwordGetUp::Instance()
+{
+	static HeroSwordGetUp instance;
+
+	return &instance;
+}
+
+
+void HeroSwordGetUp::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerGetUpMelee");
+}
+
+
+void HeroSwordGetUp::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->GetFSM()->changeState(HeroIdle::Instance());
+	}
+}
+
+void HeroSwordGetUp::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroSwordGetUp::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return true;
+}
+
+bool HeroSwordGetUp::HandleInput(HeroEntity* entity, int key, int action)
 {
 	return true;
 }
