@@ -781,3 +781,183 @@ public:
 	virtual bool HandleInput(HeroEntity* entity, int key, int action);
 
 };
+//------------------------------------------------------------------------
+//
+//  Falling state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeFalling : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeFalling() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeFalling(const HeroMeleeFalling&);
+	HeroMeleeFalling& operator=(const HeroMeleeFalling&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeFalling* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeDamaged : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeDamaged() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeDamaged(const HeroMeleeDamaged&);
+	HeroMeleeDamaged& operator=(const HeroMeleeDamaged&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeDamaged* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeJump : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeJump() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeJump(const HeroMeleeJump&);
+	HeroMeleeJump& operator=(const HeroMeleeJump&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeJump* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeKick1 : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeKick1() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeKick1(const HeroMeleeKick1&);
+	HeroMeleeKick1& operator=(const HeroMeleeKick1&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeKick1* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeKick2 : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeKick2() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeKick2(const HeroMeleeKick2&);
+	HeroMeleeKick2& operator=(const HeroMeleeKick2&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeKick2* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};
+//
+//  Damaged state for the hero
+//  
+//------------------------------------------------------------------------
+class HeroMeleeDropKick : public State<HeroEntity>
+{
+private:
+
+	HeroMeleeDropKick() {}
+
+	//copy ctor and assignment should be private
+	HeroMeleeDropKick(const HeroMeleeDropKick&);
+	HeroMeleeDropKick& operator=(const HeroMeleeDropKick&);
+
+public:
+
+	//this is a singleton
+	static HeroMeleeDropKick* Instance();
+
+	virtual void Enter(HeroEntity* entity);
+
+	virtual void Execute(HeroEntity* entity);
+
+	virtual void Exit(HeroEntity* entity);
+
+	virtual bool OnMessage(HeroEntity* entity, const Message& msg);
+
+	virtual bool HandleInput(HeroEntity* entity, int key, int action);
+
+};

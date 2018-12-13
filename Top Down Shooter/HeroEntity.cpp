@@ -268,8 +268,14 @@ void HeroEntity::CheckIfFalling()
 	int tileY = myTileMap->lastPlayerTile->myY;
 	if (myTileMap->IsDirectionWalkable(tileX, tileY + 1))
 		myStateMachine->changeState(HeroFalling::Instance());*/
-	if(!myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag && !myTileMap->lastPlayerTileBottomLeft->myIsBlockingFlag)
-		myStateMachine->changeState(HeroFalling::Instance());
+	if (!myTileMap->lastPlayerTileBottomRight->myIsBlockingFlag && !myTileMap->lastPlayerTileBottomLeft->myIsBlockingFlag)
+	{
+		if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+			myStateMachine->changeState(HeroMeleeFalling::Instance());
+		else
+			myStateMachine->changeState(HeroFalling::Instance());
+	}
+		//	myStateMachine->changeState(HeroFalling::Instance());
 }
 void HeroEntity::HandleGravity()
 {
@@ -344,7 +350,10 @@ void HeroEntity::HandleGravity()
 			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
 			myAABB->myOrigin.y = mPosition.y;
 			myTileMap->SetPlayerTile2(myAABB);
-			myStateMachine->changeState(HeroIdle::Instance());
+			if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeIdle::Instance());
+			else
+				myStateMachine->changeState(HeroIdle::Instance());
 		}
 	}
 	else if (bottomBlocking)
@@ -356,7 +365,10 @@ void HeroEntity::HandleGravity()
 			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
 			myAABB->myOrigin.y = mPosition.y;
 			myTileMap->SetPlayerTile2(myAABB);
-			myStateMachine->changeState(HeroIdle::Instance());
+			if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeIdle::Instance());
+			else
+				myStateMachine->changeState(HeroIdle::Instance());
 		}
 
 	}
@@ -511,7 +523,11 @@ void HeroEntity::HandleDropKick()
 			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
 			myAABB->myOrigin.y = mPosition.y;
 			myTileMap->SetPlayerTile2(myAABB);
-			myStateMachine->changeState(HeroIdle::Instance());
+			//myStateMachine->changeState(HeroIdle::Instance());
+			if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeIdle::Instance());
+			else
+				myStateMachine->changeState(HeroIdle::Instance());
 		}
 	}
 	else if (bottomBlocking)
@@ -523,7 +539,11 @@ void HeroEntity::HandleDropKick()
 			mPosition.y = myTileMap->lastPlayerTileBottomLeft->myWorldPosition.y + 16.0f + myAABB->halfY;
 			myAABB->myOrigin.y = mPosition.y;
 			myTileMap->SetPlayerTile2(myAABB);
-			myStateMachine->changeState(HeroIdle::Instance());
+		//	myStateMachine->changeState(HeroIdle::Instance());
+			if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeIdle::Instance());
+			else
+				myStateMachine->changeState(HeroIdle::Instance());
 		}
 
 	}
@@ -548,10 +568,14 @@ void HeroEntity::HandleJump()
 {
 /*	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
 		myStateMachine->changeState(HeroFalling::Instance());*/
-	if (myYVelocity < 3.5f)
+	if (myYVelocity < -3.5f)
 	{
-		myYVelocity = 3.5f;
-		myStateMachine->changeState(HeroFalling::Instance());
+		myYVelocity = -3.5f;
+		//myStateMachine->changeState(HeroFalling::Instance());
+		if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+			myStateMachine->changeState(HeroMeleeFalling::Instance());
+		else
+			myStateMachine->changeState(HeroFalling::Instance());
 	}
 
 	int tileX = myTileMap->lastPlayerTile->myX;
@@ -630,7 +654,11 @@ void HeroEntity::HandleJump()
 		mPosition.y = myTileMap->lastPlayerTileTopLeft->myWorldPosition.y - 16.0f - myAABB->halfY;
 		myAABB->myOrigin.y = mPosition.y;
 		myTileMap->SetPlayerTile2(myAABB);
-		myStateMachine->changeState(HeroFalling::Instance());
+		//myStateMachine->changeState(HeroFalling::Instance());
+		if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+			myStateMachine->changeState(HeroMeleeFalling::Instance());
+		else
+			myStateMachine->changeState(HeroFalling::Instance());
 	}
 
 	myNegXDirection = myPosXDirection = 0.0f;
@@ -720,7 +748,7 @@ void HeroEntity::Update()
 	//Really need to remove this nonsense and add it to the states instead
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
 	{
-		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroSheatheSword::Instance()) && !myStateMachine->isInState(*HeroMeleeDrawSword::Instance()) && !myStateMachine->isInState(*HeroMeleeIdle::Instance()) && !myStateMachine->isInState(*HeroAttackSwordAir5::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroMeleeSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
+		if (!myStateMachine->isInState(*HeroCrouch::Instance()) && !myStateMachine->isInState(*HeroAttackSword1::Instance()) && !myStateMachine->isInState(*HeroMeleeKick2::Instance()) && !myStateMachine->isInState(*HeroMeleeKick1::Instance()) && !myStateMachine->isInState(*HeroMeleeJump::Instance()) && !myStateMachine->isInState(*HeroMeleeDamaged::Instance()) && !myStateMachine->isInState(*HeroMeleeFalling::Instance()) && !myStateMachine->isInState(*HeroSheatheSword::Instance()) && !myStateMachine->isInState(*HeroMeleeDrawSword::Instance()) && !myStateMachine->isInState(*HeroMeleeIdle::Instance()) && !myStateMachine->isInState(*HeroAttackSwordAir5::Instance()) && !myStateMachine->isInState(*HeroCastSpell::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroDie::Instance()) && !myStateMachine->isInState(*HeroSliding::Instance()) && !myStateMachine->isInState(*HeroMeleeSliding::Instance()) && !myStateMachine->isInState(*HeroFireBowGround::Instance()) && !myStateMachine->isInState(*HeroAttackSword2::Instance()) && !myStateMachine->isInState(*HeroAttackSword3::Instance()) && !myStateMachine->isInState(*HeroIdle::Instance()) && !myStateMachine->isInState(*HeroFalling::Instance()) && !myStateMachine->isInState(*HeroJumping::Instance()) && !myStateMachine->isInState(*HeroDamaged::Instance()))
 		{
 			if(myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
 				myStateMachine->changeState(HeroMeleeIdle::Instance());

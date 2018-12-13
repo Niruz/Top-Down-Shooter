@@ -244,6 +244,19 @@ void updateInput(GLfloat deltaTime)
 		oldKeyState[GLFW_KEY_V] = false;
 		std::cout << "V Released" << std::endl;
 	}
+	//B
+	if (currentKeyState[GLFW_KEY_B] && !oldKeyState[GLFW_KEY_B])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_B, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_B] = true;
+		std::cout << "B Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_B] && oldKeyState[GLFW_KEY_B])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_B, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_B] = false;
+		std::cout << "B Released" << std::endl;
+	}
 	//T
 	if (currentKeyState[GLFW_KEY_T] && !oldKeyState[GLFW_KEY_T])
 	{

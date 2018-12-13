@@ -985,9 +985,12 @@ void HeroFalling::Execute(HeroEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if (entity->IsOnSpikes())
 		entity->GetFSM()->changeState(HeroDamaged::Instance());
-	entity->myNegYDirection = -1.0f;
-	//entity->HandleMovement();
-	entity->HandleGravity();
+	else
+	{
+		entity->myNegYDirection = -1.0f;
+		//entity->HandleMovement();
+		entity->HandleGravity();
+	}
 }
 
 
@@ -1520,11 +1523,15 @@ bool HeroMeleeIdle::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroAttackSword1::Instance());
+	}*/
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
 	}
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroJumping::Instance());
-	}*/
+		entity->GetFSM()->changeState(HeroMeleeJump::Instance());
+	}
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroMeleeSliding::Instance());
@@ -1610,15 +1617,20 @@ bool HeroMeleeRun::HandleInput(HeroEntity* entity, int key, int action)
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroAttackSword1::Instance());
-	}
+	}*/
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroJumping::Instance());
-	}*/
+		entity->GetFSM()->changeState(HeroMeleeJump::Instance());
+	}
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroMeleeSliding::Instance());
-	}/*
+	}
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
+	}
+	/*
 	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroFireBowGround::Instance());
@@ -1721,7 +1733,406 @@ bool HeroMeleeSliding::HandleInput(HeroEntity* entity, int key, int action)
 {
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroJumping::Instance());
+		entity->GetFSM()->changeState(HeroMeleeJump::Instance());
 	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroMeleeFalling* HeroMeleeFalling::Instance()
+{
+	static HeroMeleeFalling instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeFalling::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerFall");
+	entity->myAnimatedSprite->Reset();
+}
+
+
+void HeroMeleeFalling::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->IsOnSpikes())
+		entity->GetFSM()->changeState(HeroMeleeDamaged::Instance());
+	else
+	{
+		entity->myNegYDirection = -1.0f;
+		//entity->HandleMovement();
+		entity->HandleGravity();
+	}
+
+}
+
+
+void HeroMeleeFalling::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroMeleeFalling::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroMeleeFalling::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myPosXDirection = 1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myNegXDirection = -1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+/*	if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroAttackSwordAir1::Instance());
+	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowAir::Instance());
+	}*/
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroMeleeDamaged* HeroMeleeDamaged::Instance()
+{
+	static HeroMeleeDamaged instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeDamaged::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerMeleeHurt");
+	entity->myAnimatedSprite->Reset();
+	entity->myStartDeadTimer = Clock->GetCurrentTimeInSeconds();
+	entity->HandleDamaged(10);
+}
+
+
+void HeroMeleeDamaged::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (Clock->GetCurrentTimeInSeconds() > entity->myStartDeadTimer + 0.4f)
+	{
+		entity->Respawn();
+
+		entity->GetFSM()->changeState(HeroMeleeRun::Instance());
+	}
+	//	entity->HandleDamaged();
+}
+
+
+void HeroMeleeDamaged::Exit(HeroEntity* entity)
+{
+	entity->HandleDamaged(10);
+}
+
+
+bool HeroMeleeDamaged::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return false;
+}
+bool HeroMeleeDamaged::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myPosXDirection = 1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myNegXDirection = -1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroMeleeJump* HeroMeleeJump::Instance()
+{
+	static HeroMeleeJump instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeJump::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerMeleeJump");
+	entity->myAnimatedSprite->Reset();
+	entity->StartJump();
+	entity->myYVelocity = 9.0f;
+}
+
+
+void HeroMeleeJump::Execute(HeroEntity* entity)
+{
+	//if (!entity->myAnimatedSprite->IsDone())
+		entity->myAnimatedSprite->Update();
+	//entity->HandleMovement();
+	entity->HandleJump();
+}
+
+
+void HeroMeleeJump::Exit(HeroEntity* entity)
+{
+
+}
+
+
+bool HeroMeleeJump::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroMeleeJump::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myPosXDirection = 1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myNegXDirection = -1.5f;
+		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
+	{
+		if (entity->myYVelocity < 3.5f)
+			entity->myYVelocity = 3.5f;
+		entity->GetFSM()->changeState(HeroMeleeFalling::Instance());
+	}
+/*	if (key == GLFW_KEY_V && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroAttackSwordAir1::Instance());
+	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroFireBowAir::Instance());
+	}*/
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroAttack
+HeroMeleeKick1* HeroMeleeKick1::Instance()
+{
+	static HeroMeleeKick1 instance;
+
+	return &instance;
+}
+
+void HeroMeleeKick1::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerMeleeKick1");
+	entity->myShouldEnterNextSwordAttack = false;
+	entity->myAnimatedSprite->Reset();
+	entity->basicAttack = false;
+	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
+}
+
+void HeroMeleeKick1::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	{
+		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
+		{
+			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+			entity->basicAttack = true;
+		}
+		if (entity->myShouldEnterNextSwordAttack)
+			entity->GetFSM()->changeState(HeroMeleeKick2::Instance());
+		else
+			entity->GetFSM()->changeState(HeroMeleeIdle::Instance());
+	}
+}
+
+void HeroMeleeKick1::Exit(HeroEntity* entity)
+{
+	entity->myShouldEnterNextSwordAttack = false;
+}
+
+bool HeroMeleeKick1::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+
+bool HeroMeleeKick1::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 2)
+			entity->myShouldEnterNextSwordAttack = true;
+	}
+	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+		entity->myShouldEnterNextSwordAttack = false;
+	}
+	return true;
+}
+
+//------------------------------------------------------------------------methods for HeroAttack
+HeroMeleeKick2* HeroMeleeKick2::Instance()
+{
+	static HeroMeleeKick2 instance;
+
+	return &instance;
+}
+
+
+void HeroMeleeKick2::Enter(HeroEntity* entity)
+{
+	entity->myShouldEnterNextSwordAttack = false;
+	entity->SetAnimation("AdventurerMeleeKick2");
+	entity->myAnimatedSprite->Reset();
+	entity->basicAttack = false;
+	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
+}
+
+
+void HeroMeleeKick2::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	{
+		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
+		{
+			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+			entity->basicAttack = true;
+		}
+		if (entity->myShouldEnterNextSwordAttack)
+			entity->GetFSM()->changeState(HeroMeleeKick1::Instance());
+		else
+			entity->GetFSM()->changeState(HeroMeleeIdle::Instance());
+	}
+}
+
+
+void HeroMeleeKick2::Exit(HeroEntity* entity)
+{
+	entity->myShouldEnterNextSwordAttack = false;
+}
+
+
+bool HeroMeleeKick2::OnMessage(HeroEntity* entity, const Message& msg)
+{
+
+	switch (msg.mMsg)
+	{
+	case Msg_TakeDamage:
+		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+		entity->HandleDamaged(10);
+		return true;
+
+	}
+	return false;
+}
+bool HeroMeleeKick2::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)
+	{
+		if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex >= 3)
+			entity->myShouldEnterNextSwordAttack = true;
+	}
+	if (key == GLFW_KEY_D && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+		entity->myShouldEnterNextSwordAttack = false;
+	}
+	if (key == GLFW_KEY_A && action == GLFW_PRESS && !entity->myShouldEnterNextSwordAttack)
+	{
+		entity->myShouldEnterNextSwordAttack = false;
+	}
+	return true;
+}
+//------------------------------------------------------------------------methods for HeroFalling
+HeroMeleeDropKick* HeroMeleeDropKick::Instance()
+{
+	static HeroMeleeDropKick instance;
+
+	return &instance;
+}
+
+void HeroMeleeDropKick::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerDropKick");
+	entity->myAnimatedSprite->Reset();
+	if (entity->myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+		entity->StartSliding(1);
+	else
+		entity->StartSliding(-1);
+}
+
+void HeroMeleeDropKick::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->IsOnSpikes())
+		entity->GetFSM()->changeState(HeroMeleeDamaged::Instance());
+	else
+	{
+		entity->myNegYDirection = -1.0f;
+		entity->HandleDropKick();
+	}
+
+}
+
+void HeroMeleeDropKick::Exit(HeroEntity* entity)
+{
+
+}
+
+bool HeroMeleeDropKick::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return false;
+}
+bool HeroMeleeDropKick::HandleInput(HeroEntity* entity, int key, int action)
+{
 	return true;
 }

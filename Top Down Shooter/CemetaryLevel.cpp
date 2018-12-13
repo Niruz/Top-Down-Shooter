@@ -680,6 +680,8 @@ void CemetaryLevel::ProcessKeyBoard(int key, float deltaTime, int action)
 		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_V)
 		myPlayer->processKeyBoard(key, deltaTime, action);
+	if (key == GLFW_KEY_B)
+		myPlayer->processKeyBoard(key, deltaTime, action);
 	if (key == GLFW_KEY_T)
 		myCamera->ShakeCamera(2000, 40, 32);
 	if (key == GLFW_KEY_SPACE)
