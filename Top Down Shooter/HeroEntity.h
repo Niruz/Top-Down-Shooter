@@ -66,6 +66,7 @@ struct HeroEntity : public Entity
 	bool RightBlocking();
 
 	void HandleMovement();
+	void HandleWallRunning();
 	void HandleGravity();
 	void HandleWallSliding();
 	void HandleJump();
@@ -121,8 +122,10 @@ struct HeroEntity : public Entity
 	float myDirectionChangeDuringFallState;
 	float myFallStateJumpTimer;
 	float myTimerToReceiveInputInFallState;
+	float myDirectionWhenEnteringWallRunningState;
 	bool  myStartedToFallInJump;
 	bool  myShouldJumpInGlidingState;
+	bool  myShouldStopWallRunning;
 
 	bool myAirSlamReceived;
 	bool myAirSlamReleased;

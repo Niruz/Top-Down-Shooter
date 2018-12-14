@@ -3074,8 +3074,8 @@ void HeroWallSliding::Execute(HeroEntity* entity)
 		else
 		{
 			entity->HandleWallSliding();
-			if(Clock->GetCurrentTimeInSeconds() > entity->myTimerToReceiveInputInFallState + 0.3f)
-				entity->GetFSM()->changeState(HeroFalling::Instance());
+	//		if(Clock->GetCurrentTimeInSeconds() > entity->myTimerToReceiveInputInFallState + 1.0f)
+	//			entity->GetFSM()->changeState(HeroFalling::Instance());
 		}
 			
 	}
@@ -3133,5 +3133,84 @@ bool HeroWallSliding::HandleInput(HeroEntity* entity, int key, int action)
 	}*/
 
 
+	return true;
+}
+
+//------------------------------------------------------------------------methods for HeroAttack
+HeroWallRunning* HeroWallRunning::Instance()
+{
+	static HeroWallRunning instance;
+
+	return &instance;
+}
+
+
+void HeroWallRunning::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerWallRunMelee");
+	entity->myShouldStopWallRunning = false;
+}
+
+void HeroWallRunning::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if(entity->myShouldStopWallRunning)
+	{
+		entity->myDirectionWhenEnteringWallRunningState = 0.0f;
+		entity->GetFSM()->changeState(HeroWallSliding::Instance());
+	}
+	else
+	{
+		entity->HandleWallRunning();
+	}
+
+}
+
+void HeroWallRunning::Exit(HeroEntity* entity)
+{
+	entity->myDirectionWhenEnteringWallRunningState = 0.0f;
+}
+
+bool HeroWallRunning::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return true;
+}
+
+bool HeroWallRunning::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (entity->myDirectionWhenEnteringWallRunningState == 1.0f)
+	{
+		if (key == GLFW_KEY_D && action == GLFW_PRESS)
+		{
+			entity->myPosXDirection = 1.5f;
+			entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+		}
+		if (key == GLFW_KEY_D && action == GLFW_RELEASE)
+		{
+		//	entity->myDirectionWhenEnteringFallState = 1.0f;
+			//entity->GetFSM()->changeState(HeroFalling::Instance());
+			entity->myShouldStopWallRunning = true;
+		}
+	}
+
+	if (entity->myDirectionWhenEnteringWallRunningState == -1.0f)
+	{
+		if (key == GLFW_KEY_A && action == GLFW_PRESS)
+		{
+			entity->myNegXDirection = -1.5f;
+			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+		}
+		if (key == GLFW_KEY_A && action == GLFW_RELEASE)
+		{
+		//	entity->myDirectionWhenEnteringFallState = -1.0f;
+			//entity->GetFSM()->changeState(HeroFalling::Instance());
+			entity->myShouldStopWallRunning = true;
+		}
+	}
+	
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+
+	}
 	return true;
 }
