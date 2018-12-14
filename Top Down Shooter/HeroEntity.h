@@ -119,6 +119,10 @@ struct HeroEntity : public Entity
 	float myStartDeadTimer;
 	float myDirectionWhenEnteringFallState;
 	float myDirectionChangeDuringFallState;
+	float myFallStateJumpTimer;
+	float myTimerToReceiveInputInFallState;
+	bool  myStartedToFallInJump;
+	bool  myShouldJumpInGlidingState;
 
 	bool myAirSlamReceived;
 	bool myAirSlamReleased;

@@ -79,6 +79,10 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myDirectionWhenEnteringFallState = 0.0f;
 	myDirectionChangeDuringFallState = 0.0f;
 	myStartDeadTimer = 0.0f;
+	myFallStateJumpTimer = 0.0f;
+	myTimerToReceiveInputInFallState = 0.0f;
+	myStartedToFallInJump = false;
+	myShouldJumpInGlidingState = false;
 }
 HeroEntity::~HeroEntity()
 {

@@ -3056,21 +3056,37 @@ void HeroWallSliding::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerWallGlideMelee");
 	entity->myDirectionChangeDuringFallState = entity->myDirectionWhenEnteringFallState;
+	entity->myShouldJumpInGlidingState = false;
 }
-
 
 void HeroWallSliding::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myDirectionChangeDuringFallState == entity->myDirectionWhenEnteringFallState)
-		entity->HandleWallSliding();
+
+
+
+	if(entity->myShouldJumpInGlidingState/* && Clock->GetCurrentTimeInSeconds() > entity->myTimerToReceiveInputInFallState + 0.3f*/)
+		entity->GetFSM()->changeState(HeroJumping::Instance());
 	else
-		entity->GetFSM()->changeState(HeroFalling::Instance());
+	{
+		if (entity->myDirectionChangeDuringFallState == entity->myDirectionWhenEnteringFallState)
+			entity->HandleWallSliding();
+		else
+		{
+			entity->HandleWallSliding();
+			if(Clock->GetCurrentTimeInSeconds() > entity->myTimerToReceiveInputInFallState + 0.3f)
+				entity->GetFSM()->changeState(HeroFalling::Instance());
+		}
+			
+	}
+
 }
 
 void HeroWallSliding::Exit(HeroEntity* entity)
 {
 	entity->myDirectionWhenEnteringFallState = 0.0f;
+	entity->myTimerToReceiveInputInFallState = 0.0f;
+	entity->myStartedToFallInJump = false;
 }
 
 bool HeroWallSliding::OnMessage(HeroEntity* entity, const Message& msg)
@@ -3080,29 +3096,42 @@ bool HeroWallSliding::OnMessage(HeroEntity* entity, const Message& msg)
 
 bool HeroWallSliding::HandleInput(HeroEntity* entity, int key, int action)
 {
-	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	if (entity->myDirectionWhenEnteringFallState == 1.0f)
+	{
+		if (key == GLFW_KEY_D && action == GLFW_RELEASE && !entity->myStartedToFallInJump)
+		{
+			entity->myDirectionChangeDuringFallState = 0.0f;
+			entity->myTimerToReceiveInputInFallState = Clock->GetCurrentTimeInSeconds();
+			entity->myStartedToFallInJump = true;
+		}
+	}
+	else
+	{
+		if (key == GLFW_KEY_A && action == GLFW_RELEASE && !entity->myStartedToFallInJump)
+		{
+			entity->myDirectionChangeDuringFallState = 0.0f;
+			entity->myTimerToReceiveInputInFallState = Clock->GetCurrentTimeInSeconds();
+			entity->myStartedToFallInJump = true;
+		}
+	}
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		entity->myShouldJumpInGlidingState = true;
+	}
+/*	if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
 		entity->myDirectionChangeDuringFallState = 1.0f;
 		//entity->myPosXDirection = 1.5f;
 		//entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
 	}
-	if (key == GLFW_KEY_D && action == GLFW_RELEASE)
-	{
-		entity->myDirectionChangeDuringFallState = 0.0f;
-		//entity->myNegXDirection = -1.5f;
-		//entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
-	}
+
 	if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
 		entity->myDirectionChangeDuringFallState = -1.0f;
 		//entity->myNegXDirection = -1.5f;
 		//entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
-	}
-	if (key == GLFW_KEY_A && action == GLFW_RELEASE)
-	{
-		entity->myDirectionChangeDuringFallState = 0.0f;
-		//entity->myNegXDirection = -1.5f;
-		//entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
-	}
+	}*/
+
+
 	return true;
 }
