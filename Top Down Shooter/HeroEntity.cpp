@@ -27,7 +27,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
-//	mySprite->Add(myPlayerAABB);
+	mySprite->Add(myPlayerAABB);
 
 	myShouldSwitchAttack = false;
 	myShouldEnterNextSwordAttack = false;
@@ -58,7 +58,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 
 	mySwordAABB = new AABB(glm::vec2(mPosition.x + 30.0f, mPosition.y + 1.5), 17.0f, 15.0f);
 	mySwordSpriteAABB = new Sprite(glm::vec4(mPosition.x + 30.0f, mPosition.y + 1.5, 0.25f, 1.0f), glm::vec2(34.0f, 10.0f), glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
-	//mySprite->Add(mySwordSpriteAABB);
+	mySprite->Add(mySwordSpriteAABB);
 
 	mySwordAABBRightX = mPosition.x + 30.0f;
 	mySwordAABBLeftX = mPosition.y - 30.0f;
@@ -73,6 +73,8 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myShouldSwordNext = false;
 	myAirSlamReceived = false;
 	myShouldDropKick = false;
+	myShouldChangeDirectionLeft = false;
+	myShouldChangeDirectionRight = false;
 	myShakeInfoBasicAttack = new ShakeInfo(500, 100, 1);
 
 	myStartDeadTimer = 0.0f;
@@ -577,10 +579,13 @@ void HeroEntity::HandleJump()
 	{
 		myYVelocity = -3.5f;
 		//myStateMachine->changeState(HeroFalling::Instance());
-		if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
-			myStateMachine->changeState(HeroMeleeFalling::Instance());
-		else
-			myStateMachine->changeState(HeroFalling::Instance());
+		if(!myShouldDropKick)
+		{
+			if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeFalling::Instance());
+			else
+				myStateMachine->changeState(HeroFalling::Instance());
+		}
 	}
 
 	int tileX = myTileMap->lastPlayerTile->myX;
@@ -660,10 +665,14 @@ void HeroEntity::HandleJump()
 		myAABB->myOrigin.y = mPosition.y;
 		myTileMap->SetPlayerTile2(myAABB);
 		//myStateMachine->changeState(HeroFalling::Instance());
-		if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
-			myStateMachine->changeState(HeroMeleeFalling::Instance());
-		else
-			myStateMachine->changeState(HeroFalling::Instance());
+		if(!myShouldDropKick)
+		{
+			if (myStateMachine->GetNameOfCurrentState().find("Melee") != std::string::npos)
+				myStateMachine->changeState(HeroMeleeFalling::Instance());
+			else
+				myStateMachine->changeState(HeroFalling::Instance());
+		}
+
 	}
 
 	myNegXDirection = myPosXDirection = 0.0f;
@@ -783,7 +792,18 @@ void HeroEntity::Update()
 
 	}
 
-
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		mySwordAABB->myOrigin.x = mPosition.x + 30;
+		mySwordAABB->myOrigin.y = mPosition.y + 1.5;
+		mySwordSpriteAABB->myPosition.x = mySwordAABBRightX;
+	}
+	else
+	{
+		mySwordAABB->myOrigin.x = mPosition.x - 30;
+		mySwordAABB->myOrigin.y = mPosition.y + 1.5;
+		mySwordSpriteAABB->myPosition.x = mySwordAABBLeftX;
+	}
 	/*if(!inAir)
 		HandleGravity();
 	if (inAir)

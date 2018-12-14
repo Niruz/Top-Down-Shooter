@@ -163,6 +163,9 @@
     <Filter Include="Games\GothicVania\Entities\Projectile\BaseProjectile">
       <UniqueIdentifier>{0b9066cc-fb63-4ded-a112-32cef078bc49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{0bb79826-6f0e-4a17-86f3-d4e062f1fa77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -582,6 +585,9 @@
     <ClCompile Include="AdventurerProjectileArrow.cpp">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -943,6 +949,9 @@
     </ClInclude>
     <ClInclude Include="AdventurerProjectileArrow.h">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
