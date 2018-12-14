@@ -68,7 +68,7 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/necromancerprojectilesheet.png", "necromancerProjectile", true, false, false);
 	LoadTexture("Textures/impprojectilesheet.png", "impProjectile", true, false, false);
 	LoadTexture("Textures/enemydeathsheet.png", "enemyDeath", true, false, false);
-	LoadTexture("Textures/adventurersheet19.png", "adventurer2", true, false, false);
+	LoadTexture("Textures/adventurersheet20.png", "adventurer2", true, false, false);
 	LoadTexture("Textures/adventurerprojectilesheet.png", "adventurerProjectile", true, false, false);
 	LoadTexture("Textures/adventurerprojectilesheet2.png", "arrowProjectile", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");

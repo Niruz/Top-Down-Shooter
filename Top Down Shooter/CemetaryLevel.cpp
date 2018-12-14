@@ -82,7 +82,7 @@ void CemetaryLevel::Initialize()
 	myMountain->setUVSpecialized(glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(2, 1), glm::vec2(2, 0));
 	myMountainsLayer->Add(myMountain);
 	//myMountainsLayer->Add(new Sprite(glm::vec4(0, -0.25, -0.8, 1), glm::vec2(1.0f, 1.0f), TextureMan->GetTexture("mountains")/*, glm::vec2(0, 15)*/));
-	//myDebugLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
+	myDebugLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-640.0f, 640.0f, -360.0f, 360.0f, -1.0f, 1.0f));
 
 	myPlayer = new HeroEntity(0, "Player");
 	/*	mySkeleton = new SkeletonEntity(1, "Skeleton1", glm::vec3(64.0f, -152.0f, 0.1f), glm::vec3(224.0f, -152.0f, 0.1f));
@@ -255,7 +255,7 @@ void CemetaryLevel::Initialize()
 			}
 			else
 			{
-				if (!(map[i]->myTileType == "o"))
+				//if (!(map[i]->myTileType == "o"))
 					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")/*, glm::vec2(0, 15)*/));
 				grassType *= -1;
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f,0.0f,1.0f,0.5f)));
@@ -408,7 +408,7 @@ void CemetaryLevel::Initialize()
 	//screen
 	myPlayerLayer->Add(bossAnnouncerGroup);
 	myPlayer->myTileMap = myMap;
-	//myDebugLayer->Add(myPlayerTile);
+	myDebugLayer->Add(myPlayerTile);
 	lastPlayerX = myPlayer->mPosition.x;
 	myScreenDirection = 0.0f;
 	myBossBattle = false;

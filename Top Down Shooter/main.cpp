@@ -336,6 +336,33 @@ void updateInput(GLfloat deltaTime)
 		std::cout << "Q Released" << std::endl;
 	}*/
 
+	//This will double the initial press key by one
+	if (currentKeyState[GLFW_KEY_A] && !oldKeyState[GLFW_KEY_A])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_A] = true;
+		std::cout << "A Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_A] && oldKeyState[GLFW_KEY_A])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_A, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_A] = false;
+		std::cout << "A Released" << std::endl;
+	}
+	//D
+	if (currentKeyState[GLFW_KEY_D] && !oldKeyState[GLFW_KEY_D])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_D] = true;
+		std::cout << "D Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_D] && oldKeyState[GLFW_KEY_D])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_D, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_D] = false;
+		std::cout << "D Released" << std::endl;
+	}
+
 //	if (currentKeyState[GLFW_KEY_G])
 //		myGame->ProcessKeyBoard(GLFW_KEY_G, deltaTime, GLFW_PRESS);
 	if (currentKeyState[GLFW_KEY_W])

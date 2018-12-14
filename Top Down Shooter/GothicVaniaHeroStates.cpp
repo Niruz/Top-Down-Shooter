@@ -1215,6 +1215,7 @@ bool HeroFalling::HandleInput(HeroEntity* entity, int key, int action)
 		entity->myNegXDirection = -1.5f;
 		entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 	}
+
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		entity->GetFSM()->changeState(HeroAttackSwordAir1::Instance());
@@ -3039,5 +3040,69 @@ bool HeroSwordGetUp::OnMessage(HeroEntity* entity, const Message& msg)
 
 bool HeroSwordGetUp::HandleInput(HeroEntity* entity, int key, int action)
 {
+	return true;
+}
+
+//------------------------------------------------------------------------methods for HeroAttack
+HeroWallSliding* HeroWallSliding::Instance()
+{
+	static HeroWallSliding instance;
+
+	return &instance;
+}
+
+
+void HeroWallSliding::Enter(HeroEntity* entity)
+{
+	entity->SetAnimation("AdventurerWallGlideMelee");
+	entity->myDirectionChangeDuringFallState = entity->myDirectionWhenEnteringFallState;
+}
+
+
+void HeroWallSliding::Execute(HeroEntity* entity)
+{
+	entity->myAnimatedSprite->Update();
+	if (entity->myDirectionChangeDuringFallState == entity->myDirectionWhenEnteringFallState)
+		entity->HandleWallSliding();
+	else
+		entity->GetFSM()->changeState(HeroFalling::Instance());
+}
+
+void HeroWallSliding::Exit(HeroEntity* entity)
+{
+	entity->myDirectionWhenEnteringFallState = 0.0f;
+}
+
+bool HeroWallSliding::OnMessage(HeroEntity* entity, const Message& msg)
+{
+	return true;
+}
+
+bool HeroWallSliding::HandleInput(HeroEntity* entity, int key, int action)
+{
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		entity->myDirectionChangeDuringFallState = 1.0f;
+		//entity->myPosXDirection = 1.5f;
+		//entity->myAnimatedSprite->SetHeading(Heading::RIGHTFACING);
+	}
+	if (key == GLFW_KEY_D && action == GLFW_RELEASE)
+	{
+		entity->myDirectionChangeDuringFallState = 0.0f;
+		//entity->myNegXDirection = -1.5f;
+		//entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		entity->myDirectionChangeDuringFallState = -1.0f;
+		//entity->myNegXDirection = -1.5f;
+		//entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
+	if (key == GLFW_KEY_A && action == GLFW_RELEASE)
+	{
+		entity->myDirectionChangeDuringFallState = 0.0f;
+		//entity->myNegXDirection = -1.5f;
+		//entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
+	}
 	return true;
 }
