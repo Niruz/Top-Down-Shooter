@@ -72,6 +72,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myShouldPunchNext = false;
 	myShouldSwordNext = false;
 	myAirSlamReceived = false;
+	myShouldDropKick = false;
 	myShakeInfoBasicAttack = new ShakeInfo(500, 100, 1);
 
 	myStartDeadTimer = 0.0f;

@@ -1066,6 +1066,7 @@ void HeroFalling::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerFall");
 	entity->myAnimatedSprite->Reset();
+	entity->myShouldDropKick = false;
 }
 
 
@@ -1074,6 +1075,8 @@ void HeroFalling::Execute(HeroEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if (entity->IsOnSpikes())
 		entity->GetFSM()->changeState(HeroDamaged::Instance());
+	else if(entity->myShouldDropKick)
+		entity->GetFSM()->changeState(HeroDropKick::Instance());
 	else
 	{
 		entity->myNegYDirection = -1.0f;
@@ -1085,7 +1088,7 @@ void HeroFalling::Execute(HeroEntity* entity)
 
 void HeroFalling::Exit(HeroEntity* entity)
 {
-
+	entity->myShouldDropKick = false;
 }
 
 
@@ -1124,7 +1127,8 @@ bool HeroFalling::HandleInput(HeroEntity* entity, int key, int action)
 	}
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroDropKick::Instance());
+		//entity->GetFSM()->changeState(HeroDropKick::Instance());
+		entity->myShouldDropKick = true;
 	}
 	if (key == GLFW_KEY_G && action == GLFW_PRESS)
 	{
@@ -1155,6 +1159,7 @@ void HeroJumping::Enter(HeroEntity* entity)
 		entity->StartJump();
 		entity->myYVelocity = 9.0f;
 	}
+	entity->myShouldDropKick = false;
 }
 
 
@@ -1163,13 +1168,16 @@ void HeroJumping::Execute(HeroEntity* entity)
 	if(!entity->myAnimatedSprite->IsDone())
 		entity->myAnimatedSprite->Update();
 	//entity->HandleMovement();
-	entity->HandleJump();
+	if(entity->myShouldDropKick)
+		entity->GetFSM()->changeState(HeroDropKick::Instance());
+	else
+		entity->HandleJump();
 }
 
 
 void HeroJumping::Exit(HeroEntity* entity)
 {
-
+	entity->myShouldDropKick = false;
 }
 
 
@@ -1214,7 +1222,8 @@ bool HeroJumping::HandleInput(HeroEntity* entity, int key, int action)
 	}
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroDropKick::Instance());
+		entity->myShouldDropKick = true;
+		//entity->GetFSM()->changeState(HeroDropKick::Instance());
 	}
 	if (key == GLFW_KEY_G && action == GLFW_PRESS)
 	{
@@ -1965,6 +1974,7 @@ void HeroMeleeFalling::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerFall");
 	entity->myAnimatedSprite->Reset();
+	entity->myShouldDropKick = false;
 }
 
 
@@ -1973,6 +1983,8 @@ void HeroMeleeFalling::Execute(HeroEntity* entity)
 	entity->myAnimatedSprite->Update();
 	if (entity->IsOnSpikes())
 		entity->GetFSM()->changeState(HeroMeleeDamaged::Instance());
+	else if(entity->myShouldDropKick)
+		entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
 	else
 	{
 		entity->myNegYDirection = -1.0f;
@@ -1985,7 +1997,7 @@ void HeroMeleeFalling::Execute(HeroEntity* entity)
 
 void HeroMeleeFalling::Exit(HeroEntity* entity)
 {
-
+	entity->myShouldDropKick = false;
 }
 
 
@@ -2024,7 +2036,8 @@ bool HeroMeleeFalling::HandleInput(HeroEntity* entity, int key, int action)
 	}*/
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
+		//entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
+		entity->myShouldDropKick;
 	}
 	if (key == GLFW_KEY_G && action == GLFW_PRESS)
 	{
@@ -2112,6 +2125,7 @@ void HeroMeleeJump::Enter(HeroEntity* entity)
 /*	entity->myAnimatedSprite->Reset();
 	entity->StartJump();
 	entity->myYVelocity = 9.0f;*/
+	entity->myShouldDropKick = false;
 }
 
 
@@ -2120,13 +2134,16 @@ void HeroMeleeJump::Execute(HeroEntity* entity)
 	//if (!entity->myAnimatedSprite->IsDone())
 		entity->myAnimatedSprite->Update();
 	//entity->HandleMovement();
-	entity->HandleJump();
+	if (entity->myShouldDropKick)
+		entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
+	else
+		entity->HandleJump();
 }
 
 
 void HeroMeleeJump::Exit(HeroEntity* entity)
 {
-
+	entity->myShouldDropKick = false;
 }
 
 
@@ -2171,7 +2188,8 @@ bool HeroMeleeJump::HandleInput(HeroEntity* entity, int key, int action)
 	}*/
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
 	{
-		entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
+		entity->myShouldDropKick = true;
+		//entity->GetFSM()->changeState(HeroMeleeDropKick::Instance());
 	}
 	if (key == GLFW_KEY_G && action == GLFW_PRESS)
 	{
