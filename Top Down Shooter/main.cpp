@@ -20,7 +20,7 @@
 #include <glm/glm.hpp> // vec3 normalize reflect dot pow
 #include <glm\gtx\vector_angle.hpp>
 
-#include <irrklang/irrKlang.h>
+#include "SoundManager.h"
 
 #include "Miner.h"
 #include "MinersWife.h"
@@ -53,9 +53,9 @@
 #include "Pacman.h"
 #include "Shooter.h"
 #include "GothicVania.h"
-using namespace irrklang;
 
-ISoundEngine *SoundEngine = createIrrKlangDevice();
+
+//ISoundEngine *SoundEngine = createIrrKlangDevice();
 
 float mHeight = 720.0f;
 float mWidth = 1280.0f;
@@ -1028,21 +1028,25 @@ int main(void)
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
+	/*ISound* hehe = SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	SoundEngine->isCurrentlyPlaying("Audio/Stay_Closer.wav");
 	SoundEngine->stopAllSounds();
-
+	*/
 
 
 	ShaderMan->onInitialize();
 	TextureMan->onInitialize();
 	FontMan->onInitialize();
-
+	SoundMan->OnInitialize();
+	ISound* hehe = SoundMan->GetSoundEngine()->play2D("Audio/Stay_Closer.wav", GL_TRUE);
+	//SoundMan->GetSoundEngine()->isCurrentlyPlaying("Audio/Stay_Closer.wav");
+	//SoundMan->GetSoundEngine()->stopAllSounds();
 
 	//myGame = new Pacman();
 	//myGame = new Shooter();
 	myGame = new GothicVania();
 	myGame->Initialize();
+	//SoundEngine->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	do
 	{
 		// Update the input
@@ -1068,6 +1072,7 @@ int main(void)
 	ShaderMan->onDeinitialize();
 	TextureMan->onDeinitialize();
 	FontMan->onDeinitialize();
+	SoundMan->OnDeinitialize();
 	//Close OpenGL window and terminate GLFW  
 	glfwDestroyWindow(window);
 	//Finalize and clean up GLFW  

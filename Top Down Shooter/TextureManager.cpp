@@ -59,16 +59,16 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/stairtile.png", "stair", true, false, false);
 	LoadTexture("Textures/healthtemp.png", "hpbar", true, false, false);
 	LoadTexture("Textures/spikedpillar.png", "spikedpillar", true, false, false);
-	LoadTexture("Textures/firegolemsheet7.png", "firegolem", true, false, false);
+	LoadTexture("Textures/firegolemsheet8.png", "firegolem", true, false, false);
 	LoadTexture("Textures/ghoulspritesheet.png", "ghoul", true, false, false);
 	LoadTexture("Textures/undeadwarriorsheet6.png", "undeadwarrior", true, false, false); //2 then 5
-	LoadTexture("Textures/reapersheet.png", "reaper", true, false, false);
+	LoadTexture("Textures/reapersheet2.png", "reaper", true, false, false);
 	LoadTexture("Textures/impsheet.png", "imp", true, false, false);
 	LoadTexture("Textures/necromancersheet3.png", "necromancer", true, false, false);
 	LoadTexture("Textures/necromancerprojectilesheet.png", "necromancerProjectile", true, false, false);
 	LoadTexture("Textures/impprojectilesheet.png", "impProjectile", true, false, false);
 	LoadTexture("Textures/enemydeathsheet.png", "enemyDeath", true, false, false);
-	LoadTexture("Textures/adventurersheet21.png", "adventurer2", true, false, false);
+	LoadTexture("Textures/adventurersheet21_4.png", "adventurer2", true, false, false);
 	LoadTexture("Textures/adventurerprojectilesheet.png", "adventurerProjectile", true, false, false);
 	LoadTexture("Textures/adventurerprojectilesheet2.png", "arrowProjectile", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
@@ -138,8 +138,8 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	if (alpha)
 	{
-		mTextures[identifier]->setImageFormat(GL_BGRA);
-		mTextures[identifier]->setInternalFormat(GL_BGRA);
+		mTextures[identifier]->setImageFormat(GL_RGBA);
+		mTextures[identifier]->setInternalFormat(GL_RGBA);
 	}
 	if (isBackground)
 	{

@@ -8,6 +8,7 @@
 #include <ctime>
 #include "EngineUtilities.h"
 #include "CollisionManager.h"
+#include "SoundManager.h"
 //------------------------------------------------------------------------methods for GhostAttack
 FireGolemIdle* FireGolemIdle::Instance()
 {
@@ -84,6 +85,7 @@ void FireGolemAttack1::Execute(FireGolemEntity* entity)
 		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->shakeAttack1 = true;
+		SoundMan->GetSoundEngine()->play2D("Audio/Golem Hit.wav", GL_FALSE);
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
@@ -127,12 +129,14 @@ void FireGolemAttack2::Execute(FireGolemEntity* entity)
 		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->shakeAttack1 = true;
+		SoundMan->GetSoundEngine()->play2D("Audio/Golem Hit.wav", GL_FALSE);
 	}
 	else if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 8 && !entity->shakeAttack2)
 	{
 		CollisionMan->CheckSwordHeroCollisiion(entity);
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->shakeAttack2 = true;
+		SoundMan->GetSoundEngine()->play2D("Audio/Golem Hit.wav", GL_FALSE);
 	}
 	if (entity->myAnimatedSprite->IsDone())
 	{
@@ -284,6 +288,7 @@ void FireGolemSlam::Execute(FireGolemEntity* entity)
 			MessageMan->dispatchMessage(0, entity->GetID(), 0, Msg_SmashedDown, entity->myShakeInfoSlamAttack);
 		}
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoSlamAttack);
+		SoundMan->GetSoundEngine()->play2D("Audio/big golem hit.wav", GL_FALSE);
 		entity->shakeAttack1 = true;
 	}
 	if (entity->myAnimatedSprite->IsDone())
