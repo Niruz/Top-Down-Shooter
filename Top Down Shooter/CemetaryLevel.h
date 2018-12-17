@@ -62,6 +62,7 @@ public:
 	Layer* myOneWayPlatformLayer;
 	Layer* myEnemyLayer;
 	Layer* myPlayerLayer;
+	Layer* myEffectsLayer;
 
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
@@ -79,6 +80,7 @@ public:
 	Group * statueGroup;
 	Group* onewayGroup;
 	Group* enemyGroup;
+	Group* effectsGroup;
 	Group * playerGroup;
 	Sprite* myMountain;
 	Sprite* myGraveyard;

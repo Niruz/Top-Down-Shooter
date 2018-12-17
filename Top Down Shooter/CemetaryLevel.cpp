@@ -67,6 +67,7 @@ void CemetaryLevel::Initialize()
 	myOneWayPlatformLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myEnemyLayer          = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myPlayerLayer         = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myEffectsLayer        = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myBackgroundLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND1_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
 	myGraveyardLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND2_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
 	myMountainsLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND3_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
@@ -174,7 +175,7 @@ void CemetaryLevel::Initialize()
 	myCursor->Add(new Sprite(glm::vec4(0, 0, 0.3, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("cursor")/*, glm::vec2(0, 15)*/));
 
 	myTileLayer->Add(fpsGroup);
-
+	//myEffectsLayer->Add(fpsGroup);
 	//myTileLayer->Add(myCursor);
 
 	myMap = new TileMap("Levels/test3.level", glm::vec2(-320, 3488), glm::vec2(160, -192), glm::vec2(0, 119), glm::vec2(0, 11));
@@ -197,7 +198,8 @@ void CemetaryLevel::Initialize()
 	onewayGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.3)), -9.3);
 	tileGroup          = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.2)), -9.2);
 	enemyGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f, -5.0)), -5.0);
-	playerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  0.0)), -0.0);
+	playerGroup = new Group(glm::translate(glm::mat4(1.0f),  glm::vec3(0.0f, 0.0f,  0.0)), -0.0);
+	effectsGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f,  5.0f)), 5.0f);
 	
 	myRenderGroups.push_back(tileGroup);
 	myRenderGroups.push_back(treeGroup);
@@ -206,6 +208,7 @@ void CemetaryLevel::Initialize()
 	myRenderGroups.push_back(onewayGroup);
 	myRenderGroups.push_back(enemyGroup);
 	myRenderGroups.push_back(playerGroup);
+	myRenderGroups.push_back(effectsGroup);
 
 		/*	myTileLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myTreeLayer           = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
@@ -407,6 +410,7 @@ void CemetaryLevel::Initialize()
 
 	//myTileLayer->Add(tileGroup);
 	myPlayerLayer->Add(myPlayer->mySprite);
+	myEffectsLayer->Add(effectsGroup);
 	//screen
 	myPlayerLayer->Add(bossAnnouncerGroup);
 	myPlayer->myTileMap = myMap;
@@ -436,6 +440,7 @@ void CemetaryLevel::Initialize()
 	myLayers.push_back(myTileLayer);
 	myLayers.push_back(myEnemyLayer);
 	myLayers.push_back(myPlayerLayer);
+	myLayers.push_back(myEffectsLayer);
 	/*
 
 	myTileLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
@@ -767,28 +772,28 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "MediumHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z+0.3, 1.0f), glm::vec2(100, 100), TextureMan->GetTexture("hiteffect"), Heading::RIGHTFACING),"HitEffect");
 		myEntitites.push_back(effect);
-		enemyGroup->Add(effect->mySprite);
+		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);
 	}
 	else if (type == "Large Hit")
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "LargeHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(200, 200), TextureMan->GetTexture("hiteffectslow"), Heading::RIGHTFACING), "HitEffectSlow");
 		myEntitites.push_back(effect);
-		enemyGroup->Add(effect->mySprite);
+		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);
 	}
 	else if (type == "Large Hit Fast")
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "LargeHitFast" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(200, 200), TextureMan->GetTexture("hiteffect"), Heading::RIGHTFACING), "HitEffect");
 		myEntitites.push_back(effect);
-		enemyGroup->Add(effect->mySprite);
+		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);
 	}
 	else if (type == "Extra Large Hit")
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "ExtraLargeHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(400, 400), TextureMan->GetTexture("hiteffectslow"), Heading::RIGHTFACING), "HitEffectSlow");
 		myEntitites.push_back(effect);
-		enemyGroup->Add(effect->mySprite);
+		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);
 	}
 }
