@@ -16,6 +16,7 @@
 #include "ShakeInfo.h"
 #include "World.h"
 #include "Level.h"
+#include "HitEffectSprite.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),
@@ -28,6 +29,9 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));
 	//mySprite->Add(myPlayerAABB);
+	myHitEffect = new HitEffectSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(200, 200),TextureMan->GetTexture("hiteffect"),Heading::RIGHTFACING);
+	myHitEffect->SetAnimation("HitEffect");
+	mySprite->Add(myHitEffect);
 
 	myShouldSwitchAttack = false;
 	myShouldEnterNextSwordAttack = false;
@@ -795,9 +799,9 @@ void HeroEntity::HandleJump()
 {
 /*	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
 		myStateMachine->changeState(HeroFalling::Instance());*/
-	if (myYVelocity < 6.5f)
+	if (myYVelocity < 5.5f)
 	{
-		myYVelocity = 6.5f;
+		myYVelocity = 5.5f;
 		//myStateMachine->changeState(HeroFalling::Instance());
 		if(!myShouldDropKick)
 		{
@@ -977,7 +981,7 @@ void HeroEntity::HandleDamaged(int damageRecieved)
 }
 void HeroEntity::Update()
 {
-
+	myHitEffect->Update();
 	//HandleMovement();
 	//Really need to remove this nonsense and add it to the states instead
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))

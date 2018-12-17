@@ -181,6 +181,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="HellCatSprite.cpp" />
     <ClCompile Include="HeroEntity.cpp" />
     <ClCompile Include="HeroSprite.cpp" />
+    <ClCompile Include="HitEffectSprite.cpp" />
     <ClCompile Include="ImpEntity.cpp" />
     <ClCompile Include="ImpProjectile.cpp" />
     <ClCompile Include="ImpProjectileSprite.cpp" />
@@ -296,6 +297,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="HellCatSprite.h" />
     <ClInclude Include="HeroEntity.h" />
     <ClInclude Include="HeroSprite.h" />
+    <ClInclude Include="HitEffectSprite.h" />
     <ClInclude Include="ImpEntity.h" />
     <ClInclude Include="ImpProjectile.h" />
     <ClInclude Include="ImpProjectileSprite.h" />

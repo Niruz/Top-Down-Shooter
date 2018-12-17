@@ -25,6 +25,34 @@ Animation::Animation(int numberOfFrames, int startFrame, float spriteX, float sp
 
 	//Bug? Remember this
 	myCurrentIndices = mySpriteIndexes[myCurrentIndex];
+	myFrameSpeed = 10;
+}
+Animation::Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, int yRows, int spritesPerRow, int frameSpeed)
+	:myFrameCounter(0), myCurrentIndex(0), myNumberOfFrames(numberOfFrames), myStartFrame(startFrame),
+	mySpriteXWidth(spriteX), mySpriteYWidth(spriteY), mySpriteSheetXWidth(sheetX), mySpriteSheetYWidth(sheetY), myDone(false), myFrameSpeed(frameSpeed)
+{
+	if (yRows == 0)
+	{
+		for (int i = myStartFrame; i < (myStartFrame + myNumberOfFrames); i++)
+		{
+			mySpriteIndexes.push_back(SetUVCoordinates(i, 0));
+		}
+	}
+	else
+	{
+		//Buggy, should work, check later
+		for (int y = 0; y < yRows; y++)
+		{
+			for (int i = 0; i < spritesPerRow; i++)
+			{
+				mySpriteIndexes.push_back(SetUVCoordinates(i, y));
+			}
+		}
+	}
+
+	//Bug? Remember this
+	myCurrentIndices = mySpriteIndexes[myCurrentIndex];
+	
 }
 Animation::~Animation() 
 {
@@ -38,14 +66,14 @@ void Animation::Reset()
 }
 void Animation::Update()
 {
-	if ((myFrameCounter % 10) == 0)
+	if ((myFrameCounter % myFrameSpeed) == 0)
 	{
 		myCurrentIndices = mySpriteIndexes[myCurrentIndex];
 		myCurrentIndex++;
 	}
 	myFrameCounter += 1;
 
-	if (myFrameCounter >= (10 * (myNumberOfFrames-1)) + 9)
+	if (myFrameCounter >= (myFrameSpeed * (myNumberOfFrames-1)) + (myFrameSpeed-1))
 	{
 		Reset();
 		//Useful for one off animations

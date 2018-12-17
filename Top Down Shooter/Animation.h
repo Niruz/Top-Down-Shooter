@@ -6,6 +6,7 @@
 struct Animation
 {
 	Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, int yRows, int spritesPerRow);
+	Animation(int numberOfFrames, int startFrame, float spriteX, float spriteY, float sheetX, float sheetY, int yRows, int spritesPerRow, int frameSpeed);
 	~Animation();
 
 	void Update();
@@ -20,6 +21,7 @@ struct Animation
 	int myCurrentIndex;
 	int myNumberOfFrames;
 	int myStartFrame;
+	int myFrameSpeed;
 	std::vector<std::vector<glm::vec2>> mySpriteIndexes;
 	std::vector<glm::vec2> myCurrentIndices;
 

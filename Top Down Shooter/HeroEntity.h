@@ -11,6 +11,7 @@ class HeroSprite;
 class AdventurerSprite;
 class Sprite;
 class ShakeInfo;
+class HitEffectSprite;
 
 enum StateTest
 {
@@ -92,6 +93,7 @@ struct HeroEntity : public Entity
 	TileMap* myTileMap;
 	Sprite* myPlayerAABB;
 	AABB* myAABB;
+	HitEffectSprite* myHitEffect;
 	StateTest myState;
 
 	Sprite* mySwordSpriteAABB;
