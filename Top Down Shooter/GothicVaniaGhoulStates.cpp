@@ -8,6 +8,8 @@
 #include <ctime>
 #include "EngineUtilities.h"
 #include "CollisionManager.h"
+#include "World.h"
+#include "CemetaryLevel.h"
 //------------------------------------------------------------------------methods for GhostAttack
 GhoulIdle* GhoulIdle::Instance()
 {
@@ -52,7 +54,11 @@ bool GhoulIdle::OnMessage(GhoulEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(GhoulHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -92,6 +98,11 @@ bool GhoulAttack::OnMessage(GhoulEntity* entity, const Message& msg)
 	case Msg_TakeDamage:
 
 		entity->HandleDamaged(10);
+		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -167,7 +178,11 @@ bool GhoulRunToPlayer::OnMessage(GhoulEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(GhoulHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -203,7 +218,11 @@ bool GhoulPatrol::OnMessage(GhoulEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(GhoulHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -218,6 +237,7 @@ void GhoulDie::Enter(GhoulEntity* entity)
 {
 	entity->SetAnimation("GhoulDie");
 	entity->myIsActive = false;
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void GhoulDie::Execute(GhoulEntity* entity)
 {

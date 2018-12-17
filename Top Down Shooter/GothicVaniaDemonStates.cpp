@@ -4,6 +4,8 @@
 #include "TextureManager.h"
 #include "AnimatedSprite.h"
 #include "Messages.h"
+#include "World.h"
+#include "CemetaryLevel.h"
 //------------------------------------------------------------------------methods for GhostPatrol
 DemonIdle* DemonIdle::Instance()
 {
@@ -57,6 +59,11 @@ bool DemonIdle::OnMessage(DemonEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -96,6 +103,11 @@ bool DemonAttack::OnMessage(DemonEntity* entity, const Message& msg)
 	case Msg_TakeDamage:
 
 		entity->HandleDamaged(10);
+		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -145,6 +157,11 @@ bool DemonWindup::OnMessage(DemonEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -184,6 +201,11 @@ bool DemonWindDown::OnMessage(DemonEntity* entity, const Message& msg)
 	case Msg_TakeDamage:
 
 		entity->HandleDamaged(10);
+		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -299,6 +321,7 @@ void DemonDie::Enter(DemonEntity* entity)
 		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
 		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
 	}
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Extra Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void DemonDie::Execute(DemonEntity* entity)
 {

@@ -7,6 +7,8 @@
 #include "ShakeInfo.h"
 #include <ctime>
 #include "EngineUtilities.h"
+#include "World.h"
+#include "CemetaryLevel.h"
 //------------------------------------------------------------------------methods for GhostAttack
 ImpIdle* ImpIdle::Instance()
 {
@@ -51,7 +53,11 @@ bool ImpIdle::OnMessage(ImpEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(ImpHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -93,6 +99,11 @@ bool ImpAttack::OnMessage(ImpEntity* entity, const Message& msg)
 	case Msg_TakeDamage:
 
 		entity->HandleDamaged(10);
+		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -168,7 +179,11 @@ bool ImpRunToPlayer::OnMessage(ImpEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(ImpHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -204,7 +219,11 @@ bool ImpPatrol::OnMessage(ImpEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(ImpHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -219,6 +238,7 @@ void ImpDie::Enter(ImpEntity* entity)
 {
 	entity->SetAnimation("ImpDie");
 	entity->myIsActive = false;
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void ImpDie::Execute(ImpEntity* entity)
 {

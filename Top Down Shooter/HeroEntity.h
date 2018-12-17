@@ -84,6 +84,7 @@ struct HeroEntity : public Entity
 	void Respawn();
 	void SpawnProjectile();
 	void SpawnArrow();
+	void SpawnHitEffect();
 	float mAngle;
 
 	int currentKeyInput;

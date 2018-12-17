@@ -31,7 +31,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	//mySprite->Add(myPlayerAABB);
 	myHitEffect = new HitEffectSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(200, 200),TextureMan->GetTexture("hiteffect"),Heading::RIGHTFACING);
 	myHitEffect->SetAnimation("HitEffect");
-	mySprite->Add(myHitEffect);
+	//mySprite->Add(myHitEffect);
 
 	myShouldSwitchAttack = false;
 	myShouldEnterNextSwordAttack = false;
@@ -1068,6 +1068,17 @@ void HeroEntity::SpawnArrow()
 	{
 		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
 		myFiredProjectile = true;
+	}
+}
+void HeroEntity::SpawnHitEffect()
+{
+	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+	}
+	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z + 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f));
 	}
 }
 void HeroEntity::SpawnProjectile()

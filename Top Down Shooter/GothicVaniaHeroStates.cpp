@@ -7,7 +7,8 @@
 #include "CollisionManager.h"
 #include "Messages.h"
 #include "MessageDispatcher.h"
-
+#include "World.h"
+#include "CemetaryLevel.h"
 
 //------------------------------------------------------------------------methods for HeroAttack
 HeroAttackSwordAir1* HeroAttackSwordAir1::Instance()
@@ -37,6 +38,7 @@ void HeroAttackSwordAir1::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -132,6 +134,7 @@ void HeroAttackSwordAir2::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -231,6 +234,7 @@ void HeroAttackSwordAir3::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -420,6 +424,7 @@ void HeroAttackSwordAir5::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit Fast", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -593,6 +598,7 @@ void HeroAttackSword1::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -708,6 +714,7 @@ void HeroAttackSword2::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -823,6 +830,7 @@ void HeroAttackSword3::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -2347,6 +2355,7 @@ void HeroMeleeKick1::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -2459,6 +2468,7 @@ void HeroMeleeKick2::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -2615,6 +2625,7 @@ void HeroMeleePunch1::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -2727,6 +2738,7 @@ void HeroMeleePunch2::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -2839,6 +2851,7 @@ void HeroMeleePunch3::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
+			entity->SpawnHitEffect();
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}

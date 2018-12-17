@@ -113,7 +113,7 @@ void CollisionManager::Update()
 				{
 					if (TestAABBAABB(projectile->myAABB, enemy->myAABB))
 					{
-						MessageMan->dispatchMessage(0, 555, enemy->GetID(), Msg_TakeDamage, 0);
+						MessageMan->dispatchMessage(0, 555, enemy->GetID(), Msg_TakeDamageBow, projectile);
 						projectile->MarkForDeletion();
 						break;
 					}

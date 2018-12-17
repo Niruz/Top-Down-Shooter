@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "BaseProjectileEntity.h"
 #include "CollisionManager.h"
+#include "Effect.h"
 EntityManager* EntityManager::Instance()
 {
 	static EntityManager instance;
@@ -46,6 +47,10 @@ void EntityManager::Update()
 				else
 					CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
 				
+				it = mEntityMap.erase(it);
+			}
+			else if (dynamic_cast<Effect*>(entity))
+			{
 				it = mEntityMap.erase(it);
 			}
 		}

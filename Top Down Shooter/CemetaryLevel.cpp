@@ -36,6 +36,8 @@
 #include "AdventurerProjectile.h"
 #include "AdventurerProjectileArrow.h"
 #include "CollisionManager.h"
+#include "Effect.h"
+#include "HitEffectSprite.h"
 void CemetaryLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -760,6 +762,34 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 		enemyGroup->Add(impProjectile->mySprite);
 		CollisionMan->RegisterHeroProjectile(impProjectile);
 		EntityMan->registerEntity(impProjectile);
+	}
+	else if (type == "Medium Hit")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "MediumHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z+0.3, 1.0f), glm::vec2(100, 100), TextureMan->GetTexture("hiteffect"), Heading::RIGHTFACING),"HitEffect");
+		myEntitites.push_back(effect);
+		enemyGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Large Hit")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "LargeHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(200, 200), TextureMan->GetTexture("hiteffectslow"), Heading::RIGHTFACING), "HitEffectSlow");
+		myEntitites.push_back(effect);
+		enemyGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Large Hit Fast")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "LargeHitFast" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(200, 200), TextureMan->GetTexture("hiteffect"), Heading::RIGHTFACING), "HitEffect");
+		myEntitites.push_back(effect);
+		enemyGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Extra Large Hit")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "ExtraLargeHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(400, 400), TextureMan->GetTexture("hiteffectslow"), Heading::RIGHTFACING), "HitEffectSlow");
+		myEntitites.push_back(effect);
+		enemyGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
 	}
 }
 void CemetaryLevel::RemoveEntity(Entity* entity)

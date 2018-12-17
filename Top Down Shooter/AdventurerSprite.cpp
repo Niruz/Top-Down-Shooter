@@ -25,8 +25,8 @@ AdventurerSprite::AdventurerSprite(const glm::vec4& position, const glm::vec2& s
 	myAnimations["AdventurerCastSpell"]        = new Animation(4, 73,   50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerDropKick"]         = new Animation(2, 77,   50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerDie"]              = new Animation(7, 79,   50, 37, 8300, 37, 0, 0);
-	myAnimations["AdventurerBowGround"]        = new Animation(9, 86,   50, 37, 8300, 37, 0, 0);
-	myAnimations["AdventurerBowInAir"]         = new Animation(6, 95,   50, 37, 8300, 37, 0, 0);
+	myAnimations["AdventurerBowGround"]        = new Animation(9, 86,   50, 37, 8300, 37, 0, 0 ,6);
+	myAnimations["AdventurerBowInAir"]         = new Animation(6, 95,   50, 37, 8300, 37, 0, 0 ,6);
 	myAnimations["AdventurerRunSword"]         = new Animation(6, 101,  50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerSlide"]            = new Animation(3, 107,  50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerStand"]            = new Animation(2, 110,  50, 37, 8300, 37, 0, 0);

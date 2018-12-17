@@ -32,7 +32,7 @@ AdventurerProjectileArrow::AdventurerProjectileArrow(int id, const std::string& 
 void AdventurerProjectileArrow::Update()
 {
 	myAnimatedSprite->Update();
-	mPosition.x += myDirection.x*2.0f;
+	mPosition.x += myDirection.x*3.0f;
 	myAnimatedSprite->myPosition.x = mPosition.x;
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y);
 	myHitboxAABB->myPosition = glm::vec4(mPosition.x, mPosition.y, mPosition.z - 0.3f, 1.0f);

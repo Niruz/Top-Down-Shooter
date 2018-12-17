@@ -108,6 +108,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DemonEntity.cpp" />
     <ClCompile Include="DemonSprite.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EngineUtilities.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
@@ -253,6 +254,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="DemonEntity.h" />
     <ClInclude Include="DemonSprite.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />

@@ -7,6 +7,9 @@
 #include "ShakeInfo.h"
 #include <ctime>
 #include "EngineUtilities.h"
+#include "World.h"
+#include "CemetaryLevel.h"
+#include "BaseProjectileEntity.h"
 //------------------------------------------------------------------------methods for GhostAttack
 NecromancerIdle* NecromancerIdle::Instance()
 {
@@ -68,6 +71,12 @@ bool NecromancerIdle::OnMessage(NecromancerEntity* entity, const Message& msg)
 		entity->myMinionsToRessurect.push_back(msg.mSender);
 		entity->myHaveRecievedRessurectionRequest = true;
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -113,6 +122,12 @@ bool NecromancerAttack::OnMessage(NecromancerEntity* entity, const Message& msg)
 	case Msg_RessurectMe:
 		entity->myMinionsToRessurect.push_back(msg.mSender);
 		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -200,6 +215,12 @@ bool NecromancerRunToPlayer::OnMessage(NecromancerEntity* entity, const Message&
 		entity->myMinionsToRessurect.push_back(msg.mSender);
 		entity->myHaveRecievedRessurectionRequest = true;
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -240,6 +261,12 @@ bool NecromancerPatrol::OnMessage(NecromancerEntity* entity, const Message& msg)
 		entity->myMinionsToRessurect.push_back(msg.mSender);
 		entity->myHaveRecievedRessurectionRequest = true;
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -254,6 +281,7 @@ void NecromancerDie::Enter(NecromancerEntity* entity)
 {
 	entity->SetAnimation("NecromancerDie");
 	entity->myIsActive = false;
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Extra Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void NecromancerDie::Execute(NecromancerEntity* entity)
 {
@@ -307,10 +335,14 @@ bool NecromancerRessurect::OnMessage(NecromancerEntity* entity, const Message& m
 
 		entity->HandleDamaged(10);
 		return true;
-
 	case Msg_RessurectMe:
 		entity->myMinionsToRessurect.push_back(msg.mSender);
 		entity->myHaveRecievedRessurectionRequest = true;
+		return true;
+	case Msg_TakeDamageBow:
+		entity->HandleDamaged(10);
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;

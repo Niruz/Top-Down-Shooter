@@ -9,6 +9,8 @@
 #include "EngineUtilities.h"
 #include "CollisionManager.h"
 #include "NecromancerEntity.h"
+#include "World.h"
+#include "CemetaryLevel.h"
 //------------------------------------------------------------------------methods for GhostAttack
 UndeadWarriorIdle* UndeadWarriorIdle::Instance()
 {
@@ -53,7 +55,11 @@ bool UndeadWarriorIdle::OnMessage(UndeadWarriorEntity* entity, const Message& ms
 
 		entity->GetFSM()->changeState(UndeadWarriorHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -94,6 +100,11 @@ bool UndeadWarriorAttack::OnMessage(UndeadWarriorEntity* entity, const Message& 
 	case Msg_TakeDamage:
 
 		entity->HandleDamaged(10);
+		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -169,7 +180,11 @@ bool UndeadWarriorRunToPlayer::OnMessage(UndeadWarriorEntity* entity, const Mess
 
 		entity->GetFSM()->changeState(UndeadWarriorHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -205,7 +220,11 @@ bool UndeadWarriorPatrol::OnMessage(UndeadWarriorEntity* entity, const Message& 
 
 		entity->GetFSM()->changeState(UndeadWarriorHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
 
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
 	return false;
 }
@@ -222,6 +241,8 @@ void UndeadWarriorDie::Enter(UndeadWarriorEntity* entity)
 	if(entity->myMaster != nullptr)
 		MessageMan->dispatchMessage(2.0, entity->GetID(), entity->myMaster->GetID(), Msg_RessurectMe, 0);
 	entity->myIsActive = false;
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+
 }
 void UndeadWarriorDie::Execute(UndeadWarriorEntity* entity)
 {

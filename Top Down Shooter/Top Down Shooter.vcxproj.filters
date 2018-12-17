@@ -166,6 +166,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{0bb79826-6f0e-4a17-86f3-d4e062f1fa77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Entities\Effect">
+      <UniqueIdentifier>{3c20bafb-fdf7-4306-bc2b-0b2c46e364a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -591,6 +594,9 @@
     <ClCompile Include="HitEffectSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Games\GothicVania\Entities\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -958,6 +964,9 @@
     </ClInclude>
     <ClInclude Include="HitEffectSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Games\GothicVania\Entities\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

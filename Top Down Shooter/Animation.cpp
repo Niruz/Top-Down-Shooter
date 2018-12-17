@@ -66,19 +66,36 @@ void Animation::Reset()
 }
 void Animation::Update()
 {
-	if ((myFrameCounter % myFrameSpeed) == 0)
+	//this and framespeed == 1 is the same thing, remove later
+	if(myFrameSpeed == 0)
 	{
 		myCurrentIndices = mySpriteIndexes[myCurrentIndex];
 		myCurrentIndex++;
-	}
-	myFrameCounter += 1;
+		myFrameCounter++;
 
-	if (myFrameCounter >= (myFrameSpeed * (myNumberOfFrames-1)) + (myFrameSpeed-1))
-	{
-		Reset();
-		//Useful for one off animations
-		myDone = true;
+		if (myFrameCounter >= myNumberOfFrames)
+		{
+			Reset();
+			myDone = true;
+		}
 	}
+	else
+	{
+		if ((myFrameCounter % myFrameSpeed) == 0)
+		{
+			myCurrentIndices = mySpriteIndexes[myCurrentIndex];
+			myCurrentIndex++;
+		}
+		myFrameCounter += 1;
+
+		if (myFrameCounter >= (myFrameSpeed * (myNumberOfFrames - 1)) + (myFrameSpeed - 1))
+		{
+			Reset();
+			//Useful for one off animations
+			myDone = true;
+		}
+	}
+	
 }
 std::vector<glm::vec2> Animation::SetUVCoordinates(int row, int column) 
 {

@@ -8,6 +8,8 @@
 #include <ctime>
 #include "EngineUtilities.h"
 #include "CollisionManager.h"
+#include "World.h"
+#include "CemetaryLevel.h"
 //------------------------------------------------------------------------methods for GhostAttack
 ReaperIdle* ReaperIdle::Instance()
 {
@@ -52,6 +54,11 @@ bool ReaperIdle::OnMessage(ReaperEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(ReaperHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 
 	}
 	return false;
@@ -93,7 +100,13 @@ bool ReaperAttack::OnMessage(ReaperEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 	}
+
 	return false;
 }
 //------------------------------------------------------------------------methods for GhostAttack
@@ -167,6 +180,11 @@ bool ReaperRunToPlayer::OnMessage(ReaperEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(ReaperHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 
 	}
 	return false;
@@ -203,6 +221,11 @@ bool ReaperPatrol::OnMessage(ReaperEntity* entity, const Message& msg)
 
 		entity->GetFSM()->changeState(ReaperHurt::Instance());
 		return true;
+	case Msg_TakeDamageBow:
+
+		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		return true;
 
 	}
 	return false;
@@ -218,6 +241,7 @@ void ReaperDie::Enter(ReaperEntity* entity)
 {
 	entity->SetAnimation("ReaperDie");
 	entity->myIsActive = false;
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x , entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void ReaperDie::Execute(ReaperEntity* entity)
 {
