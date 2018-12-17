@@ -33,14 +33,16 @@ void HeroAttackSwordAir1::Enter(HeroEntity* entity)
 void HeroAttackSwordAir1::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 2 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -126,14 +128,16 @@ void HeroAttackSwordAir2::Enter(HeroEntity* entity)
 void HeroAttackSwordAir2::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 2 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -223,14 +227,16 @@ void HeroAttackSwordAir3::Enter(HeroEntity* entity)
 void HeroAttackSwordAir3::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 3 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -410,6 +416,14 @@ void HeroAttackSwordAir5::Enter(HeroEntity* entity)
 void HeroAttackSwordAir5::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 1 && !entity->basicAttack)
+	{
+		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
+		{
+			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
+			entity->basicAttack = true;
+		}
+	}
 	if(entity->myAnimatedSprite->IsDone())
 		entity->GetFSM()->changeState(HeroIdle::Instance());
 }
@@ -575,14 +589,17 @@ void HeroAttackSword1::Enter(HeroEntity* entity)
 void HeroAttackSword1::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if(entity->myAnimatedSprite->IsDone())
-	//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
-		if(CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
+		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if(entity->myAnimatedSprite->IsDone())
+	{
+		
 		if(entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if(entity->myShouldChangeDirectionRight)
@@ -687,14 +704,17 @@ void HeroAttackSword2::Enter(HeroEntity* entity)
 void HeroAttackSword2::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
+
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -799,14 +819,16 @@ void HeroAttackSword3::Enter(HeroEntity* entity)
 void HeroAttackSword3::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -1256,7 +1278,7 @@ void HeroJumping::Enter(HeroEntity* entity)
 	{
 		entity->myAnimatedSprite->Reset();
 		entity->StartJump();
-		entity->myYVelocity = 9.0f;
+		entity->myYVelocity = 11.0f;
 	}
 	entity->myShouldDropKick = false;
 }
@@ -2219,7 +2241,7 @@ void HeroMeleeJump::Enter(HeroEntity* entity)
 	{
 		entity->myAnimatedSprite->Reset();
 		entity->StartJump();
-		entity->myYVelocity = 9.0f;
+		entity->myYVelocity = 11.0f;
 	}
 /*	entity->myAnimatedSprite->Reset();
 	entity->StartJump();
@@ -2321,14 +2343,16 @@ void HeroMeleeKick1::Enter(HeroEntity* entity)
 void HeroMeleeKick1::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -2431,14 +2455,16 @@ void HeroMeleeKick2::Enter(HeroEntity* entity)
 void HeroMeleeKick2::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -2585,14 +2611,16 @@ void HeroMeleePunch1::Enter(HeroEntity* entity)
 void HeroMeleePunch1::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -2695,14 +2723,16 @@ void HeroMeleePunch2::Enter(HeroEntity* entity)
 void HeroMeleePunch2::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)
@@ -2805,14 +2835,16 @@ void HeroMeleePunch3::Enter(HeroEntity* entity)
 void HeroMeleePunch3::Execute(HeroEntity* entity)
 {
 	entity->myAnimatedSprite->Update();
-	if (entity->myAnimatedSprite->IsDone())
-		//if(entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
+	if (entity->myAnimatedSprite->myCurrentAnimation->myCurrentIndex == 4 && !entity->basicAttack)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+	}
+	if (entity->myAnimatedSprite->IsDone())
+	{
 		if (entity->myShouldChangeDirectionLeft)
 			entity->myAnimatedSprite->SetHeading(Heading::LEFTFACING);
 		else if (entity->myShouldChangeDirectionRight)

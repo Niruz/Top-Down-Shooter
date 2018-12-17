@@ -138,8 +138,10 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	if (alpha)
 	{
-		mTextures[identifier]->setImageFormat(GL_RGBA);
-		mTextures[identifier]->setInternalFormat(GL_RGBA);
+		mTextures[identifier]->setImageFormat(GL_BGRA);
+		mTextures[identifier]->setInternalFormat(GL_BGRA);
+	//	mTextures[identifier]->setImageFormat(GL_RGBA);
+	//	mTextures[identifier]->setInternalFormat(GL_RGBA);
 	}
 	if (isBackground)
 	{

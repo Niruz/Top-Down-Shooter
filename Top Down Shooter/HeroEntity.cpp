@@ -221,7 +221,7 @@ void HeroEntity::HandleMovement()
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
 
-	float velocity = 1.6f;
+	float velocity = 2.2f;
 
 	/*Tile* bottomRight = myTileMap->lastPlayerTileBottomRight;
 	if (myPosXDirection == 1.0f)
@@ -502,9 +502,9 @@ void HeroEntity::HandleGravity()
 {
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
-	float fallingSpeed = -4.0f;
+	float fallingSpeed = -5.5f;
 
-	float velocity = 1.6f;
+	float velocity = 2.1f;
 
 	if (myPosXDirection > 0.0f)
 	{
@@ -681,7 +681,7 @@ void HeroEntity::HandleDropKick()
 {
 	int tileX = myTileMap->lastPlayerTile->myX;
 	int tileY = myTileMap->lastPlayerTile->myY;
-	float fallingSpeed = -5.0f;
+	float fallingSpeed = -6.0f;
 
 	float velocity = 1.6f;
 
@@ -795,9 +795,9 @@ void HeroEntity::HandleJump()
 {
 /*	if(Clock->GetCurrentTime() - myStartJumpTime> 0.5f)
 		myStateMachine->changeState(HeroFalling::Instance());*/
-	if (myYVelocity < -3.5f)
+	if (myYVelocity < 6.5f)
 	{
-		myYVelocity = -3.5f;
+		myYVelocity = 6.5f;
 		//myStateMachine->changeState(HeroFalling::Instance());
 		if(!myShouldDropKick)
 		{
