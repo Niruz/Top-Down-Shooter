@@ -6,6 +6,7 @@
 #include "Messages.h"
 #include "World.h"
 #include "CemetaryLevel.h"
+#include "BaseProjectileEntity.h"
 //------------------------------------------------------------------------methods for GhostPatrol
 DemonIdle* DemonIdle::Instance()
 {
@@ -62,7 +63,8 @@ bool DemonIdle::OnMessage(DemonEntity* entity, const Message& msg)
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -107,7 +109,8 @@ bool DemonAttack::OnMessage(DemonEntity* entity, const Message& msg)
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -160,7 +163,8 @@ bool DemonWindup::OnMessage(DemonEntity* entity, const Message& msg)
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -205,7 +209,8 @@ bool DemonWindDown::OnMessage(DemonEntity* entity, const Message& msg)
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;

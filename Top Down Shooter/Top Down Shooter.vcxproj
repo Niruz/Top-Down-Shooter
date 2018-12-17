@@ -102,6 +102,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="BaseProjectileEntity.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />
+    <ClCompile Include="BubblesSprite.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CemetaryLevel.cpp" />
@@ -196,6 +197,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshFactory.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
+    <ClCompile Include="MidnightSprite.cpp" />
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="MinerOwnedStates.cpp" />
     <ClCompile Include="MinersWife.cpp" />
@@ -223,6 +225,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="SkeletonSprite.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="SpellSprite.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Static_Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -247,6 +250,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="BaseProjectileEntity.h" />
     <ClInclude Include="BatchRenderer.h" />
+    <ClInclude Include="BubblesSprite.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CemetaryLevel.h" />
@@ -316,6 +320,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="MessageTypes.h" />
+    <ClInclude Include="MidnightSprite.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="MinerOwnedStates.h" />
     <ClInclude Include="MinersWife.h" />
@@ -345,6 +350,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="SkeletonSprite.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SpellSprite.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />

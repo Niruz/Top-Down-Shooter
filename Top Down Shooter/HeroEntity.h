@@ -12,7 +12,9 @@ class AdventurerSprite;
 class Sprite;
 class ShakeInfo;
 class HitEffectSprite;
-
+class BubblesSprite;
+class MidnightSprite;
+class SpellSprite;
 enum StateTest
 {
 	RUNNING,
@@ -95,6 +97,9 @@ struct HeroEntity : public Entity
 	Sprite* myPlayerAABB;
 	AABB* myAABB;
 	HitEffectSprite* myHitEffect;
+	BubblesSprite* myBubblesSprite;
+	MidnightSprite* myMidnightSprite;
+	SpellSprite* mySpellSprite;
 	StateTest myState;
 
 	Sprite* mySwordSpriteAABB;

@@ -73,6 +73,9 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/adventurerprojectilesheet2.png", "arrowProjectile", true, false, false);
 	LoadTexture("Textures/hiteffect2.png", "hiteffect", true, false, false);
 	LoadTexture("Textures/hitspritesheet.png", "hiteffectslow", true, false, false);
+	LoadTexture("Textures/bubblessheet2.png", "bubbles", true, false, false);
+	LoadTexture("Textures/midnightsheet2.png", "midnight", true, false, false);
+	LoadTexture("Textures/spellspritesheet.png", "spell", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
