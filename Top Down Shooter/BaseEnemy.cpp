@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Sprite.h"
 #include "ShakeInfo.h"
+#include "AnimatedSprite.h"
 BaseEnemy::BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo, bool createAABB)
 	: Entity(id, name), startPatrol(myStartPosition), endPatrol(patrolTo), mPosition(myStartPosition), myAttackTimer(0.0f),myHealth(100),myDamageFrameCounter(0), myIsDamaged(false), myIsActive(true)
 {
@@ -16,3 +17,9 @@ BaseEnemy::BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPo
 	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
 	myDeathShakeInfo = new ShakeInfo(1000, 10, 3);
 };
+void BaseEnemy::MarkForDeletion()
+{
+	SetMarkedForDeletion(true);
+	mySprite->myMarkedForDeletion = true;
+	myAnimatedSprite->myMarkedForDeletion = true;
+}

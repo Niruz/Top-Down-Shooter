@@ -20,6 +20,7 @@ class UndeadWarriorEntity;
 class ReaperEntity;
 class ImpEntity;
 class NecromancerEntity;
+class DynamicLayer;
 class CemetaryLevel : public Level
 {
 public:

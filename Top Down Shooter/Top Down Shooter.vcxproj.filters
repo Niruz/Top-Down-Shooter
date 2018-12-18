@@ -555,9 +555,6 @@
     <ClCompile Include="CemetaryLevel.cpp">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="GameLayer.cpp">
-      <Filter>Games\GothicVania\Game Layers</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -611,6 +608,9 @@
     </ClCompile>
     <ClCompile Include="SplashScreen.cpp">
       <Filter>Games\GothicVania\Splash Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicLayer.cpp">
+      <Filter>Games\GothicVania\Game Layers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -941,9 +941,6 @@
     <ClInclude Include="CemetaryLevel.h">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="GameLayer.h">
-      <Filter>Games\GothicVania\Game Layers</Filter>
-    </ClInclude>
     <ClInclude Include="NecromancerProjectileSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
@@ -994,6 +991,9 @@
     </ClInclude>
     <ClInclude Include="SplashScreen.h">
       <Filter>Games\GothicVania\Splash Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicLayer.h">
+      <Filter>Games\GothicVania\Game Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

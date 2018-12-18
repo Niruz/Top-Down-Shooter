@@ -238,7 +238,9 @@ UndeadWarriorDie* UndeadWarriorDie::Instance()
 void UndeadWarriorDie::Enter(UndeadWarriorEntity* entity)
 {
 	entity->SetAnimation("UndeadWarriorDie");
-	if(entity->myMaster != nullptr)
+	
+//	if(entity->myMaster != nullptr)
+	if (!entity->myMaster->GetMarkedForDeletion())
 		MessageMan->dispatchMessage(2.0, entity->GetID(), entity->myMaster->GetID(), Msg_RessurectMe, 0);
 	entity->myIsActive = false;
 	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));

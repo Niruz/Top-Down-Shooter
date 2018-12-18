@@ -38,6 +38,7 @@
 #include "CollisionManager.h"
 #include "Effect.h"
 #include "HitEffectSprite.h"
+#include "DynamicLayer.h"
 void CemetaryLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -67,7 +68,7 @@ void CemetaryLevel::Initialize()
 	myOneWayPlatformLayer = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myEnemyLayer          = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myPlayerLayer         = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
-	myEffectsLayer        = new Layer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
+	myEffectsLayer        = new DynamicLayer(new BatchRenderer(), myShader, glm::ortho(-320.0f, 320.0f, -180.0f, 180.0f, -10.0f, 10.0f));
 	myBackgroundLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND1_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
 	myGraveyardLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND2_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));
 	myMountainsLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_BACKGROUND3_SHADER), glm::ortho(-0.5f, 0.5f, -0.5f, 0.5f, -10.0f, 10.0f));

@@ -7,8 +7,8 @@ class Sprite;
 class AnimatedSprite;
 struct Effect : public Entity
 {
-	Effect(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& direction, AnimatedSprite* animatedSprite, const std::string& animation);
-	Effect(int id, const std::string& name, const glm::vec3& myStartPosition,  AnimatedSprite* animatedSprite, const std::string& animation);
+	Effect(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& direction, AnimatedSprite* animatedSprite, const std::string& animation, bool fading = false);
+	Effect(int id, const std::string& name, const glm::vec3& myStartPosition,  AnimatedSprite* animatedSprite, const std::string& animation, bool fading = false);
 	~Effect() { };
 
 	virtual void Update();
@@ -20,4 +20,7 @@ struct Effect : public Entity
 	std::string myAnimation;
 
 	void MarkForDeletion();
+
+	bool myFading;
+	float myAlpha;
 };

@@ -244,6 +244,10 @@ void ImpDie::Execute(ImpEntity* entity)
 {
 	if (!entity->myAnimatedSprite->IsDone())
 		entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->MarkForDeletion();
+	}
 }
 void ImpDie::Exit(ImpEntity* entity)
 {

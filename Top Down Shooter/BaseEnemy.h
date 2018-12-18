@@ -34,6 +34,8 @@ struct BaseEnemy : public Entity
 	virtual void SetAnimation(const std::string& name) = 0;
 
 	virtual void HandleDamaged(int damageRecieved) = 0;
+
+	virtual void MarkForDeletion();
 	
 public:
 	Group * mySprite;

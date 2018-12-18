@@ -3,6 +3,7 @@
 #include "BaseProjectileEntity.h"
 #include "CollisionManager.h"
 #include "Effect.h"
+#include "BaseEnemy.h"
 EntityManager* EntityManager::Instance()
 {
 	static EntityManager instance;
@@ -61,6 +62,13 @@ void EntityManager::Update()
 			{
 				delete entity;
 				it = mEntityMap.erase(it);
+			}
+			else if (dynamic_cast<BaseEnemy*>(entity))
+			{
+			/*	CollisionMan->RemoveEntity((BaseEnemy*)entity);
+				delete entity;
+				it = mEntityMap.erase(it);*/
+				it++;
 			}
 		}
 		else

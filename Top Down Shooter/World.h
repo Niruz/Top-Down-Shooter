@@ -19,6 +19,8 @@ public:
 	void RemoveLevel(Level* entity);
 
 	Level* GetLevelFromName(const std::string& name) const;
+	Level* GetActiveLevel() const;
+	void   SetActiveLevel(const std::string& name);
 
 private:
 
@@ -27,4 +29,6 @@ private:
 	World() {}
 	World(const World&);
 	World& operator=(const World&);
+
+	Level* myCurrentActiveLevel;
 };

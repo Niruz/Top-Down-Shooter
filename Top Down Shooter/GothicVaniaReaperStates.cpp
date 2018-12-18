@@ -248,6 +248,10 @@ void ReaperDie::Execute(ReaperEntity* entity)
 {
 	if (!entity->myAnimatedSprite->IsDone())
 		entity->myAnimatedSprite->Update();
+	if(entity->myAnimatedSprite->IsDone())
+	{
+		entity->MarkForDeletion();
+	}
 }
 void ReaperDie::Exit(ReaperEntity* entity)
 {

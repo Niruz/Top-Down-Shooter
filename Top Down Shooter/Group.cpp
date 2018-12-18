@@ -19,6 +19,24 @@ Group::~Group()
 void Group::Submit(RendererBase* renderer) const 
 {
 	renderer->Push(myTransformationMatrix);
+	//Add this to some sort of dynamic group if we want all renderables to be deleted when marked for deletion
+/*	std::vector<Renderable*>::iterator it = myRenderables.begin();
+
+	while (it != myRenderables.end())
+	{
+
+		if ((*it)->myMarkedForDeletion)
+		{
+
+			it = myRenderables.erase(it);
+		}
+		else
+		{
+			(*it)->Submit(renderer);
+			++it;
+		}
+
+	}*/
 	for(Renderable* renderable : myRenderables)
 	{
 		if (!renderable->myMarkedForDeletion)

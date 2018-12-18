@@ -282,6 +282,10 @@ void FireGolemDie::Execute(FireGolemEntity* entity)
 {
 	if(!entity->myAnimatedSprite->IsDone())
 		entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->MarkForDeletion();
+	}
 }
 void FireGolemDie::Exit(FireGolemEntity* entity)
 {

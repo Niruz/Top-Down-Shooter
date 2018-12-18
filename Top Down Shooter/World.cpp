@@ -28,3 +28,11 @@ void World::RegisterLevel(Level* level)
 {
 	myLevelMap.insert(std::make_pair(level->GetName(), level));
 }
+Level* World::GetActiveLevel() const
+{
+	return myCurrentActiveLevel;
+}
+void World::SetActiveLevel(const std::string& name)
+{
+	myCurrentActiveLevel = GetLevelFromName(name);
+}

@@ -287,6 +287,10 @@ void NecromancerDie::Execute(NecromancerEntity* entity)
 {
 	if (!entity->myAnimatedSprite->IsDone())
 		entity->myAnimatedSprite->Update();
+	if (entity->myAnimatedSprite->IsDone())
+	{
+		entity->MarkForDeletion();
+	}
 }
 void NecromancerDie::Exit(NecromancerEntity* entity)
 {
