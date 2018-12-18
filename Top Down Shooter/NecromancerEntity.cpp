@@ -42,7 +42,7 @@ NecromancerEntity::NecromancerEntity(int id, const std::string& name, const glm:
 }
 NecromancerEntity::~NecromancerEntity()
 {
-
+	delete myStateMachine;
 }
 void NecromancerEntity::Update()
 {

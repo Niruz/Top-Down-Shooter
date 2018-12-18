@@ -24,6 +24,8 @@ public:
 
 	void Update();
 
+	void DeleteAllEntities();
+
 private:
 
 	EntityMap mEntityMap;

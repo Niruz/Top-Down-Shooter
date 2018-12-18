@@ -169,6 +169,9 @@
     <Filter Include="Games\GothicVania\Entities\Effect">
       <UniqueIdentifier>{3c20bafb-fdf7-4306-bc2b-0b2c46e364a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Splash Screens">
+      <UniqueIdentifier>{0f388627-7074-446b-9219-074bbd051d9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -606,6 +609,9 @@
     <ClCompile Include="SpellSprite.cpp">
       <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Games\GothicVania\Splash Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -985,6 +991,9 @@
     </ClInclude>
     <ClInclude Include="SpellSprite.h">
       <Filter>Games\GothicVania\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashScreen.h">
+      <Filter>Games\GothicVania\Splash Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

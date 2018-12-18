@@ -11,7 +11,7 @@ Sprite::Sprite(const glm::vec4& position, const glm::vec2& size, Texture* textur
 }
 Sprite::~Sprite() 
 {
-
+	int shit = 5;
 }
 Sprite::Sprite(const glm::vec4& position, const glm::vec2& size, Texture* texture, const glm::vec2& atlasposition)
 	: Renderable(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))

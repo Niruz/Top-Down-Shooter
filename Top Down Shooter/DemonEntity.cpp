@@ -40,7 +40,7 @@ DemonEntity::DemonEntity(int id, const std::string& name, const glm::vec3& mySta
 }
 DemonEntity::~DemonEntity()
 {
-
+	delete myStateMachine;
 }
 void DemonEntity::Update()
 {

@@ -53,6 +53,7 @@ FireGolemEntity::~FireGolemEntity()
 {
 	delete myShakeInfoBasicAttack;
 	delete myShakeInfoSlamAttack;
+	delete myStateMachine;
 }
 void FireGolemEntity::Update()
 {

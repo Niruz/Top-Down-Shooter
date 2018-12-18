@@ -110,6 +110,7 @@ HeroEntity::~HeroEntity()
 {
 	delete myShakeInfoBasicAttack;
 	delete myStateMachine;
+//	delete myStateMachine;
 }
 void HeroEntity::Respawn()
 {

@@ -5,6 +5,8 @@
 #include "CemetaryLevel.h"
 
 #include "StateMachine.h"
+
+class SplashScreen;
 class GothicVania : public Game
 {
 public:
@@ -19,6 +21,8 @@ public:
 	{
 		for (Level* level : myLevels)
 			delete level;
+		delete myStateMachine;
+		delete mySplashScreen;
 	}
 
 	void Initialize() override;
@@ -41,13 +45,8 @@ public:
 
 	int activeLevel;
 	std::vector<Level*> myLevels;
-
-	Layer* myGameScreenLayer;
-	Label* myBossAnnouncer;
-	Group* bossAnnouncerGroup;
-	float myAlphaGameLayer;
-	float myAlphaDirection;
-	bool myGameScreenDone;
+	bool myRenderingSplashScreen;
+	SplashScreen* mySplashScreen;
 };
 
 

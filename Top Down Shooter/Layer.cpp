@@ -26,6 +26,7 @@ Layer::~Layer()
 	delete myRenderer;
 	for (Renderable* renderable : myRenderables)
 		delete renderable;
+	myRenderables.clear();
 }
 void Layer::Add(Renderable* renderable)
 {

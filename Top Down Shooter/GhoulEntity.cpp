@@ -45,7 +45,7 @@ GhoulEntity::GhoulEntity(int id, const std::string& name, const glm::vec3& mySta
 }
 GhoulEntity::~GhoulEntity()
 {
-
+	delete myStateMachine;
 }
 void GhoulEntity::Update()
 {

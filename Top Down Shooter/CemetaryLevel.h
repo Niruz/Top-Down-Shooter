@@ -29,11 +29,8 @@ public:
 	{
 
 	}
-	virtual ~CemetaryLevel()
-	{
-		delete myMap;
-		//delete myTileLayer;
-	}
+	virtual ~CemetaryLevel();
+
 	void Initialize() override;
 	void Tick(const unsigned int ups, const unsigned int fps) override;
 	void Update() override;
@@ -73,7 +70,7 @@ public:
 
 	Camera* myCamera;
 	Group* myCursor;
-	std::vector<Group*> myRenderGroups;
+	
 	Group* tileGroup;
 	Group* treeGroup;
 	Group * bushGroup;
@@ -120,6 +117,8 @@ public:
 	NecromancerEntity* myNecromancerEntity;
 	std::vector<Entity*> myEntitites;
 	//	std::vector<SkeletonEntity*> mySkeletons;
+
+	std::vector<Group*> myPlayerTileGroups;
 
 	float lastX;
 	float lastY;

@@ -48,7 +48,7 @@ UndeadWarriorEntity::UndeadWarriorEntity(int id, const std::string& name, const 
 }
 UndeadWarriorEntity::~UndeadWarriorEntity()
 {
-
+	delete myStateMachine;
 }
 void UndeadWarriorEntity::SetMaster(NecromancerEntity* master)
 {

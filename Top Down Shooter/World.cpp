@@ -14,7 +14,7 @@ Level* World::GetLevelFromName(const std::string& name)const
 	LevelMap::const_iterator ent = myLevelMap.find(name);
 
 	//assert that the entity is a member of the map
-	assert((ent != myLevelMap.end()) && "<EntityManager::getEntityFromID>: invalid ID");
+	assert((ent != myLevelMap.end()) && "<World::GetLevelFromName>: invalid Name");
 
 	return ent->second;
 }

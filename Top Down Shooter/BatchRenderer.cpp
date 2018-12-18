@@ -11,8 +11,15 @@ BatchRenderer::BatchRenderer()
 }
 BatchRenderer::~BatchRenderer()
 {
-	delete myIBO;
+	
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
+
 	glDeleteBuffers(1, &myVBO);
+	delete myIBO;
+	glDeleteVertexArrays(1, &myVAO);
+	
+	//delete[] myBuffer;
 }
 void BatchRenderer::Initialize()
 {

@@ -14,6 +14,7 @@ Group::~Group()
 {
 	for (Renderable* renderable : myRenderables)
 		delete renderable;
+	myRenderables.clear();
 }
 void Group::Submit(RendererBase* renderer) const 
 {

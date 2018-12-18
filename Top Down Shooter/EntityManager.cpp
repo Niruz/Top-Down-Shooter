@@ -31,6 +31,13 @@ void EntityManager::registerEntity(Entity* NewEntity)
 	mEntityMap.insert(std::make_pair(NewEntity->GetID(), NewEntity));
 }
 
+void EntityManager::DeleteAllEntities()
+{
+	for (auto iterator : mEntityMap)
+		delete iterator.second;
+	mEntityMap.clear();
+}
+
 void EntityManager::Update()
 {
 	std::map<int, Entity*>::iterator it = mEntityMap.begin();
@@ -47,10 +54,12 @@ void EntityManager::Update()
 				else
 					CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
 				
+				delete entity;
 				it = mEntityMap.erase(it);
 			}
 			else if (dynamic_cast<Effect*>(entity))
 			{
+				delete entity;
 				it = mEntityMap.erase(it);
 			}
 		}

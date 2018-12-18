@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Layer.h"
 
-
+class Group;
 class Level
 {
 public:
@@ -16,6 +16,9 @@ public:
 	{
 		for (Layer* layer : myLayers)
 			delete layer;
+		delete myCamera;
+		myLayers.clear();
+		myRenderGroups.clear();
 	};
 
 	virtual void Initialize() = 0;
@@ -35,6 +38,7 @@ public:
 
 	Camera* myCamera;
 	std::vector<Layer*> myLayers;
+	std::vector<Group*> myRenderGroups;
 	std::string myName;
 	int myNumberOfEntities;
 };

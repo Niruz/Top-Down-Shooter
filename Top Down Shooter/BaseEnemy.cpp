@@ -7,6 +7,7 @@
 BaseEnemy::BaseEnemy(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo, bool createAABB)
 	: Entity(id, name), startPatrol(myStartPosition), endPatrol(patrolTo), mPosition(myStartPosition), myAttackTimer(0.0f),myHealth(100),myDamageFrameCounter(0), myIsDamaged(false), myIsActive(true)
 {
+	myHitAABB = nullptr;
 	if(createAABB)
 	{
 		myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y), 16.0f, 16.0f);

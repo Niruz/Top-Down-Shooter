@@ -9,7 +9,10 @@ class AnimatedSprite;
 struct BaseProjectileEntity : public Entity
 {
 	BaseProjectileEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& direction);
-	~BaseProjectileEntity() {};
+	~BaseProjectileEntity() 
+	{
+		delete myAABB;
+	};
 
 	virtual void Update();
 	virtual bool HandleMessage(const Message& msg);

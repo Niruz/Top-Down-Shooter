@@ -20,7 +20,7 @@ BaseEnemy* CollisionManager::GetEntityFromID(int id)const
 	EnemyMap::const_iterator ent = myEnemies.find(id);
 
 	//assert that the entity is a member of the map
-	assert((ent != myEnemies.end()) && "<EntityManager::getEntityFromID>: invalid ID");
+	assert((ent != myEnemies.end()) && "<CollisionManager::GetEntityFromID>: invalid ID");
 
 	return ent->second;
 }

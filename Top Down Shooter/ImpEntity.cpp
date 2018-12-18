@@ -43,7 +43,7 @@ ImpEntity::ImpEntity(int id, const std::string& name, const glm::vec3& myStartPo
 }
 ImpEntity::~ImpEntity()
 {
-
+	delete myStateMachine;
 }
 void ImpEntity::Update()
 {

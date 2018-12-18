@@ -17,6 +17,7 @@ protected:
 		myTransformationStackBack = &myTransformationStack.back();
 	}
 public:
+	virtual ~RendererBase(){}
 	void Push(const glm::mat4& mat, bool doOverride = false)
 	{
 		if (doOverride)

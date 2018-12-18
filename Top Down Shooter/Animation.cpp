@@ -56,7 +56,7 @@ Animation::Animation(int numberOfFrames, int startFrame, float spriteX, float sp
 }
 Animation::~Animation() 
 {
-
+	int shit = 5;
 }
 void Animation::Reset()
 {
