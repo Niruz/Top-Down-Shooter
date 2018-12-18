@@ -18,18 +18,13 @@ void GothicVaniaIntroState::Enter(GothicVania* game)
 void GothicVaniaIntroState::Execute(GothicVania* game)
 {
 	game->UpdateGameScreen();
+	game->RenderGameScreen();
 	game->myGameScreenDone = true;
 	if(game->myGameScreenDone)
 	{
 		game->GetFSM()->changeState(GothicVaniaPlayState::Instance());
 	}
 }
-
-void GothicVaniaIntroState::Render(GothicVania* game)
-{
-	game->RenderGameScreen();
-}
-
 void GothicVaniaIntroState::Exit(GothicVania* game)
 {
 
@@ -104,17 +99,12 @@ GothicVaniaPlayState* GothicVaniaPlayState::Instance()
 
 void GothicVaniaPlayState::Enter(GothicVania* game)
 {
-
+	game->activeLevel = 0;
 }
 
 void GothicVaniaPlayState::Execute(GothicVania* game)
 {
 	game->UpdateLevel();
-}
-
-void GothicVaniaPlayState::Render(GothicVania* game)
-{
-	game->RenderLevel();
 }
 
 
@@ -130,6 +120,6 @@ bool GothicVaniaPlayState::OnMessage(GothicVania* game, const Message& msg)
 
 bool GothicVaniaPlayState::HandleInput(GothicVania* game, int key, int action)
 {
-	game->myLevels[0]->ProcessKeyBoard(key, 0, action);
+	game->myLevels[game->activeLevel]->ProcessKeyBoard(key, 0, action);
 	return true;
 }

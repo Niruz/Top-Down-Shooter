@@ -31,8 +31,6 @@ public:
 	virtual bool OnMessage(GothicVania* entity, const Message& msg);
 
 	virtual bool HandleInput(GothicVania* entity, int key, int action);
-
-	virtual void Render(GothicVania* entity);
 };
 //------------------------------------------------------------------------
 //
@@ -94,5 +92,4 @@ public:
 
 	virtual bool HandleInput(GothicVania* entity, int key, int action);
 
-	virtual void Render(GothicVania* entity);
 };

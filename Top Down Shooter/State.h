@@ -19,8 +19,4 @@ public:
 
 	virtual bool ProcessMouse(T*, double xpos, double ypos, bool movement) { return false; }
 
-	//Temporary, move these later on
-
-	virtual void Tick(T*){}
-	virtual void Render(T*){}
 };

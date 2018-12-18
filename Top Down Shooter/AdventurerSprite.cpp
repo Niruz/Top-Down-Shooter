@@ -8,14 +8,14 @@ AdventurerSprite::AdventurerSprite(const glm::vec4& position, const glm::vec2& s
 	myAnimations["AdventurerWallGlideMelee"]   = new Animation(2, 6,    50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerGetUpMelee"]       = new Animation(5, 8,    50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerKnockedDownMelee"] = new Animation(5, 13,   50, 37, 8300, 37, 0, 0);
-	myAnimations["AdventurerMeleePunch1"]      = new Animation(4, 18,   50, 37, 8300, 37, 0, 0 ,8);
-	myAnimations["AdventurerMeleePunch2"]      = new Animation(4, 22,   50, 37, 8300, 37, 0, 0, 8);
-	myAnimations["AdventurerMeleePunch3"]      = new Animation(5, 26,   50, 37, 8300, 37, 0, 0, 8);
+	myAnimations["AdventurerMeleePunch1"]      = new Animation(4, 18,   50, 37, 8300, 37, 0, 0 ,7);
+	myAnimations["AdventurerMeleePunch2"]      = new Animation(4, 22,   50, 37, 8300, 37, 0, 0, 7);
+	myAnimations["AdventurerMeleePunch3"]      = new Animation(5, 26,   50, 37, 8300, 37, 0, 0, 7);
 	myAnimations["AdventurerMeleeHurt"]        = new Animation(3, 31,   50, 37, 8300, 37, 0, 0);
-	myAnimations["AdventurerMeleeKick1"]       = new Animation(4, 34,   50, 37, 8300, 37, 0, 0, 8);
-	myAnimations["AdventurerMeleeKick2"]       = new Animation(4, 38,   50, 37, 8300, 37, 0, 0, 8);
+	myAnimations["AdventurerMeleeKick1"]       = new Animation(4, 34,   50, 37, 8300, 37, 0, 0, 7);
+	myAnimations["AdventurerMeleeKick2"]       = new Animation(4, 38,   50, 37, 8300, 37, 0, 0, 7);
 	myAnimations["AdventurerMeleeJump"]        = new Animation(4, 42,   50, 37, 8300, 37, 0, 0, 5);
-	myAnimations["AdventurerMeleeRun"]         = new Animation(6, 46,   50, 37, 8300, 37, 0, 0);
+	myAnimations["AdventurerMeleeRun"]         = new Animation(6, 46,   50, 37, 8300, 37, 0, 0, 8);
 	myAnimations["AdventurerDrawSword"]        = new Animation(4, 52,   50, 37, 8300, 37, 0, 0, 7);
 	myAnimations["AdventurerSheatheSword"]     = new Animation(4, 56,   50, 37, 8300, 37, 0, 0, 7);
 	myAnimations["AdventurerAirSlamBegin"]     = new Animation(4, 60,   50, 37, 8300, 37, 0, 0);
@@ -33,16 +33,16 @@ AdventurerSprite::AdventurerSprite(const glm::vec4& position, const glm::vec2& s
 	myAnimations["AdventurerAttack3AirSword"]  = new Animation(3, 112,  50, 37, 8300, 37, 0, 0, 8);
 	myAnimations["AdventurerAttack1AirSword"]  = new Animation(4, 115,  50, 37, 8300, 37, 0, 0, 8);
 	myAnimations["AdventurerAttack2AirSword"]  = new Animation(3, 119,  50, 37, 8300, 37, 0, 0, 8);
-	myAnimations["AdventurerAttack2Sword"]     = new Animation(6, 122,  50, 37, 8300, 37, 0, 0, 7);
-	myAnimations["AdventurerAttack3Sword"]     = new Animation(6, 128,  50, 37, 8300, 37, 0, 0, 7);
+	myAnimations["AdventurerAttack2Sword"]     = new Animation(6, 122,  50, 37, 8300, 37, 0, 0, 6);
+	myAnimations["AdventurerAttack3Sword"]     = new Animation(6, 128,  50, 37, 8300, 37, 0, 0, 6);
 	myAnimations["AdventurerHurt"]             = new Animation(3, 134,  50, 37, 8300, 37, 0, 0);
-	myAnimations["AdventurerAttack1Sword"]     = new Animation(5, 137,  50, 37, 8300, 37, 0, 0 ,7);
+	myAnimations["AdventurerAttack1Sword"]     = new Animation(5, 137,  50, 37, 8300, 37, 0, 0 ,6);
 	myAnimations["AdventurerCrouch"]           = new Animation(4, 142,  50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerFall"]             = new Animation(2, 146,  50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerIdleSword"]        = new Animation(4, 148,  50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerIdleSheathe"]      = new Animation(4, 152,  50, 37, 8300, 37, 0, 0);
 	myAnimations["AdventurerJump"]             = new Animation(4, 156,  50, 37, 8300, 37, 0, 0);
-	myAnimations["AdventurerRun"]              = new Animation(6, 160,  50, 37, 8300, 37, 0, 0);
+	myAnimations["AdventurerRun"]              = new Animation(6, 160,  50, 37, 8300, 37, 0, 0, 8);
 
 	//Adventurer V2
 }

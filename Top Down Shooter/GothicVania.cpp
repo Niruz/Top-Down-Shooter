@@ -72,8 +72,8 @@ void GothicVania::Initialize()
 }
 void GothicVania::Tick()
 {
-	myStateMachine->tick();
-	myLevels[0]->Tick(getUPS(),getFPS());
+	//myStateMachine->tick();
+	myLevels[activeLevel]->Tick(getUPS(),getFPS());
 }
 void GothicVania::Update()
 {
@@ -81,7 +81,8 @@ void GothicVania::Update()
 }
 void GothicVania::Render()
 {
-	myStateMachine->render();
+	myLevels[activeLevel]->Render();
+	//myStateMachine->render();
 }
 void GothicVania::RenderLevel()
 {

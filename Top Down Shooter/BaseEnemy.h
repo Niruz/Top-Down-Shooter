@@ -11,7 +11,7 @@ class TileMap;
 class AnimatedSprite;
 class Group;
 class Sprite;
-
+class ShakeInfo;
 //Simple enemy that patrols back and forth, might try and go for the player later
 
 struct BaseEnemy : public Entity
@@ -22,6 +22,7 @@ struct BaseEnemy : public Entity
 	{
 		delete myAABB;
 		delete myHitAABB;
+		delete myDeathShakeInfo;
 	};
 
 	virtual void Update() = 0;
@@ -55,5 +56,7 @@ public:
 	AABB* myHitAABB;
 
 	bool myIsActive;
+
+	ShakeInfo* myDeathShakeInfo;
 };
 

@@ -95,6 +95,7 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myShouldChangeDirectionLeft = false;
 	myShouldChangeDirectionRight = false;
 	myShakeInfoBasicAttack = new ShakeInfo(500, 100, 1);
+	//myShakeInfoBasicAttack = new ShakeInfo(1000, 10, 3);
 	myDirectionWhenEnteringFallState = 0.0f;
 	myDirectionChangeDuringFallState = 0.0f;
 	myStartDeadTimer = 0.0f;
