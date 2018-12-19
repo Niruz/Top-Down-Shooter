@@ -13,11 +13,13 @@
 class BaseEnemy;
 class HeroEntity;
 class BaseProjectileEntity;
+class Pickup;
 class CollisionManager
 {
 private:
 	typedef std::map<int, BaseEnemy*> EnemyMap;
 	typedef std::map<int, BaseProjectileEntity*> ProjectileMap;
+	typedef std::map<int, Pickup*> PickupMap;
 public:
 
 	static CollisionManager* Instance();
@@ -34,6 +36,9 @@ public:
 	void RegisterProjectile(BaseProjectileEntity* projectile);
 	void RemoveProjectile(BaseProjectileEntity* projectile);
 
+	void RegisterPickup(Pickup* pickup);
+	void RemovePickup(Pickup* pickup);
+
 	void RegisterHeroProjectile(BaseProjectileEntity* projectile);
 	void RemoveHeroProjectile(BaseProjectileEntity* projectile);
 
@@ -49,5 +54,6 @@ private:
 	EnemyMap myEnemies;
 	ProjectileMap myProjectiles;
 	ProjectileMap myHeroProjectiles;
+	PickupMap myPickups;
 	HeroEntity* myHero;
 };

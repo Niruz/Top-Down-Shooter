@@ -10,5 +10,7 @@ enum MESSAGE_TYPE
 	Msg_TakeDamageSpell,
 	Msg_RessurectMe,
 	Msg_Revive,
+	Msg_ReceiveHP,
+	Msg_YouveBeenPickedUp,
 	Msg_SmashedDown
 };

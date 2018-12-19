@@ -39,6 +39,9 @@
 #include "Effect.h"
 #include "HitEffectSprite.h"
 #include "DynamicLayer.h"
+#include "PotionPickup.h"
+#include "PotionSprite.h"
+#include "PickupDestroyedSprite.h"
 void CemetaryLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -259,7 +262,7 @@ void CemetaryLevel::Initialize()
 			}
 			else
 			{
-				//if (!(map[i]->myTileType == "o"))
+				if (!(map[i]->myTileType == "o"))
 					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")));
 				grassType *= -1;
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f,0.0f,1.0f,0.5f)));
@@ -808,6 +811,23 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);
 	}
+	else if (type == "Pickup Destroyed")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "PickupDestroyed" + std::to_string(myNumberOfEntities), inpos, new PickupDestroyedSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(16, 16), TextureMan->GetTexture("pickupdestroyed"), Heading::RIGHTFACING), "PickupDestroyed");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "HP Potion")
+	{
+		PotionPickup* potion = new PotionPickup(myNumberOfEntities, "HPPotion" + std::to_string(myNumberOfEntities), inpos, "hppotion");
+		myEntitites.push_back(potion);
+		effectsGroup->Add(potion->mySprite);
+		CollisionMan->RegisterPickup(potion);
+		EntityMan->registerEntity(potion);
+		
+	}
+
 }
 void CemetaryLevel::RemoveEntity(Entity* entity)
 {

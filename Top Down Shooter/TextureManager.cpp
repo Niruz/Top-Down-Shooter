@@ -78,10 +78,12 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/spellspritesheet.png", "spell", true, false, false);
 	LoadTexture("Textures/slide1.png", "slide1", true, false, false);
 	LoadTexture("Textures/slide2.png", "slide2", true, false, false);
+	LoadTexture("Textures/spritehp.png", "hppotion", true, false, false);
+	LoadTexture("Textures/pickupdestroyed.png", "pickupdestroyed", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
-	LoadTexture("Textures/3.png", "3");.png
+	LoadTexture("Textures/3.png", "3");.
 	LoadTexture("Textures/4.png", "4");
 	LoadTexture("Textures/5.png", "5");
 	LoadTexture("Textures/6.png", "6");*/

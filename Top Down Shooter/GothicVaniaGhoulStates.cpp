@@ -238,6 +238,7 @@ void GhoulDie::Enter(GhoulEntity* entity)
 	entity->SetAnimation("GhoulDie");
 	entity->myIsActive = false;
 	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("HP Potion", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void GhoulDie::Execute(GhoulEntity* entity)
 {

@@ -4,6 +4,7 @@
 #include "CollisionManager.h"
 #include "Effect.h"
 #include "BaseEnemy.h"
+#include "Pickup.h"
 EntityManager* EntityManager::Instance()
 {
 	static EntityManager instance;
@@ -55,6 +56,12 @@ void EntityManager::Update()
 				else
 					CollisionMan->RemoveProjectile((BaseProjectileEntity*)entity);
 				
+				delete entity;
+				it = mEntityMap.erase(it);
+			}
+			else if (dynamic_cast<Pickup*>(entity))
+			{
+				CollisionMan->RemovePickup((Pickup*)entity);
 				delete entity;
 				it = mEntityMap.erase(it);
 			}

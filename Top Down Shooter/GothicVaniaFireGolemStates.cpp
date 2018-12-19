@@ -277,6 +277,7 @@ void FireGolemDie::Enter(FireGolemEntity* entity)
 	entity->SetAnimation("FireGolemDie");
 	entity->myIsActive = false;
 	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Extra Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("HP Potion", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void FireGolemDie::Execute(FireGolemEntity* entity)
 {

@@ -72,7 +72,9 @@ bool HeroAttackSwordAir1::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -168,7 +170,9 @@ bool HeroAttackSwordAir2::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -284,7 +288,9 @@ bool HeroAttackSwordAir3::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -378,7 +384,9 @@ bool HeroAttackSwordAir4::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -449,7 +457,9 @@ bool HeroAttackSwordAir5::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -509,6 +519,9 @@ bool HeroIdle::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -588,6 +601,7 @@ void HeroAttackSword1::Enter(HeroEntity* entity)
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
+	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Pickup Destroyed", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 
@@ -643,6 +657,9 @@ bool HeroAttackSword1::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -760,6 +777,9 @@ bool HeroAttackSword2::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -875,6 +895,9 @@ bool HeroAttackSword3::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -953,6 +976,9 @@ bool HeroCrouch::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -1035,6 +1061,9 @@ bool HeroRunning::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -1229,7 +1258,9 @@ bool HeroFalling::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -1319,7 +1350,9 @@ bool HeroJumping::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -1461,6 +1494,9 @@ bool HeroFireBowGround::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -1511,7 +1547,9 @@ bool HeroFireBowAir::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -1641,6 +1679,9 @@ bool HeroCastSpell::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -1688,6 +1729,9 @@ bool HeroSheatheSword::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -1789,6 +1833,9 @@ bool HeroMeleeIdle::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -1894,6 +1941,9 @@ bool HeroMeleeRun::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -1992,6 +2042,9 @@ bool HeroMeleeDrawSword::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownSword::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -2139,7 +2192,9 @@ bool HeroMeleeFalling::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -2285,7 +2340,9 @@ bool HeroMeleeJump::OnMessage(HeroEntity* entity, const Message& msg)
 		MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 		entity->HandleDamaged(10);
 		return true;
-
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -2395,6 +2452,9 @@ bool HeroMeleeKick1::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -2510,6 +2570,9 @@ bool HeroMeleeKick2::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -2668,6 +2731,9 @@ bool HeroMeleePunch1::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -2780,6 +2846,9 @@ bool HeroMeleePunch2::OnMessage(HeroEntity* entity, const Message& msg)
 		return true;
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
+		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
 		return true;
 	}
 	return false;
@@ -2895,6 +2964,9 @@ bool HeroMeleePunch3::OnMessage(HeroEntity* entity, const Message& msg)
 	case Msg_SmashedDown:
 		entity->GetFSM()->changeState(HeroKnockedDownMelee::Instance());
 		return true;
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
 	}
 	return false;
 }
@@ -2966,6 +3038,12 @@ void HeroKnockedDownMelee::Exit(HeroEntity* entity)
 
 bool HeroKnockedDownMelee::OnMessage(HeroEntity* entity, const Message& msg)
 {
+	switch(msg.mMsg)
+	{
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
+	}
 	return true;
 }
 
@@ -3042,6 +3120,12 @@ void HeroKnockedDownSword::Exit(HeroEntity* entity)
 
 bool HeroKnockedDownSword::OnMessage(HeroEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
+	}
 	return true;
 }
 
@@ -3080,6 +3164,12 @@ void HeroSwordGetUp::Exit(HeroEntity* entity)
 
 bool HeroSwordGetUp::OnMessage(HeroEntity* entity, const Message& msg)
 {
+	switch (msg.mMsg)
+	{
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
+	}
 	return true;
 }
 
@@ -3136,6 +3226,13 @@ void HeroWallSliding::Exit(HeroEntity* entity)
 
 bool HeroWallSliding::OnMessage(HeroEntity* entity, const Message& msg)
 {
+	switch(msg.mMsg)
+	{
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
+	}
+
 	return true;
 }
 
@@ -3218,7 +3315,13 @@ void HeroWallRunning::Exit(HeroEntity* entity)
 
 bool HeroWallRunning::OnMessage(HeroEntity* entity, const Message& msg)
 {
-	return true;
+	switch(msg.mMsg)
+	{
+	case Msg_ReceiveHP:
+		entity->myHealth += 10.0f;
+		return true;
+	}
+	return false;
 }
 
 bool HeroWallRunning::HandleInput(HeroEntity* entity, int key, int action)

@@ -27,7 +27,9 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 {
 	mPosition = glm::vec3(0.0f, 0.0f, 0.1f);
 	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
-	myAnimatedSprite = new AdventurerSprite(glm::vec4(0.0f, 5.0f, 0.1f, 1), glm::vec2(100, 59), TextureMan->GetTexture("adventurer2"), Heading::RIGHTFACING);
+//	glm::vec2(100 - 25, 74 - 18.5)
+	//	glm::vec2(100, 59)
+	myAnimatedSprite = new AdventurerSprite(glm::vec4(0.0f, 5.0f, 0.1f, 1), glm::vec2(100 - 25, 74 - 18.5), TextureMan->GetTexture("adventurer2"), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myDirection = glm::vec3(0.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-2.5, 0.2f, 1.0f),glm::vec2(18.0f,44.0f),glm::vec4(0.0f,1.0f,0.0f,0.5f));

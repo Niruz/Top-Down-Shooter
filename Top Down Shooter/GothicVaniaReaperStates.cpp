@@ -243,6 +243,7 @@ void ReaperDie::Enter(ReaperEntity* entity)
 	entity->myIsActive = false;
 	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit", glm::vec3(entity->mPosition.x , entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 //	MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myDeathShakeInfo);
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("HP Potion", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void ReaperDie::Execute(ReaperEntity* entity)
 {

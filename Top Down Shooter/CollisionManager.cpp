@@ -7,6 +7,10 @@
 #include "BaseEnemy.h"
 #include "HeroEntity.h"
 #include "BaseProjectileEntity.h"
+#include "Pickup.h"
+
+#include "World.h"
+#include "Level.h"
 CollisionManager* CollisionManager::Instance()
 {
 	static CollisionManager instance;
@@ -71,6 +75,30 @@ bool CollisionManager::CheckSwordHeroCollisiion(BaseEnemy* enemy)
 }
 void CollisionManager::Update()
 {
+
+	if (myPickups.size() != 0)
+	{
+		std::map<int, Pickup*>::iterator it = myPickups.begin();
+
+		while (it != myPickups.end())
+		{
+			int enemyID = it->first;
+			Pickup* pickup = it->second;
+
+			if (TestAABBAABB(myHero->myAABB, pickup->myAABB))
+			{
+				//Maybe not do this all here?
+				if(pickup->myType == "hppotion")
+					MessageMan->dispatchMessage(0, 555, myHero->GetID(), Msg_ReceiveHP, 0);
+				MessageMan->dispatchMessage(0, 555, pickup->GetID(), Msg_YouveBeenPickedUp,0);
+				break;
+			}
+
+
+			it++;
+		}
+	}
+
 	if (myProjectiles.size() != 0)
 	{
 		std::map<int, BaseProjectileEntity*>::iterator it = myProjectiles.begin();
@@ -153,6 +181,15 @@ void CollisionManager::RegisterHeroProjectile(BaseProjectileEntity* projectile)
 void CollisionManager::RemoveHeroProjectile(BaseProjectileEntity* projectile)
 {
 	myHeroProjectiles.erase(myHeroProjectiles.find(projectile->GetID()));
+}
+
+void CollisionManager::RegisterPickup(Pickup* pickup)
+{
+	myPickups.insert(std::make_pair(pickup->GetID(), pickup));
+}
+void CollisionManager::RemovePickup(Pickup* pickup)
+{
+	myPickups.erase(myPickups.find(pickup->GetID()));
 }
 
 
