@@ -42,7 +42,7 @@ ReaperEntity::ReaperEntity(int id, const std::string& name, const glm::vec3& myS
 	//mySprite->Add(myHitSpriteAABB);
 
 	myAlreadyAttacked = false;
-	myHealth = 30;
+	myHealth = 100;
 }
 ReaperEntity::~ReaperEntity()
 {

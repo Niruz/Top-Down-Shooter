@@ -42,6 +42,7 @@
 #include "PotionPickup.h"
 #include "PotionSprite.h"
 #include "PickupDestroyedSprite.h"
+#include "BloodEffectSprite.h"
 void CemetaryLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -748,7 +749,7 @@ void CemetaryLevel::AddEntity(Entity* entity)
 	myEntitites.push_back(entity);
 }
 
-void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir)
+void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir, int heading)
 {
 	myNumberOfEntities++;
 	if (type == "Necromancer Projectile") 
@@ -807,6 +808,49 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 	else if (type == "Extra Large Hit")
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "ExtraLargeHit" + std::to_string(myNumberOfEntities), inpos, new HitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(400, 400), TextureMan->GetTexture("hiteffectslow"), Heading::RIGHTFACING), "HitEffectSlow");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if(type == "Blood Effect Random")
+	{
+		int number = (rand() % 3);
+		if (number == 0)
+			number = 1;
+		else if (number == 1)
+			number = 3;
+		else if (number == 2)
+			number = 4;
+		std::string blood = "HitEffectBlood" + std::to_string(number);
+		Effect* effect = new Effect(myNumberOfEntities, "BloodHit" + std::to_string(myNumberOfEntities), inpos, new BloodEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("bloodeffect2"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), blood);
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Blood Effect 1")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "BloodHit" + std::to_string(myNumberOfEntities), inpos, new BloodEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("bloodeffect2"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "HitEffectBlood1");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Blood Effect 2")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "BloodHit" + std::to_string(myNumberOfEntities), inpos, new BloodEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("bloodeffect2"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "HitEffectBlood2");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Blood Effect 3")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "BloodHit" + std::to_string(myNumberOfEntities), inpos, new BloodEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("bloodeffect2"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "HitEffectBlood3");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Blood Effect 4")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "BloodHit" + std::to_string(myNumberOfEntities), inpos, new BloodEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("bloodeffect2"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "HitEffectBlood4");
 		myEntitites.push_back(effect);
 		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);

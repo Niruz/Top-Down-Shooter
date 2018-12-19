@@ -26,7 +26,7 @@ public:
 	void ProcessMouse(double xpos, double ypos, bool movement) override;
 
 	void AddEntity(Entity* entity) override;
-	void SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir) override;
+	void SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir, int heading = 1) override;
 	void RemoveEntity(Entity* entity) override;
 	void UpdatePlayer();
 	void UpdatePlayerTiles();

@@ -31,7 +31,7 @@ public:
 	virtual void ProcessMouse(double xpos, double ypos, bool movement) = 0;
 
 	virtual void AddEntity(Entity* entity) = 0;
-	virtual void SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir) = 0;
+	virtual void SpawnEntity(const std::string& type, const glm::vec3&  inpos, const glm::vec3& indir, int heading = 1) = 0;
 	virtual void RemoveEntity(Entity* entity) = 0;
 
 	std::string GetName() const { return myName; }

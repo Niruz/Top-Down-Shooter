@@ -601,6 +601,7 @@ void HeroAttackSword1::Enter(HeroEntity* entity)
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
+	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Blood Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Pickup Destroyed", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 

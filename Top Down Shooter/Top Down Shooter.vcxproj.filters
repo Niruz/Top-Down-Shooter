@@ -181,6 +181,21 @@
     <Filter Include="Games\GothicVania\Entities\Pickup\Potion">
       <UniqueIdentifier>{725178ff-6896-4a7f-9262-44cbd5b755e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Games\GothicVania\Sprites\Projectiles">
+      <UniqueIdentifier>{35bc2ef3-6f21-4890-a6ef-7816d56a2d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Sprites\Effects">
+      <UniqueIdentifier>{35e1e369-5856-4e7e-aa82-91b3a72cda6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Sprites\Pickups">
+      <UniqueIdentifier>{233fc650-2e4c-4d62-a72c-6532acabe0ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Sprites\Entities">
+      <UniqueIdentifier>{9a8db809-2b94-4e9c-b829-36e5cc524a55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Games\GothicVania\Sprites\Entities\Hero">
+      <UniqueIdentifier>{8655e7ec-e5cd-4ba6-b94d-77ad00f1d63f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -441,18 +456,6 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Graphics\Renderer\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="HeroSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="SkeletonSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="GhostSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="HellCatSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="GhostEntity.cpp">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
     </ClCompile>
@@ -474,17 +477,8 @@
     <ClCompile Include="GothicVaniaGhostStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="EyeMonsterSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="EyeMonsterEntity.cpp">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="PlasmaSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="DemonSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="DemonEntity.cpp">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
@@ -495,17 +489,11 @@
     <ClCompile Include="Shake.cpp">
       <Filter>Graphics\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="FireGolemSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="EngineUtilities.cpp">
       <Filter>Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="GhoulSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="FireGolemEntity.cpp">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
@@ -519,17 +507,11 @@
     <ClCompile Include="GothicVaniaFireGolemStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="UndeadWarriorSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="UndeadWarriorEntity.cpp">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClCompile>
     <ClCompile Include="GothicVaniaUndeadWarriorStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ReaperSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="GothicVaniaReaperStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
@@ -537,17 +519,11 @@
     <ClCompile Include="ReaperEntity.cpp">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ImpSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="ImpEntity.cpp">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClCompile>
     <ClCompile Include="GothicVaniaImpStates.cpp">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="NecromancerSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="NecromancerEntity.cpp">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
@@ -567,29 +543,17 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="NecromancerProjectileSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="BaseProjectileEntity.cpp">
       <Filter>Games\GothicVania\Entities\Projectile\BaseProjectile</Filter>
     </ClCompile>
     <ClCompile Include="NecromancerProjectile.cpp">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClCompile>
-    <ClCompile Include="ImpProjectileSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="ImpProjectile.cpp">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="GothicVaniaGameStates.cpp">
       <Filter>Games\GothicVania</Filter>
-    </ClCompile>
-    <ClCompile Include="AdventurerSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="AdventurerProjectileSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="AdventurerProjectile.cpp">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
@@ -600,20 +564,8 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="HitEffectSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Games\GothicVania\Entities\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="BubblesSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="MidnightSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
-    <ClCompile Include="SpellSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="SplashScreen.cpp">
       <Filter>Games\GothicVania\Splash Screens</Filter>
@@ -624,17 +576,83 @@
     <ClCompile Include="BridgeLevel.cpp">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="PotionSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClCompile>
     <ClCompile Include="Pickup.cpp">
       <Filter>Games\GothicVania\Entities\Pickup\Base</Filter>
     </ClCompile>
     <ClCompile Include="PotionPickup.cpp">
       <Filter>Games\GothicVania\Entities\Pickup\Potion</Filter>
     </ClCompile>
+    <ClCompile Include="AdventurerProjectileSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="NecromancerProjectileSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ImpProjectileSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="BubblesSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="HitEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlasmaSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
     <ClCompile Include="PickupDestroyedSprite.cpp">
-      <Filter>Games\GothicVania\Sprites</Filter>
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpellSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PotionSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EyeMonsterSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FireGolemSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GhoulSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="HellCatSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ImpSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="AdventurerSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="MidnightSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="NecromancerSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ReaperSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="UndeadWarriorSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -833,20 +851,8 @@
     <ClInclude Include="Animation.h">
       <Filter>Graphics\Renderer\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="HeroSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletonSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="AABB.h">
       <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="GhostSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="HellCatSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="GhostEntity.h">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
@@ -869,17 +875,8 @@
     <ClInclude Include="GothicVaniaGhostStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="EyeMonsterSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="EyeMonsterEntity.h">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="PlasmaSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="DemonSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="DemonEntity.h">
       <Filter>Games\GothicVania\Entities\Enemies</Filter>
@@ -893,9 +890,6 @@
     <ClInclude Include="Shake.h">
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="FireGolemSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="ShakeInfo.h">
       <Filter>Graphics\Camera</Filter>
     </ClInclude>
@@ -904,9 +898,6 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="GhoulSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="FireGolemEntity.h">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
@@ -920,17 +911,11 @@
     <ClInclude Include="GothicVaniaFireGolemStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="UndeadWarriorSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="UndeadWarriorEntity.h">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClInclude>
     <ClInclude Include="GothicVaniaUndeadWarriorStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ReaperSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="GothicVaniaReaperStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
@@ -938,17 +923,11 @@
     <ClInclude Include="ReaperEntity.h">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="ImpSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="ImpEntity.h">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
     </ClInclude>
     <ClInclude Include="GothicVaniaImpStates.h">
       <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="NecromancerSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="NecromancerEntity.h">
       <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
@@ -965,29 +944,17 @@
     <ClInclude Include="CemetaryLevel.h">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="NecromancerProjectileSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="BaseProjectileEntity.h">
       <Filter>Games\GothicVania\Entities\Projectile\BaseProjectile</Filter>
     </ClInclude>
     <ClInclude Include="NecromancerProjectile.h">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="ImpProjectileSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="ImpProjectile.h">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="GothicVaniaGameStates.h">
       <Filter>Games\GothicVania</Filter>
-    </ClInclude>
-    <ClInclude Include="AdventurerSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="AdventurerProjectileSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="AdventurerProjectile.h">
       <Filter>Games\GothicVania\Entities\Projectile</Filter>
@@ -998,20 +965,8 @@
     <ClInclude Include="InputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="HitEffectSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Games\GothicVania\Entities\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="BubblesSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="MidnightSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
-    <ClInclude Include="SpellSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="SplashScreen.h">
       <Filter>Games\GothicVania\Splash Screens</Filter>
@@ -1022,17 +977,83 @@
     <ClInclude Include="BridgeLevel.h">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="PotionSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
-    </ClInclude>
     <ClInclude Include="Pickup.h">
       <Filter>Games\GothicVania\Entities\Pickup\Base</Filter>
     </ClInclude>
     <ClInclude Include="PotionPickup.h">
       <Filter>Games\GothicVania\Entities\Pickup\Potion</Filter>
     </ClInclude>
+    <ClInclude Include="AdventurerProjectileSprite.h">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="NecromancerProjectileSprite.h">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ImpProjectileSprite.h">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BubblesSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="HitEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlasmaSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
     <ClInclude Include="PickupDestroyedSprite.h">
-      <Filter>Games\GothicVania\Sprites</Filter>
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="PotionSprite.h">
+      <Filter>Games\GothicVania\Sprites\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EyeMonsterSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FireGolemSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GhoulSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="HellCatSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ImpSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="MidnightSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="NecromancerSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ReaperSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="UndeadWarriorSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
