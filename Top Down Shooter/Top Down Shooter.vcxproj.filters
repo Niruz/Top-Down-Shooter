@@ -654,6 +654,12 @@
     <ClCompile Include="BloodEffectSprite.cpp">
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyHitEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="SwordHitEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -1053,6 +1059,12 @@
       <Filter>Games\GothicVania\Sprites\Entities</Filter>
     </ClInclude>
     <ClInclude Include="BloodEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyHitEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordHitEffectSprite.h">
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClInclude>
   </ItemGroup>

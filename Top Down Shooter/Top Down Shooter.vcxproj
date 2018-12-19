@@ -113,6 +113,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="DemonSprite.cpp" />
     <ClCompile Include="DynamicLayer.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EnemyHitEffectSprite.cpp" />
     <ClCompile Include="EngineUtilities.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
@@ -235,6 +236,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Static_Sprite.cpp" />
+    <ClCompile Include="SwordHitEffectSprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -269,6 +271,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="DemonSprite.h" />
     <ClInclude Include="DynamicLayer.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EnemyHitEffectSprite.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
@@ -369,6 +372,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Static_Sprite.h" />
+    <ClInclude Include="SwordHitEffectSprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Tile.h" />

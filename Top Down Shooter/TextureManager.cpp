@@ -64,7 +64,7 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/undeadwarriorsheet6.png", "undeadwarrior", true, false, false); //2 then 5
 	LoadTexture("Textures/reapersheet2.png", "reaper", true, false, false);
 	LoadTexture("Textures/impsheet.png", "imp", true, false, false);
-	LoadTexture("Textures/necromancersheet3.png", "necromancer", true, false, false);
+	LoadTexture("Textures/necromancersheet5.png", "necromancer", true, false, false);
 	LoadTexture("Textures/necromancerprojectilesheet.png", "necromancerProjectile", true, false, false);
 	LoadTexture("Textures/impprojectilesheet.png", "impProjectile", true, false, false);
 	LoadTexture("Textures/enemydeathsheet.png", "enemyDeath", true, false, false);
@@ -83,6 +83,9 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/coinsheet.png", "coins", true, false, false);
 	LoadTexture("Textures/bloodsheet3.png", "bloodeffect", true, false, false);
 	LoadTexture("Textures/bloodsheet3.png", "bloodeffect2", true, false, false);
+	LoadTexture("Textures/enemydiesheet2.png", "deatheffect", true, false, false);
+	LoadTexture("Textures/enemyhiteffectsheet.png", "enemyhiteffect", true, false, false);
+	LoadTexture("Textures/spriteswordhitsheet.png", "swordhiteffect", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
@@ -151,10 +154,10 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	if (alpha)
 	{
-		mTextures[identifier]->setImageFormat(GL_BGRA);
-		mTextures[identifier]->setInternalFormat(GL_BGRA);
-	//	mTextures[identifier]->setImageFormat(GL_RGBA);
-	//	mTextures[identifier]->setInternalFormat(GL_RGBA);
+	//	mTextures[identifier]->setImageFormat(GL_BGRA);
+	//	mTextures[identifier]->setInternalFormat(GL_BGRA);
+		mTextures[identifier]->setImageFormat(GL_RGBA);
+		mTextures[identifier]->setInternalFormat(GL_RGBA);
 	}
 	if (isBackground)
 	{

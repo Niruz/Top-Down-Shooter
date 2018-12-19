@@ -43,6 +43,8 @@
 #include "PotionSprite.h"
 #include "PickupDestroyedSprite.h"
 #include "BloodEffectSprite.h"
+#include "EnemyHitEffectSprite.h"
+#include "SwordHitEffectSprite.h"
 void CemetaryLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -855,6 +857,57 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);
 	}
+	else if (type == "Enemy Hit Effect")
+	{
+		int number = (rand() % 2);
+		if (number == 0)
+			number = 1;
+		else if (number == 1)
+			number = 2;
+		std::string hit = "EnemyHitEffect" + std::to_string(number);
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new EnemyHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("enemyhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), hit);
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Sword Effect 1")
+	{
+
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new SwordHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("swordhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "SwordHitEffect1");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Sword Effect 2")
+	{
+
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new SwordHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("swordhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "SwordHitEffect1");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Sword Effect 3")
+	{
+
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new SwordHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("swordhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "SwordHitEffect1");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Enemy Hit Death")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new EnemyHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(96, 96), TextureMan->GetTexture("enemyhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "EnemyDeathEffect");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Enemy Hit Death Large")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new EnemyHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(192, 192), TextureMan->GetTexture("enemyhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "EnemyDeathEffect");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
 	else if (type == "Pickup Destroyed")
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "PickupDestroyed" + std::to_string(myNumberOfEntities), inpos, new PickupDestroyedSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3, 1.0f), glm::vec2(16, 16), TextureMan->GetTexture("pickupdestroyed"), Heading::RIGHTFACING), "PickupDestroyed");
@@ -871,6 +924,7 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 		EntityMan->registerEntity(potion);
 		
 	}
+
 
 }
 void CemetaryLevel::RemoveEntity(Entity* entity)

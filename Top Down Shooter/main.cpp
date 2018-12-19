@@ -1039,8 +1039,8 @@ int main(void)
 	FontMan->onInitialize();
 	SoundMan->OnInitialize();
 	ISound* hehe = SoundMan->GetSoundEngine()->play2D("Audio/Stay_Closer.wav", GL_TRUE);
-	//SoundMan->GetSoundEngine()->isCurrentlyPlaying("Audio/Stay_Closer.wav");
-	//SoundMan->GetSoundEngine()->stopAllSounds();
+	SoundMan->GetSoundEngine()->isCurrentlyPlaying("Audio/Stay_Closer.wav");
+	SoundMan->GetSoundEngine()->stopAllSounds();
 
 	//myGame = new Pacman();
 	//myGame = new Shooter();

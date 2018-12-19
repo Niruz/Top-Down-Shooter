@@ -38,7 +38,8 @@ void HeroAttackSwordAir1::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			entity->SpawnHitEffect();
+			//entity->SpawnHitEffect();
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -136,7 +137,8 @@ void HeroAttackSwordAir2::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			entity->SpawnHitEffect();
+			//entity->SpawnHitEffect();
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -238,7 +240,8 @@ void HeroAttackSwordAir3::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			entity->SpawnHitEffect();
+			//entity->SpawnHitEffect();
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -432,10 +435,12 @@ void HeroAttackSwordAir5::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit Fast", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+			//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit Fast", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
+
 	}
 	if(entity->myAnimatedSprite->IsDone())
 		entity->GetFSM()->changeState(HeroIdle::Instance());
@@ -613,7 +618,8 @@ void HeroAttackSword1::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			entity->SpawnHitEffect();
+			//entity->SpawnHitEffect();
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -732,7 +738,8 @@ void HeroAttackSword2::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			entity->SpawnHitEffect();
+			//entity->SpawnHitEffect();
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -851,7 +858,8 @@ void HeroAttackSword3::Execute(HeroEntity* entity)
 	{
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
-			entity->SpawnHitEffect();
+			//entity->SpawnHitEffect();
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}

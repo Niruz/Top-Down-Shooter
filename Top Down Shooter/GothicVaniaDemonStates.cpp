@@ -326,7 +326,8 @@ void DemonDie::Enter(DemonEntity* entity)
 		entity->myAnimatedSprite->myPosition.x = entity->mPosition.x - 16.0f;
 		entity->myAnimatedSprite->myPosition.y = entity->mPosition.y - 11.0f;
 	}
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Extra Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Extra Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Large", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 }
 void DemonDie::Execute(DemonEntity* entity)
 {
