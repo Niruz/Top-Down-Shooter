@@ -138,6 +138,7 @@ struct HeroEntity : public Entity
 	bool myAirSlamReceived;
 	bool myAirSlamReleased;
 	
+	float myShadowEffectCooldown;
 };
 
 

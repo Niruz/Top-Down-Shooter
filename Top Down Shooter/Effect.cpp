@@ -13,6 +13,8 @@ Effect::Effect(int id, const std::string& name, const glm::vec3& myStartPosition
 	myAnimatedSprite->SetAnimation(animation);
 	mySprite->Add(myAnimatedSprite);
 
+	if (myFading)
+		myAnimatedSprite->SetInverted(2);
 	
 }
 Effect::Effect(int id, const std::string& name, const glm::vec3& myStartPosition, AnimatedSprite* animatedSprite, const std::string& animation, bool fading)
@@ -21,19 +23,27 @@ Effect::Effect(int id, const std::string& name, const glm::vec3& myStartPosition
 	mySprite = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f)));
 	myAnimatedSprite->SetAnimation(animation);	
 	mySprite->Add(myAnimatedSprite);
+
+	if (myFading)
+		myAnimatedSprite->SetInverted(2);
 }
 void Effect::Update()
 {
 	if (myFading)
 	{
-		myAlpha -= 0.1f;
+		myAnimatedSprite->SetColor(glm::vec4(1.0f, 1.0f, 1.0f, myAlpha));
+		myAnimatedSprite->Update();
+		myAlpha -= 0.03f;
 		if (myAlpha <= 0.0f)
 			myAlpha = 0.0f;
-		myAnimatedSprite->SetColor(glm::vec4(0.0f, 0.0f, 0.0f, myAlpha));
 	}
-	myAnimatedSprite->Update();
-	if (myAnimatedSprite->IsDone())
-		MarkForDeletion();
+	else 
+	{
+		myAnimatedSprite->Update();
+		if (myAnimatedSprite->IsDone())
+			MarkForDeletion();
+	}
+
 }
 bool Effect::HandleMessage(const Message& msg)
 {

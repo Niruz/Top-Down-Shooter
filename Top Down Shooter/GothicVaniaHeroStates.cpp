@@ -1148,8 +1148,9 @@ void HeroSliding::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
-
 
 void HeroSliding::Execute(HeroEntity* entity)
 {
@@ -1158,6 +1159,11 @@ void HeroSliding::Execute(HeroEntity* entity)
 	entity->HandleSliding();
 	entity->CheckIfFalling();
 
+	if(Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+		entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() +0.08f;
+	}
 	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
 	{
 		entity->GetFSM()->changeState(HeroIdle::Instance());
@@ -1615,6 +1621,8 @@ void HeroDropKick::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
 void HeroDropKick::Execute(HeroEntity* entity)
@@ -1626,6 +1634,11 @@ void HeroDropKick::Execute(HeroEntity* entity)
 	{
 		entity->myNegYDirection = -1.0f;
 		entity->HandleDropKick();
+		if (Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
+		{
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
+		}
 	}
 
 }
@@ -2118,6 +2131,8 @@ void HeroMeleeSliding::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
 
@@ -2128,6 +2143,11 @@ void HeroMeleeSliding::Execute(HeroEntity* entity)
 	entity->HandleSliding();
 	entity->CheckIfFalling();
 
+	if (Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
+	{
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+		entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
+	}
 	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
 	{
 		entity->GetFSM()->changeState(HeroMeleeIdle::Instance());
@@ -2638,10 +2658,13 @@ void HeroMeleeDropKick::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
+	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
 void HeroMeleeDropKick::Execute(HeroEntity* entity)
 {
+
 	entity->myAnimatedSprite->Update();
 	if (entity->IsOnSpikes())
 		entity->GetFSM()->changeState(HeroMeleeDamaged::Instance());
@@ -2649,6 +2672,11 @@ void HeroMeleeDropKick::Execute(HeroEntity* entity)
 	{
 		entity->myNegYDirection = -1.0f;
 		entity->HandleDropKick();
+		if (Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
+		{
+			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
+		}
 	}
 
 }

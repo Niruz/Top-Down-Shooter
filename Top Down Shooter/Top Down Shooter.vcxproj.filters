@@ -660,6 +660,12 @@
     <ClCompile Include="SwordHitEffectSprite.cpp">
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="AdventurerSlideEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="AdventurerDropKickEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -1065,6 +1071,12 @@
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClInclude>
     <ClInclude Include="SwordHitEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerSlideEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventurerDropKickEffectSprite.h">
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
     </ClInclude>
   </ItemGroup>

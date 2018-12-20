@@ -21,6 +21,7 @@ PotionPickup::PotionPickup(int id, const std::string& name, const glm::vec3& myS
 	myAnimatedSprite = new PotionSprite(glm::vec4(mPosition.x, mPosition.y, mPosition.z + 0.2f, 1), glm::vec2(16, 16), TextureMan->GetTexture(texture), Heading::RIGHTFACING);
 	mySprite->Add(myAnimatedSprite);
 	myAnimatedSprite->SetAnimation("PotionMove");
+	//myAnimatedSprite->SetInverted(2);
 //	mySprite->Add(myHitboxAABB);
 }
 void PotionPickup::Update()

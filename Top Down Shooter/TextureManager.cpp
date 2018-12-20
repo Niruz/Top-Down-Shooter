@@ -89,10 +89,12 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/enemyhiteffectsheet.png", "enemyhiteffect", true, false, false);
 	LoadTexture("Textures/spriteswordhitsheet.png", "swordhiteffect", true, false, false);
 	LoadTexture("Textures/floatingsolidspiked.png", "floatingsolidspiked", true, false, false);
+	LoadTexture("Textures/slideeffectsprite.png", "slideeffect", true, false, false);
+	LoadTexture("Textures/adventurerdropkickeffect.png", "dropkickeffect", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
-	LoadTexture("Textures/3.png", "3");.
+	LoadTexture("Textures/3.png", "3");..png
 	LoadTexture("Textures/4.png", "4");
 	LoadTexture("Textures/5.png", "5");
 	LoadTexture("Textures/6.png", "6");*/

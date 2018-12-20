@@ -60,7 +60,8 @@ public:
 	Layer* myOneWayPlatformLayer;
 	Layer* myEnemyLayer;
 	Layer* myPlayerLayer;
-	Layer* myEffectsLayer;
+	Layer* myEffectsLayerBack;
+	Layer* myEffectsLayerFront;
 
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
@@ -79,6 +80,7 @@ public:
 	Group* onewayGroup;
 	Group* enemyGroup;
 	Group* effectsGroup;
+	Group* effectsGroupBack;
 	Group * playerGroup;
 	Sprite* myMountain;
 	Sprite* myGraveyard;
@@ -140,6 +142,8 @@ public:
 	bool cutSceneStarted2;
 
 	bool levelFinished = false;
+
+	float myEffectsLayerZValue;
 private:
 	//Debug stuff
 	Layer * myDebugLayer;

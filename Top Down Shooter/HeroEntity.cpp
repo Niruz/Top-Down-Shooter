@@ -2,6 +2,7 @@
 #include "HeroEntity.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
+#include <glm\vec4.hpp>
 #include "ShaderManager.h"
 #include <iostream>
 
@@ -107,6 +108,8 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	myShouldJumpInGlidingState = false;
 	myDirectionWhenEnteringWallRunningState = 0.0f;
 	myShouldStopWallRunning = false;
+	myShadowEffectCooldown = 0.0f;
+
 }
 HeroEntity::~HeroEntity()
 {
@@ -1019,7 +1022,8 @@ void HeroEntity::Update()
 	myAABB->myOrigin = glm::vec2(mPosition.x, mPosition.y - 2.5);
 	myStateMachine->update();
 	
-
+/*	myAnimatedSprite->SetColor(glm::vec4(0.0f, 0.0f, 0.0f, 0.3f));
+	myAnimatedSprite->SetInverted(2);*/
 	if (myIsDamaged)
 	{
 		myDamageFrameCounter++;
