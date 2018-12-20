@@ -51,13 +51,14 @@ bool ReaperIdle::OnMessage(ReaperEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		entity->GetFSM()->changeState(ReaperHurt::Instance());
 		return true;
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
-	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		return true;
 
@@ -98,12 +99,14 @@ bool ReaperAttack::OnMessage(ReaperEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		entity->HandleDamaged(10);
 		return true;
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		return true;
@@ -179,12 +182,14 @@ bool ReaperRunToPlayer::OnMessage(ReaperEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		entity->GetFSM()->changeState(ReaperHurt::Instance());
 		return true;
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		return true;
@@ -221,12 +226,14 @@ bool ReaperPatrol::OnMessage(ReaperEntity* entity, const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_TakeDamage:
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		entity->GetFSM()->changeState(ReaperHurt::Instance());
 		return true;
 	case Msg_TakeDamageBow:
 
 		entity->HandleDamaged(10);
+		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Small", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Effect", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		return true;

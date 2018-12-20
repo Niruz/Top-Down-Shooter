@@ -185,7 +185,7 @@ void CemetaryLevel::Initialize()
 	//myEffectsLayer->Add(fpsGroup);
 	//myTileLayer->Add(myCursor);
 
-	myMap = new TileMap("Levels/test3.level", glm::vec2(-320, 3488), glm::vec2(160, -192), glm::vec2(0, 119), glm::vec2(0, 11));
+	myMap = new TileMap("Levels/test3.level", glm::vec2(-320, 3488), glm::vec2(160, -288), glm::vec2(0, 119), glm::vec2(0, 14));
 
 	myMap->printMap();
 
@@ -193,6 +193,8 @@ void CemetaryLevel::Initialize()
 	myMap->GetPath(1, 1, 18, 10, myPath3);
 
 	myMap->printPath(myPath3);
+	myPlayer->mPosition.x = myMap->GetPlayerRespawnTile()->myWorldPosition.x;
+	myPlayer->mPosition.y = myMap->GetPlayerRespawnTile()->myWorldPosition.y;
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	std::vector<Tile*> map = myMap->GetMap();
@@ -231,13 +233,13 @@ void CemetaryLevel::Initialize()
 	int grassType = 1;
 	for (int i = 0; i < map.size(); i++)
 	{
-		if (i % 120 == 0)
+		if (i % 122 == 0)
 		{
 			startY -= 32.0f;
 			startX = -32.0f*10.0f;
 		}
 
-		if (i == 1439)
+		if (i == 1799)
 			int shitterooo = 5;
 
 		if (map[i]->myIsBlockingFlag)
@@ -266,7 +268,15 @@ void CemetaryLevel::Initialize()
 			else
 			{
 				if (!(map[i]->myTileType == "o"))
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")));
+				{
+					if(map[i]->myTileType == "X")
+						tileGroup->Add(new Sprite(glm::vec4(startX, startY + 5, 0.0, 1), glm::vec2(32.0f, 41), grassType > 0 ? TextureMan->GetTexture("grass") : TextureMan->GetTexture("grass2")));
+					else if(map[i]->myTileType == "x")
+					{
+						tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(32.0f, 32), grassType > 0 ? TextureMan->GetTexture("grass_1") : TextureMan->GetTexture("grass2_1")));
+					}
+				}
+					
 				grassType *= -1;
 				//	tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.011, 1), glm::vec2(32.0f, 32.0f), glm::vec4(0.0f,0.0f,1.0f,0.5f)));
 			}
@@ -277,15 +287,20 @@ void CemetaryLevel::Initialize()
 			if (map[i]->myIsSpikedFloor)
 			{
 				if (map[i]->myTileType == "y")
-					onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 31, 0.0, 1), glm::vec2(32.0f, 94.0f), TextureMan->GetTexture("spikedpillar")));
-				else
-					onewayGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")));
-				
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 31-8, 0.0, 1), glm::vec2(32.0f, 94.0f), TextureMan->GetTexture("spikedpillar")));
+				else if (map[i]->myTileType == "Y")
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY-7, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")));
+				else if (map[i]->myTileType == "z")
+				{
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 0.5f, -0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid2")));
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY - 7, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("spikes")));
+				}
+					
 			}
 			else if (map[i]->myTileType == "f")
 			{
-				onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 0.5f, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid2")));
-				
+				if(map[i]->myTileType == "f")
+					onewayGroup->Add(new Sprite(glm::vec4(startX, startY + 0.5f, -0.01, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid2")));
 			}
 			else if (map[i]->myTileType == "e")
 			{
@@ -513,7 +528,7 @@ void CemetaryLevel::UpdatePlayer()
 	//tileGroup->SetTransformationMatrix(myCamera->mTranslationMatrix);
 
 	myScreenDirection = 0.0f;
-	if ((myPlayer->mPosition.x > -0.5f) && (myPlayer->mPosition.x < 3150.0f) && (!myBossBattle))
+	if ((myPlayer->mPosition.x > 75.5f) && (myPlayer->mPosition.x < 3150.0f) && (!myBossBattle))
 	{
 		float newPlayerX = myPlayer->mPosition.x;
 		if (lastPlayerX > newPlayerX)
@@ -525,19 +540,20 @@ void CemetaryLevel::UpdatePlayer()
 
 		lastPlayerX = newPlayerX;
 	}
-	if (myPlayer->mPosition.x >= 3150.0f && !myBossBattle)
+
+	if (myPlayer->mPosition.x >= 3155.0f && !myBossBattle)
 	{
 		myBossBattle = true;
-		myMap->GetTile2(98, 1)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 2)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 3)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 4)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 5)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 6)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 7)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 8)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 9)->myIsBlockingFlag = true;
-		myMap->GetTile2(98, 10)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 1)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 2)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 3)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 4)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 5)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 6)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 7)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 8)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 9)->myIsBlockingFlag = true;
+		myMap->GetTile2(96, 10)->myIsBlockingFlag = true;
 		//1337 is the game itself
 		MessageMan->dispatchMessage(0, 1337, myDemon2->GetID(), Msg_GoFuckShitUp, 0);
 		MessageMan->dispatchMessage(0, 1337, myDemon3->GetID(), Msg_GoFuckShitUp, 0);
@@ -548,7 +564,7 @@ void CemetaryLevel::UpdatePlayer()
 //	myEvilVanquished->SetPosition(glm::vec4(-170.0f, 0.0f, 0, 1));
 //	myEvilVanquished->SetColor(glm::vec4(1, 1, 1, 1));
 	//myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
-//	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 1));
+	//myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 1));
 	if (myBossBattle)
 	{
 		if (!myDemon2->myIsActive && !myDemon3->myIsActive && !myBossDead)
@@ -565,7 +581,8 @@ void CemetaryLevel::UpdatePlayer()
 		}
 		if (Clock->GetCurrentTimeInSeconds() - startScreenTime < 4.0 && cutSceneStarted)
 		{
-			myBossAnnouncer->SetPosition(glm::vec4(-136.0f, 0.0f, 0, 1));
+			//myBossAnnouncer->SetPosition(glm::vec4(-120.0f, 0.0f, 0, 1));
+			myBossAnnouncer->SetPosition(glm::vec4(-140.0f, 0.0f, 0, 1));
 			myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, alphaStart));
 			if (alphaStart < 1.0f)
 				alphaStart += 0.01f;
@@ -639,7 +656,7 @@ void CemetaryLevel::Update()
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	//myCamera.setPosition(-myPlayer->mPosition);
-	if (myPlayer->mPosition.x > -0.5f && myPlayer->mPosition.x < 3150.0f && (!myBossBattle))
+	if (myPlayer->mPosition.x > 75.5f && myPlayer->mPosition.x < 3155.0f && (!myBossBattle))
 		myCamera->setPosition(glm::vec3(-myPlayer->mPosition.x, 32.0f, -myPlayer->mPosition.z));
 
 	myCamera->Update();
@@ -904,6 +921,13 @@ void CemetaryLevel::SpawnEntity(const std::string& type, const glm::vec3&  inpos
 	else if (type == "Enemy Hit Death Large")
 	{
 		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new EnemyHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(192, 192), TextureMan->GetTexture("enemyhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "EnemyDeathEffect");
+		myEntitites.push_back(effect);
+		effectsGroup->Add(effect->mySprite);
+		EntityMan->registerEntity(effect);
+	}
+	else if (type == "Enemy Hit Death Small")
+	{
+		Effect* effect = new Effect(myNumberOfEntities, "EnemyHitEffect" + std::to_string(myNumberOfEntities), inpos, new EnemyHitEffectSprite(glm::vec4(inpos.x, inpos.y, inpos.z + 0.3f, 1.0f), glm::vec2(32, 32), TextureMan->GetTexture("enemyhiteffect"), heading == 1 ? Heading::RIGHTFACING : Heading::LEFTFACING), "EnemyDeathEffect");
 		myEntitites.push_back(effect);
 		effectsGroup->Add(effect->mySprite);
 		EntityMan->registerEntity(effect);

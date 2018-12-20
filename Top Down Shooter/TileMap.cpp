@@ -42,10 +42,12 @@ bool TileMap::InitializeFromMap(const std::string& name)
 		std::getline(myfile, line);
 		for(unsigned int i = 0;i < line.length(); i++)
 		{
-			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V')||(line[i] == 'F') || (line[i] == 'o'),  (line[i] == 'Y') || (line[i] == 'y'), (line[i] == 'v') || (line[i] == 'F'), (line[i] == 'V'), std::string(1,line[i]));
+			Tile* tile = new Tile(i, lineIndex, (line[i] == 'X') || (line[i] == 'x') /*|| (line[i] == 'Y')*/ || (line[i] == 'v') || (line[i] == 'V')||(line[i] == 'F') || (line[i] == 'o'),  (line[i] == 'Y') || (line[i] == 'y') || (line[i] == 'z'), (line[i] == 'v') || (line[i] == 'F'), (line[i] == 'V'), std::string(1,line[i]));
 			myMapTiles.push_back(tile);
 			if (line[i] == 'U')
 				myRespawnTiles.push_back(tile);
+			if (line[i] == 'A')
+				myPlayerStartTile = tile;
 		}
 		lineIndex++;
 	}
@@ -171,7 +173,7 @@ void TileMap::GenerateGraph()
 	float startY = 32.0f * 6;
 	for (int i = 0; i < myMapTiles.size(); i++)
 	{
-		if (i % 120 == 0)
+		if (i % 122 == 0)
 		{
 			startY -= 32.0f;
 			startX = -32.0f*10.0f;
@@ -400,12 +402,16 @@ void TileMap::setPlayerTile(float x, float y)
 	//Shouldnt put the player on an invalid tile?
 	//if (!IsDirectionWalkable(roundX2, roundY2))
 	//	return;
-	if (lastPlayerTile != nullptr)
-		lastPlayerTile->isPlayerOnTile = false;
+	if(validIndex(roundX2, roundY2))
+	{
+		if (lastPlayerTile != nullptr)
+			lastPlayerTile->isPlayerOnTile = false;
 
 
-	//comment out this and add the commented below it
-	lastPlayerTile = GetTile2(roundX2, roundY2);
+		//comment out this and add the commented below it
+		lastPlayerTile = GetTile2(roundX2, roundY2);
+
+	}
 	
 /*	float lastClosest = 999999.0f;
 	for (std::vector<Tile*>::iterator iterator = myMapTiles.begin(); iterator != myMapTiles.end(); iterator++)
@@ -429,7 +435,7 @@ void TileMap::setPlayerTile(float x, float y)
 	lastPlayerTile->isPlayerOnTile = true;
 
 }
-void TileMap::SetPlayerTile2(AABB* aabb)
+bool TileMap::SetPlayerTile2(AABB* aabb)
 {
 	//Top left corner
 	glm::vec2 topLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y + aabb->halfY);
@@ -437,21 +443,36 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 	float topLeftY = this->map(topLeft.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	topLeftX = round(topLeftX);
 	topLeftY = round(topLeftY);
-	if (lastPlayerTileTopLeft != nullptr)
-		lastPlayerTileTopLeft->isPlayerOnTile = false;	
-	lastPlayerTileTopLeft = GetTile2(topLeftX, topLeftY);
-	lastPlayerTileTopLeft->isPlayerOnTile = true;
-	
+	if(validIndex(topLeftX, topLeftY))
+	{
+		if (lastPlayerTileTopLeft != nullptr)
+			lastPlayerTileTopLeft->isPlayerOnTile = false;
+		lastPlayerTileTopLeft = GetTile2(topLeftX, topLeftY);
+		lastPlayerTileTopLeft->isPlayerOnTile = true;
+
+	}
+	else
+	{
+		return false;
+	}
 	//Top Right corner
 	glm::vec2 topRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y + aabb->halfY);
 	float topRightX = this->map(topRight.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
 	float topRightY = this->map(topRight.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	topRightX = round(topRightX);
 	topRightY = round(topRightY);
-	if (lastPlayerTileTopRight != nullptr)
-		lastPlayerTileTopRight->isPlayerOnTile = false;
-	lastPlayerTileTopRight = GetTile2(topRightX, topRightY);
-	lastPlayerTileTopRight->isPlayerOnTile = true;
+	if(validIndex(topRightX, topRightY))
+	{
+		if (lastPlayerTileTopRight != nullptr)
+			lastPlayerTileTopRight->isPlayerOnTile = false;
+		lastPlayerTileTopRight = GetTile2(topRightX, topRightY);
+		lastPlayerTileTopRight->isPlayerOnTile = true;
+
+	}
+	else
+	{
+		return false;
+	}
 
 	//Bottom Right corner
 	glm::vec2 bottomRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y - aabb->halfY);
@@ -459,11 +480,18 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 	float bottomRightY = this->map(bottomRight.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	bottomRightX = round(bottomRightX);
 	bottomRightY = round(bottomRightY);
-	if (lastPlayerTileBottomRight != nullptr)
-		lastPlayerTileBottomRight->isPlayerOnTile = false;
-	lastPlayerTileBottomRight = GetTile2(bottomRightX, bottomRightY);
-	lastPlayerTileBottomRight->isPlayerOnTile = true;
-	
+	if(validIndex(bottomRightX, bottomRightY))
+	{
+		if (lastPlayerTileBottomRight != nullptr)
+			lastPlayerTileBottomRight->isPlayerOnTile = false;
+		lastPlayerTileBottomRight = GetTile2(bottomRightX, bottomRightY);
+		lastPlayerTileBottomRight->isPlayerOnTile = true;
+
+	}
+	else
+	{
+		return false;
+	}
 
 	//Bottom Left corner
 	glm::vec2 bottomLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y - aabb->halfY);
@@ -471,11 +499,18 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 	float bottomLeftY = this->map(bottomLeft.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	bottomLeftX = round(bottomLeftX);
 	bottomLeftY = round(bottomLeftY);
-	if (lastPlayerTileBottomLeft != nullptr)
-		lastPlayerTileBottomLeft->isPlayerOnTile = false;
-	lastPlayerTileBottomLeft = GetTile2(bottomLeftX, bottomLeftY);
-	lastPlayerTileBottomLeft->isPlayerOnTile = true;
+	if(validIndex(bottomLeftX, bottomLeftY))
+	{
+		if (lastPlayerTileBottomLeft != nullptr)
+			lastPlayerTileBottomLeft->isPlayerOnTile = false;
+		lastPlayerTileBottomLeft = GetTile2(bottomLeftX, bottomLeftY);
+		lastPlayerTileBottomLeft->isPlayerOnTile = true;
 
+	}
+	else
+	{
+		return false;
+	}
 
 	//Mid Right 
 	glm::vec2 midRight = glm::vec2(aabb->myOrigin.x + aabb->halfX, aabb->myOrigin.y);
@@ -483,19 +518,35 @@ void TileMap::SetPlayerTile2(AABB* aabb)
 	float midRightY = this->map(midRight.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	midRightX = round(midRightX);
 	midRightY = round(midRightY);
-	if (lastPlayerTileMidRight != nullptr)
-		lastPlayerTileMidRight->isPlayerOnTile = false;
-	lastPlayerTileMidRight = GetTile2(midRightX, midRightY);
-	lastPlayerTileMidRight->isPlayerOnTile = true;
+	if(validIndex(midRightX, midRightY))
+	{
+		if (lastPlayerTileMidRight != nullptr)
+			lastPlayerTileMidRight->isPlayerOnTile = false;
+		lastPlayerTileMidRight = GetTile2(midRightX, midRightY);
+		lastPlayerTileMidRight->isPlayerOnTile = true;
 
+	}
+	else
+	{
+		return false;
+	}
 	//Mid Left
 	glm::vec2 midLeft = glm::vec2(aabb->myOrigin.x - aabb->halfX, aabb->myOrigin.y);
 	float midLeftX = this->map(midLeft.x, myWorldXRange.x, myWorldXRange.y, myWorldXTileRange.x, myWorldXTileRange.y);
 	float midLeftY = this->map(midLeft.y, myWorldYRange.x, myWorldYRange.y, myWorldYTileRange.x, myWorldYTileRange.y);
 	midLeftX = round(midLeftX);
 	midLeftY = round(midLeftY);
-	if (lastPlayerTileMidLeft != nullptr)
-		lastPlayerTileMidLeft->isPlayerOnTile = false;
-	lastPlayerTileMidLeft = GetTile2(midLeftX, midLeftY);
-	lastPlayerTileMidLeft->isPlayerOnTile = true;
+	if(validIndex(midLeftX, midLeftY))
+	{
+		if (lastPlayerTileMidLeft != nullptr)
+			lastPlayerTileMidLeft->isPlayerOnTile = false;
+		lastPlayerTileMidLeft = GetTile2(midLeftX, midLeftY);
+		lastPlayerTileMidLeft->isPlayerOnTile = true;
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
 }

@@ -28,9 +28,10 @@ public:
 
 	std::vector<Tile*>& GetMap();
 	void setPlayerTile(float x, float y);
-	void SetPlayerTile2(AABB* aabb);
+	bool SetPlayerTile2(AABB* aabb);
 
 	Tile* getClosestRespawnTile(const glm::vec2& position);
+	Tile* GetPlayerRespawnTile() { return myPlayerStartTile; }
 
 	Tile* lastPlayerTile;
 	
@@ -62,5 +63,7 @@ private:
 	glm::vec2 myWorldYTileRange;
 	
 	std::vector<Tile*> myRespawnTiles;
+
+	Tile* myPlayerStartTile;
 
 };

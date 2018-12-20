@@ -35,6 +35,8 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/plasma2.png", "plasma", true, false, false);
 	LoadTexture("Textures/testtile.png", "grass", true, false, false);
 	LoadTexture("Textures/testtile2.png", "grass2", true, false, false);
+	LoadTexture("Textures/testtile_1.png", "grass_1", true, false, false);
+	LoadTexture("Textures/testtile2_1.png", "grass2_1", true, false, false);
 	LoadTexture("Textures/tilepillar1.png", "pillar1", true, false, false);
 	LoadTexture("Textures/tilepillar2.png", "pillar2", true, false, false);
 	LoadTexture("Textures/spikes.png", "spikes", true, false, false);
@@ -86,6 +88,7 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/enemydiesheet2.png", "deatheffect", true, false, false);
 	LoadTexture("Textures/enemyhiteffectsheet.png", "enemyhiteffect", true, false, false);
 	LoadTexture("Textures/spriteswordhitsheet.png", "swordhiteffect", true, false, false);
+	LoadTexture("Textures/floatingsolidspiked.png", "floatingsolidspiked", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");
@@ -154,10 +157,10 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	if (alpha)
 	{
-	//	mTextures[identifier]->setImageFormat(GL_BGRA);
-	//	mTextures[identifier]->setInternalFormat(GL_BGRA);
-		mTextures[identifier]->setImageFormat(GL_RGBA);
-		mTextures[identifier]->setInternalFormat(GL_RGBA);
+		mTextures[identifier]->setImageFormat(GL_BGRA);
+		mTextures[identifier]->setInternalFormat(GL_BGRA);
+	//	mTextures[identifier]->setImageFormat(GL_RGBA);
+	//	mTextures[identifier]->setInternalFormat(GL_RGBA);
 	}
 	if (isBackground)
 	{
