@@ -573,9 +573,6 @@
     <ClCompile Include="DynamicLayer.cpp">
       <Filter>Games\GothicVania\Game Layers</Filter>
     </ClCompile>
-    <ClCompile Include="BridgeLevel.cpp">
-      <Filter>Games\GothicVania\Levels</Filter>
-    </ClCompile>
     <ClCompile Include="Pickup.cpp">
       <Filter>Games\GothicVania\Entities\Pickup\Base</Filter>
     </ClCompile>
@@ -665,6 +662,9 @@
     </ClCompile>
     <ClCompile Include="AdventurerDropKickEffectSprite.cpp">
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonLevel.cpp">
+      <Filter>Games\GothicVania\Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -986,9 +986,6 @@
     <ClInclude Include="DynamicLayer.h">
       <Filter>Games\GothicVania\Game Layers</Filter>
     </ClInclude>
-    <ClInclude Include="BridgeLevel.h">
-      <Filter>Games\GothicVania\Levels</Filter>
-    </ClInclude>
     <ClInclude Include="Pickup.h">
       <Filter>Games\GothicVania\Entities\Pickup\Base</Filter>
     </ClInclude>
@@ -1078,6 +1075,9 @@
     </ClInclude>
     <ClInclude Include="AdventurerDropKickEffectSprite.h">
       <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonLevel.h">
+      <Filter>Games\GothicVania\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

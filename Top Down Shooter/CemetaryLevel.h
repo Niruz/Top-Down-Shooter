@@ -62,6 +62,7 @@ public:
 	Layer* myPlayerLayer;
 	Layer* myEffectsLayerBack;
 	Layer* myEffectsLayerFront;
+	Layer* myTestLayer;
 
 	//	Sprite* mySprite;
 	Label* myFPSLabel;
@@ -143,7 +144,8 @@ public:
 
 	bool levelFinished = false;
 
-	float myEffectsLayerZValue;
+	float myEffectsLayerZValueBack;
+	float myEffectsLayerZValueFront;
 private:
 	//Debug stuff
 	Layer * myDebugLayer;

@@ -32,10 +32,11 @@
 #include "World.h"
 #include "GothicVaniaGameStates.h"
 #include "SplashScreen.h"
+#include "DungeonLevel.h"
 
 void GothicVania::Initialize()
 {
-	CemetaryLevel* levelOne = new CemetaryLevel("Cemetary");
+/*	CemetaryLevel* levelOne = new CemetaryLevel("Cemetary");
 	myLevels.push_back(levelOne);
 	myLevels[0]->Initialize();
 
@@ -46,9 +47,22 @@ void GothicVania::Initialize()
 
 	myStateMachine = new StateMachine<GothicVania>(this);
 	myStateMachine->setCurrentState(GothicVaniaIntroState::Instance());
-	myStateMachine->changeState(GothicVaniaIntroState::Instance());
+	myStateMachine->changeState(GothicVaniaIntroState::Instance());*/
 
-	
+
+	DungeonLevel* levelTwo = new DungeonLevel("Dungeon");
+	myLevels.push_back(levelTwo);
+	myLevels[0]->Initialize();
+
+	GameWorld->RegisterLevel(levelTwo);
+	GameWorld->SetActiveLevel("Dungeon");
+	activeLevel = 0;
+	myRenderingSplashScreen = false;
+	mySplashScreen = new SplashScreen();
+
+	myStateMachine = new StateMachine<GothicVania>(this);
+	myStateMachine->setCurrentState(GothicVaniaIntroState::Instance());
+	myStateMachine->changeState(GothicVaniaIntroState::Instance());
 
 	
 /*	for (int i = 0; i < 10000; i++)

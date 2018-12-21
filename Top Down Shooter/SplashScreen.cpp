@@ -10,7 +10,7 @@
 SplashScreen::SplashScreen()
 {
 	myGameScreenDone = false;
-	myGameScreenLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_FORWARD_SHADER), glm::ortho(-320.0f - 64, 320.0f + 64, -180.0f - 36, 180.0f + 36, -20.0f, 20.0f));
+	myGameScreenLayer = new Layer(new BatchRenderer(), ShaderMan->getShader(SIMPLE_FORWARD_SHADER), glm::ortho(-320.0f - 64, 320.0f + 64, -180.0f - 36, 180.0f + 36, -100.0f, 100.0f));
 
 	bossAnnouncerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
 	myBossAnnouncer = new Label("What The Moon Brings", glm::vec4(-240.0f, 0.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));

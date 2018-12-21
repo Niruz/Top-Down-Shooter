@@ -1087,12 +1087,12 @@ void HeroEntity::SpawnArrow()
 		return;
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
 		myFiredProjectile = true;
 	}
 	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Arrow", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
 		myFiredProjectile = true;
 	}
 }
@@ -1100,11 +1100,11 @@ void HeroEntity::SpawnHitEffect()
 {
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z + 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z + 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f));
 	}
 }
 void HeroEntity::SpawnProjectile()
@@ -1113,12 +1113,12 @@ void HeroEntity::SpawnProjectile()
 		return;
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
 		myFiredProjectile = true;
 	}
 	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x - 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(-1.0f, 0.0f, 0.0f));
 		myFiredProjectile = true;
 	}
 }

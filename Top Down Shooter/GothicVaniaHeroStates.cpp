@@ -39,7 +39,7 @@ void HeroAttackSwordAir1::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//entity->SpawnHitEffect();
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -138,7 +138,7 @@ void HeroAttackSwordAir2::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//entity->SpawnHitEffect();
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -241,7 +241,7 @@ void HeroAttackSwordAir3::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//entity->SpawnHitEffect();
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -436,7 +436,7 @@ void HeroAttackSwordAir5::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Large Hit Fast", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -619,7 +619,7 @@ void HeroAttackSword1::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//entity->SpawnHitEffect();
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -739,7 +739,7 @@ void HeroAttackSword2::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//entity->SpawnHitEffect();
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -859,7 +859,7 @@ void HeroAttackSword3::Execute(HeroEntity* entity)
 		if (CollisionMan->CheckSwordEnemyCollision(entity->mySwordAABB))
 		{
 			//entity->SpawnHitEffect();
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
 		}
@@ -1148,7 +1148,7 @@ void HeroSliding::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
@@ -1161,7 +1161,7 @@ void HeroSliding::Execute(HeroEntity* entity)
 
 	if(Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() +0.08f;
 	}
 	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
@@ -1621,7 +1621,7 @@ void HeroDropKick::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	GameWorld->GetActiveLevel()->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
@@ -1636,7 +1636,7 @@ void HeroDropKick::Execute(HeroEntity* entity)
 		entity->HandleDropKick();
 		if (Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
 		{
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 		}
 	}
@@ -2131,7 +2131,7 @@ void HeroMeleeSliding::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
@@ -2145,7 +2145,7 @@ void HeroMeleeSliding::Execute(HeroEntity* entity)
 
 	if (Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
 	{
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Slide", glm::vec3(entity->mPosition.x, entity->mPosition.y + 5, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 		entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 	}
 	if (Clock->GetCurrentTimeInSeconds() >= entity->myStartSlidingTime + 0.3f)
@@ -2658,7 +2658,7 @@ void HeroMeleeDropKick::Enter(HeroEntity* entity)
 		entity->StartSliding(1);
 	else
 		entity->StartSliding(-1);
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	GameWorld->GetActiveLevel()->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 }
 
@@ -2674,7 +2674,7 @@ void HeroMeleeDropKick::Execute(HeroEntity* entity)
 		entity->HandleDropKick();
 		if (Clock->GetCurrentTimeInSeconds() >= entity->myShadowEffectCooldown)
 		{
-			GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+			GameWorld->GetActiveLevel()->SpawnEntity("Adventurer DropKick", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			entity->myShadowEffectCooldown = Clock->GetCurrentTimeInSeconds() + 0.08f;
 		}
 	}

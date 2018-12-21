@@ -105,7 +105,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="BaseProjectileEntity.cpp" />
     <ClCompile Include="BatchRenderer.cpp" />
     <ClCompile Include="BloodEffectSprite.cpp" />
-    <ClCompile Include="BridgeLevel.cpp" />
+    <ClCompile Include="DungeonLevel.cpp" />
     <ClCompile Include="BubblesSprite.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -264,7 +264,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="BaseProjectileEntity.h" />
     <ClInclude Include="BatchRenderer.h" />
     <ClInclude Include="BloodEffectSprite.h" />
-    <ClInclude Include="BridgeLevel.h" />
+    <ClInclude Include="DungeonLevel.h" />
     <ClInclude Include="BubblesSprite.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />

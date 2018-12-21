@@ -91,10 +91,35 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/floatingsolidspiked.png", "floatingsolidspiked", true, false, false);
 	LoadTexture("Textures/slideeffectsprite.png", "slideeffect", true, false, false);
 	LoadTexture("Textures/adventurerdropkickeffect.png", "dropkickeffect", true, false, false);
+	LoadTexture("Textures/backgrounddungeon.png", "dungeonbackground", true, false, false);
+	LoadTexture("Textures/pillarbackground.png", "pillarbackground", true, false, false);
+	LoadTexture("Textures/dungeontile1.png", "dungeontile1", true, false, false);
+	LoadTexture("Textures/dungeonfloor1.png", "dungeonfloor1", true, false, false);
+	LoadTexture("Textures/dungeonfloor2.png", "dungeonfloor2", true, false, false);
+	LoadTexture("Textures/dungeonfloor3.png", "dungeonfloor3", true, false, false);
+	LoadTexture("Textures/dungeonfloor4.png", "dungeonfloor4", true, false, false);
+	LoadTexture("Textures/dungeonroof1.png", "dungeonroof1", true, false, false);
+	LoadTexture("Textures/dungeonroof2.png", "dungeonroof2", true, false, false);
+	LoadTexture("Textures/dungeonroof3.png", "dungeonroof3", true, false, false);
+	LoadTexture("Textures/dungeonroof4.png", "dungeonroof4", true, false, false);
+	LoadTexture("Textures/dungeongrass1.png", "dungeongrass1", true, false, false);
+	LoadTexture("Textures/dungeongrass2.png", "dungeongrass2", true, false, false);
+	LoadTexture("Textures/dungeongrass3.png", "dungeongrass3", true, false, false);
+	LoadTexture("Textures/dungeonedgeleft.png", "dungeonedgeleft", true, false, false);
+	LoadTexture("Textures/dungeonedgeright.png", "dungeonedgeright", true, false, false);
+	LoadTexture("Textures/dungeonbigtile.png", "dungeonbigtile", true, false, false);
+
+	LoadTexture("Textures/Cage_1.png", "dungeoncage1", true, false, false);
+	LoadTexture("Textures/Cage_2.png", "dungeoncage2", true, false, false);
+	LoadTexture("Textures/Cage_3.png", "dungeoncage3", true, false, false);
+
+	LoadTexture("Textures/Coffin_1.png", "dungeoncoffin1", true, false, false);
+	LoadTexture("Textures/Coffin_2.png", "dungeoncoffin2", true, false, false);
+	LoadTexture("Textures/Coffin_3.png", "dungeoncoffin3", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
-	LoadTexture("Textures/2.png", "2");
-	LoadTexture("Textures/3.png", "3");..png
+	LoadTexture("Textures/2.png", "2");.png
+	LoadTexture("Textures/3.png", "3");...png
 	LoadTexture("Textures/4.png", "4");
 	LoadTexture("Textures/5.png", "5");
 	LoadTexture("Textures/6.png", "6");*/
