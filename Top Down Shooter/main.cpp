@@ -53,8 +53,12 @@
 #include "Pacman.h"
 #include "Shooter.h"
 #include "GothicVania.h"
-
-
+#include <fstream>
+#include <iostream>
+#include <cstdlib>
+#include "rapidxml-1.13\rapidxml.hpp"
+#include "rapidxml-1.13\rapidxml_utils.hpp"
+#include "TiledMapManager.h"
 //ISoundEngine *SoundEngine = createIrrKlangDevice();
 
 float mHeight = 720.0f;
@@ -959,8 +963,44 @@ int main(void)
 #endif
 int main(void)
 {
+	
+	/*rapidxml::file<> xmlFile("Tilesets/cemetarytileset.tsx"); // Default template is char
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(xmlFile.data());
+
+	std::cout << doc.first_node()->name() << std::endl;
+
+	rapidxml::xml_node<> *pRoot = doc.first_node();
 
 
+	for (rapidxml::xml_node<> *pNode = pRoot->first_node("tile"); pNode; pNode = pNode->next_sibling())
+	{
+		rapidxml::xml_node<>* propertiesNode = pNode->first_node("properties");
+
+
+
+		for (rapidxml::xml_node<> *propertyNode = propertiesNode->first_node("property"); propertyNode; propertyNode = propertyNode->next_sibling())
+		{
+			std::string test = propertyNode->first_attribute("name")->value();
+
+			std::string test2 = propertyNode->first_attribute("value")->value();
+
+			std::cout << test << std::endl;
+			std::cout << test2 << std::endl;
+		}
+
+
+	}
+	*/
+
+	/*std::string fileName = "Levels\test.tmx";
+	std::ifstream myfile(fileName.c_str());
+	if (!myfile.is_open())
+		return false;
+
+	using namespace rapidxml;
+	xml_document<> doc;    // character type defaults to char
+	doc.parse<0>(myfile);*/
 	//****************************************************//
 	//                                                    //
 	//               GLFW INITIALIZATION                  //
@@ -1038,6 +1078,7 @@ int main(void)
 	TextureMan->onInitialize();
 	FontMan->onInitialize();
 	SoundMan->OnInitialize();
+	TiledMan->onInitialize();
 	ISound* hehe = SoundMan->GetSoundEngine()->play2D("Audio/Stay_Closer.wav", GL_TRUE);
 	SoundMan->GetSoundEngine()->isCurrentlyPlaying("Audio/Stay_Closer.wav");
 	SoundMan->GetSoundEngine()->stopAllSounds();
@@ -1073,6 +1114,7 @@ int main(void)
 	TextureMan->onDeinitialize();
 	FontMan->onDeinitialize();
 	SoundMan->OnDeinitialize();
+	TiledMan->onDeinitialize();
 	//Close OpenGL window and terminate GLFW  
 	glfwDestroyWindow(window);
 	//Finalize and clean up GLFW  

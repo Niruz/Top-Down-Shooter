@@ -69,6 +69,7 @@ public:
 	}
 	//The index in the texture Atlas to set
 	void SetUVs(int row, int column);
+	void SetUVs(int index, int width, int height);
 	void SetTexture(Texture* texture) { myTexture = texture; }
 	void SetPosition(const glm::vec4& position) { myPosition = position; }
 	void SetInverted(int inverted) { myInvertColor = inverted; }

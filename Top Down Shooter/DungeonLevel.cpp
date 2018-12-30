@@ -94,8 +94,8 @@ void DungeonLevel::Initialize()
 	myMap->GetPath(1, 1, 18, 10, myPath3);
 
 	myMap->printPath(myPath3);
-	myPlayer->mPosition.x = myMap->GetPlayerRespawnTile()->myWorldPosition.x;
-	myPlayer->mPosition.y = myMap->GetPlayerRespawnTile()->myWorldPosition.y;
+	myPlayer->mPosition.x = myMap->GetPlayerStartTile()->myWorldPosition.x;
+	myPlayer->mPosition.y = myMap->GetPlayerStartTile()->myWorldPosition.y;
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	std::vector<Tile*> map = myMap->GetMap();
@@ -153,6 +153,9 @@ void DungeonLevel::Initialize()
 				if (map[i]->myTileType == "I")
 				{
 					bigblockGroup->Add(new Sprite(glm::vec4(startX, startY+63, 0.0, 1), glm::vec2(105.0f, 160.0f), TextureMan->GetTexture("dungeonbigtile")));
+					floortype++;
+					if (floortype > 4)
+						floortype = 1;
 				}
 			}
 		}
@@ -215,8 +218,8 @@ void DungeonLevel::UpdatePlayer()
 	}
 
 	myScreenDirection = 0.0f;
-	//if ((myPlayer->mPosition.x > 75.5f) && (myPlayer->mPosition.x < 3150.0f) && (!myBossBattle))
-	//{
+	if ((myPlayer->mPosition.x > 75.5f) && (myPlayer->mPosition.x < 3150.0f))
+	{
 		float newPlayerX = myPlayer->mPosition.x;
 		if (lastPlayerX > newPlayerX)
 			myScreenDirection = -1.0f;
@@ -226,7 +229,7 @@ void DungeonLevel::UpdatePlayer()
 			myScreenDirection = 0.0f;
 
 		lastPlayerX = newPlayerX;
-	//}
+	}
 	myDungeonBackground->increaseUVAlongX(myScreenDirection *0.001f);
 	myPillarBackground->increaseUVAlongX(myScreenDirection *0.002f);
 }
@@ -242,6 +245,7 @@ void DungeonLevel::Update()
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	//myCamera.setPosition(-myPlayer->mPosition);
 	//if (myPlayer->mPosition.x > 75.5f && myPlayer->mPosition.x < 3155.0f && (!myBossBattle))
+	if (myPlayer->mPosition.x > 75.5f && myPlayer->mPosition.x < 3155.0f )
 		myCamera->setPosition(glm::vec3(-myPlayer->mPosition.x, 32.0f, -myPlayer->mPosition.z));
 
 	myCamera->Update();

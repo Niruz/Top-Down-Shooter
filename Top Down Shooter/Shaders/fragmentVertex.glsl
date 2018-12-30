@@ -27,7 +27,7 @@ void main()
 			texColor = vec4(1.0f - texColor.x, 1.0f - texColor.y, 1.0f - texColor.z, texColor.w); 
 		else if(fs_in.invert == 2.0f)
 			texColor = vec4(texColor.x,texColor.y,texColor.z, texColor.w == 0 ? 0 : fs_in.col.w);
-		//texColor = texColor.zyxw;
+		texColor = texColor.zyxw;
 	}
 	//texColor.xyz *= intensity;
 	color = texColor;// * intensity;

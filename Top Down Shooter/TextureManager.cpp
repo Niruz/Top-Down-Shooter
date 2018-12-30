@@ -116,6 +116,7 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/Coffin_1.png", "dungeoncoffin1", true, false, false);
 	LoadTexture("Textures/Coffin_2.png", "dungeoncoffin2", true, false, false);
 	LoadTexture("Textures/Coffin_3.png", "dungeoncoffin3", true, false, false);
+	LoadTexture("Textures/cemetarytileset2.png", "cemetarytileset", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");.png
@@ -184,10 +185,17 @@ bool TextureManager::LoadTexture(std::string filename, std::string identifier, G
 
 	if (alpha)
 	{
-		mTextures[identifier]->setImageFormat(GL_BGRA);
-		mTextures[identifier]->setInternalFormat(GL_BGRA);
-	//	mTextures[identifier]->setImageFormat(GL_RGBA);
-	//	mTextures[identifier]->setInternalFormat(GL_RGBA);
+	//	mTextures[identifier]->setImageFormat(GL_BGRA);
+	//	mTextures[identifier]->setInternalFormat(GL_BGRA);
+		mTextures[identifier]->setImageFormat(GL_RGBA);
+		mTextures[identifier]->setInternalFormat(GL_RGBA);
+		//these werent here before
+		if(!isBackground)
+		{
+			mTextures[identifier]->setFilterFormat(GL_NEAREST, GL_NEAREST);
+			mTextures[identifier]->setWrapperFormat(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+		}
+
 	}
 	if (isBackground)
 	{
@@ -231,4 +239,45 @@ void TextureManager::GetUVCoordinates(int row, int column, std::vector<glm::vec2
 	//0 
 	//X = 32.0f/512, 64.0/512
 	//Y = 
+}
+
+void TextureManager::GetUVCoordinates(int index, int width, int height, std::vector<glm::vec2>& vec)
+{	
+	float cols = width / 32.0f;
+	int rows = height / 32.0f;
+
+
+	float test = index / cols;
+	float test2 = index / rows;
+
+	glm::vec2 pointIn2D;
+	pointIn2D.x = index % (int)cols;
+	pointIn2D.y = index / (int)cols;
+
+	pointIn2D.y = (rows - 1) - pointIn2D.y;
+
+	if (index == 0)
+		int hohohoho = 5;
+
+
+	float x1 = (pointIn2D.x * 32.0f + 1) / width;
+	float x2 = ((pointIn2D.x + 1) * 32.0f -1) / width;
+	float y1 = (pointIn2D.y * 32.0f +1) / height;
+	float y2 = ((pointIn2D.y + 1) * 32.0f -1) / height;
+
+	vec.push_back(glm::vec2(x1, y1));
+	vec.push_back(glm::vec2(x1, y2));
+	vec.push_back(glm::vec2(x2, y2));
+	vec.push_back(glm::vec2(x2, y1));
+	int shit = 5;
+	/*float x1 = (row * 32.0f) / 512.0f;
+	float x2 = ((row + 1) * 32.0f) / 512.0f;
+	float y1 = (column * 32.0f) / 512.0f;
+	float y2 = ((column + 1) * 32.0f) / 512.0f;
+
+	vec.push_back(glm::vec2(x1, y1));
+	vec.push_back(glm::vec2(x1, y2));
+	vec.push_back(glm::vec2(x2, y2));
+	vec.push_back(glm::vec2(x2, y1));*/
+
 }

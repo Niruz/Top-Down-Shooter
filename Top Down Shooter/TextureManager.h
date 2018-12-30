@@ -24,6 +24,8 @@ public:
 
 	void GetUVCoordinates(int row, int column, std::vector<glm::vec2>& vec);
 
+	void GetUVCoordinates(int index, int width, int height, std::vector<glm::vec2>& vec);
+
 private:
 	TextureManager() {};
 	TextureManager(const TextureManager&);

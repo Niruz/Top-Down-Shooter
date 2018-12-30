@@ -196,6 +196,12 @@
     <Filter Include="Games\GothicVania\Sprites\Entities\Hero">
       <UniqueIdentifier>{8655e7ec-e5cd-4ba6-b94d-77ad00f1d63f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RapidXML">
+      <UniqueIdentifier>{d969165a-767e-45ae-9665-3d78da344ce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PathFinding\XML">
+      <UniqueIdentifier>{86f7a15e-03db-414a-9698-a5e0792459bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -666,6 +672,12 @@
     <ClCompile Include="DungeonLevel.cpp">
       <Filter>Games\GothicVania\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="GraveyardLevel.cpp">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledMapManager.cpp">
+      <Filter>PathFinding\XML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -1078,6 +1090,30 @@
     </ClInclude>
     <ClInclude Include="DungeonLevel.h">
       <Filter>Games\GothicVania\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml-1.13\rapidxml.hpp">
+      <Filter>RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml-1.13\rapidxml_iterators.hpp">
+      <Filter>RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml-1.13\rapidxml_print.hpp">
+      <Filter>RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml-1.13\rapidxml_utils.hpp">
+      <Filter>RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="GraveyardLevel.h">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLTile.h">
+      <Filter>PathFinding\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLLayer.h">
+      <Filter>PathFinding\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledMapManager.h">
+      <Filter>PathFinding\XML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

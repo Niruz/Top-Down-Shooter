@@ -19,6 +19,12 @@ Sprite::Sprite(const glm::vec4& position, const glm::vec2& size, Texture* textur
 	myTexture = texture;
 	SetUVs(atlasposition.x, atlasposition.y);
 }
+Sprite::Sprite(const glm::vec4& position, const glm::vec2& size, Texture* texture, int ID)
+	: Renderable(position, size, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
+{
+	myTexture = texture;
+	SetUVs(ID, texture->getWidth(), texture->getHeight());
+}
 void Sprite::setUVSpecialized(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& p3, const glm::vec2& p4)
 {
 	myUVs.clear();

@@ -7,11 +7,31 @@
 #include <limits>
 #include "TextureManager.h"
 #include "ShaderManager.h"
+
+#include "rapidxml-1.13\rapidxml.hpp"
+#include "rapidxml-1.13\rapidxml_utils.hpp"
+
+#include "XMLTile.h"
+#include "EngineUtilities.h"
+#include "TiledMapManager.h"
+
 TileMap::TileMap(const std::string& name, const glm::vec2& worldX, const glm::vec2& worldY, const glm::vec2& tileX, const glm::vec2& tileY)
 	: myWorldXRange(worldX), myWorldYRange(worldY), myWorldXTileRange(tileX), myWorldYTileRange(tileY)
 {
 	if (!InitializeFromMap(name))
 		std::cout << "\nCould not initialize map with name: " + name + "\n" << std::endl;
+	lastPlayerTile = nullptr;
+	lastPlayerTileTopLeft = nullptr;
+	lastPlayerTileTopRight = nullptr;
+	lastPlayerTileBottomRight = nullptr;
+	lastPlayerTileBottomLeft = nullptr;
+	lastPlayerTileMidRight = nullptr;
+	lastPlayerTileMidLeft = nullptr;
+}
+TileMap::TileMap(const std::string& mapName, const std::string& tileSet)
+{
+	if (!InitializeFromTiledMap(mapName,tileSet))
+		std::cout << "\nCould not initialize map with name: " + mapName + "\n" << std::endl;
 	lastPlayerTile = nullptr;
 	lastPlayerTileTopLeft = nullptr;
 	lastPlayerTileTopRight = nullptr;
@@ -28,6 +48,118 @@ TileMap::~TileMap()
 		delete tile;
 	}
 	myMapTiles.clear();
+}
+bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::string& tileSet)
+{
+/*	rapidxml::file<> tileFile(tileSet.c_str()); // Default template is char
+	rapidxml::xml_document<> tilesetDoc;
+	tilesetDoc.parse<0>(tileFile.data());
+
+	std::cout << tilesetDoc.first_node()->name() << std::endl;
+
+	rapidxml::xml_node<> *tileSetRoot = tilesetDoc.first_node();
+
+	std::map<std::string, XMLTile*> xmlTiles;
+
+	//Load the tilesets with their 
+	for (rapidxml::xml_node<> *pNode = tileSetRoot->first_node("tile"); pNode; pNode = pNode->next_sibling())
+	{
+		rapidxml::xml_node<>* propertiesNode = pNode->first_node("properties");
+
+		std::string currentID = std::to_string(std::stoi(pNode->first_attribute("id")->value()) + 1);
+
+		xmlTiles[currentID] = new XMLTile(currentID);
+
+		for (rapidxml::xml_node<> *propertyNode = propertiesNode->first_node("property"); propertyNode; propertyNode = propertyNode->next_sibling())
+		{
+			xmlTiles[currentID]->AddProperty(propertyNode->first_attribute("name")->value(), propertyNode->first_attribute("value")->value());
+		}
+
+	}*/
+	std::map<std::string, XMLTile*> xmlTiles = TiledMan->GetTileset(tileSet);
+
+
+	/*rapidxml::file<> mapFile(mapName.c_str()); 
+	rapidxml::xml_document<> mapDoc;
+	mapDoc.parse<0>(mapFile.data());
+
+	std::cout << mapDoc.first_node()->name() << std::endl;
+
+	rapidxml::xml_node<> *mapRoot = mapDoc.first_node();
+
+	rapidxml::xml_node<> *pNode = mapRoot->first_node("layer")->next_sibling();
+
+	std::string name = pNode->first_attribute("name")->value();
+	std::string width = pNode->first_attribute("width")->value();
+	std::string height = pNode->first_attribute("height")->value();
+
+	std::string tileData = pNode->first_node("data")->value();
+	tileData.erase(std::remove(tileData.begin(), tileData.end(), '\r'), tileData.end());
+	tileData.erase(std::remove(tileData.begin(), tileData.end(), '\n'), tileData.end());
+
+
+	std::vector<std::string> splitTileData = EngineUtilities::Split(tileData, ',');*/
+
+	XMLLayer* xmlLayer = TiledMan->GetLayer(mapName);
+
+	int tileMapWidth = std::stoi(xmlLayer->myWidth);
+
+	int lineIndex = 0;
+	int currentX = 0;
+	for(int i = 0; i < xmlLayer->myData.size(); i++)
+	{
+		if ((i > 0) && (i % (tileMapWidth) == 0))
+		{
+			lineIndex++;
+			currentX = 0;
+		}
+		Tile* tile = nullptr;
+		if (xmlLayer->myData[i] == "0")
+		{
+			tile = new Tile(currentX, lineIndex, false, false, false, false, "-1");
+		}
+		else
+		{
+			if(xmlTiles.count(xmlLayer->myData[i]))
+			{
+				bool oneway = xmlTiles.find(xmlLayer->myData[i])->second->HasProperty("OneWay");
+				bool blocking = xmlTiles.find(xmlLayer->myData[i])->second->HasProperty("Blocking");
+				bool spikedfloor = xmlTiles.find(xmlLayer->myData[i])->second->HasProperty("SpikedFloor");
+
+				tile = new Tile(currentX, lineIndex, blocking, spikedfloor, oneway, false, std::to_string(std::stoi(xmlLayer->myData[i]) - 1));
+			}
+			else
+			{
+				tile = new Tile(currentX, lineIndex, false, false, false, false, std::to_string(std::stoi(xmlLayer->myData[i]) - 1));
+			}
+
+		}
+		
+	
+		
+		myMapTiles.push_back(tile);
+		currentX++;
+	}
+
+	/*for (auto iterator : xmlTiles)
+		delete iterator.second;
+	*/
+
+	GenerateGraph();
+
+
+	int mapWidth  = std::stoi(xmlLayer->myWidth) - 1;
+	int mapHeight = std::stoi(xmlLayer->myHeight) - 1;
+
+	myWorldXRange = glm::vec2(0, mapWidth * 32.0f);
+	myWorldYRange = glm::vec2(0, -mapHeight * 32.0f);
+
+	myWorldXTileRange = glm::vec2(0, mapWidth);
+	myWorldYTileRange = glm::vec2(0, mapHeight);
+
+
+	myPlayerStartTile = GetTile2(4, 4);
+	return true;
 }
 bool TileMap::InitializeFromMap(const std::string& name)
 {
@@ -169,7 +301,20 @@ void TileMap::GenerateGraph()
 
 	}
 
-	float startX = -32.0f * 10.0f;
+	int lineIndex = 0;
+	int currentX = 0;
+	for (int i = 0; i < myMapTiles.size(); i++)
+	{
+		if ((i > 0) && (i % (myMapWidth) == 0))
+		{
+			lineIndex++;
+			currentX = 0;
+		}
+		myMapTiles[i]->SetPosition(32.0f*currentX, -lineIndex*32.0f);
+		currentX++;
+	}
+	int hohaho = 5;
+/*	float startX = -32.0f * 10.0f;
 	float startY = 32.0f * 6;
 	for (int i = 0; i < myMapTiles.size(); i++)
 	{
@@ -180,7 +325,7 @@ void TileMap::GenerateGraph()
 		}
 		myMapTiles[i]->SetPosition(startX, startY);
 		startX += 32.0f;
-	}
+	}*/
 }
 void TileMap::GetPath(int fromX, int fromY, int toY, int toX, std::vector<Tile*>& list)
 {

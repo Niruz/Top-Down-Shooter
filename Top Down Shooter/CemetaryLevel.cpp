@@ -196,8 +196,8 @@ void CemetaryLevel::Initialize()
 	myMap->GetPath(1, 1, 18, 10, myPath3);
 
 	myMap->printPath(myPath3);
-	myPlayer->mPosition.x = myMap->GetPlayerRespawnTile()->myWorldPosition.x;
-	myPlayer->mPosition.y = myMap->GetPlayerRespawnTile()->myWorldPosition.y;
+	myPlayer->mPosition.x = myMap->GetPlayerStartTile()->myWorldPosition.x;
+	myPlayer->mPosition.y = myMap->GetPlayerStartTile()->myWorldPosition.y;
 	myMap->setPlayerTile(myPlayer->mPosition.x, myPlayer->mPosition.y);
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	std::vector<Tile*> map = myMap->GetMap();

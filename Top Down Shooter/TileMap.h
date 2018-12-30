@@ -7,9 +7,11 @@ class TileMap
 public:
 	TileMap(){}
 	TileMap(const std::string& name, const glm::vec2& worldX, const glm::vec2& worldY, const glm::vec2& tileX, const glm::vec2& tileY);
+	TileMap(const std::string& mapName, const std::string& tileSet);
 	~TileMap();
 
 	bool InitializeFromMap(const std::string& name);
+	bool InitializeFromTiledMap(const std::string& mapName, const std::string& tileSet);
 	Tile* GetTile(int fromX, int fromY);
 	Tile* GetTile2(int fromX, int fromY);
 
@@ -31,7 +33,7 @@ public:
 	bool SetPlayerTile2(AABB* aabb);
 
 	Tile* getClosestRespawnTile(const glm::vec2& position);
-	Tile* GetPlayerRespawnTile() { return myPlayerStartTile; }
+	Tile* GetPlayerStartTile() { return myPlayerStartTile; }
 
 	Tile* lastPlayerTile;
 	
