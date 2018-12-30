@@ -51,58 +51,11 @@ TileMap::~TileMap()
 }
 bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::string& tileSet)
 {
-/*	rapidxml::file<> tileFile(tileSet.c_str()); // Default template is char
-	rapidxml::xml_document<> tilesetDoc;
-	tilesetDoc.parse<0>(tileFile.data());
-
-	std::cout << tilesetDoc.first_node()->name() << std::endl;
-
-	rapidxml::xml_node<> *tileSetRoot = tilesetDoc.first_node();
-
-	std::map<std::string, XMLTile*> xmlTiles;
-
-	//Load the tilesets with their 
-	for (rapidxml::xml_node<> *pNode = tileSetRoot->first_node("tile"); pNode; pNode = pNode->next_sibling())
-	{
-		rapidxml::xml_node<>* propertiesNode = pNode->first_node("properties");
-
-		std::string currentID = std::to_string(std::stoi(pNode->first_attribute("id")->value()) + 1);
-
-		xmlTiles[currentID] = new XMLTile(currentID);
-
-		for (rapidxml::xml_node<> *propertyNode = propertiesNode->first_node("property"); propertyNode; propertyNode = propertyNode->next_sibling())
-		{
-			xmlTiles[currentID]->AddProperty(propertyNode->first_attribute("name")->value(), propertyNode->first_attribute("value")->value());
-		}
-
-	}*/
 	std::map<std::string, XMLTile*> xmlTiles = TiledMan->GetTileset(tileSet);
-
-
-	/*rapidxml::file<> mapFile(mapName.c_str()); 
-	rapidxml::xml_document<> mapDoc;
-	mapDoc.parse<0>(mapFile.data());
-
-	std::cout << mapDoc.first_node()->name() << std::endl;
-
-	rapidxml::xml_node<> *mapRoot = mapDoc.first_node();
-
-	rapidxml::xml_node<> *pNode = mapRoot->first_node("layer")->next_sibling();
-
-	std::string name = pNode->first_attribute("name")->value();
-	std::string width = pNode->first_attribute("width")->value();
-	std::string height = pNode->first_attribute("height")->value();
-
-	std::string tileData = pNode->first_node("data")->value();
-	tileData.erase(std::remove(tileData.begin(), tileData.end(), '\r'), tileData.end());
-	tileData.erase(std::remove(tileData.begin(), tileData.end(), '\n'), tileData.end());
-
-
-	std::vector<std::string> splitTileData = EngineUtilities::Split(tileData, ',');*/
 
 	XMLMap* xmlMap = TiledMan->GetMap("CemetaryMap");
 	XMLLayer* xmlLayer = xmlMap->GetLayer("Tile Layer");
-	//XMLLayer* xmlLayer = TiledMan->GetLayer(mapName);
+
 
 	int tileMapWidth = std::stoi(xmlLayer->myWidth);
 
@@ -118,7 +71,15 @@ bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::str
 		Tile* tile = nullptr;
 		if (xmlLayer->myData[i] == "0")
 		{
-			tile = new Tile(currentX, lineIndex, false, false, false, false, "-1");
+			//Comment this out if we want to close off the map in some other way later
+			if (currentX == 0 || currentX == tileMapWidth - 1)
+			{
+				tile = new Tile(currentX, lineIndex, true, false, false, false, "-1");
+			}
+			else 
+			{
+				tile = new Tile(currentX, lineIndex, false, false, false, false, "-1");
+			}
 		}
 		else
 		{
@@ -142,10 +103,6 @@ bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::str
 		myMapTiles.push_back(tile);
 		currentX++;
 	}
-
-	/*for (auto iterator : xmlTiles)
-		delete iterator.second;
-	*/
 
 	GenerateGraph();
 

@@ -5,6 +5,7 @@ class HeroEntity;
 class Sprite;
 class Label;
 class TileMap;
+class EffectsGroup;
 class GraveyardLevel : public Level
 {
 public:
@@ -42,6 +43,8 @@ public:
 	Group * tileGroup;
 	Group * propGroup;
 	Group * playerGroup;
+	EffectsGroup * effectsGroup;
+	EffectsGroup * effectsGroupBack;
 
 	Sprite* myMoonBackground;
 	Sprite* myMountainBackground;
@@ -58,7 +61,16 @@ public:
 	float lastPlayerX;
 	float myScreenDirection;
 
+	bool myBossBattle = false;
+
+	float myMapWidth;
+	float myMapHeight;
+	//Move these
+	float myCameraMinBoundX;
+	float myCameraMaxBoundX;
+
 	bool levelFinished = false;
+
 private:
 
 };

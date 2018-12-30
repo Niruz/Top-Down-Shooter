@@ -16,7 +16,7 @@ Group::~Group()
 		delete renderable;
 	myRenderables.clear();
 }
-void Group::Submit(RendererBase* renderer) const 
+void Group::Submit(RendererBase* renderer) 
 {
 	renderer->Push(myTransformationMatrix);
 	//Add this to some sort of dynamic group if we want all renderables to be deleted when marked for deletion

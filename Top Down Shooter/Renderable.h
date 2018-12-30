@@ -50,7 +50,7 @@ public:
 		
 	}
 
-	virtual void Submit(RendererBase* renderer) const 
+	virtual void Submit(RendererBase* renderer) 
 	{
 		renderer->Submit(this);
 	}

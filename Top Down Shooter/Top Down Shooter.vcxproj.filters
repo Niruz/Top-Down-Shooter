@@ -678,6 +678,9 @@
     <ClCompile Include="TiledMapManager.cpp">
       <Filter>PathFinding\XML</Filter>
     </ClCompile>
+    <ClCompile Include="EffectsGroup.cpp">
+      <Filter>Graphics\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -1117,6 +1120,9 @@
     </ClInclude>
     <ClInclude Include="XMLMap.h">
       <Filter>PathFinding\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectsGroup.h">
+      <Filter>Graphics\Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

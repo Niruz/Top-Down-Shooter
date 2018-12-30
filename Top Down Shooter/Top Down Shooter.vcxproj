@@ -115,6 +115,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="DemonSprite.cpp" />
     <ClCompile Include="DynamicLayer.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectsGroup.cpp" />
     <ClCompile Include="EnemyHitEffectSprite.cpp" />
     <ClCompile Include="EngineUtilities.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -277,6 +278,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="DemonSprite.h" />
     <ClInclude Include="DynamicLayer.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EffectsGroup.h" />
     <ClInclude Include="EnemyHitEffectSprite.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Entity.h" />

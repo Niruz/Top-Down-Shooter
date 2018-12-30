@@ -35,7 +35,11 @@ void Effect::Update()
 		myAnimatedSprite->Update();
 		myAlpha -= 0.03f;
 		if (myAlpha <= 0.0f)
+		{
 			myAlpha = 0.0f;
+			MarkForDeletion();
+		}
+			
 	}
 	else 
 	{

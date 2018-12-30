@@ -25,7 +25,7 @@ Label::Label(const std::string& text, const glm::vec4& pos, const std::string& f
 	//myColor = color;
 	SetColor(color);
 }
-void Label::Submit(RendererBase* renderer) const
+void Label::Submit(RendererBase* renderer) 
 {
 	renderer->DrawString(myText, myPosition, *myFont,myColor);
 }

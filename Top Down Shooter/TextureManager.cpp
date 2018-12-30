@@ -20,7 +20,8 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/cursor2.jpg", "cursor2", false, false, false);
 	LoadTexture("Textures/wall.jpg", "player", false, false, false);
 	LoadTexture("Textures/512Atlas.png", "atlas", false, false, false);
-	LoadTexture("Textures/background.png", "moonbackground", false, true, false);
+	//LoadTexture("Textures/background.png", "moonbackground", false, true, false);
+	LoadTexture("Textures/background2.png", "moonbackground", true, false, false);
 	LoadTexture("Textures/graveyard2.png", "graveyard", true, true, false);
 	LoadTexture("Textures/mountains2.png", "mountains", true, true, false);
 	LoadTexture("Textures/spritesheet.png", "hero", true, false, false);

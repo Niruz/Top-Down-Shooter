@@ -7,7 +7,7 @@ public:
 	Group(const glm::mat4& mat);
 	Group(const glm::mat4& mat, float zValue);
 	virtual ~Group();
-	void Submit(RendererBase* renderer) const override;
+	void Submit(RendererBase* renderer) override;
 
 	void Add(Renderable* renderable);
 

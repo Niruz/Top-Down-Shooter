@@ -4,6 +4,7 @@
 #include "Layer.h"
 
 class Group;
+class EffectsGroup;
 class Level
 {
 public:
@@ -19,6 +20,7 @@ public:
 		delete myCamera;
 		myLayers.clear();
 		myRenderGroups.clear();
+		my…ffectsGroups.clear();
 	};
 
 	virtual void Initialize() = 0;
@@ -39,6 +41,7 @@ public:
 	Camera* myCamera;
 	std::vector<Layer*> myLayers;
 	std::vector<Group*> myRenderGroups;
+	std::vector<EffectsGroup*> my…ffectsGroups;
 	std::string myName;
 	int myNumberOfEntities;
 };
