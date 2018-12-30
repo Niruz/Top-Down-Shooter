@@ -40,7 +40,6 @@ public:
 	Camera* myCamera;
 
 	Group * tileGroup;
-	Group * bigblockGroup;
 	Group * propGroup;
 	Group * playerGroup;
 

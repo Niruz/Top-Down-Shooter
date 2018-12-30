@@ -100,7 +100,9 @@ bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::str
 
 	std::vector<std::string> splitTileData = EngineUtilities::Split(tileData, ',');*/
 
-	XMLLayer* xmlLayer = TiledMan->GetLayer(mapName);
+	XMLMap* xmlMap = TiledMan->GetMap("CemetaryMap");
+	XMLLayer* xmlLayer = xmlMap->GetLayer("Tile Layer");
+	//XMLLayer* xmlLayer = TiledMan->GetLayer(mapName);
 
 	int tileMapWidth = std::stoi(xmlLayer->myWidth);
 

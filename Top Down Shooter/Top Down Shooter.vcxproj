@@ -397,6 +397,7 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="XMLLayer.h" />
+    <ClInclude Include="XMLMap.h" />
     <ClInclude Include="XMLTile.h" />
   </ItemGroup>
   <ItemGroup>

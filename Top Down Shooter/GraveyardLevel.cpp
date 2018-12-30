@@ -47,6 +47,8 @@
 #include "SwordHitEffectSprite.h"
 #include "AdventurerSlideEffectSprite.h"
 #include "AdventurerDropKickEffectSprite.h"
+#include "TiledMapManager.h"
+
 void GraveyardLevel::Initialize()
 {
 	lastX = 640.0f;
@@ -96,16 +98,7 @@ void GraveyardLevel::Initialize()
 
 
 
-
-
-
-
-
-
-//	myMap = new TileMap("Levels/dungeon.level", glm::vec2(-320, 3488), glm::vec2(160, -288), glm::vec2(0, 119), glm::vec2(0, 14));
-	//myMap = new TileMap("Levels/cemetary.tmx", "Tilesets/cemetarytileset.tsx");
-	//myMap = new TileMap("Levels/cemetary.tmx", "CemetaryTileset");
-	myMap = new TileMap("CemetaryTileLayer", "CemetaryTileset");
+	myMap = new TileMap("CemetaryMap", "CemetaryTileset");
 	myMap->printMap();
 
 	std::vector<Tile*> myPath3;
@@ -119,13 +112,11 @@ void GraveyardLevel::Initialize()
 	myMap->SetPlayerTile2(myPlayer->myAABB);
 	std::vector<Tile*> map = myMap->GetMap();
 
-	propGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.2)), -10.2);
-	tileGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.2)), -9.2);
-	bigblockGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -9.0)), -9.0);
+	propGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -50)), -50);
+	tileGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -30)), -30);
 
 	myRenderGroups.push_back(propGroup);
 	myRenderGroups.push_back(tileGroup);
-	myRenderGroups.push_back(bigblockGroup);
 
 
 	for(int i = 0 ; i < map.size(); i++)
@@ -133,90 +124,25 @@ void GraveyardLevel::Initialize()
 		if(map[i]->myTileType != "-1")
 		{
 			tileGroup->Add(new Sprite(glm::vec4(map[i]->myWorldPosition.x, map[i]->myWorldPosition.y, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("cemetarytileset"),std::stoi(map[i]->myTileType)));
-		//	tileGroup->Add(new Sprite(glm::vec4(map[i]->myWorldPosition.x, map[i]->myWorldPosition.y, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid")));
+		}
+	}
+
+	XMLMap* xmlMap = TiledMan->GetMap("CemetaryMap");
+	XMLLayer* xmlLayer = xmlMap->GetLayer("Prop Layer");
+
+	for(int i = 0 ; i < xmlLayer->myData.size(); i++)
+	{
+		if(xmlLayer->myData[i] != "0")
+		{
+			int tileIdentifier = std::stoi(xmlLayer->myData[i]) - 1;
+			propGroup->Add(new Sprite(glm::vec4(map[i]->myWorldPosition.x, map[i]->myWorldPosition.y, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("cemetarytileset"), tileIdentifier));
+		//	propGroup->Add(new Sprite(glm::vec4(map[i]->myWorldPosition.x, map[i]->myWorldPosition.y, 0.0, 1), glm::vec2(32.0f, 32.0f), TextureMan->GetTexture("floatingsolid")));
 		}
 	}
 
 
-	/*float startX = -32.0f * 10.0f;
-	float startY = 32.0f * 6;
-	srand(54);
-
-	int floortype = 1;
-	int rooftype = 1;
-	for (int i = 0; i < map.size(); i++)
-	{
-		if (i % 122 == 0)
-		{
-			startY -= 32.0f;
-			startX = -32.0f*10.0f;
-		}
-
-		if (i == 1799)
-			int shitterooo = 5;
-
-		if (map[i]->myIsBlockingFlag)
-		{
-			if (!(map[i]->myTileType == "o"))
-			{
-				if (map[i]->myTileType == "X")
-				{
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(32.0f, 34.0f), TextureMan->GetTexture("dungeonfloor" + std::to_string(floortype))));
-					floortype++;
-					if (floortype > 4)
-						floortype = 1;
-					int grassType = (rand() % 6);
-					if (grassType == 1)
-						tileGroup->Add(new Sprite(glm::vec4(startX, startY + 31.0f, 0.0, 1), glm::vec2(32.0f, 34.0f), TextureMan->GetTexture("dungeongrass" + std::to_string(grassType))));
-					else if (grassType == 2)
-						tileGroup->Add(new Sprite(glm::vec4(startX, startY + 31.0f, 0.0, 1), glm::vec2(32.0f, 34.0f), TextureMan->GetTexture("dungeongrass" + std::to_string(grassType))));
-					else if (grassType == 3)
-						tileGroup->Add(new Sprite(glm::vec4(startX, startY + 31.0f, 0.0, 1), glm::vec2(32.0f, 34.0f), TextureMan->GetTexture("dungeongrass" + std::to_string(grassType))));
-				}
-				if (map[i]->myTileType == "x")
-				{
-					tileGroup->Add(new Sprite(glm::vec4(startX, startY, 0.0, 1), glm::vec2(32.0f, 34.0f), TextureMan->GetTexture("dungeonroof" + std::to_string(rooftype))));
-					rooftype++;
-					if (rooftype > 4)
-						rooftype = 1;
-				}
-				if (map[i]->myTileType == "I")
-				{
-					bigblockGroup->Add(new Sprite(glm::vec4(startX, startY + 63, 0.0, 1), glm::vec2(105.0f, 160.0f), TextureMan->GetTexture("dungeonbigtile")));
-					floortype++;
-					if (floortype > 4)
-						floortype = 1;
-				}
-			}
-		}
-		else
-		{
-			if (map[i]->myTileType == "S")
-			{
-				int cageType = (rand() % 4);
-				cageType++; // 0-2 = 1-3 :)
-				if (cageType == 1 || cageType == 2)
-					propGroup->Add(new Sprite(glm::vec4(startX, startY + 7, 0.0, 1), glm::vec2(34.0f, 82.0f), TextureMan->GetTexture("dungeoncage" + std::to_string(cageType))));
-				else
-					propGroup->Add(new Sprite(glm::vec4(startX, startY - 16, 0.0, 1), glm::vec2(34.0f, 128.0f), TextureMan->GetTexture("dungeoncage" + std::to_string(3))));
-			}
-			if (map[i]->myTileType == "B")
-			{
-				int coffinType = (rand() % 3);
-				coffinType++;
-				if (coffinType == 1)
-					propGroup->Add(new Sprite(glm::vec4(startX, startY - 1, 0.0, 1), glm::vec2(66.0f, 32.0f), TextureMan->GetTexture("dungeoncoffin" + std::to_string(coffinType))));
-				else if (coffinType == 2)
-					propGroup->Add(new Sprite(glm::vec4(startX, startY - 11, 0.0, 1), glm::vec2(66.0f, 22.0f), TextureMan->GetTexture("dungeoncoffin" + std::to_string(coffinType))));
-				else
-					propGroup->Add(new Sprite(glm::vec4(startX, startY - 5, 0.0, 1), glm::vec2(82.0f, 28.0f), TextureMan->GetTexture("dungeoncoffin" + std::to_string(coffinType))));
-			}
-		}
-		startX += 32.0f;
-	}*/
 	myTileLayer->Add(propGroup);
 	myTileLayer->Add(tileGroup);
-	myTileLayer->Add(bigblockGroup);
 	myTileLayer->Add(myPlayer->mySprite);
 
 	lastPlayerX = myPlayer->mPosition.x;

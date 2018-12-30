@@ -22,9 +22,11 @@ void TiledMapManager::onInitialize()
 	//"Tilesets/cemetarytileset.tsx"
 	LoadTileset("Tilesets/cemetarytileset.tsx", "CemetaryTileset");
 
-
 	//Layers
-	LoadLayer("Levels/cemetary.tmx", "CemetaryTileLayer");
+	LoadLayers("Levels/cemetary.tmx", "CemetaryLayer");
+
+	//Maps
+	LoadMap("Levels/cemetary.tmx", "CemetaryMap");
 }
 void TiledMapManager::LoadTileset(const std::string& name, const std::string& identifier)
 {
@@ -63,7 +65,7 @@ XMLLayer* TiledMapManager::GetLayer(const std::string& identifier)
 {
 	return myXMLLayers[identifier];
 }
-void TiledMapManager::LoadLayer(const std::string& file, const std::string& identifier)
+void TiledMapManager::LoadLayers(const std::string& file, const std::string& identifier)
 {
 	rapidxml::file<> mapFile(file.c_str());
 	rapidxml::xml_document<> mapDoc;
@@ -91,6 +93,41 @@ void TiledMapManager::LoadLayer(const std::string& file, const std::string& iden
 
 	myXMLLayers[identifier] = xmlLayer;
 }
+void TiledMapManager::LoadMap(const std::string& file, const std::string& identifier)
+{
+	rapidxml::file<> mapFile(file.c_str());
+	rapidxml::xml_document<> mapDoc;
+	mapDoc.parse<0>(mapFile.data());
+
+	std::cout << mapDoc.first_node()->name() << std::endl;
+
+	rapidxml::xml_node<> *mapRoot = mapDoc.first_node();
+
+	XMLMap* xmlMap = new XMLMap();
+
+	//Load the tilesets with their 
+	for (rapidxml::xml_node<> *pNode = mapRoot->first_node("layer"); pNode; pNode = pNode->next_sibling())
+	{
+		std::string name = pNode->first_attribute("name")->value();
+		std::string width = pNode->first_attribute("width")->value();
+		std::string height = pNode->first_attribute("height")->value();
+
+		std::string tileData = pNode->first_node("data")->value();
+		tileData.erase(std::remove(tileData.begin(), tileData.end(), '\r'), tileData.end());
+		tileData.erase(std::remove(tileData.begin(), tileData.end(), '\n'), tileData.end());
+
+		XMLLayer* xmlLayer = new XMLLayer(identifier, name, width, height);
+		xmlLayer->SetData(EngineUtilities::Split(tileData, ','));
+
+		xmlMap->AddLayer(name, xmlLayer);
+	}
+
+	myXMLMaps[identifier] = xmlMap;
+}
+XMLMap* TiledMapManager::GetMap(const std::string& identifier)
+{
+	return myXMLMaps[identifier];
+}
 void TiledMapManager::onDeinitialize()
 {
 	for (auto iterator : myXMLTiles)
@@ -102,6 +139,11 @@ void TiledMapManager::onDeinitialize()
 	}	
 
 	for(auto iterator : myXMLLayers)
+	{
+		delete iterator.second;
+	}
+
+	for (auto iterator : myXMLMaps)
 	{
 		delete iterator.second;
 	}

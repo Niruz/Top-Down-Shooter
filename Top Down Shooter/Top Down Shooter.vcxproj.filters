@@ -1115,6 +1115,9 @@
     <ClInclude Include="TiledMapManager.h">
       <Filter>PathFinding\XML</Filter>
     </ClInclude>
+    <ClInclude Include="XMLMap.h">
+      <Filter>PathFinding\XML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\forwardVertex.glsl">
