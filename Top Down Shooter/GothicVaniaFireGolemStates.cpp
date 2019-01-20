@@ -67,7 +67,7 @@ bool FireGolemIdle::OnMessage(FireGolemEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -116,7 +116,7 @@ bool FireGolemAttack1::OnMessage(FireGolemEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -173,7 +173,7 @@ bool FireGolemAttack2::OnMessage(FireGolemEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -231,7 +231,7 @@ bool FireGolemRunToPlayer::OnMessage(FireGolemEntity* entity, const Message& msg
 
 		entity->HandleDamaged(10);
 		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -276,9 +276,9 @@ void FireGolemDie::Enter(FireGolemEntity* entity)
 {
 	entity->SetAnimation("FireGolemDie");
 	entity->myIsActive = false;
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Enemy Hit Death Large", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
+	GameWorld->GetActiveLevel()->SpawnEntity("Enemy Hit Death Large", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Extra Large Hit", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
-	GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("HP Potion", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+	GameWorld->GetActiveLevel()->SpawnEntity("HP Potion", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 void FireGolemDie::Execute(FireGolemEntity* entity)
 {
@@ -344,7 +344,7 @@ bool FireGolemSlam::OnMessage(FireGolemEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;
@@ -408,7 +408,7 @@ bool FireGolemPatrol::OnMessage(FireGolemEntity* entity, const Message& msg)
 
 		entity->HandleDamaged(10);
 		BaseProjectileEntity* projectile = (BaseProjectileEntity*)msg.extraInfo;
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Medium Hit", glm::vec3(projectile->mPosition.x, projectile->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
 		return true;
 	}
 	return false;

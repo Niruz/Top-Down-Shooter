@@ -15,6 +15,11 @@ class HitEffectSprite;
 class BubblesSprite;
 class MidnightSprite;
 class SpellSprite;
+class DustEffectSprite;
+class LightningEffectSprite;
+class ExplosionEffectSprite;
+class ExplosionOrbEffectSprite;
+class EarthProjectileSprite;
 enum StateTest
 {
 	RUNNING,
@@ -100,6 +105,11 @@ struct HeroEntity : public Entity
 	BubblesSprite* myBubblesSprite;
 	MidnightSprite* myMidnightSprite;
 	SpellSprite* mySpellSprite;
+	DustEffectSprite* myDustSprite;
+	LightningEffectSprite* myLightningSprite;
+	ExplosionEffectSprite* myExplosionSprite;
+	ExplosionOrbEffectSprite* myExplosionOrbSprite;
+	EarthProjectileSprite * myEarthSprite;
 	StateTest myState;
 
 	Sprite* mySwordSpriteAABB;
@@ -134,6 +144,7 @@ struct HeroEntity : public Entity
 	bool  myStartedToFallInJump;
 	bool  myShouldJumpInGlidingState;
 	bool  myShouldStopWallRunning;
+	bool  myPlayedMissSound = false;
 
 	bool myAirSlamReceived;
 	bool myAirSlamReleased;

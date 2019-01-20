@@ -34,7 +34,9 @@
 #include "SplashScreen.h"
 #include "DungeonLevel.h"
 #include "GraveyardLevel.h"
-
+#include "BridgeLevel.h"
+#include "CellarLevel.h"
+#include "MenuScreen.h"
 void GothicVania::Initialize()
 {
 	/*CemetaryLevel* levelOne = new CemetaryLevel("Cemetary");
@@ -66,7 +68,7 @@ void GothicVania::Initialize()
 	myStateMachine->changeState(GothicVaniaIntroState::Instance());
 	*/
 
-	GraveyardLevel* levelOne = new GraveyardLevel("Graveyard");
+/*	GraveyardLevel* levelOne = new GraveyardLevel("Graveyard");
 	myLevels.push_back(levelOne);
 	myLevels[0]->Initialize();
 
@@ -76,6 +78,48 @@ void GothicVania::Initialize()
 	myRenderingSplashScreen = false;
 	mySplashScreen = new SplashScreen();
 
+	myStateMachine = new StateMachine<GothicVania>(this);
+	myStateMachine->setCurrentState(GothicVaniaIntroState::Instance());
+	myStateMachine->changeState(GothicVaniaIntroState::Instance());*/
+
+	
+/*	BridgeLevel* levelOne = new BridgeLevel("Bridge");
+	myLevels.push_back(levelOne);
+	myLevels[0]->Initialize();
+
+	GameWorld->RegisterLevel(levelOne);
+	GameWorld->SetActiveLevel("Bridge");
+	activeLevel = 0;
+	myRenderingSplashScreen = false;
+	mySplashScreen = new SplashScreen();
+
+	myStateMachine = new StateMachine<GothicVania>(this);
+	myStateMachine->setCurrentState(GothicVaniaIntroState::Instance());
+	myStateMachine->changeState(GothicVaniaIntroState::Instance());*/
+	
+	
+	/*CellarLevel* levelOne = new CellarLevel("Cellar");
+	myLevels.push_back(levelOne);
+	myLevels[0]->Initialize();
+
+	GameWorld->RegisterLevel(levelOne);
+	GameWorld->SetActiveLevel("Cellar");*/
+	BridgeLevel* levelOne = new BridgeLevel("Bridge");
+	myLevels.push_back(levelOne);
+	myLevels[0]->Initialize();
+
+	GameWorld->RegisterLevel(levelOne);
+	GameWorld->SetActiveLevel("Bridge");
+	activeLevel = 0;
+	myRenderingSplashScreen = false;
+	myRenderingMenuScreen = false;
+	mySplashScreen = new SplashScreen();
+	myMenuScreen = new MenuScreen();
+
+/*	myStateMachine = new StateMachine<GothicVania>(this);
+	myStateMachine->setCurrentState(GothicVaniaIntroState::Instance());
+	myStateMachine->changeState(GothicVaniaIntroState::Instance());*/
+	
 	myStateMachine = new StateMachine<GothicVania>(this);
 	myStateMachine->setCurrentState(GothicVaniaIntroState::Instance());
 	myStateMachine->changeState(GothicVaniaIntroState::Instance());
@@ -135,7 +179,9 @@ void GothicVania::Update()
 }
 void GothicVania::Render()
 {
-	if (myRenderingSplashScreen)
+	if (myRenderingMenuScreen)
+		RenderMenuScreen();
+	else if (myRenderingSplashScreen)
 		RenderGameScreen();
 	else
 		myLevels[activeLevel]->Render();
@@ -171,4 +217,12 @@ void GothicVania::RenderGameScreen()
 void GothicVania::UpdateGameScreen()
 {
 	mySplashScreen->Update();
+}
+void GothicVania::RenderMenuScreen()
+{
+	myMenuScreen->Render();
+}
+void GothicVania::UpdateMenuScreen()
+{
+	myMenuScreen->Update();
 }

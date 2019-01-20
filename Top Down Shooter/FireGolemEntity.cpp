@@ -11,6 +11,7 @@
 FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec3& myStartPosition, const glm::vec3& patrolTo)
 	: BaseEnemy(id, name, myStartPosition, patrolTo,false)
 {
+	mPosition.x -= 64.0f;
 	myAABB = new AABB(glm::vec2(mPosition.x, mPosition.y - 14.0f), 25.0f, 40.0f);
 	myPlayerAABB = new Sprite(glm::vec4(mPosition.x, mPosition.y-14.0f, mPosition.z+0.01, 1.0f), glm::vec2(50.0f, 80.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 
@@ -47,6 +48,7 @@ FireGolemEntity::FireGolemEntity(int id, const std::string& name, const glm::vec
 	myHitSpriteAABB = new Sprite(glm::vec4(mPosition.x + 40.0f, mPosition.y - 45.0f, mPosition.z + 0.01, 1.0f), glm::vec2(40.0f, 20.0f), glm::vec4(0.0f, 1.0f, 0.0f, 0.5f));
 	//mySprite->Add(myHitSpriteAABB);
 
+	myHealth = 100;
 	myAlreadyAttacked = false;
 }
 FireGolemEntity::~FireGolemEntity()
@@ -208,7 +210,7 @@ void FireGolemEntity::ResetAttackTimer()
 }
 bool FireGolemEntity::FirstTimeSeeingPlayer()
 {
-	return myTileMap->myPlayerWorldPosition.x < endPatrol.x && firstTimeSeeingPlayer;
+	return myTileMap->myPlayerWorldPosition.x > (startPatrol.x +320.0f)&& firstTimeSeeingPlayer;
 	//return myTileMap->lastPlayerTile->myWorldPosition.x < endPatrol.x && firstTimeSeeingPlayer;
 }
 bool FireGolemEntity::IsPlayerWithinPatrolRange()

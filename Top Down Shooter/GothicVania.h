@@ -7,6 +7,7 @@
 #include "StateMachine.h"
 
 class SplashScreen;
+class MenuScreen;
 class GothicVania : public Game
 {
 public:
@@ -37,6 +38,8 @@ public:
 	void UpdateLevel();
 	void RenderGameScreen();
 	void UpdateGameScreen();
+	void RenderMenuScreen();
+	void UpdateMenuScreen();
 
 private:
 
@@ -46,7 +49,9 @@ public:
 	int activeLevel;
 	std::vector<Level*> myLevels;
 	bool myRenderingSplashScreen;
+	bool myRenderingMenuScreen;
 	SplashScreen* mySplashScreen;
+	MenuScreen* myMenuScreen;
 };
 
 

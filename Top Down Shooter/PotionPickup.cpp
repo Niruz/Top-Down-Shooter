@@ -9,6 +9,7 @@
 #include "World.h"
 #include "Level.h"
 #include "Messages.h"
+#include "SoundManager.h"
 PotionPickup::PotionPickup(int id, const std::string& name, const glm::vec3& myStartPosition, const std::string& texture)
 	:Pickup(id, name, myStartPosition)
 {
@@ -41,7 +42,8 @@ bool PotionPickup::HandleMessage(const Message& msg)
 	switch (msg.mMsg)
 	{
 	case Msg_YouveBeenPickedUp:
-		GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Pickup Destroyed", glm::vec3(mPosition.x, mPosition.y, mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		GameWorld->GetActiveLevel()->SpawnEntity("Pickup Destroyed", glm::vec3(mPosition.x, mPosition.y, mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		SoundMan->GetSoundEngine()->play2D("Audio/pickup.ogg", GL_FALSE);
 		MarkForDeletion();
 		return true;
 	}

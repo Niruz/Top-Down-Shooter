@@ -51,11 +51,15 @@ TileMap::~TileMap()
 }
 bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::string& tileSet)
 {
+
+	//TODO: Technically we dont need to do it this way, it's better to just create a Tiled layer called "Collision Layer" and create the tilemap based off of that.
 	std::map<std::string, XMLTile*> xmlTiles = TiledMan->GetTileset(tileSet);
 
-	XMLMap* xmlMap = TiledMan->GetMap("CemetaryMap");
-	XMLLayer* xmlLayer = xmlMap->GetLayer("Tile Layer");
+	//XMLMap* xmlMap = TiledMan->GetMap("CemetaryMap");
+	//XMLLayer* xmlLayer = xmlMap->GetLayer("Tile Layer");
 
+	XMLMap* xmlMap = TiledMan->GetMap(mapName);
+	XMLLayer* xmlLayer = xmlMap->GetLayer("Tile Layer");
 
 	int tileMapWidth = std::stoi(xmlLayer->myWidth);
 
@@ -117,7 +121,8 @@ bool TileMap::InitializeFromTiledMap(const std::string& mapName,  const std::str
 	myWorldYTileRange = glm::vec2(0, mapHeight);
 
 
-	myPlayerStartTile = GetTile2(4, 4);
+	myPlayerStartTile = GetTile2(5, 8);
+	myRespawnTiles.push_back(myPlayerStartTile);
 	return true;
 }
 bool TileMap::InitializeFromMap(const std::string& name)

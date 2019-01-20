@@ -22,9 +22,8 @@
 
 #include "SoundManager.h"
 
-#include "Miner.h"
-#include "MinersWife.h"
-#include "EntityNames.h"
+
+
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "TileMap.h"
@@ -34,10 +33,8 @@
 #include "Buffer.h"
 #include "IndexBuffer.h"
 #include "VertexArray.h"
-#include "Player.h"
 #include "Camera.h"
 #include "MeshFactory.h"
-#include "SimpleObject.h"
 #include "Renderable.h"
 #include "Renderer.h"
 #include "BatchRenderer.h"
@@ -51,7 +48,6 @@
 #include "Font.h"
 #include "FontManager.h"
 #include "Pacman.h"
-#include "Shooter.h"
 #include "GothicVania.h"
 #include <fstream>
 #include <iostream>
@@ -81,7 +77,7 @@ float distanceToMouse = 0.0f;
 glm::vec3 cameraPos = glm::vec3(0.0f);
 bool mouseMovement = false;
 Camera* mCamera;
-Player mPlayer;
+//Player mPlayer;
 Mesh* mMesh;
 Texture* mTexture;
 Mesh* mMesh2;
@@ -326,6 +322,19 @@ void updateInput(GLfloat deltaTime)
 		oldKeyState[GLFW_KEY_G] = false;
 		std::cout << "G Released" << std::endl;
 	}
+	//Enter
+	if (currentKeyState[GLFW_KEY_ENTER] && !oldKeyState[GLFW_KEY_ENTER])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_ENTER, deltaTime, GLFW_PRESS);
+		oldKeyState[GLFW_KEY_ENTER] = true;
+		std::cout << "Enter Pressed" << std::endl;
+	}
+	else if (!currentKeyState[GLFW_KEY_ENTER] && oldKeyState[GLFW_KEY_ENTER])
+	{
+		myGame->ProcessKeyBoard(GLFW_KEY_ENTER, deltaTime, GLFW_RELEASE);
+		oldKeyState[GLFW_KEY_ENTER] = false;
+		std::cout << "Enter Released" << std::endl;
+	}
 	//Q
 	/*if (currentKeyState[GLFW_KEY_Q] && !oldKeyState[GLFW_KEY_Q])
 	{
@@ -396,7 +405,7 @@ void updateInput(GLfloat deltaTime)
 }
 glm::vec2 convertRange()
 {
-	glm::vec2 startRange(-320.0f, 160);
+/*	glm::vec2 startRange(-320.0f, 160);
 	glm::vec2 endRange(288.0f, -192.0f);
 	
 	glm::vec2 range = endRange - startRange;
@@ -432,7 +441,7 @@ glm::vec2 convertRange()
 		oldPlayerX = roundX;
 	if (roundY != oldPlayerY)
 		oldPlayerY = roundY;
-
+		*/
 	return glm::vec2(1, 1);
 }
 
@@ -961,8 +970,14 @@ int main(void)
 	exit(EXIT_SUCCESS);
 };
 #endif
+struct teststruct
+{
+	int myshit_;
+};
 int main(void)
 {
+	teststruct mystruct;
+	mystruct.myshit_;
 	
 	/*rapidxml::file<> xmlFile("Tilesets/cemetarytileset.tsx"); // Default template is char
 	rapidxml::xml_document<> doc;

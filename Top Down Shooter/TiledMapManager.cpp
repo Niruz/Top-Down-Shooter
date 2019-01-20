@@ -21,12 +21,19 @@ void TiledMapManager::onInitialize()
 {
 	//"Tilesets/cemetarytileset.tsx"
 	LoadTileset("Tilesets/cemetarytileset.tsx", "CemetaryTileset");
+	LoadTileset("Tilesets/bridgetileset.tsx", "BridgeTileset");
+	LoadTileset("Tilesets/dungeontileset.tsx", "DungeonTileset");
 
 	//Layers
 	LoadLayers("Levels/cemetary.tmx", "CemetaryLayer");
+//	LoadLayers("Levels/bridge.tmx", "BridgeLayer");
 
 	//Maps
 	LoadMap("Levels/cemetary.tmx", "CemetaryMap");
+	LoadMap("Levels/bridge.tmx", "BridgeMap");
+	LoadMap("Levels/dungeon.tmx", "DungeonMap");
+
+	
 }
 void TiledMapManager::LoadTileset(const std::string& name, const std::string& identifier)
 {

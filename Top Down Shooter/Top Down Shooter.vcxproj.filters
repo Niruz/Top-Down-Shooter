@@ -202,6 +202,12 @@
     <Filter Include="PathFinding\XML">
       <UniqueIdentifier>{86f7a15e-03db-414a-9698-a5e0792459bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics\Particle">
+      <UniqueIdentifier>{5ec79139-5b6b-4e88-885f-428b2b3d6e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{cbd6f4bc-e71c-4fc3-87c9-1fc2dec0c612}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -246,23 +252,8 @@
     <ClCompile Include="SimpleTimer.cpp">
       <Filter>Miscellaneous</Filter>
     </ClCompile>
-    <ClCompile Include="Vampire.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="MinerOwnedStates.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Miner.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Graphics\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="MinersWife.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="MinersWifeOwnedStates.cpp">
-      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>PathFinding</Filter>
@@ -278,12 +269,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Graphics\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleObject.cpp">
-      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="Renderable.cpp">
       <Filter>Graphics\Renderer</Filter>
@@ -446,9 +431,6 @@
     </ClCompile>
     <ClCompile Include="Pacman.cpp">
       <Filter>Games\Pacman</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>Games\Shooter</Filter>
     </ClCompile>
     <ClCompile Include="PacmanEntity.cpp">
       <Filter>Games\Pacman\Entities</Filter>
@@ -681,6 +663,75 @@
     <ClCompile Include="EffectsGroup.cpp">
       <Filter>Graphics\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Physics\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="BridgeLevel.cpp">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="CellarLevel.cpp">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="BigSkeletonSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BigSkeletonEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaBigSkeletonStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="AbominationSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="AbominationEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaAbominationStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ShriekerSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ShriekerEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaShriekerStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthProjectileSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="DustEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="LightningEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionOrbEffectSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthProjectile.cpp">
+      <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="BattlePriestSprite.cpp">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BattlePriestEntity.cpp">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GothicVaniaBattlePriestStates.cpp">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Games\GothicVania\Splash Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.h">
@@ -716,9 +767,6 @@
     <ClInclude Include="EntityManager.h">
       <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Miner.h">
-      <Filter>Games</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
       <Filter>AI\States</Filter>
     </ClInclude>
@@ -734,35 +782,8 @@
     <ClInclude Include="SimpleTimer.h">
       <Filter>Miscellaneous</Filter>
     </ClInclude>
-    <ClInclude Include="Vampire.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="MinerOwnedStates.h">
-      <Filter>Games</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Graphics\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Locations.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="MinersWife.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="MinersWifeOwnedStates.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageTypes.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityNames.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleUtils.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>PathFinding</Filter>
@@ -778,12 +799,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Graphics\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleObject.h">
-      <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Renderable.h">
       <Filter>Graphics\Renderer</Filter>
@@ -862,9 +877,6 @@
     </ClInclude>
     <ClInclude Include="Pacman.h">
       <Filter>Games\Pacman</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooter.h">
-      <Filter>Games\Shooter</Filter>
     </ClInclude>
     <ClInclude Include="PacmanEntity.h">
       <Filter>Games\Pacman\Entities</Filter>
@@ -1123,6 +1135,75 @@
     </ClInclude>
     <ClInclude Include="EffectsGroup.h">
       <Filter>Graphics\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Physics\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="BridgeLevel.h">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="CellarLevel.h">
+      <Filter>Games\GothicVania\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="BigSkeletonSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BigSkeletonEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaBigSkeletonStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="AbominationSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="AbominationEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaAbominationStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ShriekerSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ShriekerEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaShriekerStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthProjectileSprite.h">
+      <Filter>Games\GothicVania\Sprites\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="DustEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionOrbEffectSprite.h">
+      <Filter>Games\GothicVania\Sprites\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthProjectile.h">
+      <Filter>Games\GothicVania\Entities\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="BattlePriestSprite.h">
+      <Filter>Games\GothicVania\Sprites\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BattlePriestEntity.h">
+      <Filter>Games\GothicVania\Entities\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GothicVaniaBattlePriestStates.h">
+      <Filter>Games\GothicVania\Entities\States\Entity States\Enemies\More Complex Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Games\GothicVania\Splash Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryAllocator.h">
+      <Filter>Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

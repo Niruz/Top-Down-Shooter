@@ -1,4 +1,5 @@
 
+
 #include "MessageDispatcher.h"
 #include "CollisionManager.h"
 #include <cassert>
@@ -11,6 +12,7 @@
 
 #include "World.h"
 #include "Level.h"
+#include "SoundManager.h"
 CollisionManager* CollisionManager::Instance()
 {
 	static CollisionManager instance;
@@ -61,6 +63,8 @@ bool CollisionManager::CheckSwordEnemyCollision(AABB* swordAABB)
 
 		it++;
 	}
+	//if(foundCollision)
+	//	SoundMan->GetSoundEngine()->play2D("Audio/hit06.wav", GL_FALSE);
 	return foundCollision;
 }
 bool CollisionManager::CheckSwordHeroCollisiion(BaseEnemy* enemy)
@@ -69,6 +73,7 @@ bool CollisionManager::CheckSwordHeroCollisiion(BaseEnemy* enemy)
 	if (TestAABBAABB(myHero->myAABB, enemy->myHitAABB))
 	{
 		MessageMan->dispatchMessage(0, enemy->GetID(), myHero->GetID(), Msg_TakeDamage, 0);
+		//SoundMan->GetSoundEngine()->play2D("Audio/hit06.wav", GL_FALSE);
 		return true;
 	}
 	return false;

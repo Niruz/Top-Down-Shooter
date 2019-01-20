@@ -92,8 +92,8 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/floatingsolidspiked.png", "floatingsolidspiked", true, false, false);
 	LoadTexture("Textures/slideeffectsprite.png", "slideeffect", true, false, false);
 	LoadTexture("Textures/adventurerdropkickeffect.png", "dropkickeffect", true, false, false);
-	LoadTexture("Textures/backgrounddungeon.png", "dungeonbackground", true, false, false);
-	LoadTexture("Textures/pillarbackground.png", "pillarbackground", true, false, false);
+	LoadTexture("Textures/backgrounddungeon.png", "dungeonbackground", true, true, false);
+	LoadTexture("Textures/pillarbackground.png", "pillarbackground", true, true, false);
 	LoadTexture("Textures/dungeontile1.png", "dungeontile1", true, false, false);
 	LoadTexture("Textures/dungeonfloor1.png", "dungeonfloor1", true, false, false);
 	LoadTexture("Textures/dungeonfloor2.png", "dungeonfloor2", true, false, false);
@@ -118,6 +118,21 @@ void TextureManager::onInitialize()
 	LoadTexture("Textures/Coffin_2.png", "dungeoncoffin2", true, false, false);
 	LoadTexture("Textures/Coffin_3.png", "dungeoncoffin3", true, false, false);
 	LoadTexture("Textures/cemetarytileset2.png", "cemetarytileset", true, false, false);
+	LoadTexture("Textures/bridgetileset2.png", "bridgetileset", true, false, false);
+	LoadTexture("Textures/bridgebackground2.png", "bridgebackground", true, false, false);
+	LoadTexture("Textures/bridgemiddleground.png", "bridgemiddleground", true, true, false);
+	LoadTexture("Textures/dungeontileset.png", "dungeontileset", true, false, false);
+	LoadTexture("Textures/bigskeletonsheet.png", "bigskeleton", true, false, false);
+	LoadTexture("Textures/abominationsheet.png", "abomination", true, false, false);
+	LoadTexture("Textures/ghostshrieksheet.png", "shrieker", true, false, false);
+
+	//the new effects
+	LoadTexture("Textures/explosionsheet3.png", "explosion", true, false, false);
+	LoadTexture("Textures/explosionorbsheet3.png", "explosionorb", true, false, false);
+	LoadTexture("Textures/dustsheet2.png", "dust", true, false, false);
+	LoadTexture("Textures/lightningsheet3.png", "lightning", true, false, false);
+	LoadTexture("Textures/earthsheet.png", "earth", true, false, false);
+	LoadTexture("Textures/battlepriestsheet.png", "battlepriest", true, false, false);
 	//LoadTexture("Textures/hitspritesheet.png", "hiteffect", true, false, false);
 	/*LoadTexture("Textures/1.png", "1");
 	LoadTexture("Textures/2.png", "2");.png

@@ -42,7 +42,7 @@ ReaperEntity::ReaperEntity(int id, const std::string& name, const glm::vec3& myS
 	//mySprite->Add(myHitSpriteAABB);
 
 	myAlreadyAttacked = false;
-	myHealth = 100;
+	myHealth = 60;
 }
 ReaperEntity::~ReaperEntity()
 {
@@ -202,17 +202,30 @@ void ReaperEntity::ResetAttackTimer()
 bool ReaperEntity::IsPlayerWithinPatrolRange()
 {
 	//glm::vec2 playerPos = myTileMap->lastPlayerTile->myWorldPosition;
+
+	//glm::vec2 playerPos = myTileMap->lastPlayerTile->myWorldPosition;
+	glm::vec2 playerPos2 = glm::vec2(myTileMap->myPlayerWorldPosition.y, 0);
+	glm::vec2 myPos2 = glm::vec2(mPosition.y, 0);
+
+	float distance2 = glm::length(myPos2 - playerPos2);
+
 	glm::vec2 playerPos = myTileMap->myPlayerWorldPosition;
-	return  playerPos.x >= startPatrol.x && playerPos.x <= endPatrol.x;
+	return  (playerPos.x >= startPatrol.x && playerPos.x <= endPatrol.x) && distance2 < 30.0f;
 }
 bool ReaperEntity::IsPlayerWithinAttackDistance()
 {
 	//glm::vec2 playerPos = myTileMap->lastPlayerTile->myWorldPosition;
-	glm::vec2 playerPos = myTileMap->myPlayerWorldPosition;
-	glm::vec2 myPos = glm::vec2(mPosition);
+	glm::vec2 playerPos = glm::vec2(myTileMap->myPlayerWorldPosition.x, 0);
+	glm::vec2 myPos = glm::vec2(mPosition.x, 0);
+
+	//glm::vec2 playerPos = myTileMap->lastPlayerTile->myWorldPosition;
+	glm::vec2 playerPos2 = glm::vec2(myTileMap->myPlayerWorldPosition.y, 0);
+	glm::vec2 myPos2 = glm::vec2(mPosition.y, 0);
+
 
 	float distance = glm::length(myPos - playerPos);
-	return distance < 35.0f;
+	float distance2 = glm::length(myPos2 - playerPos2);
+	return (distance < 85.0f) && (distance2 < 30.0f);
 }
 bool ReaperEntity::AmIWithinMyPatrolDistance()
 {

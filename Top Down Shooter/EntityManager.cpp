@@ -46,6 +46,7 @@ void EntityManager::Update()
 
 	while (it != mEntityMap.end())
 	{
+		//TODO: remove this once the entity component system is in place
 		Entity* entity = it->second;
 		if(entity->GetMarkedForDeletion())
 		{

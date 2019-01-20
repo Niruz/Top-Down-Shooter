@@ -9,6 +9,7 @@
 #include "MessageDispatcher.h"
 #include "World.h"
 #include "CemetaryLevel.h"
+#include "SoundManager.h"
 
 //------------------------------------------------------------------------methods for HeroAttack
 HeroAttackSwordAir1* HeroAttackSwordAir1::Instance()
@@ -27,6 +28,7 @@ void HeroAttackSwordAir1::Enter(HeroEntity* entity)
 	entity->basicAttack = false;
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
+	entity->myPlayedMissSound = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -42,6 +44,12 @@ void HeroAttackSwordAir1::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
+		}
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
 		}
 	}
 	if (entity->myAnimatedSprite->IsDone())
@@ -126,6 +134,7 @@ void HeroAttackSwordAir2::Enter(HeroEntity* entity)
 	entity->myAirSlamReceived = false;
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
+	entity->myPlayedMissSound = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -141,6 +150,12 @@ void HeroAttackSwordAir2::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
+		}
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
 		}
 	}
 	if (entity->myAnimatedSprite->IsDone())
@@ -229,6 +244,7 @@ void HeroAttackSwordAir3::Enter(HeroEntity* entity)
 	entity->basicAttack = false;
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
+	entity->myPlayedMissSound = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 }
 
@@ -244,6 +260,12 @@ void HeroAttackSwordAir3::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
+		}
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
 		}
 	}
 	if (entity->myAnimatedSprite->IsDone())
@@ -356,6 +378,7 @@ void HeroAttackSwordAir4::Enter(HeroEntity* entity)
 	entity->SetAnimation("AdventurerAirSlamLoop");
 	entity->myShouldEnterNextSwordAttack = false;
 	entity->myAnimatedSprite->Reset();
+	entity->myPlayedMissSound = false;
 	entity->basicAttack = false;
 }
 
@@ -425,6 +448,7 @@ void HeroAttackSwordAir5::Enter(HeroEntity* entity)
 	entity->myShouldEnterNextSwordAttack = false;
 	entity->myAnimatedSprite->Reset();
 	entity->basicAttack = false;
+	entity->myPlayedMissSound = false;
 }
 
 
@@ -439,8 +463,13 @@ void HeroAttackSwordAir5::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
 		}
-
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
+		}
 	}
 	if(entity->myAnimatedSprite->IsDone())
 		entity->GetFSM()->changeState(HeroIdle::Instance());
@@ -605,6 +634,7 @@ void HeroAttackSword1::Enter(HeroEntity* entity)
 	entity->myShouldPunchNext = false;
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
+	entity->myPlayedMissSound = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
 	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Blood Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 	//GameWorld->GetLevelFromName("Cemetary")->SpawnEntity("Pickup Destroyed", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -622,6 +652,12 @@ void HeroAttackSword1::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 1", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
+		}
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
 		}
 	}
 	if(entity->myAnimatedSprite->IsDone())
@@ -725,6 +761,7 @@ void HeroAttackSword2::Enter(HeroEntity* entity)
 	entity->myShouldChangeStance = false;
 	entity->myShouldKickNext = false;
 	entity->myShouldPunchNext = false;
+	entity->myPlayedMissSound = false;
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
 	entity->myCurrentSwordAttackCooldownTimer = Clock->GetCurrentTimeInSeconds();
@@ -742,6 +779,12 @@ void HeroAttackSword2::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 2", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
+		}
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
 		}
 	}
 	if (entity->myAnimatedSprite->IsDone())
@@ -844,6 +887,7 @@ void HeroAttackSword3::Enter(HeroEntity* entity)
 	entity->basicAttack = false;
 	entity->myShouldChangeStance = false;
 	entity->myShouldKickNext = false;
+	entity->myPlayedMissSound = false;
 	entity->myShouldPunchNext = false;
 	entity->myShouldChangeDirectionLeft = false;
 	entity->myShouldChangeDirectionRight = false;
@@ -862,6 +906,12 @@ void HeroAttackSword3::Execute(HeroEntity* entity)
 			GameWorld->GetActiveLevel()->SpawnEntity("Sword Effect 3", glm::vec3(entity->mPosition.x, entity->mPosition.y, entity->mPosition.z + 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), entity->myAnimatedSprite->myHeading);
 			MessageMan->dispatchMessage(0, entity->GetID(), 666, Msg_ShakeCamera, entity->myShakeInfoBasicAttack);
 			entity->basicAttack = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordhit.wav", GL_FALSE);
+		}
+		else if (!entity->myPlayedMissSound)
+		{
+			entity->myPlayedMissSound = true;
+			SoundMan->GetSoundEngine()->play2D("Audio/swordmiss2.wav", GL_FALSE);
 		}
 	}
 	if (entity->myAnimatedSprite->IsDone())
@@ -1041,6 +1091,8 @@ void HeroRunning::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerRunSword");
 	entity->myAnimatedSprite->Reset();
+
+	SoundMan->GetSoundEngine()->play2D("Audio/footstep.wav", GL_TRUE);
 }
 
 
@@ -1055,7 +1107,8 @@ void HeroRunning::Execute(HeroEntity* entity)
 
 void HeroRunning::Exit(HeroEntity* entity)
 {
-
+	SoundMan->GetSoundEngine()->isCurrentlyPlaying("Audio/footstep.wav");
+	SoundMan->GetSoundEngine()->stopAllSoundsOfSoundSource(SoundMan->GetSoundEngine()->getSoundSource("Audio/footstep.wav"));
 }
 
 
@@ -1261,6 +1314,7 @@ void HeroFalling::Execute(HeroEntity* entity)
 void HeroFalling::Exit(HeroEntity* entity)
 {
 	entity->myShouldDropKick = false;
+	SoundMan->GetSoundEngine()->play2D("Audio/footstep.wav", GL_FALSE);
 }
 
 
@@ -1645,7 +1699,7 @@ void HeroDropKick::Execute(HeroEntity* entity)
 
 void HeroDropKick::Exit(HeroEntity* entity)
 {
-
+	//SoundMan->GetSoundEngine()->play2D("Audio/jumpland.wav", GL_FALSE);
 }
 
 bool HeroDropKick::OnMessage(HeroEntity* entity, const Message& msg)
@@ -1933,6 +1987,8 @@ void HeroMeleeRun::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerRun");
 	entity->myAnimatedSprite->Reset();
+	SoundMan->GetSoundEngine()->play2D("Audio/footstep.wav", GL_TRUE);
+
 }
 
 
@@ -1947,7 +2003,8 @@ void HeroMeleeRun::Execute(HeroEntity* entity)
 
 void HeroMeleeRun::Exit(HeroEntity* entity)
 {
-
+	SoundMan->GetSoundEngine()->isCurrentlyPlaying("Audio/footstep.wav");
+	SoundMan->GetSoundEngine()->stopAllSoundsOfSoundSource(SoundMan->GetSoundEngine()->getSoundSource("Audio/footstep.wav"));
 }
 
 
@@ -2209,6 +2266,7 @@ void HeroMeleeFalling::Execute(HeroEntity* entity)
 void HeroMeleeFalling::Exit(HeroEntity* entity)
 {
 	entity->myShouldDropKick = false;
+	SoundMan->GetSoundEngine()->play2D("Audio/footstep.wav", GL_FALSE);
 }
 
 
@@ -2683,7 +2741,7 @@ void HeroMeleeDropKick::Execute(HeroEntity* entity)
 
 void HeroMeleeDropKick::Exit(HeroEntity* entity)
 {
-
+	//SoundMan->GetSoundEngine()->play2D("Audio/jumpland.wav", GL_FALSE);
 }
 
 bool HeroMeleeDropKick::OnMessage(HeroEntity* entity, const Message& msg)
@@ -3328,6 +3386,7 @@ void HeroWallRunning::Enter(HeroEntity* entity)
 {
 	entity->SetAnimation("AdventurerWallRunMelee");
 	entity->myShouldStopWallRunning = false;
+	
 }
 
 void HeroWallRunning::Execute(HeroEntity* entity)
@@ -3347,6 +3406,7 @@ void HeroWallRunning::Execute(HeroEntity* entity)
 
 void HeroWallRunning::Exit(HeroEntity* entity)
 {
+
 	entity->myDirectionWhenEnteringWallRunningState = 0.0f;
 }
 

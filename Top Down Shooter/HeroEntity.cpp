@@ -21,6 +21,11 @@
 #include "BubblesSprite.h"
 #include "MidnightSprite.h"
 #include "SpellSprite.h"
+#include "DustEffectSprite.h"
+#include "LightningEffectSprite.h"
+#include "ExplosionEffectSprite.h"
+#include "ExplosionOrbEffectSprite.h"
+#include "EarthProjectileSprite.h"
 # define M_PI3           3.14159265358979323846  /* pi */
 
 HeroEntity::HeroEntity(int id, const std::string& name) : Entity(id, name), translationMatrix(1.0f),
@@ -50,6 +55,30 @@ rotationMatrix(1.0f), modelMatrix(1.0f), mAngle(0.0f)
 	mySpellSprite = new SpellSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(100, 100), TextureMan->GetTexture("spell"), Heading::RIGHTFACING);
 	mySpellSprite->SetAnimation("SpellEffect");
 //	mySprite->Add(mySpellSprite);
+
+	myDustSprite = new DustEffectSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(400, 400), TextureMan->GetTexture("dust"), Heading::RIGHTFACING);
+	myDustSprite->SetAnimation("Dust");
+	//mySprite->Add(myDustSprite);
+
+	myLightningSprite = new LightningEffectSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(375, 375), TextureMan->GetTexture("lightning"), Heading::RIGHTFACING);
+	myLightningSprite->SetAnimation("Lightning");
+	//mySprite->Add(myLightningSprite);
+
+	myExplosionSprite = new ExplosionEffectSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(100, 100), TextureMan->GetTexture("explosion"), Heading::RIGHTFACING);
+	myExplosionSprite->SetAnimation("Explosion");
+	//mySprite->Add(myExplosionSprite);
+
+	myExplosionOrbSprite = new ExplosionOrbEffectSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(100, 100), TextureMan->GetTexture("explosionorb"), Heading::RIGHTFACING);
+	myExplosionOrbSprite->SetAnimation("ExplosionOrb");
+	//mySprite->Add(myExplosionOrbSprite);
+
+	myEarthSprite = new EarthProjectileSprite(glm::vec4(0.0f, 0.0f, 0.3f, 1.0f), glm::vec2(32, 128), TextureMan->GetTexture("earth"), Heading::RIGHTFACING);
+	myEarthSprite->SetAnimation("EarthProjectileLand");
+	//mySprite->Add(myEarthSprite);
+
+	//myAnimations["EarthProjectile"] = new Animation(1, 0, 16, 64, 128, 64, 0, 0);
+	//myAnimations["EarthProjectileLand"] = new Animation(4, 4, 16, 64, 128, 64, 0, 0);
+
 
 	myShouldSwitchAttack = false;
 	myShouldEnterNextSwordAttack = false;
@@ -1007,6 +1036,11 @@ void HeroEntity::Update()
 	myBubblesSprite->Update();
 	myMidnightSprite->Update();
 	mySpellSprite->Update();
+	myDustSprite->Update();
+	myLightningSprite->Update();
+	myExplosionSprite->Update();
+	myExplosionOrbSprite->Update();
+	myEarthSprite->Update();
 	//HandleMovement();
 	//Really need to remove this nonsense and add it to the states instead
 	if ((myPosXDirection == 0 && myPosYDirection == 0 && myNegXDirection == 0 && myNegYDirection == 0))
@@ -1114,6 +1148,7 @@ void HeroEntity::SpawnProjectile()
 	if (myAnimatedSprite->myHeading == Heading::RIGHTFACING)
 	{
 		GameWorld->GetActiveLevel()->SpawnEntity("Adventurer Projectile", glm::vec3(mPosition.x + 26.0f, mPosition.y + 2.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
+		//GameWorld->GetActiveLevel()->SpawnEntity("Earth Projectile", glm::vec3(100.0f, -530.0f, mPosition.z), glm::vec3(1.0f, 0.0f, 0.0f));
 		myFiredProjectile = true;
 	}
 	else if (myAnimatedSprite->myHeading == Heading::LEFTFACING)

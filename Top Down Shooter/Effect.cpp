@@ -31,6 +31,8 @@ void Effect::Update()
 {
 	if (myFading)
 	{
+		if (myAlpha <= 0.0f)
+			myAlpha = 0.0f;
 		myAnimatedSprite->SetColor(glm::vec4(1.0f, 1.0f, 1.0f, myAlpha));
 		myAnimatedSprite->Update();
 		myAlpha -= 0.03f;

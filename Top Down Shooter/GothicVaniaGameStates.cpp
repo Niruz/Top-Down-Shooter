@@ -2,6 +2,7 @@
 #include "GothicVania.h"
 #include "GLFW\glfw3.h"
 #include "SplashScreen.h"
+#include "SoundManager.h"
 //------------------------------------------------------------------------methods for HeroFalling
 GothicVaniaIntroState* GothicVaniaIntroState::Instance()
 {
@@ -15,6 +16,7 @@ void GothicVaniaIntroState::Enter(GothicVania* game)
 {
 	game->myRenderingSplashScreen = true;
 	game->mySplashScreen->Reset();
+	SoundMan->GetSoundEngine()->play2D("Audio/rpg_village02_loop.wav", GL_TRUE);
 }
 
 void GothicVaniaIntroState::Execute(GothicVania* game)
@@ -22,10 +24,10 @@ void GothicVaniaIntroState::Execute(GothicVania* game)
 	game->UpdateGameScreen();
 //	game->RenderGameScreen();
 	//game->myGameScreenDone = true;
-	game->mySplashScreen->myGameScreenDone = true;
+//	game->mySplashScreen->myGameScreenDone = true;
 	if(game->mySplashScreen->IsDone())
 	{
-		game->GetFSM()->changeState(GothicVaniaPlayState::Instance());
+		game->GetFSM()->changeState(GothicVaniaMenuState::Instance());
 	}
 }
 void GothicVaniaIntroState::Exit(GothicVania* game)
@@ -62,17 +64,19 @@ GothicVaniaMenuState* GothicVaniaMenuState::Instance()
 
 void GothicVaniaMenuState::Enter(GothicVania* game)
 {
-
+	game->myRenderingMenuScreen = true;
+	game->mySplashScreen->Reset();
+	
 }
 
 void GothicVaniaMenuState::Execute(GothicVania* game)
 {
-
+	game->UpdateMenuScreen();
 }
 
 void GothicVaniaMenuState::Exit(GothicVania* game)
 {
-
+	game->myRenderingMenuScreen = false;
 }
 
 bool GothicVaniaMenuState::OnMessage(GothicVania* game, const Message& msg)
@@ -82,9 +86,9 @@ bool GothicVaniaMenuState::OnMessage(GothicVania* game, const Message& msg)
 
 bool GothicVaniaMenuState::HandleInput(GothicVania* game, int key, int action)
 {
-	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
 	{
-
+		game->GetFSM()->changeState(GothicVaniaPlayState::Instance());
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{

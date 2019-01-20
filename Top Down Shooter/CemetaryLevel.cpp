@@ -173,7 +173,7 @@ void CemetaryLevel::Initialize()
 	fpsGroup->Add(myFPSLabel);
 
 	bossAnnouncerGroup = new Group(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
-	myBossAnnouncer = new Label("Fire & Fury", glm::vec4(-195.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
+	myBossAnnouncer = new Label("The Abomination", glm::vec4(-195.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
 	myEvilVanquished = new Label("Evil Vanquished", glm::vec4(-195.0f, 2000.0f, 0, 1), "Adventurer48", glm::vec4(1, 1, 1, 1));
 	myEvilVanquished->SetColor(glm::vec4(1, 1, 1, 0));
 	myBossAnnouncer->SetColor(glm::vec4(1, 1, 1, 0));
