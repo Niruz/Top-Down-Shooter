@@ -94,15 +94,6 @@
     <Filter Include="Games">
       <UniqueIdentifier>{9b92b5b5-50fd-4bd6-a8e5-760341231ba4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Games\Pacman">
-      <UniqueIdentifier>{70774218-6b9d-4ac0-90f8-6ec0c2cb30c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Games\Pacman\Entities">
-      <UniqueIdentifier>{970c30cf-bf27-4b7b-a2f3-2be619537941}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Games\Shooter">
-      <UniqueIdentifier>{b1cf5a2a-7dce-42d7-b9b5-431d53382ecf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Games\GothicVania">
       <UniqueIdentifier>{c2d10695-2313-42d6-a8fc-3e3143f6859e}</UniqueIdentifier>
     </Filter>
@@ -428,12 +419,6 @@
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>Graphics\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="Pacman.cpp">
-      <Filter>Games\Pacman</Filter>
-    </ClCompile>
-    <ClCompile Include="PacmanEntity.cpp">
-      <Filter>Games\Pacman\Entities</Filter>
     </ClCompile>
     <ClCompile Include="GothicVania.cpp">
       <Filter>Games\GothicVania</Filter>
@@ -874,12 +859,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Pacman.h">
-      <Filter>Games\Pacman</Filter>
-    </ClInclude>
-    <ClInclude Include="PacmanEntity.h">
-      <Filter>Games\Pacman\Entities</Filter>
     </ClInclude>
     <ClInclude Include="GothicVania.h">
       <Filter>Games\GothicVania</Filter>

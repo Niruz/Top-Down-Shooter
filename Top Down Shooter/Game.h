@@ -11,6 +11,7 @@ protected:
 		myUpdateTick = 1.0f / 60.0f;
 		myFrames = 0;
 		myUpdates = 0;
+		myShouldClose = false;
 	}
 	virtual ~Game(){}
 
@@ -39,12 +40,12 @@ public:
 	virtual void ProcessKeyBoard(int direction, float deltaTime, int action) = 0;
 	virtual void ProcessMouse(double xpos, double ypos, bool movement) {};
 public:
-
+	bool myShouldClose;
 
 
 private:
 	unsigned int myFramesPerSecond, myUpdatesPerSecond;
-	bool myShouldClose;
+	
 
 	float myTimer;
 	float myUpdateTimer;

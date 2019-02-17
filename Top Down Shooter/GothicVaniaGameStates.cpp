@@ -47,9 +47,9 @@ bool GothicVaniaIntroState::HandleInput(GothicVania* game, int key, int action)
 		game->mySplashScreen->myGameScreenDone = true;
 		game->myRenderingSplashScreen = false;
 	}
-	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	else if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
-
+		game->myShouldClose = true;
 	}
 	return true;
 }
@@ -90,9 +90,9 @@ bool GothicVaniaMenuState::HandleInput(GothicVania* game, int key, int action)
 	{
 		game->GetFSM()->changeState(GothicVaniaPlayState::Instance());
 	}
-	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	else if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
-
+		game->myShouldClose = true;
 	}
 	return true;
 }
@@ -128,6 +128,10 @@ bool GothicVaniaPlayState::OnMessage(GothicVania* game, const Message& msg)
 
 bool GothicVaniaPlayState::HandleInput(GothicVania* game, int key, int action)
 {
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	{
+		game->myShouldClose = true;
+	}
 	game->myLevels[game->activeLevel]->ProcessKeyBoard(key, 0, action);
 	return true;
 }

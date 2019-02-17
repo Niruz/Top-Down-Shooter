@@ -229,12 +229,10 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClCompile Include="NecromancerProjectile.cpp" />
     <ClCompile Include="NecromancerProjectileSprite.cpp" />
     <ClCompile Include="NecromancerSprite.cpp" />
-    <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="PickupDestroyedSprite.cpp" />
     <ClCompile Include="PlasmaSprite.cpp" />
-    <ClCompile Include="PacmanEntity.cpp" />
     <ClCompile Include="GothicVaniaReaperStates.cpp" />
     <ClCompile Include="PotionPickup.cpp" />
     <ClCompile Include="PotionSprite.cpp" />
@@ -377,12 +375,10 @@ start xcopy /d /y "$(ProjectDir)..\dependencies\FreeImage\bin\*.*" "$(OutDir)"</
     <ClInclude Include="NecromancerProjectile.h" />
     <ClInclude Include="NecromancerProjectileSprite.h" />
     <ClInclude Include="NecromancerSprite.h" />
-    <ClInclude Include="Pacman.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="PickupDestroyedSprite.h" />
     <ClInclude Include="PlasmaSprite.h" />
-    <ClInclude Include="PacmanEntity.h" />
     <ClInclude Include="GothicVaniaReaperStates.h" />
     <ClInclude Include="PotionPickup.h" />
     <ClInclude Include="PotionSprite.h" />

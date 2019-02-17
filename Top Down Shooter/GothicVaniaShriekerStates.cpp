@@ -83,7 +83,11 @@ void ShriekerAttack::Enter(ShriekerEntity* entity)
 	entity->SetAnimation("ShriekerShriek");
 	//float myAttackCooldown;
 	entity->myAlreadyAttacked = false;
-	SoundMan->GetSoundEngine()->play2D("Audio/scream4.ogg", GL_FALSE);
+	if (entity->IsPlayerWithinAttackDistance())
+	{
+		SoundMan->GetSoundEngine()->play2D("Audio/scream4.ogg", GL_FALSE);
+	}
+	
 }
 void ShriekerAttack::Execute(ShriekerEntity* entity)
 {
@@ -99,6 +103,8 @@ void ShriekerAttack::Execute(ShriekerEntity* entity)
 		}
 
 	}
+
+	
 
 }
 void ShriekerAttack::Exit(ShriekerEntity* entity)
